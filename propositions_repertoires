@@ -1,0 +1,12 @@
+app/
+    config/
+    models/
+    libs/
+    controllers/
+    views/
+public/
+    css/
+    js/
+    fonts/
+    images/
+    index.php
