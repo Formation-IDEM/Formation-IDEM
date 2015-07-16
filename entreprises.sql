@@ -12,7 +12,7 @@
 	fax VARCHAR(15) DEFAULT NULL,
 	dirigeant VARCHAR(60) DEFAULT NULL,
 	create_date TIMESTAMP DEFAULT(NOW()),
-	update_date TIMESTAMP CHECK(update_date > create_date) DEFAULT(NOW()),
+	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,
 	update_uid INT DEFAULT NULL,
 	date_visite TIMESTAMP DEFAULT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE stages (
 	descriptif TEXT DEFAULT NULL,
 	referent VARCHAR(60) DEFAULT NULL,
 	create_date TIMESTAMP DEFAULT(NOW()),
-	update_date TIMESTAMP CHECK(update_date > create_date) DEFAULT(NOW()),
+	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,
 	update_uid INT NOT NULL,
 	active BOOLEAN DEFAULT(true),
@@ -43,5 +43,5 @@ CREATE TABLE stagiaire_entreprise (
 	embauche BOOLEAN DEFAULT(false),
 	nombre_heures INT NOT NULL DEFAULT(0),
 	date_debut TIMESTAMP DEFAULT(NOW()),
-	date_fin TIMESTAMP CHECK(date_fin > date_debut) DEFAULT(NOW())
+	date_fin TIMESTAMP CHECK(date_fin >= date_debut) DEFAULT(NOW())
 );
