@@ -1,1 +1,0 @@
-﻿CREATE TABLE lecteur (nom PRIMARY VARCHAR (50), age INT, idole VARCHAR (50));
