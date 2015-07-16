@@ -1,4 +1,4 @@
-﻿CREATE TABLE entreprises (
+﻿﻿CREATE TABLE entreprises (
 	id SERIAL PRIMARY KEY,
 	nom VARCHAR(120) UNIQUE NOT NULL,
 	raison_sociale VARCHAR(120) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE stages (
 	id SERIAL PRIMARY KEY,
 	titre VARCHAR(120) NOT NULL,
 	entreprise_id INT REFERENCES entreprises(id),
-	--formation_id INT(4) REFERENCES formations(id),
+	formation_id INT(4) REFERENCES session_formation(id),
 	descriptif TEXT DEFAULT NULL,
 	referent VARCHAR(60) DEFAULT NULL,
 	create_date TIMESTAMP DEFAULT(NOW()),
@@ -36,7 +36,7 @@ CREATE TABLE stages (
 );
 
 CREATE TABLE stagiaire_entreprise (
-	--stagiaire_id INT REFERENCES stagiaires(id),
+	stagiaire_id INT REFERENCES stagiaire(id),
 	entreprise_id INT REFERENCES entreprises(id),
 	stage_id INT REFERENCES  stages(id),
 	en_cours BOOLEAN DEFAULT(false),
