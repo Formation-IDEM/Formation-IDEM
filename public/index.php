@@ -1,2 +1,5 @@
 <?php
-session_start();
+	// Start Session
+	session_start();
+	
+	
