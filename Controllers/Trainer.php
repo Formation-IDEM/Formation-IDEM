@@ -10,7 +10,7 @@ class Trainer extends Person
 		$this->_furtherInformations = 'Vide';
 	}
 	
-	//Attributs
+	// Attributs
 	private $_furtherInformations;
 	
 	// Getters & Setters
