@@ -3,7 +3,7 @@
 /**
  * Classe Stage
  */
-class Internship {
+class Internship extends Model {
 	
 	public $id;
 	private $_internshipName;

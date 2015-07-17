@@ -3,7 +3,7 @@
 /**
  * Classe entreprise
  */
-class Company {
+class Company extends Model {
 	
 	public $id;
 	private $_name;
