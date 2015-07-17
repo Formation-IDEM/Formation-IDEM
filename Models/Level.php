@@ -9,6 +9,8 @@ class Level{
 		
 	}
 	
+// ############################ NOTE ###############################	
+	
 	public function getNote(){
 		
 		return $this->_note;
@@ -21,6 +23,8 @@ class Level{
 		return $this;
 		
 	}
+	
+// ############################ APPRECIATION ###############################	
 	
 	public function getAppreciation(){
 		
