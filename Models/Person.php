@@ -31,7 +31,8 @@ abstract class Person{
 	}
 	
 	public function setName($newName){
-		return $this->_name = $newName;
+		$this->_name = $newName;
+		return $this;
 	}
 	
 // ############################ FIRSTNAME ###############################
@@ -41,7 +42,8 @@ abstract class Person{
 	}
 	
 	public function setFirstName($newFirstName){
-		return $this->_firthName = $newFirstName;
+		$this->_firthName = $newFirstName;
+		return $this;
 	}
 
 // ############################ PHONE ###############################
@@ -51,7 +53,8 @@ abstract class Person{
 	}
 	
 	public function setPhone($newPhone){
-		return $this->_phone = $newPhone;
+		$this->_phone = $newPhone;
+		return $this;
 	}
 
 // ############################ CELLPHONE ###############################
@@ -61,7 +64,8 @@ abstract class Person{
 	}
 	
 	public function setCellphone($newCellphone){
-		return $this->_cellphone = $newCellphone;
+		$this->_cellphone = $newCellphone;
+		return $this;
 	}
 
 // ############################ MAIL ###############################
@@ -71,7 +75,8 @@ abstract class Person{
 	}
 	
 	public function setMail($newMail){
-		return $this->_mail = $newMail;
+		$this->_mail = $newMail;
+		return $this;
 	}
 
 // ############################ BIRTHDAY ###############################
@@ -81,7 +86,8 @@ abstract class Person{
 	}
 	
 	public function setBirthday($newBirthday){
-		return $this->_birthday = $newBirthday;
+		$this->_birthday = $newBirthday;
+		return $this;
 	}
 
 // ############################ BIRTHPLACE ###############################
@@ -91,7 +97,8 @@ abstract class Person{
 	}
 	
 	public function setBirthPlace($newBirthPlace){
-		return $this->_birthPlace = $newBirthPlace;
+		$this->_birthPlace = $newBirthPlace;
+		return $this;
 	}
 
 // ############################ GENDER ###############################
@@ -101,7 +108,8 @@ abstract class Person{
 	}
 	
 	public function setGender($newGender){
-		return $this->_gender = $newGender;
+		$this->_gender = $newGender;
+		return $this;
 	}
 	
 // ############################ ADDRESS OFF STREET ###############################	
@@ -111,7 +119,8 @@ abstract class Person{
 	}
 	
 	public function setAddressOffStreet($newAddressOffStreet){
-		return $this->_address_off_street = $newAddressOffStreet;
+		$this->_address_off_street = $newAddressOffStreet;
+		return $this;
 	}
 
 // ############################ ADDRESS OFF COMPLEMENT ###############################	
@@ -121,7 +130,8 @@ abstract class Person{
 	}
 	
 	public function setAddressOfComplement($newAddressOffComplement){
-		return $this->_address_off_complement = $newAddressOffComplement;
+		$this->_address_off_complement = $newAddressOffComplement;
+		return $this;
 	}
 
 // ############################ ADDRESS OFF CODPOST ###############################	
@@ -141,7 +151,8 @@ abstract class Person{
 	}
 	
 	public function setAddressOfCity($newAddressOffCity){
-		return $this->_address_off_city = $newAddressOffCity;
+		$this->_address_off_city = $newAddressOffCity;
+		return $this;
 	}
 
 // ############################ ADDRESS FORM STREET ###############################	
@@ -151,7 +162,8 @@ abstract class Person{
 	}
 	
 	public function setAddressFormStreet($newAddressFormStreet){
-		return $this->_address_form_street = $newAddressFormStreet;
+		$this->_address_form_street = $newAddressFormStreet;
+		return $this;
 	}
 
 // ############################ ADDRESS FORM COMPLEMENT ###############################	
@@ -161,7 +173,8 @@ abstract class Person{
 	}
 	
 	public function setAddressFormComplement($newAddressFormComplement){
-		return $this->_address_form_complement = $newAddressFormComplement;
+		$this->_address_form_complement = $newAddressFormComplement;
+		return $this;
 	}
 
 // ############################ ADDRESS FORM CODPOST ###############################	
@@ -171,7 +184,8 @@ abstract class Person{
 	}
 	
 	public function setAddressFormCodpost($newAddressFormCodpost){
-		return $this->_address_form_codpost = $newAddressFormCodpost;
+		$this->_address_form_codpost = $newAddressFormCodpost;
+		return $this;
 	}
 
 // ############################ ADDRESS FORM CITY ###############################	
@@ -181,7 +195,8 @@ abstract class Person{
 	}
 	
 	public function setAddressFormCity($newAddressFormCity){
-		return $this->_address_form_city = $newAddressFormCity;
+		$this->_address_form_city = $newAddressFormCity;
+		return $this;
 	}
 
 // ############################ SOCIAL SECURITY NUMBER ###############################	
@@ -191,7 +206,8 @@ abstract class Person{
 	}
 	
 	public function setSocialSecurityNumber($newSocialSecurityNumber){
-		return $this->_social_security_number = $newSocialSecurityNumber;
+		$this->_social_security_number = $newSocialSecurityNumber;
+		return $this;
 	}
 
 // ############################ PHOTO ###############################	
@@ -201,7 +217,8 @@ abstract class Person{
 	}
 	
 	public function setPhoto($newPhoto){
-		return $this->_photo = $newPhoto;
+		$this->_photo = $newPhoto;
+		return $this;
 	}
 }
 
