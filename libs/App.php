@@ -6,7 +6,7 @@
 class App
 {
 	private static $_instance;
-	private static $_db_instance;
+	private $_db_instance;
 
 	/**
 	 * Instanciation de la classe
@@ -32,19 +32,18 @@ class App
 	}
 
 	/**
-	 * Retourne l'instanciation de la base de donnée
-	 *
 	 * @return mixed
 	 */
 	public function getDB()
 	{
 		$cfg = Config::getInstance();
-		if( is_null(self::$_db->instance) )
+		$cfg->load('database');
+		if( is_null($this->_db_instance) )
 		{
 			$dbClass = $cfg->get('driver') . 'Database';
-			self::$_db_intance = new $dbClass($cfg->get('host'), $cfg->get('name'), $cfg->get('user'), $cfg->get('pass'));
+			$this->_db_intance = new $dbClass($cfg->get('host'), $cfg->get('name'), $cfg->get('user'), $cfg->get('pass'));
 		}
-		return self::$_db_instance;
+		return $this->_db_instance;
 	}
 
 	/**

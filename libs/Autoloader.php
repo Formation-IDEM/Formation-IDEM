@@ -8,7 +8,7 @@ class Autoloader
 	/**
 	 * Enregistrement de l'autoloader
 	 */
-	public function register()
+	public static function register()
 	{
 		spl_autoload_register([__CLASS__, 'autoload']);
 	}
@@ -18,8 +18,15 @@ class Autoloader
 	 *
 	 * @param $class
 	 */
-	public function autoload($class)
+	public static function autoload($class)
 	{
-		require_once(__DIR__ . '/' . $class . '.php');
+		if( is_file(__DIR__ . '/' . $class . '.php') )
+		{
+			require_once(__DIR__ . '/' . $class . '.php');
+		}
+		else
+		{
+			require_once('./Models/' . $class . '.php');
+		}
 	}
 }

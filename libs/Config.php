@@ -5,20 +5,33 @@
 
 class Config
 {
+	private static $_instance;
 	private $config = [];
 
-	public function __construct(){}
+	/**
+	 * Instanciation de la classe
+	 *
+	 * @return \App
+	 */
+	public static function getInstance()
+	{
+		if( is_null(self::$_instance) )
+		{
+			self::$_instance = new Config();
+		}
+		return self::$_instance;
+	}
 
 	/**
 	 * Charge un fichier de configuration
 	 *
-	 * @param $fichierConfig
+	 * @param $fichier
 	 */
-	public function load($fichierConfig)
+	public function load($fichier)
 	{
-		if( is_file(dirname(__DIR__) . 'Config/' . $fichierConfig . '.php') )
+		if( is_file(dirname(__DIR__) . '/Config/' . $fichier . '.php') )
 		{
-			$this->config = require(dirname(__DIR__) . 'Config/' . $fichierConfig . '.php');
+			$this->config = require(dirname(__DIR__) . '/Config/' . $fichier . '.php');
 		}
 	}
 
@@ -30,7 +43,7 @@ class Config
 	 */
 	public function get($key)
 	{
-		if( array_key_exists($this->config[$key]) )
+		if( array_key_exists($key, $this->config) )
 		{
 			return $this->config[$key];
 		}

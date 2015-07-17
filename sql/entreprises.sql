@@ -25,12 +25,12 @@ CREATE TABLE stages (
 	entreprise_id INT REFERENCES entreprises(id),
 	--formation_id INT(4) REFERENCES formations(id),
 	descriptif TEXT DEFAULT NULL,
-	referent VARCHAR(60) DEFAULT NULL,
+	referent_id VARCHAR(60) REFERENCES formateurs(id),
 	create_date TIMESTAMP DEFAULT(NOW()),
 	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,
 	update_uid INT NOT NULL,
-	active BOOLEAN DEFAULT(true),
+	active SMALLINT DEFAULT(0),
 	remuneration BOOLEAN DEFAULT(false),
 	indemnisation NUMERIC DEFAULT(0)
 );
