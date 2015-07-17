@@ -1,4 +1,4 @@
-﻿﻿CREATE TABLE entreprises (
+﻿CREATE TABLE entreprises (
 	id SERIAL PRIMARY KEY,
 	nom VARCHAR(120) UNIQUE NOT NULL,
 	raison_sociale VARCHAR(120) NOT NULL,
