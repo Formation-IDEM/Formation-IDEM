@@ -7,6 +7,7 @@ class Trainer extends Person
 	// Constructeur
 	public function __construct()
 	{
+		parent::__construct();
 		$this->_furtherInformations = 'Vide';
 	}
 	
