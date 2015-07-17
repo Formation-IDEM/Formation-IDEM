@@ -1,3 +1,5 @@
-Ceci est le dépôt commun du groupe de formation IDEM
+# Formation-IDEM
 
-Ho Yeaaah !
+### Section Entreprises
+
+La branche de développement réservée à la partie "Entreprises"

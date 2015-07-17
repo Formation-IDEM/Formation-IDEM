@@ -1,4 +1,3 @@
---- Entreprises
 ﻿CREATE TABLE entreprises (
 	id SERIAL PRIMARY KEY,
 	nom VARCHAR(120) UNIQUE NOT NULL,
@@ -12,24 +11,23 @@
 	mobile VARCHAR(15) DEFAULT NULL,
 	fax VARCHAR(15) DEFAULT NULL,
 	dirigeant VARCHAR(60) DEFAULT NULL,
-	create_date TIMESTAMP NOT NULL,
-	update_date TIMESTAMP DEFAULT NULL,
+	create_date TIMESTAMP DEFAULT(NOW()),
+	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,
 	update_uid INT DEFAULT NULL,
 	date_visite TIMESTAMP DEFAULT NULL,
 	active BOOLEAN DEFAULT(true)
 );
 
---- Stages
 CREATE TABLE stages (
 	id SERIAL PRIMARY KEY,
 	titre VARCHAR(120) NOT NULL,
 	entreprise_id INT REFERENCES entreprises(id),
-	--formation_id INT(4) REFERENCES formations(id),
+	formation_id INT(4) REFERENCES session_formation(id),
 	descriptif TEXT DEFAULT NULL,
 	referent VARCHAR(60) DEFAULT NULL,
-	create_date TIMESTAMP NOT NULL,
-	update_date TIMESTAMP NOT NULL,
+	create_date TIMESTAMP DEFAULT(NOW()),
+	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,
 	update_uid INT NOT NULL,
 	active BOOLEAN DEFAULT(true),
@@ -37,15 +35,13 @@ CREATE TABLE stages (
 	indemnisation NUMERIC DEFAULT(0)
 );
 
-
--- Table de liaison
 CREATE TABLE stagiaire_entreprise (
-	--stagiaire_id INT REFERENCES stagiaires(id),
+	stagiaire_id INT REFERENCES stagiaire(id),
 	entreprise_id INT REFERENCES entreprises(id),
 	stage_id INT REFERENCES  stages(id),
 	en_cours BOOLEAN DEFAULT(false),
 	embauche BOOLEAN DEFAULT(false),
 	nombre_heures INT NOT NULL DEFAULT(0),
-	date_debut TIMESTAMP NOT NULL,
-	date_fin TIMESTAMP NOT NULL
+	date_debut TIMESTAMP DEFAULT(NOW()),
+	date_fin TIMESTAMP CHECK(date_fin >= date_debut) DEFAULT(NOW())
 );

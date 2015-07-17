@@ -1,4 +1,0 @@
-﻿CREATE TABLE matiere(
-	id SERIAL PRIMARY KEY,
-	intitule VARCHAR
-);
