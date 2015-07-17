@@ -1,45 +1,43 @@
 ﻿/* Création de la table formateur */
-CREATE TABLE formateur
+CREATE TABLE trainer
 (
 	id SERIAL PRIMARY KEY,
-	infos_complementaires TEXT,
-	formation_id INT
+	further_informations TEXT,
 );
 
 /* Création de la table externe liée a un formateur */
-CREATE TABLE externe
+CREATE TABLE trainer_extern
 (
 	id SERIAL PRIMARY KEY,
-	tarif_horaire FLOAT NOT NULL,
-	formateur_id INT NOT NULL
+	hourly_rate FLOAT NOT NULL,
+	trainer_id INT NOT NULL
 );
 
 /* Création de la table d'association entre formateur et matière */
-CREATE TABLE niveau
+CREATE TABLE level
 (
 	id SERIAL PRIMARY KEY,
 	note INT NOT NULL DEFAULT(0),
 	appreciation TEXT,
-	matiere_id INT,
-	formateur_id INT
+	matter_id INT,
+	trainer_id INT
 );
 
 /* Création de la table d'association entre formateur et session_formation */
-CREATE TABLE feuille_presence
+CREATE TABLE timesheet
 (
 	id SERIAL PRIMARY KEY,
-	mois INT NOT NULL,
-	annee INT NOT NULL,
-	total_heures INT NOT NULL DEFAULT(0),
-	formateur_id INT,
-	session_formation INT
+	month INT NOT NULL,
+	year INT NOT NULL,
+	total_hours INT NOT NULL DEFAULT(0),
+	trainer_id INT,
+	formation_session INT
 	
 );
 
 /* Mise en place des clées étrangères */
 /* ATTENTION : La table matiere, formation, session_formation doivent êtres créées d'abord ! */
-ALTER TABLE externe ADD CONSTRAINT fk_formateur_externe FOREIGN KEY (formateur_id) REFERENCES formateur(id);
-ALTER TABLE niveau ADD CONSTRAINT fk_matiere_niveau FOREIGN KEY (matiere_id) REFERENCES matiere(id);
-ALTER TABLE niveau ADD CONSTRAINT fk_formateur_niveau FOREIGN KEY (formateur_id) REFERENCES formateur(id);
-ALTER TABLE feuille_presence ADD CONSTRAINT fk_session_formation_feuille_presence FOREIGN KEY (session_formation_id) REFERENCES session_formation(id);
-ALTER TABLE formateur ADD CONSTRAINT fk_formation_formateur FOREIGN KEY (formation_id) REFERENCES formation(id);
+ALTER TABLE trainer_extern ADD CONSTRAINT fk_trainer_extern FOREIGN KEY (trainer_id) REFERENCES trainer(id);
+ALTER TABLE level ADD CONSTRAINT fk_matter_level FOREIGN KEY (matter_id) REFERENCES matter(id);
+ALTER TABLE level ADD CONSTRAINT fk_trainer_level FOREIGN KEY (trainer_id) REFERENCES trainer(id);
+ALTER TABLE timesheet ADD CONSTRAINT fk_formation_session_timesheet FOREIGN KEY (formation_session_id) REFERENCES formation_session(id);
