@@ -28,6 +28,8 @@ class Level{
 
 // ############################ APPRECIATION ###############################
 	
+// ############################ APPRECIATION ###############################	
+	
 	public function getAppreciation(){
 		
 		return $this->_appreciation;

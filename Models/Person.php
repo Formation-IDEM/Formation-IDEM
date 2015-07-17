@@ -19,6 +19,8 @@ abstract class Person{
 	private $_address_form_city;
 	private $_social_security_number;
 	private $_photo;
+	private $_nationality_id;
+	private $_family_status_id;
 
 	public function __construct(){
 
@@ -220,6 +222,34 @@ abstract class Person{
 		$this->_photo = $newPhoto;
 		return $this;
 	}
+	
+// ############################ NATIONALITY ID ###############################	
+	
+	public function getNationality(){
+		$nationality = new Nationality();
+		$nationality->load($this->_nationality_id);
+		return $nationality;
+	}
+	
+	public function setNationality($nationality_id){
+		$this->_nationality_id = $nationality_id;
+		return $this;
+	}
+	
+	
+// ############################ FAMILY STATUS ID ###############################	
+	
+	public function getFamilyStatus(){
+		$family_status = new $FamilyStatus();
+		$family_status->load($this->_family_status_id);
+		return $family_status;
+	}
+	
+	public function setFamilyStatus($family_status_id){
+		$this->_family_status_id = $family_status_id;
+		return $this;
+	}
+	
 }
 
 ?>
