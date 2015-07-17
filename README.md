@@ -1,3 +1,3 @@
-Ceci est le dépôt commun du groupe de formation IDEM
+# Entreprises/Alexandre
 
-Ho Yeaaah !
+Branche de travail personnel d'Alexandre pour la partie Entreprise du projet GestForm
