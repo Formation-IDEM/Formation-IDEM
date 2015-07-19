@@ -19,9 +19,9 @@ class App
 	 */
 	public static function getInstance()
 	{
-		if( is_null(self::$_instance) )
+		if( is_null(self::$_instance) || self::$_instance === '')
 		{
-			self::$_instance = new App();
+			self::$_instance = new \App();
 		}
 		return self::$_instance;
 	}
