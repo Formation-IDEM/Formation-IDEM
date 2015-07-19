@@ -21,27 +21,27 @@
 
 CREATE TABLE stages (
 	id SERIAL PRIMARY KEY,
-	titre VARCHAR(120) NOT NULL,
-	entreprise_id INT REFERENCES entreprises(id),
+	title VARCHAR(120) NOT NULL,
+	company_id INT REFERENCES companies(id),
 	--formation_id INT(4) REFERENCES formations(id),
-	descriptif TEXT DEFAULT NULL,
+	explain TEXT DEFAULT NULL,
 	referent_id VARCHAR(60) REFERENCES formateurs(id),
 	create_date TIMESTAMP DEFAULT(NOW()),
 	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,
 	update_uid INT NOT NULL,
 	active SMALLINT DEFAULT(0),
-	remuneration BOOLEAN DEFAULT(false),
-	indemnisation NUMERIC DEFAULT(0)
+	pay BOOLEAN DEFAULT(false),
+	wadge NUMERIC DEFAULT(0)
 );
 
 CREATE TABLE stagiaire_entreprise (
 	--stagiaire_id INT REFERENCES stagiaires(id),
-	entreprise_id INT REFERENCES entreprises(id),
-	stage_id INT REFERENCES  stages(id),
-	en_cours BOOLEAN DEFAULT(false),
-	embauche BOOLEAN DEFAULT(false),
-	nombre_heures INT NOT NULL DEFAULT(0),
-	date_debut TIMESTAMP DEFAULT(NOW()),
-	date_fin TIMESTAMP CHECK(date_fin >= date_debut) DEFAULT(NOW())
+	company_id INT REFERENCES entreprises(id),
+	enternship_id INT REFERENCES  stages(id),
+	is_active BOOLEAN DEFAULT(false),
+	hiring BOOLEAN DEFAULT(false),
+	total_hours INT NOT NULL DEFAULT(0),
+	date_begin TIMESTAMP DEFAULT(NOW()),
+	date_end TIMESTAMP CHECK(date_end >= date_begin) DEFAULT(NOW())
 );
