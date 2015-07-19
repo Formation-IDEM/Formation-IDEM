@@ -1,5 +1,4 @@
 <?php
-
 use \Core\Http\Request;
 use \Core\Http\Response;
 
@@ -29,8 +28,6 @@ class App
 
 	/**
 	 * Lance l'application et charge les autoloaders
-	 *
-	 * @return \App
 	 */
 	public static function run()
 	{
