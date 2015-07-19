@@ -24,12 +24,25 @@ class Route
 		$this->callable = $callable;
 	}
 
+	/**
+	 * Associe une condition à la rouge (regex)
+	 *
+	 * @param $param
+	 * @param $regex
+	 * @return $this
+	 */
 	public function with($param, $regex)
 	{
 		$this->params[$param] = str_replace('(', '(:?', $regex);
 		return $this;
 	}
 
+	/**
+	 * Vérifie que la route est en adéquation avec le(s) paramètre(s)
+	 *
+	 * @param $url
+	 * @return bool
+	 */
 	public function match($url)
 	{
 		$url = trim($url, '/');
@@ -44,6 +57,12 @@ class Route
 		return true;
 	}
 
+	/**
+	 * Formate le paramètre
+	 *
+	 * @param $match
+	 * @return string
+	 */
 	private function paramMatch($match)
 	{
 		if( isset($this->params[$match[1]]) )
@@ -53,6 +72,11 @@ class Route
 		return '([^/]+)';
 	}
 
+	/**
+	 * Retourne l'éxécution demandée, soit une closure soit une méthode d'un controller
+	 *
+	 * @return mixed
+	 */
 	public function call()
 	{
 		if( is_string($this->callable) )
@@ -68,6 +92,12 @@ class Route
 		}
 	}
 
+	/**
+	 * Retourne l'url formatée
+	 *
+	 * @param $params
+	 * @return mixed|string
+	 */
 	public function getUrl($params)
 	{
 		$path = $this->path;

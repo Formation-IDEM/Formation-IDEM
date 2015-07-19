@@ -8,6 +8,7 @@ $router = new Core\Router\Router($app->request()->getData('url'));
 $router->get('/', function(){
 	echo "Homepage";
 });
+$router->get('/hello', 'Home@hello');
 $router->get('/truc', function(){
 	echo 'Je suis un truc';
 });
