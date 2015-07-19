@@ -1,4 +1,5 @@
 <?php
+
 use \Core\Http\Request;
 use \Core\Http\Response;
 
@@ -19,9 +20,9 @@ class App
 	 */
 	public static function getInstance()
 	{
-		if( is_null(self::$_instance) || self::$_instance === '')
+		if( is_null(self::$_instance) )
 		{
-			self::$_instance = new \App();
+			self::$_instance = new App();
 		}
 		return self::$_instance;
 	}
@@ -35,7 +36,7 @@ class App
 	{
 		session_start();
 		require_once(ROOT . 'App/Autoloader.php');
-		App\Autoloader::register();
+		\App\Autoloader::register();
 		require_once(ROOT . 'Core/Autoloader.php');
 		\Core\Autoloader::register();
 
