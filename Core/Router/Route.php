@@ -25,7 +25,7 @@ class Route
 	}
 
 	/**
-	 * Associe une condition à la rouge (regex)
+	 * Associe une condition à la route (regex)
 	 *
 	 * @param $param
 	 * @param $regex
@@ -33,7 +33,7 @@ class Route
 	 */
 	public function with($param, $regex)
 	{
-		$this->params[$param] = str_replace('(', '(:?', $regex);
+		$this->params[$param] = str_replace('(', '(?:', $regex);
 		return $this;
 	}
 
@@ -58,7 +58,7 @@ class Route
 	}
 
 	/**
-	 * Formate le paramètre
+	 * Applique les Regex pour le callback
 	 *
 	 * @param $match
 	 * @return string
