@@ -10,7 +10,7 @@ class Controller
 		if( empty($this->title) || is_null($this->title) )
 		{
 			$methods = get_class_methods(get_called_class());
-			$this->title = ucfirst($methods[0]);
+			$this->title = ucfirst($methods[1]);
 		}
 	}
 
