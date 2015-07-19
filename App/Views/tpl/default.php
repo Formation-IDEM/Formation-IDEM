@@ -27,7 +27,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.php"><?= App::getInstance()->title ?>></a>
+            <a class="navbar-brand" href="index.php"><?= App::getInstance()->title ?></a>
         </div>
     </div>
 </nav>

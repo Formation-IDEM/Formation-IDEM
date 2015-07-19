@@ -1,12 +1,12 @@
 <?php
-
+namespace App\Controllers;
 /**
  * HomeController.php
  */
-class HomeController
+class HomeController extends Controller
 {
 	public function hello()
 	{
-		return 'salut';
+		return $this->render('home');
 	}
 }
