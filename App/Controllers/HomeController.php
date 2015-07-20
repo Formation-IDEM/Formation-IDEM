@@ -15,4 +15,9 @@ class HomeController extends Controller
 		//$this->setTitle('Accueil');
 		return $this->render('home');
 	}
+
+	public function show($id)
+	{
+		echo 'Je suis l\'id n°' . $id;
+	}
 }

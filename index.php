@@ -12,4 +12,5 @@ $router->get('/hello', 'Home@hello');
 $router->get('/truc', function(){
 	echo 'Je suis un truc';
 });
+$router->get('/truc/:id', 'Home@show');
 $router->run();

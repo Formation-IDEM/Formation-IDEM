@@ -11,6 +11,8 @@
 namespace Core\Router;
 
 
+use App\Exceptions\RouterException;
+
 class Route
 {
 	private $path;
@@ -73,9 +75,10 @@ class Route
 	}
 
 	/**
-	 * Retourne l'éxécution demandée, soit une closure soit une méthode d'un controller
+	 * Retourne l'action demandée
 	 *
 	 * @return mixed
+	 * @throws \App\Exceptions\RouterException
 	 */
 	public function call()
 	{
@@ -83,11 +86,26 @@ class Route
 		{
 			$params = explode('@', $this->callable);
 			$controller = "App\\Controllers\\" . $params[0] . "Controller";
+
+			//	On vérifie que le controller existe
+			if( !class_exists($controller) )
+			{
+				throw new RouterException('Le controlleur ' . $controller . 'n\'existe pas.');
+			}
 			$controller = new $controller();
+
+			//	On vérifie que la méthode existe
+			if( !method_exists($controller, $params[1]) )
+			{
+				throw new RouterException('La méthode ' . $params[1] . 'n\'existe pas.');
+			}
+
+			//	On retourne le controller avec ses paramètres
 			return call_user_func_array([$controller, $params[1]], $this->matches);
 		}
 		else
 		{
+			//	On retourne la closure
 			return call_user_func_array($this->callable, $this->matches);
 		}
 	}
