@@ -34,7 +34,7 @@ class Form
 			$input = '<input type="' . $type .'" name="' . $name . '" value="' . $this->getValue($name) .'" class="form-control">';
 		}
 		
-		return $this->formGroup($input);
+		return $this->formGroup($label . $input);
 	}
 	
 	/**
@@ -101,6 +101,33 @@ class Form
 	}
 
 	/**
+	 * Retourne un select formaté
+	 *
+	 * @param $name
+	 * @param $label
+	 * @param $options
+	 * @return string
+	 */
+	public function select($name, $label, $options)
+	{
+		$label = '<label>' . $label . '</label>';
+		$input = '<select name="' . $name . '" class="form-control">';
+		$attributes = '';
+
+		foreach( $options as $key => $value )
+		{
+			if( $key === $this->getValue($name) )
+			{
+				$attributes = ' selected';
+			}
+			$input .= '<option value="' . $key . '"' . $attributes . '>' . $value . '</option>';
+		}
+
+		$input .= '</select>';
+		return $this->formGroup($label . $input);
+	}
+
+	/**
 	 * Si le formulaire a été saisi, on retourne la valeur du champ
 	 *
 	 * @param $name
@@ -114,11 +141,18 @@ class Form
 		}
 		else
 		{
-			if( array_key_exists($this->data[$name]) )
+			if( is_object($this->data) )
 			{
-				return $this->data[$name];
+				return $this->data->$name;
 			}
-			return null;
+			else
+			{
+				if( isset($this->data[$name]) )
+				{
+					return $this->data[$name];
+				}
+				return null;
+			}
 		}
 	}
 }

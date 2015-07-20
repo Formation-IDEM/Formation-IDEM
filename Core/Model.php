@@ -48,6 +48,19 @@ class Model
 		return $this->fields;
 	}
 
+	public function all()
+	{
+		$data = $this->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC');
+
+		unset($this->fields);
+		foreach( $data as $key => $value )
+		{
+			$this->fields[$key] = $value;
+		}
+
+		return $this->fields;
+	}
+
 	/**
 	 * Renseigne les champs
 	 *
@@ -96,7 +109,7 @@ class Model
 				$sql .= ', ';
 			}
 			$attributes = array_merge($attributes, [
-				$key => $value,
+				':' . $key => $value,
 			]);
 			$count++;
 		}
@@ -128,6 +141,7 @@ class Model
 			$attributes = array_merge($attributes, [
 				':' . $key => $value,
 			]);
+			$count++;
 		}
 		$sql .= ' WHERE id = :id';
 		$attributes = array_merge($attributes, [

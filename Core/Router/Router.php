@@ -44,15 +44,46 @@ class Router
 		return $this->add($path, $callable, $name, 'POST');
 	}
 
+	/**
+	 * Méthode PUT
+	 *
+	 * @param      $path
+	 * @param      $callable
+	 * @param null $name
+	 * @return \Core\Router\Route
+	 */
+	public function put($path, $callable, $name = null)
+	{
+		return $this->add($path, $callable, $name, 'PUT');
+	}
+
+	/**
+	 * Méthode DELETE
+	 *
+	 * @param      $path
+	 * @param      $callable
+	 * @param null $name
+	 * @return \Core\Router\Route
+	 */
+	public function delete($path, $callable, $name = null)
+	{
+		return $this->add($path, $callable, $name, 'DELETE');
+	}
+
 	public function crud($path, $controller)
 	{
-		$this->add($path . '/', $controller . '@' . 'index', $name = $controller . '.index', 'GET');
-		$this->add($path . '/:id/edit', $controller . '@' . 'edit', $name = $controller . '.edit', 'GET')->with(':id', '[-0-9]+');
-		$this->add($path . '/:id/edit', $controller . '@' . 'update', $name = $controller . '.update', 'POST')->with(':id', '[-0-9]+');
-		$this->add($path . '/:id/delete', $controller . '@' . 'delete', $name = $controller . '.delete', 'GET')->with(':id', '[-0-9]+');
-		$this->add($path . '/:id', $controller . '@' . 'show', $name = $controller . '.show', 'GET')->with(':id', '[-0-9]+');
-		$this->add($path . '/create', $controller . '@' . 'create', $name = $controller . '.create', 'GET');
-		$this->add($path . '/create', $controller . '@' . 'store', $name = $controller . '.store', 'POST');
+		$name = strtolower($controller);
+		$this->add($path . '/', $controller . '@' . 'index', $name . '.index', 'GET');
+		$this->add($path . '/create', $controller . '@' . 'create', $name . '.create', 'GET');
+		$this->add($path . '/create', $controller . '@' . 'store', $name . '.store', 'POST');
+		$this->add($path . '/:id/edit', $controller . '@' . 'edit', $name . '.edit', 'GET')
+			  ->with(':id', '[-0-9]+');
+		$this->add($path . '/:id/edit', $controller . '@' . 'update', $name . '.update', 'PUT')
+			  ->with(':id', '[-0-9]+');
+		$this->add($path . '/:id/delete', $controller . '@' . 'delete', $name . '.delete', 'DELETE')
+			  ->with(':id', '[-0-9]+');
+		$this->add($path . '/:id', $controller . '@' . 'show', $name . '.show', 'GET')
+			   ->with(':id', '[-0-9]+');
 		return $this;
 	}
 

@@ -16,14 +16,14 @@ class CompanyController extends Controller
 	public function indexAction()
 	{
 		print '<pre>';
-		print_r($this->model()->load(1));
+		print_r($this->model()->all());
 		print '<pre>';
 	}
 
 	public function createAction()
 	{
-		$this->model()->insert([
-			'name'				=>	'Test',
+			$this->model()->insert([
+			'name'				=>	'Lalalala',
 			'status'				=>	'SARL',
 			'company_name'		=>	'Ma compagnie',
 			'adress'				=>	'3 rue des fleuristes',
@@ -37,10 +37,10 @@ class CompanyController extends Controller
 		]);
 	}
 
-	public function updateAction($id)
+	public function editAction($id)
 	{
 		$this->model()->update([
-			'name'		=>	'Test modifié',
+			'name'		=>	'Test dsdq',
 		], $id);
 	}
 

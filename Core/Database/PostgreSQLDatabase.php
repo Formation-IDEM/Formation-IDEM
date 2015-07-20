@@ -3,7 +3,7 @@ namespace Core\Database;
 
 use \PDO;
 
-class MySQLDatabase extends Database
+class PostgreSQLDatabase extends Database
 {
 	protected $pdo;
 
@@ -24,7 +24,7 @@ class MySQLDatabase extends Database
 	{
 		if( $this->pdo === null )
 		{
-			$pdo = new PDO('mysql:dbname=' . $this->db_name . ';host=' . $this->db_host, $this->db_user, $this->db_pass);
+			$pdo = new PDO('pgsql:dbname=' . $this->db_name . ';host=' . $this->db_host, $this->db_user, $this->db_pass);
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 			$this->pdo = $pdo;
