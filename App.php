@@ -1,6 +1,6 @@
 <?php 
 
-
+include_once('Controllers/ControllerFactory.php');
 
 /**
  * class pour les patterns singleton
@@ -17,17 +17,13 @@ class App  {
 	
 	//methode de routage
 	public function Run(){
-			
-		//test si c est vide 
-		if(isset($_GET['c'])){
-			
-			$c = $_GET['c']."Controller";
-			
-		}else{
-			
-			$c = 'FrontController';
-			
-		}
+		
+		$monController = ControllerFactory:: createController();
+		
+		$monAction = App:: getInstance()->getAction($monController);
+	}
+	
+	private function getAction($monController){
 		
 		//test si a est vide 		
 		if(isset($_GET['a'])){
@@ -40,28 +36,14 @@ class App  {
 			
 		}
 		
-		//verification d'erreur dans le parametre $_GET (c)
-		if(!file_exists('Controllers/'.$c.'.php')){
-			$c = 'FrontController'; 
-			$a = 'erreurAction';
-			
-		}
-		
-		include_once ('Controllers/'.$c.'.php');
-		$controller = new $c();
-		
 		//verification d'erreur dans le parametre $_GET (a)
-		if(method_exists($controller, $a)){
+		if(method_exists($monController, $a)){
 			
-			$controller->$a();
+			$monController->$a();
 			
-		} else {
-			
-			$controller->erreurAction();
-			
-		}
+		}	
 		
-
+			
 	}
 	
 	public static function getInstance(){
