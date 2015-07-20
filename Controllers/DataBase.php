@@ -35,8 +35,38 @@ class DataBase{
 		
 		return $bdd;
 		
-		
 	}
+	
+	public function getDsn(){
+		return $this->dsn;
+			
+	}
+	
+	public function setDsn(){
+		return $this->dsn = $newDsn;
+			
+	}
+	
+	public function getUsername(){
+		return $this->username;
+			
+	}
+	
+	public function setUsername(){
+		return $this->username = $newUsername;
+			
+	}
+	
+	public function getPassword(){
+		return $this->password;
+			
+	}
+	
+	public function setPassword(){
+		return $this->password = $newPassword;
+			
+	}
+	
 }
 
 
