@@ -2,7 +2,9 @@
 namespace App\Exceptions;
 
 /**
- * RouterException.php
+ * Class RouterException
+ *
+ * @package App\Exceptions
  */
 class RouterException extends \Exception
 {

@@ -1,11 +1,13 @@
 <?php
 namespace App\Models;
-/**
- * UserModel.php
- */
 
 use \App\Models\Model;
 
+/**
+ * Class UserModel
+ *
+ * @package App\Models
+ */
 class UserModel extends Model
 {
 	protected $table = 'users';

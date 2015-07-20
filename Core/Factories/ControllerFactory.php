@@ -1,11 +1,13 @@
 <?php
-/**
- * ControllerFactory.php
- */
 namespace Core\Factories;
 
 use \App\Exceptions\RouterException;
 
+/**
+ * Class ControllerFactory
+ *
+ * @package Core\Factories
+ */
 class ControllerFactory
 {
 	/**

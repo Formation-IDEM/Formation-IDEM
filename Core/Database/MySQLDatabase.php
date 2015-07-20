@@ -3,6 +3,11 @@ namespace Core\Database;
 
 use \PDO;
 
+/**
+ * Class MySQLDatabase
+ *
+ * @package Core\Database
+ */
 class MySQLDatabase extends Database
 {
 	protected $pdo;

@@ -1,11 +1,11 @@
 <?php
-/**
- * Request.php
- */
-
 namespace Core\Http;
 
-
+/**
+ * Class Request
+ *
+ * @package Core\Http
+ */
 class Request
 {
 	private $routes;

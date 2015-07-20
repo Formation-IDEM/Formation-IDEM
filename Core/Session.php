@@ -1,11 +1,11 @@
 <?php
-/**
- * Session.php
- */
-
 namespace Core;
 
-
+/**
+ * Class Session
+ *
+ * @package Core
+ */
 class Session
 {
 	public function __construct()

@@ -1,11 +1,13 @@
 <?php
 namespace Core\Router;
-/**
- * Route.php
- */
 
 use \Core\Factories\ControllerFactory;
 
+/**
+ * Class Route
+ *
+ * @package Core\Router
+ */
 class Route
 {
 	private $path;

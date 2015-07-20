@@ -1,11 +1,13 @@
 <?php
 namespace Core;
-/**
- * Layout.php
- */
+
 use App\Exceptions\LayoutException;
 
-
+/**
+ * Class Layout
+ *
+ * @package Core
+ */
 class Layout
 {
 	private $path;

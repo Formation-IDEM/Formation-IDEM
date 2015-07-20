@@ -1,9 +1,11 @@
 <?php
 namespace Core\Factories;
-/**
- * ModelFactory.php
- */
 
+/**
+ * Class ModelFactory
+ *
+ * @package Core\Factories
+ */
 class ModelFactory
 {
 	public static function loadModel($model)

@@ -1,9 +1,11 @@
 <?php
 namespace App\Controllers;
-/**
- * CompanyController.php
- */
 
+/**
+ * Class CompanyController
+ *
+ * @package App\Controllers
+ */
 class CompanyController extends Controller
 {
 	protected $model = 'Company';

@@ -1,7 +1,10 @@
 <?php
 namespace App\Controllers;
+
 /**
- * HomeController.php
+ * Class HomeController
+ *
+ * @package App\Controllers
  */
 class HomeController extends Controller
 {

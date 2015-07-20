@@ -1,9 +1,11 @@
 <?php
 namespace Core;
-/**
- * Collection.php
- */
 
+/**
+ * Class Collection
+ *
+ * @package Core
+ */
 class Collection implements IteratorAggregate, ArrayAccess
 {
 	private $items;

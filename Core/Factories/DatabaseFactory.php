@@ -1,12 +1,14 @@
 <?php
-/**
- * DatabaseFactory
- */
 namespace Core\Factories;
 
 use \App\App;
 use \Core\Config;
 
+/**
+ * Class DatabaseFactory
+ *
+ * @package Core\Factories
+ */
 class DatabaseFactory
 {
 	/**

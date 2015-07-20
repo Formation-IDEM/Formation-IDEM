@@ -3,6 +3,11 @@ namespace Core\Database;
 
 use \PDO;
 
+/**
+ * Class PostgreSQLDatabase
+ *
+ * @package Core\Database
+ */
 class PostgreSQLDatabase extends Database
 {
 	protected $pdo;

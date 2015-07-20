@@ -1,12 +1,13 @@
 <?php
-/**
- * Router.php
- */
 namespace Core\Router;
 
-use \App\App;
 use \App\Exceptions\RouterException;
 
+/**
+ * Class Router
+ *
+ * @package Core\Router
+ */
 class Router
 {
 	private $url;

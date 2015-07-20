@@ -1,10 +1,13 @@
 <?php
 namespace App\Controllers\Admin;
-/**
- * DashboardController.php
- */
+
 use \App\Controllers\Controller;
 
+/**
+ * Class DashboardController
+ *
+ * @package App\Controllers\Admin
+ */
 class DashboardController extends Controller
 {
 	public function __construct()

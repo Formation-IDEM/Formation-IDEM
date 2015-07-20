@@ -1,6 +1,11 @@
 <?php
 namespace Core;
 
+/**
+ * Class Config
+ *
+ * @package Core
+ */
 class Config
 {
 	private $settings = [];

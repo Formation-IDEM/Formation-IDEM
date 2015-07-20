@@ -7,6 +7,11 @@ use \Core\Http\Response;
 use \Core\Router\Router;
 use \Core\Factories\DatabaseFactory;
 
+/**
+ * Class App
+ *
+ * @package App
+ */
 class App
 {
 	public static $title = 'GestForm';

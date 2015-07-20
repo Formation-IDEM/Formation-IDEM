@@ -3,6 +3,11 @@ namespace Core;
 
 use \Core\Database\Database;
 
+/**
+ * Class Model
+ *
+ * @package Core
+ */
 class Model
 {
 	protected $db;

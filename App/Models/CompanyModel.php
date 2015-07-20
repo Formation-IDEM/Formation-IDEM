@@ -1,10 +1,13 @@
 <?php
 namespace App\Models;
-/**
- * Company.php
- */
+
 use \Core\Model;
 
+/**
+ * Class CompanyModel
+ *
+ * @package App\Models
+ */
 class CompanyModel extends Model
 {
 	protected $db;

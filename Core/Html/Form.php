@@ -1,7 +1,10 @@
 <?php
 namespace Core\Html;
+
 /**
- * Form.php
+ * Class Form
+ *
+ * @package Core\Html
  */
 class Form
 {

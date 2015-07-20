@@ -3,6 +3,12 @@ namespace App\Controllers;
 
 use \Core\Layout;
 use \Core\Factories\ModelFactory;
+
+/**
+ * Class Controller
+ *
+ * @package App\Controllers
+ */
 class Controller
 {
 	protected $model;
