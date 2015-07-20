@@ -1,36 +1,47 @@
 <?php
 namespace App\Controllers;
 
+use Core\Layout;
 class Controller
 {
-	private $title;
+	protected $data = [];
 
 	public function __construct()
 	{
-		if( empty($this->title) || is_null($this->title) )
+		if( empty($this->data['title']) || is_null($this->data['title']) )
 		{
 			$methods = get_class_methods(get_called_class());
-			$this->title = ucfirst($methods[1]);
+			$this->data['title'] = ucfirst($methods[1]);
 		}
+
+		$this->layout = Layout::getInstance();
 	}
 
-	public function render($file)
+	/**
+	 * @return \Core\Layout
+	 */
+	public function layout()
 	{
-		ob_start();
-		require_once(dirname(__DIR__) . '/Views/' . $file . '.php');
-		$content = ob_get_clean();
-
-		$title = $this->getTitle();
-		require_once(dirname(__DIR__) . '/Views/tpl/default.php');
+		return $this->layout;
 	}
 
+	/**
+	 * Détermine le titre de la méthode appelée
+	 *
+	 * @param $title
+	 */
 	public function setTitle($title)
 	{
-		$this->title = $title;
+		$this->data['title'] = $title;
 	}
 
+	/**
+	 * Récupère le titre de la méthode
+	 *
+	 * @return mixed
+	 */
 	public function getTitle()
 	{
-		return $this->title;
+		return $this->data['title'];
 	}
 }

@@ -8,7 +8,7 @@ namespace Core\Http;
 
 class Request
 {
-
+	private $routes;
 	/**
 	 * Retourne la valeur d'un cookie en fonction de sa clée
 	 *
@@ -93,5 +93,11 @@ class Request
 	public function getUri()
 	{
 		return $_SERVER['REQUEST_URI'];
+	}
+
+	public function getRoutes($file = 'routes')
+	{
+		$this->routes = require_once(ROOT . 'App/Config/' . $file . '.php');
+		return $this->routes;
 	}
 }

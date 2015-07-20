@@ -21,8 +21,8 @@ class Model
 		if( is_null($this->table) )
 		{
 			$model = explode('\\', get_class($this));
-			$class_name = end($model);
-			$this->table = strtolower(str_replace('Model', '', $class_name)) . 's';
+			$className = end($model);
+			$this->table = strtolower(str_replace('Model', '', $className)) . 's';
 		}
 	}
 
@@ -45,6 +45,66 @@ class Model
 	public function find($id)
 	{
 		return $this->query('SELECT * FROM ' . $this->table . ' WHERE id = ?', [$id], true);
+	}
+
+	/**
+	 * Insère les données dans la table à partir d'un tableau associatif
+	 *
+	 * @param $data
+	 * @return mixed
+	 */
+	public function insert($data)
+	{
+		$sql = 'INSERT INTO ' . $this->table . ' SET ';
+
+		$count = 0;
+		$attributes = [];
+		foreach( $data as $key => $value )
+		{
+			$sql .= $key . ' = :' . $key;
+			if( $count < count($data) )
+			{
+				$sql .= ', ';
+			}
+			$attributes = array_merge($attributes, [
+				$key => $value,
+			]);
+		}
+
+		return $this->db->execute($sql, $attributes);
+	}
+
+	/**
+	 * Met à jour les données d'une ligne grâce à un tableau associatif
+	 * et l'id passée en paramètre
+	 *
+	 * @param $data
+	 * @param $id
+	 * @return mixed
+	 */
+	public function update($data, $id)
+	{
+		$sql = 'UPDATE ' . $this->table . ' SET ';
+
+		$count = 0;
+		$attributes = [];
+		foreach( $data as $key => $value )
+		{
+			$sql .= $key . ' = :' . $key;
+			if( $count < count($data) )
+			{
+				$sql .= ', ';
+			}
+			$attributes = array_merge($attributes, [
+				':' . $key => $value,
+			]);
+		}
+		$sql .= ' WHERE id = :id';
+		$attributes = array_merge($attributes, [
+			':id'	=>	intval($id),
+		]);
+
+		return $this->db->execute($sql, $attributes);
 	}
 
 	/**

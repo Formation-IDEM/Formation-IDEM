@@ -1,6 +1,9 @@
 <?php
+use \Core\Config;
 use \Core\Http\Request;
 use \Core\Http\Response;
+use \Core\Router\Router;
+use \Core\Factories\DatabaseFactory;
 
 class App
 {
@@ -8,6 +11,7 @@ class App
 
 	private $_db_instance;
 	private static $_instance;
+	private static $_router_instance;
 
 	private static $request;
 	private static $response;
@@ -41,6 +45,15 @@ class App
 		self::$response = new Response();
 	}
 
+	public static function route()
+	{
+		if( is_null(self::$_router_instance) )
+		{
+			self::$_router_instance =  new Router(self::request()->getData('url'));
+		}
+		return self::$_router_instance;
+	}
+
 	/**
 	 * Retourne le modèle souhaité
 	 *
@@ -62,8 +75,7 @@ class App
 	{
 		if( is_null($this->_db_instance) )
 		{
-			$cfg = \Core\Config::getInstance('Config');
-			$this->_db_instance =  new \Core\Database\MySQLDatabase($cfg->get('db_name'), $cfg->get('db_user'), $cfg->get('db_pass'), $cfg->get('db_host'));
+			$this->_db_instance = DatabaseFactory::initDB();
 		}
 		return $this->_db_instance;
 	}

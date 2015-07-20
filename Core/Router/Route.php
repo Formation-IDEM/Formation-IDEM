@@ -1,17 +1,12 @@
 <?php
 /**
  * Route.php
- * ------------
- *
- * @author  :  RIBES Alexandre
- * @contact : ribes.alexandre@gmail.com
- * @website : http://www.alexandre-ribes.fr
  */
 
 namespace Core\Router;
 
-
-use App\Exceptions\RouterException;
+use \Core\Factories\ControllerFactory;
+use \App\Exceptions\RouterException;
 
 class Route
 {
@@ -85,14 +80,7 @@ class Route
 		if( is_string($this->callable) )
 		{
 			$params = explode('@', $this->callable);
-			$controller = "App\\Controllers\\" . $params[0] . "Controller";
-
-			//	On vérifie que le controller existe
-			if( !class_exists($controller) )
-			{
-				throw new RouterException('Le controlleur ' . $controller . 'n\'existe pas.');
-			}
-			$controller = new $controller();
+			$controller = ControllerFactory::createController($params[0]);
 
 			//	On vérifie que la méthode existe
 			if( !method_exists($controller, $params[1]) )

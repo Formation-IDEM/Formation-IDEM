@@ -2,15 +2,16 @@
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__) . DS);
 
+//	On lance notre application
 require_once(ROOT . 'App/App.php');
 $app = App::getInstance();
 $app->run();
 
-$router = new Core\Router\Router($app->request()->getData('url'));
-$router->get('/', 'Home@hello');
-$router->get('/hello', 'Home@hello');
-$router->get('/truc', function(){
-	echo 'Je suis un truc';
+//	Définition des routes
+$app->route()->get('/', 'Home@hello');
+$app->route()->get('/show/:id', 'Home@show');
+$app->route()->get('/test', function()
+{
+	echo 'Je suis un test';
 });
-$router->get('/truc/:id', 'Home@show');
-$router->run();
+$app->route()->run();

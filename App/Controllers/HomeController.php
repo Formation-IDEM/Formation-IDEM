@@ -5,6 +5,8 @@ namespace App\Controllers;
  */
 class HomeController extends Controller
 {
+	protected $data = [];
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -12,8 +14,11 @@ class HomeController extends Controller
 
 	public function hello()
 	{
-		//$this->setTitle('Accueil');
-		return $this->render('home');
+		$this->data += [
+			'variable'	=>	'test',
+		];
+
+		return $this->layout()->render('home', $this->data);
 	}
 
 	public function show($id)

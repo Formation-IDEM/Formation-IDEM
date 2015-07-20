@@ -83,4 +83,24 @@ class MySQLDatabase extends Database
 
 		return $data;
 	}
+
+	/**
+	 * Exécute une requête qui ne retourne pas de résultat
+	 *
+	 * @param       $statement
+	 * @param array $attributes
+	 * @return bool|\PDOStatement
+	 */
+	public function execute($statement, $attributes = [])
+	{
+		if( !empty($attributes) )
+		{
+			$query = $this->getPDO()->prepare($statement);
+			return $query->execute($attributes);
+		}
+		else
+		{
+			return $query = $this->getPDO()->query($statement);
+		}
+	}
 }
