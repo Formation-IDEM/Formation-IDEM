@@ -15,7 +15,9 @@ class CompanyController extends Controller
 
 	public function indexAction()
 	{
-		var_dump($this->model()->all());
+		print '<pre>';
+		print_r($this->model()->load(1));
+		print '<pre>';
 	}
 
 	public function createAction()
@@ -38,7 +40,19 @@ class CompanyController extends Controller
 	public function updateAction($id)
 	{
 		$this->model()->update([
-			'name'				=>	'Test modifié',
+			'name'		=>	'Test modifié',
 		], $id);
+	}
+
+	public function showAction($id)
+	{
+		print '<pre>';
+		print_r($this->model()->load($id));
+		print '<pre>';
+	}
+
+	public function deleteAction($id)
+	{
+		return $this->model()->delete($id);
 	}
 }

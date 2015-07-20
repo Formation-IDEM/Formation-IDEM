@@ -12,24 +12,24 @@ class CompanyModel extends Model
 	protected $table = 'companies';
 
 	protected $fields = [
-		'id',
-		'name',
-		'status',
-		'company_name',
-		'adress',
-		'postal_code',
-		'city',
-		'country',
-		'phone',
-		'mobile',
-		'fax',
-		'manager_id',
-		'created_date',
-		'update_date',
-		'create_uid',
-		'update_uid',
-		'date_visit',
-		'active'
+		'id'					=>	0,
+		'name'				=>	'',
+		'status'				=>	'',
+		'company_name'		=>	'',
+		'adress'				=>	'',
+		'postal_code'		=>	'',
+		'city'				=>	'',
+		'country'			=>	'',
+		'phone'				=>	'',
+		'mobile'				=>	'',
+		'fax'					=>	'',
+		'manager_id'		=>	0,
+		'create_date'		=>	'',
+		'update_date'		=>	'',
+		'create_uid'		=>	0,
+		'update_uid'		=>	0,
+		'date_visit'		=>	'',
+		'active'				=>	false,
 	];
 
 	public $rules = [];

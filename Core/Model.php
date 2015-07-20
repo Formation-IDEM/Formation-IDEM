@@ -28,30 +28,52 @@ class Model
 	}
 
 	/**
-	 * Retourne tous les résultats de la table
-	 *
-	 * @return mixed
-	 */
-	public function all()
-	{
-		return $this->query('SELECT * FROM ' . $this->table);
-	}
-
-	/**
 	 * Retourne un résultat unique en fonction de son id et remplit les
 	 * attributs en conséquence
 	 *
 	 * @param $id
 	 * @return mixed
 	 */
-	public function find($id)
+	public function load($id)
 	{
 		$data =  $this->query('SELECT * FROM ' . $this->table . ' WHERE id = ?', [$id], true);
-		foreach($this->fields as $field)
+		if( !$data )
+		{
+			return false;
+		}
+		foreach($this->fields as $key => $value)
+		{
+			$this->fields[$key] = $data->$key;
+		}
+		return $this->fields;
+	}
+
+	/**
+	 * Renseigne les champs
+	 *
+	 * @param $data
+	 */
+	public function store($data)
+	{
+		foreach( $this->fields as $field )
 		{
 			$this->fields[$field] = $data[$field];
 		}
-		return $this->fields;
+	}
+
+	/**
+	 * Sauvegarde les champs selon s'il s'agit d'une nouvelle entrée
+	 *
+	 * @return mixed
+	 */
+	public function save()
+	{
+		if( is_null($this->fields['id']) || empty($this->fields['id']) )
+		{
+			return $this->insert($this->fields);
+		}
+
+		return $this->update($this->fields, $this->fields['id']);
 	}
 
 	/**
@@ -113,6 +135,17 @@ class Model
 		]);
 
 		return $this->db->execute($sql, $attributes);
+	}
+
+	/**
+	 * Suppression d'une ligne de la base de donnée
+	 *
+	 * @param $id
+	 * @return mixed
+	 */
+	public function delete($id)
+	{
+		return $this->db->execute('DELETE FROM ' . $this->table . ' WHERE id = ?', [$id]);
 	}
 
 	/**

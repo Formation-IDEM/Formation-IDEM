@@ -9,6 +9,5 @@ $app->run();
 
 //	Définition des routes
 $app->route()->get('/', 'Company@index');
-$app->route()->get('/create', 'Company@create');
-$app->route()->get('/update/:id', 'Company@update');
+$app->route()->crud('/companies', 'Company');
 $app->route()->run();

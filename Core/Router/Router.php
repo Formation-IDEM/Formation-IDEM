@@ -44,6 +44,18 @@ class Router
 		return $this->add($path, $callable, $name, 'POST');
 	}
 
+	public function crud($path, $controller)
+	{
+		$this->add($path . '/', $controller . '@' . 'index', $name = $controller . '.index', 'GET');
+		$this->add($path . '/:id/edit', $controller . '@' . 'edit', $name = $controller . '.edit', 'GET')->with(':id', '[-0-9]+');
+		$this->add($path . '/:id/edit', $controller . '@' . 'update', $name = $controller . '.update', 'POST')->with(':id', '[-0-9]+');
+		$this->add($path . '/:id/delete', $controller . '@' . 'delete', $name = $controller . '.delete', 'GET')->with(':id', '[-0-9]+');
+		$this->add($path . '/:id', $controller . '@' . 'show', $name = $controller . '.show', 'GET')->with(':id', '[-0-9]+');
+		$this->add($path . '/create', $controller . '@' . 'create', $name = $controller . '.create', 'GET');
+		$this->add($path . '/create', $controller . '@' . 'store', $name = $controller . '.store', 'POST');
+		return $this;
+	}
+
 	/**
 	 * Ajoute une nouvelle route
 	 *
