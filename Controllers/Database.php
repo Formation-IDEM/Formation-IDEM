@@ -52,7 +52,7 @@ class Database
 	
 	public function insert()
 	{
-		$query = 'CREATE TABLE test';
+		$query = 'CREATE TABLE trainer(id SERIAL PRIMARY KEY,further_informations TEXT);';
 		return $this->execute($query);
 	}
 }
