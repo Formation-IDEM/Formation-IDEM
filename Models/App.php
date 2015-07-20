@@ -26,8 +26,35 @@ class App
 		return self::$_instance;
 	}
 
+	/**
+	 * Routeur de l'application
+	 */
 	public function run()
 	{
-		echo 'hello world';
+		$url = isset($_GET['c']) ? htmlspecialchars($_GET['c']) : 'front';
+		$action = isset($_GET['a']) ? htmlspecialchars($_GET['a']) : 'index';
+
+		//	On récupère le controller
+		$controller = ucfirst($url) . 'Controller';
+		require_once( ROOT . 'Controllers/ErrorController.php');
+		if( file_exists(ROOT . 'Controllers/' . $controller . '.php') )
+		{
+			require_once(ROOT . 'Controllers/' . $controller . '.php');
+		}
+
+		//	On vérifie que la classe existe
+		if( !class_exists($controller) )
+		{
+			$controller = new ErrorController();
+		}
+		$controller = new $controller();
+
+		//	On vérifie que la méthode existe
+		if( !method_exists($controller, $action) )
+		{
+			$error = new ErrorController();
+			return $error->show404();
+		}
+		return $controller->$action();
 	}
 }

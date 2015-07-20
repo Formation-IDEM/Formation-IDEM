@@ -3,7 +3,7 @@
 /**
  * WelcomeController.php
  */
-class WelcomeController extends Controller
+class FrontController extends Controller
 {
 	public function __construct()
 	{
@@ -13,5 +13,11 @@ class WelcomeController extends Controller
 	public function index()
 	{
 		$this->setTitle('Accueil');
+		echo 'salut';
+	}
+
+	public function salut()
+	{
+		echo 'et moi je dis bonjour';
 	}
 }
