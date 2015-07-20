@@ -70,6 +70,13 @@ class Router
 		return $this->add($path, $callable, $name, 'DELETE');
 	}
 
+	/**
+	 * Méthode CRUD pour générer automatiquement les routes d'un controller
+	 *
+	 * @param $path
+	 * @param $controller
+	 * @return $this
+	 */
 	public function crud($path, $controller)
 	{
 		$name = strtolower($controller);
