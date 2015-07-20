@@ -1,4 +1,3 @@
-<h1>Je suis la home page</h1>
+<h1><?= $header; ?></h1>
 
-<?= $variable; ?>
-
+<?php var_dump($ins); ?>

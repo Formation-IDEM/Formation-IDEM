@@ -1,12 +1,10 @@
 <?php
+namespace Core\Router;
 /**
  * Route.php
  */
 
-namespace Core\Router;
-
 use \Core\Factories\ControllerFactory;
-use \App\Exceptions\RouterException;
 
 class Route
 {
@@ -81,15 +79,10 @@ class Route
 		{
 			$params = explode('@', $this->callable);
 			$controller = ControllerFactory::createController($params[0]);
-
-			//	On vérifie que la méthode existe
-			if( !method_exists($controller, $params[1]) )
-			{
-				throw new RouterException('La méthode ' . $params[1] . 'n\'existe pas.');
-			}
+			$method = ControllerFactory::createMethod($controller, $params[1] . 'Action');
 
 			//	On retourne le controller avec ses paramètres
-			return call_user_func_array([$controller, $params[1]], $this->matches);
+			return call_user_func_array([$controller, $method], $this->matches);
 		}
 		else
 		{

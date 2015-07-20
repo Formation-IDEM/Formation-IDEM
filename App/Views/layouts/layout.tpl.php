@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?= App::getInstance()->getTitle(); ?> :: <?= $title; ?></title>
+    <title><?= App::getTitle(); ?> :: <?= $title; ?></title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -27,7 +27,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.php"><?= App::getInstance()->title ?></a>
+            <a class="navbar-brand" href="index.php"><?= App::getTitle() ?></a>
         </div>
     </div>
 </nav>

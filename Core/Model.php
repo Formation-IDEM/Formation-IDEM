@@ -7,6 +7,7 @@ class Model
 {
 	protected $db;
 	protected $table;
+	protected $fields = [];
 
 	/**
 	 * Constructeur
@@ -44,7 +45,12 @@ class Model
 	 */
 	public function find($id)
 	{
-		return $this->query('SELECT * FROM ' . $this->table . ' WHERE id = ?', [$id], true);
+		$data =  $this->query('SELECT * FROM ' . $this->table . ' WHERE id = ?', [$id], true);
+		foreach($this->fields as $field)
+		{
+			$this->fields[$field] = $data[$field];
+		}
+		return $this->fields;
 	}
 
 	/**
@@ -119,11 +125,11 @@ class Model
 	{
 		if( $attributes )
 		{
-			return $this->db->prepare($statement, $attributes, str_replace('Model', 'Entity', get_class($this)), $one);
+			return $this->db->prepare($statement, $attributes, get_called_class(), $one);
 		}
 		else
 		{
-			return $this->db->query($statement, str_replace('Model', 'Entity', get_class($this)), $one);
+			return $this->db->query($statement, get_called_class(), $one);
 		}
 	}
 }

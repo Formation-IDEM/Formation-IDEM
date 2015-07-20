@@ -1,4 +1,6 @@
 <?php
+namespace App;
+
 use \Core\Config;
 use \Core\Http\Request;
 use \Core\Http\Response;
@@ -7,7 +9,8 @@ use \Core\Factories\DatabaseFactory;
 
 class App
 {
-	public $title = 'GestForm';
+	public static $title = 'GestForm';
+	public static $config;
 
 	private $_db_instance;
 	private static $_instance;
@@ -41,29 +44,25 @@ class App
 		require_once(ROOT . 'Core/Autoloader.php');
 		\Core\Autoloader::register();
 
+		self::$config = new \Core\Config('config');
+		self::$title = self::config()->get('site_name');
+
 		self::$request = new Request();
 		self::$response = new Response();
 	}
 
+	/**
+	 * Raccourci pour les routes
+	 *
+	 * @return \Core\Router\Router
+	 */
 	public static function route()
 	{
 		if( is_null(self::$_router_instance) )
 		{
-			self::$_router_instance =  new Router(self::request()->getData('url'));
+			self::$_router_instance = new Router(self::request()->getData('url'));
 		}
 		return self::$_router_instance;
-	}
-
-	/**
-	 * Retourne le modèle souhaité
-	 *
-	 * @param $name
-	 * @return mixed
-	 */
-	public function getModel($name)
-	{
-		$className = '\\App\\Models\\' . ucfirst($name) . 'Model';
-		return new $className($this->getDB());
 	}
 
 	/**
@@ -91,7 +90,7 @@ class App
 	}
 
 	/**
-	 * Retourne une instance de la classé Response
+	 * Retourne une instance de la classe Response
 	 *
 	 * @return \Core\Response
 	 */
@@ -101,13 +100,21 @@ class App
 	}
 
 	/**
+	 * @return mixed
+	 */
+	public static function config()
+	{
+		return self::$config;
+	}
+
+	/**
 	* Retourne le titre de la page
 	*
 	* @return string
 	*/
-	public function getTitle()
+	public static function getTitle()
 	{
-		return $this->title;
+		return self::$title;
 	}
 
 	/**
@@ -115,8 +122,8 @@ class App
 	*
 	* @param $title
 	*/
-	public function setTitle($title)
+	public static function setTitle($title)
 	{
-		$this->title = $title;
+		self::$title = $title;
 	}
 }

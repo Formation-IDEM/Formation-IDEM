@@ -1,9 +1,11 @@
 <?php
 namespace App\Controllers;
 
-use Core\Layout;
+use \App\App;
+use \Core\Layout;
 class Controller
 {
+	protected $model;
 	protected $data = [];
 
 	public function __construct()
@@ -12,6 +14,13 @@ class Controller
 		{
 			$methods = get_class_methods(get_called_class());
 			$this->data['title'] = ucfirst($methods[1]);
+		}
+
+		if( empty($this->model) )
+		{
+			$model = get_called_class();
+			$model = str_replace('Controller', '', $model);
+			$this->model = $model;
 		}
 
 		$this->layout = Layout::getInstance();
@@ -23,6 +32,17 @@ class Controller
 	public function layout()
 	{
 		return $this->layout;
+	}
+
+	/**
+	 * Retourne le modèle du controller
+	 *
+	 * @return mixed
+	 */
+	public function model()
+	{
+		$className = '\\App\\Models\\' . ucfirst($this->model) . 'Model';
+		return new $className(App::getInstance()->getDB());
 	}
 
 	/**

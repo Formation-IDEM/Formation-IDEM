@@ -4,11 +4,11 @@ define('ROOT', dirname(__FILE__) . DS);
 
 //	On lance notre application
 require_once(ROOT . 'App/App.php');
-$app = App::getInstance();
+$app = App\App::getInstance();
 $app->run();
 
 //	Définition des routes
-$app->route()->get('/', 'Home@hello');
+$app->route()->get('/', 'Company@index');
 $app->route()->get('/show/:id', 'Home@show');
 $app->route()->get('/test', function()
 {
