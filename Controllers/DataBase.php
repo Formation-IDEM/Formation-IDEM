@@ -7,37 +7,34 @@ class DataBase{
 	
 	//initialisation de l'instance a null
 	private static $_instance = null;
-	private $dbname;
-	private $dsn;
-	private $username;
-	private $password;
+	private $dbname = 'gestform';
+	private $dsn = 'localhost';
+	private $username = 'postgres';
+	private $password = 'postgres';
 	
-	private function __construct($dbname, $dsn, $username, $password) {
+	private function __construct() {
 		
-		$this->dbname = 'gestform';
-		$this->dsn = 'localhost';
-		$this->username = 'postgres';
-		$this->password = 'postgres';
+		$this->dbname;
+		$this->dsn;
+		$this->username;
+		$this->password;
 		
+		return $bdd = new PDO( 'pgsql:dbname='.$this->dbname.';host='.$this->dsn,  $this->username , $this->password );
 	}
 	
-	public function setConnexion(){
-		
-	return $bdd = PDO::__construct ( 'dbname='.$this->dbname.';host='.$this->dsn,  $this->username , $this->password );
-	
-	}
 	
 	
 	public static function getInstance(){
 		
-		//vérification si l'instance est set
-		if(!self::$_instance){
 		
-			self::$_instance = new DataBase();
-		
-		}
+		if(connect == null){
 			
-		return self::$_instance;
+			new __construct();
+			
+		}
+		
+		return $bdd;
+		
 		
 	}
 }
@@ -45,5 +42,6 @@ class DataBase{
 
 
 
-
 ?>
+
+
