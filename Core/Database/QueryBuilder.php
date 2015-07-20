@@ -54,7 +54,7 @@ class QueryBuilder
 	 *
 	 * @return string
 	 */
-	public function __toString()
+	public function get()
 	{
 		return 'SELECT ' . implode(', ', $this->fields)
 			. ' FROM ' . implode(', ', $this->from)
