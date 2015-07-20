@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use \App\App;
 use \Core\Layout;
+use \Core\Factories\DatabaseFactory;
 class Controller
 {
 	protected $model;
@@ -16,6 +17,7 @@ class Controller
 			$this->data['title'] = ucfirst($methods[1]);
 		}
 
+		//	Si le modèle n'est pas défini on tente d'en attribuer un
 		if( empty($this->model) )
 		{
 			$model = get_called_class();
@@ -42,7 +44,7 @@ class Controller
 	public function model()
 	{
 		$className = '\\App\\Models\\' . ucfirst($this->model) . 'Model';
-		return new $className(App::getInstance()->getDB());
+		return new $className(DatabaseFactory::db());
 	}
 
 	/**

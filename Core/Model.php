@@ -38,7 +38,8 @@ class Model
 	}
 
 	/**
-	 * Retourne un résultat unique en fonction de son id
+	 * Retourne un résultat unique en fonction de son id et remplit les
+	 * attributs en conséquence
 	 *
 	 * @param $id
 	 * @return mixed
@@ -68,13 +69,14 @@ class Model
 		foreach( $data as $key => $value )
 		{
 			$sql .= $key . ' = :' . $key;
-			if( $count < count($data) )
+			if( $count < (count($data) - 1) )
 			{
 				$sql .= ', ';
 			}
 			$attributes = array_merge($attributes, [
 				$key => $value,
 			]);
+			$count++;
 		}
 
 		return $this->db->execute($sql, $attributes);
@@ -97,7 +99,7 @@ class Model
 		foreach( $data as $key => $value )
 		{
 			$sql .= $key . ' = :' . $key;
-			if( $count < count($data) )
+			if( $count < (count($data) - 1) )
 			{
 				$sql .= ', ';
 			}
@@ -125,11 +127,11 @@ class Model
 	{
 		if( $attributes )
 		{
-			return $this->db->prepare($statement, $attributes, get_called_class(), $one);
+			return $this->db->prepare($statement, $attributes, $one);
 		}
 		else
 		{
-			return $this->db->query($statement, get_called_class(), $one);
+			return $this->db->query($statement, $one);
 		}
 	}
 }

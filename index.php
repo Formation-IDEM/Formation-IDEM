@@ -9,9 +9,6 @@ $app->run();
 
 //	Définition des routes
 $app->route()->get('/', 'Company@index');
-$app->route()->get('/show/:id', 'Home@show');
-$app->route()->get('/test', function()
-{
-	echo 'Je suis un test';
-});
+$app->route()->get('/create', 'Company@create');
+$app->route()->get('/update/:id', 'Company@update');
 $app->route()->run();

@@ -38,21 +38,14 @@ class MySQLDatabase extends Database
 	 * content des résultats
 	 *
 	 * @param      $statement
-	 * @param      $class_name
 	 * @param bool $one
 	 * @return array|mixed
 	 */
-	public function query($statement, $class_name = null, $one = false)
+	public function query($statement, $one = false)
 	{
 		$sql = $this->getPDO()->query($statement);
-		if( $class_name === null )
-		{
-			$sql->setFetchMode(PDO::FETCH_OBJ);
-		}
-		else
-		{
-			$sql->setFetchMode(PDO::FETCH_CLASS, $class_name);
-		}
+		$sql->setFetchMode(PDO::FETCH_OBJ);
+
 		$data = $one ? $sql->fetch() : $sql->fetchAll();
 		return $data;
 	}
@@ -63,24 +56,16 @@ class MySQLDatabase extends Database
 	 *
 	 * @param      $statement
 	 * @param      $attributes
-	 * @param      $class_name
 	 * @param bool $one
 	 * @return array|mixed
 	 */
-	public function prepare($statement, $attributes, $class_name = null, $one = false)
+	public function prepare($statement, $attributes, $one = false)
 	{
 		$query =  $this->getPDO()->prepare($statement);
 		$query->execute($attributes);
-		if( $class_name === null )
-		{
-			$query->setFetchMode(PDO::FETCH_OBJ);
-		}
-		else
-		{
-			$query->setFetchMode(PDO::FETCH_CLASS, $class_name);
-		}
-		$data = $one ? $query->fetch() : $query->fetchAll();
+		$query->setFetchMode(PDO::FETCH_OBJ);
 
+		$data = $one ? $query->fetch() : $query->fetchAll();
 		return $data;
 	}
 
