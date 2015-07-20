@@ -1,9 +1,5 @@
 <?php
-    include_once('Formation.php');
-    include_once('SessionFormation.php');
+
+    include_once('Models/App.php');
     
-    $test = "coucou";
-        
-    $cap_metier = new Formation ($test);
-        
-    echo $cap_metier -> montrerHeureConventionCentre();
+    App::getInstance()-> run();
