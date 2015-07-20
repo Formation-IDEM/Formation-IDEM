@@ -31,30 +31,27 @@ class App
 	 */
 	public function run()
 	{
+		require_once(ROOT . 'Libs/Autoloader.php');
+		Autoloader::register();
+
 		$url = isset($_GET['c']) ? htmlspecialchars($_GET['c']) : 'front';
 		$action = isset($_GET['a']) ? htmlspecialchars($_GET['a']) : 'index';
 
 		//	On récupère le controller
 		$controller = ucfirst($url) . 'Controller';
-		require_once( ROOT . 'Controllers/ErrorController.php');
-		if( file_exists(ROOT . 'Controllers/' . $controller . '.php') )
-		{
-			require_once(ROOT . 'Controllers/' . $controller . '.php');
-		}
 
 		//	On vérifie que la classe existe
 		if( !class_exists($controller) )
 		{
-			$controller = new ErrorController();
+			throw new AppException('Le controller ' . $controller . ' n\'existe pas.');
 		}
-		$controller = new $controller();
+		$getController = new $controller();
 
 		//	On vérifie que la méthode existe
 		if( !method_exists($controller, $action) )
 		{
-			$error = new ErrorController();
-			return $error->show404();
+			throw new AppException('La méthode ' . $action . ' n\'est pas définie dans le controller ' . $controller);
 		}
-		return $controller->$action();
+		return $getController->$action();
 	}
 }
