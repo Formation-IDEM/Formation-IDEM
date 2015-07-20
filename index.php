@@ -9,5 +9,6 @@ $app->run();
 
 //	Définition des routes
 $app->route()->get('/', 'Company@index');
+$app->route()->get('/admin', 'Admin/Dashboard@index');
 $app->route()->crud('/companies', 'Company');
 $app->route()->run();

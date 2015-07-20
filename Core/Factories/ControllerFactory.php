@@ -17,6 +17,7 @@ class ControllerFactory
 	 */
 	public static function createController($controller)
 	{
+		$controller = str_replace('/', '\\', $controller);
 		$control = "App\\Controllers\\" . $controller . "Controller";
 
 		//	On vérifie que le controller existe

@@ -1,5 +1,5 @@
 <?php
-namespace Core\Users;
+namespace Core\Auth;
 /**
  * Auth.php
  */

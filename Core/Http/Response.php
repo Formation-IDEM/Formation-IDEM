@@ -1,9 +1,8 @@
 <?php
+namespace Core\Http;
 /**
  * Response.php
  */
-namespace Core\Http;
-
 
 class Response
 {
@@ -55,8 +54,15 @@ class Response
 		{
 			case '404':
 				$this->setHeader('HTTP/1.0 404 Not Found');
-				$this->redirect(ROOT . $code);
+				return $this->redirect(ROOT . $code);
 			break;
+
+			case '403':
+				$this->setHeader('HTTP/1.O 403 Forbidden');
+				return $this->redirect(ROOT . $code);
+
+			default:
+				return $this->redirect(ROOT . 'index.php');
 		}
 	}
 }

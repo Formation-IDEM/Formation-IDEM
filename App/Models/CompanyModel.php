@@ -4,7 +4,6 @@ namespace App\Models;
  * Company.php
  */
 use \Core\Model;
-use \Core\Database\Database;
 
 class CompanyModel extends Model
 {

@@ -1,9 +1,8 @@
 <?php
 namespace App\Controllers;
 
-use \App\App;
 use \Core\Layout;
-use \Core\Factories\DatabaseFactory;
+use \Core\Factories\ModelFactory;
 class Controller
 {
 	protected $model;
@@ -43,8 +42,7 @@ class Controller
 	 */
 	public function model()
 	{
-		$className = '\\App\\Models\\' . ucfirst($this->model) . 'Model';
-		return new $className(DatabaseFactory::db());
+		return ModelFactory::loadModel($this->model);
 	}
 
 	/**
