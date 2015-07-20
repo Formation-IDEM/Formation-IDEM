@@ -14,7 +14,7 @@ class DataBase{
 	
 	private function __construct($dbname, $dsn, $username, $password) {
 		
-		$this->dbname = 'notrebase';
+		$this->dbname = 'gestform';
 		$this->dsn = 'localhost';
 		$this->username = 'postgres';
 		$this->password = 'postgres';
