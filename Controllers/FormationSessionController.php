@@ -8,19 +8,19 @@
         
         public function indexAction(){
             
-            echo "Formation";
+            echo "Session de formation";
             
         }
         
         public function editAction(){
             
-            echo "Edit formation";
+            echo "Edit session de formation";
             
         }
         
         public function deleteAction(){
  
-            echo "Suppression formation"; 
+            echo "Suppression session de formation"; 
             
         }
         

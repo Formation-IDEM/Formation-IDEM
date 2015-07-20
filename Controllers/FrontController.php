@@ -10,6 +10,6 @@
             
             echo "Accueil";
             
-        }        
+        }
         
     }

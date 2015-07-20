@@ -1,6 +1,6 @@
 <?php
 
-    class FormationController{
+    class MatterController{
         
         public function __construct(){
             
@@ -8,19 +8,19 @@
         
         public function indexAction(){
             
-            echo "Formation";
+            echo "Matière";
             
         }
         
         public function editAction(){
             
-            echo "Edit formation";
+            echo "Edit matière";
             
         }
         
         public function deleteAction(){
  
-            echo "Suppression formation"; 
+            echo "Suppression matière"; 
             
         }
         
