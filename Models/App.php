@@ -37,12 +37,22 @@ class App
 	public function run()
 	{
 		// Récupère l'action
-		$action = $this->setActionName()->_actionName;
+		//$action = $this->setActionName()->_actionName;
+		$action = self::getInstance()->setActionName()->_actionName;
 		
 		// Creation du Controller en fonction de $_GET['c']
-		include_once('./Controllers/ControllerFactory.php');				
-		ControllerFactory::createController()->$action();
-		
+		include_once('./Controllers/ControllerFactory.php');
+		$controller = ControllerFactory::createController();
+		if(method_exists($controller,$action))
+		{
+			$controller->$action();
+		}
+		else
+		{
+			header("HTTP/1.0 404 Not Found");
+			die;
+		}
+	
 		//include_once('./Controllers/Database.php');
 		//Database::getInstance()->connect('pgsql')->insert();
 	}	

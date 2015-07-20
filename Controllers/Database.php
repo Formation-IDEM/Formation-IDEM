@@ -50,9 +50,21 @@ class Database
 		return $exe->fetchAll();
 	}
 	
-	public function insert()
+	public function insert($table, $fields, $values)
 	{
-		$query = 'CREATE TABLE trainer(id SERIAL PRIMARY KEY,further_informations TEXT);';
+		$query = 'INSERT INTO '.$table.' ('.$fields.') VALUES ('.$values.');';
+		return $this->execute($query);
+	}
+	
+	public function update($table, $set, $where)
+	{
+		$query = 'UPDATE '.$table.' SET '.$set.' WHERE '.$where.';';
+		return $this->execute($query);
+	}
+
+	public function delete($table, $where)
+	{
+		$query = 'DELETE FROM '.$table.' WHERE '.$where.';';
 		return $this->execute($query);
 	}
 }
