@@ -1,6 +1,8 @@
 <?php
 
-abstract class Person{
+include_once('Model.php');	
+
+abstract class Person extends Model{
 	private $_name;
 	private $_firstName;
 	private $_phone;

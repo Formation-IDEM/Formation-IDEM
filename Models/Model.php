@@ -7,15 +7,13 @@ abstract class Model{
 		
 	}
 	
-	public function load($object){ // charge un objet depuis la bdd
-	
-		$query = 'SELECT * FROM ';
-		foreach($results as $result){
-			
-		}
+	public function load($id){ // charge un objet depuis la bdd
+		var_dump($id);
+		$query = 'SELECT * FROM ' .$this->_table. 'WHERE id='.$id;
+		return $query;
 	}
 	
-	public function store(){// associe un retour de form (post) sur un objet
+	public function store($table){// associe un retour de form (post) sur un objet
 		
 	
 	} 

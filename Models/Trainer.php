@@ -9,12 +9,23 @@ class Trainer extends Person
 	{
 		parent::__construct();
 		$this->_furtherInformations = 'Vide';
+		$this->_table = "trainers";
+		$this->_fields = array 	(	
+									'_furtherInformations'	=> 'further_informations',
+									'_study_level_id'		=> 'study_level_id' 
+								);
 	}
 	
 	// Attributs
 	private $_furtherInformations;
 
 	private $_study_level_id;
+	
+	private $_fields;
+	
+	private $_table;
+	
+	private $_id;
 	
 	// Getters & Setters
 	public function getFurtherInformations()
