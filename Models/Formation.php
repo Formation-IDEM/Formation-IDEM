@@ -1,20 +1,37 @@
 <?php
 
-    class Formation{
+include_once('Model.php');
 
-        private $_id;
-        private $_average_effective;
-        private $_convention_hour_in_center;
-        private $_convention_hour_in_company;
-        private $_title;
-        private $_deal_code;
-        private $_order_giver;
-        private $_deal_begin_date;
-        private $_deal_ending_date;
+    class Formation extends Model{
+
+       
+		
+		protected $_table = "formations";
+		protected $_fields = array(
+									'id' 							=> 0,
+									'average_effective' 			=> 0,
+									'convention_hour_in_center' 	=> 0,
+									'convention_hour_in_company' 	=> 0,
+									'title' 						=> '',
+									'deal_code' 					=> '',
+									'order_giver' 					=> '',
+									'deal_begin_date' 				=> '',
+									'deal_ending_date' 				=> ''
+		
+		);
         
         public function __construct(){
             
         }
+		
+		public function getTable(){
+			
+			return $this -> _table;
+		}
+		
+		
+		
+		
         
         //----------------------------------------------------------------------------------------------
         //Lecture et mise à jour de l'id----------------------------------------------------------------
