@@ -1,8 +1,8 @@
-/* Création de la table formateur */
+﻿/* Création de la table formateur */
 CREATE TABLE trainers
 (
 	id SERIAL PRIMARY KEY,
-	further_informations TEXT,
+	further_informations TEXT
 );
 
 /* Création de la table trainer_extern liée a un formateur */
