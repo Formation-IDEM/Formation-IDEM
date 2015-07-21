@@ -1,12 +1,12 @@
-﻿/* Création de la table formateur */
-CREATE TABLE trainer
+/* Création de la table formateur */
+CREATE TABLE trainers
 (
 	id SERIAL PRIMARY KEY,
 	further_informations TEXT,
 );
 
-/* Création de la table externe liée a un formateur */
-CREATE TABLE trainer_extern
+/* Création de la table trainer_extern liée a un formateur */
+CREATE TABLE trainers_externs
 (
 	id SERIAL PRIMARY KEY,
 	hourly_rate FLOAT NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE trainer_extern
 );
 
 /* Création de la table d'association entre formateur et matière */
-CREATE TABLE level
+CREATE TABLE levels
 (
 	id SERIAL PRIMARY KEY,
 	note INT NOT NULL DEFAULT(0),
@@ -24,7 +24,7 @@ CREATE TABLE level
 );
 
 /* Création de la table d'association entre formateur et session_formation */
-CREATE TABLE timesheet
+CREATE TABLE timesheets
 (
 	id SERIAL PRIMARY KEY,
 	month INT NOT NULL,
@@ -34,10 +34,3 @@ CREATE TABLE timesheet
 	formation_session INT
 	
 );
-
-/* Mise en place des clées étrangères */
-/* ATTENTION : La table matiere, formation, session_formation doivent êtres créées d'abord ! */
-ALTER TABLE trainer_extern ADD CONSTRAINT fk_trainer_extern FOREIGN KEY (trainer_id) REFERENCES trainer(id);
-ALTER TABLE level ADD CONSTRAINT fk_matter_level FOREIGN KEY (matter_id) REFERENCES matter(id);
-ALTER TABLE level ADD CONSTRAINT fk_trainer_level FOREIGN KEY (trainer_id) REFERENCES trainer(id);
-ALTER TABLE timesheet ADD CONSTRAINT fk_formation_session_timesheet FOREIGN KEY (formation_session_id) REFERENCES formation_session(id);
