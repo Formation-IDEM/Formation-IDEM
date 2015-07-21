@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Ceci est le dépôt commun du groupe de formation IDEM
 
 Ho Yeaaah !
@@ -19,3 +20,6 @@ Structure de l'application :
 		images/
 			
 		js/
+=======
+Readme par défaut
+>>>>>>> master
