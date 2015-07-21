@@ -12,6 +12,8 @@ class TrainerExtern extends Trainer{
 		
 	}
 	
+// ############################ HOURLY RATE ###############################	
+	
 	public function getHourlyRate(){
 		
 		return $this->_hourlyRate;
