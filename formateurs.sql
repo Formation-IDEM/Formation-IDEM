@@ -1,12 +1,12 @@
 ﻿/* Création de la table formateur */
-CREATE TABLE trainer
+CREATE TABLE trainers
 (
 	id SERIAL PRIMARY KEY,
 	further_informations TEXT,
 );
 
-/* Création de la table externe liée a un formateur */
-CREATE TABLE trainer_extern
+/* Création de la table trainer_extern liée a un formateur */
+CREATE TABLE trainers_externs
 (
 	id SERIAL PRIMARY KEY,
 	hourly_rate FLOAT NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE trainer_extern
 );
 
 /* Création de la table d'association entre formateur et matière */
-CREATE TABLE level
+CREATE TABLE levels
 (
 	id SERIAL PRIMARY KEY,
 	note INT NOT NULL DEFAULT(0),
@@ -24,7 +24,7 @@ CREATE TABLE level
 );
 
 /* Création de la table d'association entre formateur et session_formation */
-CREATE TABLE timesheet
+CREATE TABLE timesheets
 (
 	id SERIAL PRIMARY KEY,
 	month INT NOT NULL,

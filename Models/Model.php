@@ -2,7 +2,12 @@
 
 abstract class Model
 {
-	function load() // charge un objet depuis la bdd
+	public function __construct(){}
+	
+	public function load($object) // charge un objet depuis la bdd
+	{
+		$query = 
+	}
 	
 	function store() // associe un retour de form (post) sur un objet
 	
