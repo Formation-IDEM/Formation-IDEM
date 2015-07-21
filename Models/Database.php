@@ -5,7 +5,7 @@
         
         private $_connexion;
         private $_dsn = "localhost";
-        private $_db = "GestForm";
+        private $_db = "gestForm";
         private $_user = "postgre";
         private $_password = "postgre";
 

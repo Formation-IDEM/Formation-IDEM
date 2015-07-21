@@ -1,5 +1,5 @@
 <?php
-    class Formation{        
+    class Formation extends Model{        
         
         private $_id;
         private $_intitule;
