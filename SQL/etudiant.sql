@@ -23,7 +23,7 @@ CREATE TABLE trainees (
 	status_trainee_id INTEGER NOT NULL,
 	FOREIGN KEY (status_trainee_id) REFERENCES trainee_status(id),
 	study_levels_id INTEGER NOT NULL,
-	FOREIGN KEY (study_level_id) REFERENCES study_levels(id),
+	FOREIGN KEY (study_levels_id) REFERENCES study_levels(id),
 	family_status_id INTEGER NOT NULL,
 	FOREIGN KEY (family_status_id) REFERENCES family_status(id),
 	nationality_id INTEGER NOT NULL,
