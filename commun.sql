@@ -1,6 +1,6 @@
-﻿CREATE TABLE matiere(
+﻿CREATE TABLE matter(
 	id SERIAL PRIMARY KEY,
-	intitule VARCHAR
+	title VARCHAR
 );
 
 ALTER TABLE formateur ADD COLUMN id SERIAL PRIMARY KEY;
