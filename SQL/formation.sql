@@ -1,26 +1,26 @@
-﻿CREATE TABLE formation	(
+﻿CREATE TABLE formations	(
 	id SERIAL PRIMARY KEY, 
-	intitule VARCHAR,
-	effectif_moyen INT,
-	heure_convention_centre TIME,
-	heure_convention_entreprise TIME,
-	code_marche VARCHAR,
-	donneur_ordre VARCHAR,
-	date_debut_marche DATE,
-	date_fin_marche DATE
+	title VARCHAR NOT NULL,
+	average_effective INT, -- nombre d'élève par formation
+	convention_hour_center TIME NOT NULL, -- nombre d'heures conventionnées en centre
+	convention_hour_compagny TIME NOT NULL, --nombre d'heures conventionnées en entreprise 
+	deal_code VARCHAR NOT NULL, -- code de marché 
+	order_giver VARCHAR, -- donneur d'ordre
+	deal_begin_date DATE NOT NULL, -- date début du marché
+	deal_ending_date DATE NOT NULL -- date fin de marché
 );
 
-CREATE TABLE session_formation 	(
-	formation_id INT PRIMARY KEY,
-	date_debut DATE,
-	date_fin DATE,
-	FOREIGN KEY (formation_id) REFERENCES formation(id)
+CREATE TABLE formation_sessions 	(
+	formations_id INT PRIMARY KEY,
+	begin_date DATE NOT NULL, -- date début d'une session de formation
+	ending_date DATE NOT NULL, -- date fin de sesion de formation
+	FOREIGN KEY (formations_id) REFERENCES formations(id)
 );
 
-CREATE TABLE ref_pedago(
-	formation_id INT,
-	matiere_id INT,
-	PRIMARY KEY (formation_id, matiere_id),
-	FOREIGN KEY (formation_id) REFERENCES formation(id),
-	FOREIGN KEY (matiere_id) REFERENCES matiere(id)
+CREATE TABLE ref_pedagos(
+	formations_id INT,
+	matters_id INT,  -- code matiere
+	PRIMARY KEY (formations_id, matters_id),
+	FOREIGN KEY (formations_id) REFERENCES formations(id),
+	FOREIGN KEY (matters_id) REFERENCES matters(id)
 );
