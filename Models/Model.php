@@ -1,24 +1,31 @@
 
 <?php
 
-abstract class Model
-{
-	public function __construct(){}
+abstract class Model{
 	
-	public function load($object) // charge un objet depuis la bdd
-	{
+	public function __construct(){
+		
+	}
+	
+	public function load($object){ // charge un objet depuis la bdd
+	
 		$query = 'SELECT * FROM ';
-		foreach($results as $result)
-		{
+		foreach($results as $result){
 			
 		}
 	}
 	
-	function store() // associe un retour de form (post) sur un objet
+	public function store(){// associe un retour de form (post) sur un objet
+		
 	
-	function save() // enregistre l'objet en bdd
+	} 
+	public function save(){// enregistre l'objet en bdd
+		
+	} 
 	
-	function delete() // supprime un objet en bdd
+	public function delete(){// supprime un objet en bdd
+		
+	} 
 	
 }
 
