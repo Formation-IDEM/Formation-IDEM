@@ -18,8 +18,8 @@ Structure de l'application :
 		js/
 
 #Le noms des tables, en Anglais, au pluriel
-#exemple : formation_sessions
+exemple : formation_sessions
 
 #Les foreign key doivent être construites avec le nom de la table, puis l'ID
-#pour une plus grande lisibilité via le REFERENCES
-#exemple : FOREIGN KEY (formation_id) REFERENCES formation(id)
+pour une plus grande lisibilité via le REFERENCES
+exemple : FOREIGN KEY (formations_id) REFERENCES formations(id)
