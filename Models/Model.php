@@ -6,7 +6,11 @@ abstract class Model
 	
 	public function load($object) // charge un objet depuis la bdd
 	{
-		$query = 
+		$query = 'SELECT * FROM ';
+		foreach($results as $result)
+		{
+			
+		}
 	}
 	
 	function store() // associe un retour de form (post) sur un objet
