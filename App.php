@@ -3,7 +3,10 @@
 	// URL -> index.php -> App -> Controller A -> Traitement
 	// L'instance App est toujours unique -> donc on passe par le singleton (On ne veut qu'une et une seule instance)
 	// Donc le construteur est en privé
-    class App {
+	
+	include_once ('Models/Model.php');
+
+    class App extends Model {
     	
     	private static $_instance;
 		
@@ -36,7 +39,7 @@
 // on execute l'action sur le controleur  
 			if (!method_exists($mc, $actionName)) {
 				
-				$actionName = "indexAction";
+				$actionName = "register";
 			}
 			
 			$mc -> $actionName();
@@ -48,10 +51,21 @@
 			if (isset($_GET['a'])) {
 				$a = $_GET['a'];
 			}else {
-				$a = "indexAction"; // Initialisation par defaut
+				$a = "register"; // Initialisation par defaut
 			}		
 			
 			return $a;
+		
+		}
+		
+		public static function getModel($type) {
+			
+			//if (file_exists(dirname(__FILE__) . "/" . $type . ".php")){
+				include_once ("Models/".$type.".php");
+			//}
+			
+			var_dump ($type);	
+			return new $type(); 
 		
 		}
 			

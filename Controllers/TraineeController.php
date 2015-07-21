@@ -17,5 +17,11 @@
 			echo "Delete trainee";
 		}
 		
+		public function register() {
+			$mf = App::getModel("Trainee");
+			$mf -> load(1); 
+			echo $mf -> getName();
+		}
+		
     }
 ?>

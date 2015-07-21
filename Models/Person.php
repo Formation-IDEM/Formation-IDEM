@@ -1,6 +1,6 @@
 <?php
 
-abstract class Person{
+abstract class Person {
 	private $_name;
 	private $_firstName;
 	private $_phone;

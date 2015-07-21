@@ -10,12 +10,12 @@
 			if (isset($_GET['c'])) {
 				$c = $_GET['c']."Controller";
 			}else {
-				$c = "FrontController"; // Initialisation par defaut
+				$c = "TraineeController"; // Initialisation par defaut
 			}
 			
 			
 			if (!file_exists(dirname(__FILE__) . "/" . $c . ".php")){
-				$c = "FrontController";
+				$c = "TraineeController";
 			}
 			
 			include_once (dirname(__FILE__) . "/" . $c . ".php");

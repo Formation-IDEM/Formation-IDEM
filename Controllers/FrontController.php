@@ -6,7 +6,9 @@
     	}
 		
 		public static function indexAction() {
-			echo "accueil";
+			$myTrainee = App::getModel("Trainee");
+			$myTrainee -> load(4);
+			var_dump ($myTrainee);
 		}
 		
 	}
