@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php 
 
 
@@ -38,6 +39,25 @@ class ControllerFactory{
 	
 
 		
+=======
+<?php
+
+class ControllerFactory
+{
+	public static function createController()
+	{
+		$controller = 'FrontController';
+		if(isset($_GET['c']))
+		{
+			if(file_exists('./Controllers/'.$_GET['c'].'Controller.php'))
+			{
+				$controller = $_GET['c'].'Controller';
+			}
+		}
+		include_once('./Controllers/'.$controller.'.php');
+		return new $controller();			
+	}
+>>>>>>> 459d5f36845054875cd6af5310157fd8db4d92e7
 }
 
 ?>
