@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Matter" version="3">
+  <DEPS>
+    <ID name="Matter" mc="Class" uid="3e861f2c-76b6-45ef-b7ca-3ae1ade9335e"/>
+    <EXTID name="Formateur" mc="Class" uid="14a2db50-2592-41ce-87f3-81687b3a41a0"/>
+    <EXTID name="Formation" mc="Class" uid="4cdf5010-b06c-401a-888b-93ffde6ad193"/>
+    <EXTID name="RefPedago" mc="Class" uid="3c9dacd3-6add-4540-ab2f-6a32583105a7"/>
+    <FOREIGNID name="string" mc="DataType" uid="00000004-0000-000d-0000-000000000000"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Matter" mc="Class" uid="3e861f2c-76b6-45ef-b7ca-3ae1ade9335e"/>
+    <PID name="formation" mc="Package" uid="2f2b74f1-f313-49da-9605-fd95fed78d05"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Matter]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedAttribute">
+        <OBJECT>
+          <ID name="id" mc="Attribute" uid="48750d86-835c-46e4-8f8e-ec260388f805"/>
+          <PID name="Matter" mc="Class" uid="3e861f2c-76b6-45ef-b7ca-3ae1ade9335e"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">ReadWrite</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[id]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <FOREIGNID name="string" mc="DataType" uid="00000004-0000-000d-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="title" mc="Attribute" uid="62ee56ec-19d0-4d4f-9c19-a21f8c9a8592"/>
+          <PID name="Matter" mc="Class" uid="3e861f2c-76b6-45ef-b7ca-3ae1ade9335e"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">ReadWrite</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[title]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <FOREIGNID name="string" mc="DataType" uid="00000004-0000-000d-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedEnd">
+        <REFOBJ>
+          <ID name="formateur" mc="AssociationEnd" uid="bc8dfacc-2a0c-4f62-b83f-2d541dc2e114"/>
+          <PID name="Formateur" mc="Class" uid="14a2db50-2592-41ce-87f3-81687b3a41a0"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="formation" mc="AssociationEnd" uid="42b69a6d-a702-49b3-b83d-496ce37319f6"/>
+          <PID name="Formation" mc="Class" uid="4cdf5010-b06c-401a-888b-93ffde6ad193"/>
+        </REFOBJ>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
