@@ -14,11 +14,11 @@ abstract class Model
 			$results = Database::getInstance()->getResults($query);
 			if($results != null)
 			{
-				foreach($results[0] as $columnName => $value)
+				foreach($results[0] as $field => $value)
 				{
-					if(array_key_exists($columnName, $this->_fields))
+					if(array_key_exists($field, $this->_fields))
 					{
-						$this->_fields[$columnName] = $value;
+						$this->_fields[$field] = $value;
 					}
 				}				
 			}
@@ -26,18 +26,18 @@ abstract class Model
 		return $this;
 	}
 	
-	function store($array) // associe un retour de form (post) sur un objet
+	public function store($array) // associe un retour de form (post) sur un objet
 	{
-		foreach($array as $key => $value)
+		foreach($array as $field => $value)
 		{
-			if(array_key_exists($key, $this->_fields))
+			if(array_key_exists($field, $this->_fields))
 			{
-				$this->_fields[$key] = $value;
+				$this->_fields[$field] = $value;
 			}
 		}
 	}
 	
-	function save() // enregistre l'objet en bdd
+	public function save() // enregistre l'objet en bdd
 	{
 		if($this->_fields['id'] != null) // -> UPDATE (déjà stocké)
 		{
@@ -99,7 +99,7 @@ abstract class Model
 		return $this;
 	}
 	
-	function delete() // supprime un objet en bdd
+	public function delete() // supprime un objet en bdd
 	{
 		$query = 'DELETE FROM '.$this->_table.' WHERE id = '.$this->_fields['id'];
 		
@@ -110,11 +110,11 @@ abstract class Model
 	
 	
 	// Getter pour tous les objets
-	public function getData($key)
+	public function getData($field)
 	{
-		if(key_array_exists($this->_fields,$key))
+		if(key_array_exists($this->_fields,$field))
 		{
-			return $this->_fields[$key];			
+			return $this->_fields[$field];			
 		}
 		else
 		{
@@ -123,11 +123,11 @@ abstract class Model
 	}
 	
 	// Setter pour tous les objets
-	public function setData($key, $data)
+	public function setData($field, $data)
 	{
-		if(key_array_exists($this->_fields,$key))
+		if(key_array_exists($this->_fields,$field))
 		{
-			$this->_fields[$key] = $data;
+			$this->_fields[$field] = $data;
 		}
 		return $this;
 	}
