@@ -58,4 +58,4 @@ CREATE TABLE company_internship(
 
 ALTER TABLE internships ADD FOREIGN KEY (company_id) REFERENCES companies(id);
 ALTER TABLE internships ADD FOREIGN KEY (formation_id) REFERENCES formations(id);
-ALTER TABLE internships ADD FOREIGN KEY (trainee_id) REFERENCES (trainee_id);
+ALTER TABLE company_internship ADD FOREIGN KEY (trainee_id) REFERENCES trainees(id);
