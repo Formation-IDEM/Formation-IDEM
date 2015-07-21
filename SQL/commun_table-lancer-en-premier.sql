@@ -34,10 +34,3 @@ CREATE TABLE renumeration_types
 	title VARCHAR
 );
 
-CREATE TABLE formation_sessions
-(
-	id SERIAL PRIMARY KEY,
-	formations_id INT PRIMARY KEY,
-	begin_date DATE NOT NULL, -- date début d'une session de formation
-	ending_date DATE NOT NULL, -- date fin de sesion de formation
-);
