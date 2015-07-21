@@ -1,4 +1,4 @@
-CREATE TABLE trainees (
+﻿CREATE TABLE trainees (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR NOT NULL,
 	firstname VARCHAR NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE trainees (
 CREATE TABLE sessions_trainee (
 	id SERIAL PRIMARY KEY,
 	session_id INTEGER NOT NULL,
-	FOREIGN KEY (session_id) REFERENCES session(formations_id),
+	FOREIGN KEY (session_id) REFERENCES formation_sessions(id),
 	trainee_id INTEGER NOT NULL,
 	FOREIGN KEY (trainee_id) REFERENCES trainees(id),
 	nb_hour_present_school INTEGER NOT NULL,

@@ -31,6 +31,6 @@ CREATE TABLE timesheets
 	year INT NOT NULL,
 	total_hours INT NOT NULL DEFAULT(0),
 	trainer_id INT,
-	formation_session INT
+	formation_session_id INT
 	
 );
