@@ -2,32 +2,20 @@
 	
 include_once('Trainer.php');
 
-class TrainerExtern extends Trainer{
+class TrainerExtern extends Trainer
+{
+	protected $_table;
 	
-	private $_hourlyRate;
-	
-	public function __construct(){
+	protected $_fields;
 		
+	public function __construct()
+	{
 		parent:: __construct();
 		
-	}
-	
-// ############################ HOURLY RATE ###############################	
-	
-	public function getHourlyRate(){
-		
-		return $this->_hourlyRate;
-		
-	}
-	
-	public function setHourlyRate($hourlyRate){
-		
-		$this->_hourlyRate = $hourlyRate;
-		return $this;
-		
+		$this->_table = 'trainers_externs';
+		$this->_fields['hourly_rate'] = 1;
 	}
 	
 }
 
-
- ?>
+?>

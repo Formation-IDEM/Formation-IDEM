@@ -1,6 +1,9 @@
 <?php 
 
-class Level{
+include_once('Models/Model.php');
+
+class Level extends Model
+{
 	
 	private $_note;
 	private $_appreciation;

@@ -1,6 +1,9 @@
 <?php
 
-class FamilyStatus {
+include_once('Models/Model.php');
+
+class FamilyStatus extends Model
+{
 	
 	private $_id;
 	private $_wording;	

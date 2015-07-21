@@ -24,6 +24,19 @@ class App
 		return self::$_instance;
 	}
 	
+	public static function getModel($type)
+	{
+		if(file_exists('./Models/'.$type.'.php'))
+		{
+			include_once('Models/'.$type.'.php');			
+			return new $type();
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
 	public function setActionName()
 	{
 		if(isset($_GET['a']) && $_GET['a'] != null)

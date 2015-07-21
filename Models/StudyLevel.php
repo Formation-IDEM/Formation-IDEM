@@ -1,6 +1,9 @@
 <?php
 
-class StudyLevel {
+include_once('Models/Model.php');
+
+class StudyLevel extends Model
+{
 	
 	private $_id;
 	private $_wording;	

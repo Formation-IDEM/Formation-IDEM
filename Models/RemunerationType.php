@@ -1,6 +1,9 @@
 <?php
 
-class RemunerationType {
+include_once('Models/Model.php');
+
+class RemunerationType extends Model
+{
 	
 	private $_id;
 	private $_wording;	

@@ -1,6 +1,9 @@
 <?php
 
-class Nationality {
+include_once('Models/Model.php');
+
+class Nationality extends Model
+{
 	
 	private $_id;
 	private $_wording;	

@@ -2,7 +2,28 @@
 CREATE TABLE trainers
 (
 	id SERIAL PRIMARY KEY,
-	further_informations TEXT
+	further_informations TEXT,
+	study_levels_id INT,
+	name VARCHAR NOT NULL,
+	firstname VARCHAR NOT NULL,
+	birthday DATE NOT NULL,
+	birthdayplace VARCHAR NOT NULL,
+	gender VARCHAR NOT NULL,
+	address_off_street VARCHAR NOT NULL,
+	address_off_complement VARCHAR NOT NULL,
+	address_off_codpost VARCHAR NOT NULL,
+	address_off_city VARCHAR NOT NULL,
+	address_form_street VARCHAR NOT NULL,
+	address_form_complement VARCHAR NOT NULL,
+	address_form_codpost VARCHAR NOT NULL,
+	address_form_city VARCHAR NOT NULL,
+	phone VARCHAR NOT NULL,
+	mail VARCHAR NOT NULL,
+	cellphone VARCHAR NOT NULL,
+	social_security_number INTEGER NOT NULL,
+	photo VARCHAR NOT NULL,
+	family_status_id INTEGER,
+	nationality_id INTEGER
 );
 
 /* Création de la table trainer_extern liée a un formateur */

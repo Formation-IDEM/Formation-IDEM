@@ -1,6 +1,9 @@
 <?php
 
-class FeuillePresence{
+include_once('Models/Model.php');
+
+class FeuillePresence extends Model
+{
 	
 	private $_month;
 	
