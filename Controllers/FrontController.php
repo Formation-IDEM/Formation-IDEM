@@ -13,11 +13,8 @@ class FrontController{
 	public function indexAction(){
 		
 		$monFormateur = App::getModel('Trainer');
-		$monFormateur->load(4);
-		var_dump($monFormateur);
-		
-		
-		echo "index";
+		$monFormateur->load(1);
+		$monFormateur->delete();
 		
 	}
 	

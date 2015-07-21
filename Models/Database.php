@@ -23,7 +23,10 @@ class Database
 		
 		$this->_password = 'postgres';
 		
-		$this->_dbname = 'idem';
+		$this->_dbname = 'guestForm';
+		
+		$this->_dbh = new PDO('pgsql:dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
+		
 	}
 	
 	// Fonction pour récupérer une seule et unique instance de App
@@ -35,12 +38,7 @@ class Database
 		}
 		return self::$_instance;
 	}
-	
-	public function connect($dbtype = 'pgsql')
-	{
-		$this->_dbh = new PDO($dbtype.':dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
-		return $this;
-	}
+
 	
 	private function execute($query)
 	{
@@ -67,6 +65,26 @@ class Database
 		$query = 'DELETE FROM '.$table.' WHERE '.$where.';';
 		return $this->execute($query);
 	}
+	
+	public function getResultats($requete){
+		
+		$resultat = $this->_dbh->query($requete);
+		
+		if($resultat){
+			
+			$donnees = $resultat->fetchAll();
+			
+			return $donnees;
+			
+		} else {
+			
+			echo 'requete pourri';
+			
+		}
+		
+		
+	}
+	
 }
 
 ?>

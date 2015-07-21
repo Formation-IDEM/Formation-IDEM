@@ -11,6 +11,7 @@ class DataBase{
 	private $dsn = 'localhost';
 	private $username = 'postgres';
 	private $password = 'postgres';
+	private $connexion_base;
 	
 	private function __construct() {
 		
@@ -18,8 +19,9 @@ class DataBase{
 		$this->dsn;
 		$this->username;
 		$this->password;
+
 		
-		return $bdd = new PDO( 'pgsql:dbname='.$this->dbname.';host='.$this->dsn,  $this->username , $this->password );
+		return $this->connexion_base = new PDO( 'pgsql:dbname='.$this->dbname.';host='.$this->dsn,  $this->username , $this->password );
 	}
 	
 	
@@ -33,7 +35,7 @@ class DataBase{
 			
 		}
 		
-		return $bdd;
+		return $this->connexion_base;
 		
 	}
 	
