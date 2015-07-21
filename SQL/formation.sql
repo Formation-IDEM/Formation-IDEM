@@ -11,16 +11,18 @@
 );
 
 CREATE TABLE formation_sessions 	(
-	formations_id INT PRIMARY KEY,
+	id SERIAL PRIMARY KEY, 
+	formations_id INT,
 	begin_date DATE NOT NULL, -- date début d'une session de formation
 	ending_date DATE NOT NULL, -- date fin de sesion de formation
 	FOREIGN KEY (formations_id) REFERENCES formations(id)
 );
 
 CREATE TABLE ref_pedagos(
+	id SERIAL, 
 	formations_id INT,
 	matters_id INT,  -- code matiere
-	PRIMARY KEY (formations_id, matters_id),
+	PRIMARY KEY (id, formations_id, matters_id),
 	FOREIGN KEY (formations_id) REFERENCES formations(id),
 	FOREIGN KEY (matters_id) REFERENCES matters(id)
 );
