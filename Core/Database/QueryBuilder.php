@@ -1,6 +1,7 @@
 <?php
 namespace Core\Database;
 
+use \Core\Database\Database;
 /**
  * Class QueryBuilder
  *
@@ -8,9 +9,16 @@ namespace Core\Database;
  */
 class QueryBuilder
 {
+	private $db;
+
 	private $fields = [];
 	private $conditions = [];
 	private $from = [];
+
+	public function __construct(Database $db)
+	{
+		$this->db = $db;
+	}
 
 	/**
 	 * Méthode de sélection des champs
@@ -54,10 +62,24 @@ class QueryBuilder
 	 *
 	 * @return string
 	 */
-	public function get()
+	public function get($id = null)
 	{
-		return 'SELECT ' . implode(', ', $this->fields)
+		if( is_null($id) )
+		{
+			$sql = 'SELECT ' . implode(', ', $this->fields)
 			. ' FROM ' . implode(', ', $this->from)
 			. ' WHERE ' . implode(' AND ', $this->conditions);
+
+			return $this->db->prepare($sql, $this->conditions);
+		}
+		else
+		{
+			$sql = 'SELECT ' . implode(', ', $this->fields)
+			. ' FROM ' . implode(', ', $this->from)
+			. ' WHERE id = ?';
+
+			return $this->db->prepare($sql, [$id], true);
+		}
+
 	}
 }

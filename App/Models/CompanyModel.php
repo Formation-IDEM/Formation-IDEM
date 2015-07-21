@@ -11,28 +11,28 @@ use \Core\Model;
 class CompanyModel extends Model
 {
 	protected $db;
-	protected $table = 'companies';
+	protected $_table = 'companies';
 
-	protected $fields = [
+	protected $_fields = [
 		'id'					=>	0,
 		'name'				=>	'',
 		'status'				=>	'',
 		'company_name'		=>	'',
-		'adress'				=>	'',
+		'address'			=>	'',
 		'postal_code'		=>	'',
 		'city'				=>	'',
 		'country'			=>	'',
 		'phone'				=>	'',
 		'mobile'				=>	'',
 		'fax'					=>	'',
-		'manager_id'		=>	0,
+		'manager'			=>	'',
 		'create_date'		=>	'',
 		'update_date'		=>	'',
 		'create_uid'		=>	0,
 		'update_uid'		=>	0,
-		'date_visit'		=>	'',
+		'visit_date'		=>	'',
 		'active'				=>	false,
 	];
 
-	public $rules = [];
+	private $_rules = [];
 }

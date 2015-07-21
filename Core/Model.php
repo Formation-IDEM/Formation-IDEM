@@ -11,8 +11,8 @@ use \Core\Database\Database;
 class Model
 {
 	protected $db;
-	protected $table;
-	protected $fields = [];
+	protected $_table;
+	protected $_fields = [];
 
 	/**
 	 * Constructeur
@@ -24,11 +24,11 @@ class Model
 	public function __construct(Database $db)
 	{
 		$this->db = $db;
-		if( is_null($this->table) )
+		if( is_null($this->_table) )
 		{
 			$model = explode('\\', get_class($this));
 			$className = end($model);
-			$this->table = strtolower(str_replace('Model', '', $className)) . 's';
+			$this->_table = strtolower(str_replace('Model', '', $className)) . 's';
 		}
 	}
 
@@ -41,29 +41,21 @@ class Model
 	 */
 	public function load($id)
 	{
-		$data =  $this->query('SELECT * FROM ' . $this->table . ' WHERE id = ?', [$id], true);
+		$data = $this->query('SELECT * FROM ' . $this->_table . ' WHERE id = ?', [$id], true);
 		if( !$data )
 		{
 			return false;
 		}
-		foreach($this->fields as $key => $value)
+		foreach($this->_fields as $key => $value)
 		{
-			$this->fields[$key] = $data->$key;
+			$this->_fields[$key] = $data->$key;
 		}
-		return $this->fields;
+		return $this->_fields;
 	}
 
 	public function all()
 	{
-		$data = $this->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC');
-
-		unset($this->fields);
-		foreach( $data as $key => $value )
-		{
-			$this->fields[$key] = $value;
-		}
-
-		return $this->fields;
+		return $this->query('SELECT * FROM ' . $this->_table . ' ORDER BY id DESC');
 	}
 
 	/**
@@ -73,9 +65,9 @@ class Model
 	 */
 	public function store($data)
 	{
-		foreach( $this->fields as $field )
+		foreach( $this->_fields as $field )
 		{
-			$this->fields[$field] = $data[$field];
+			$this->_fields[$field] = $data[$field];
 		}
 	}
 
@@ -86,12 +78,12 @@ class Model
 	 */
 	public function save()
 	{
-		if( is_null($this->fields['id']) || empty($this->fields['id']) )
+		if( is_null($this->_fields['id']) || empty($this->_fields['id']) || $this->_fields['id'] == 0 )
 		{
-			return $this->insert($this->fields);
+			return $this->insert($this->_fields);
 		}
 
-		return $this->update($this->fields, $this->fields['id']);
+		return $this->update($this->_fields, $this->_fields['id']);
 	}
 
 	/**
@@ -102,7 +94,7 @@ class Model
 	 */
 	public function insert($data)
 	{
-		$sql = 'INSERT INTO ' . $this->table . ' SET ';
+		$sql = 'INSERT INTO ' . $this->_table . ' SET ';
 
 		$count = 0;
 		$attributes = [];
@@ -132,7 +124,7 @@ class Model
 	 */
 	public function update($data, $id)
 	{
-		$sql = 'UPDATE ' . $this->table . ' SET ';
+		$sql = 'UPDATE ' . $this->_table . ' SET ';
 
 		$count = 0;
 		$attributes = [];
@@ -159,12 +151,11 @@ class Model
 	/**
 	 * Suppression d'une ligne de la base de donnée
 	 *
-	 * @param $id
 	 * @return mixed
 	 */
-	public function delete($id)
+	public function delete()
 	{
-		return $this->db->execute('DELETE FROM ' . $this->table . ' WHERE id = ?', [$id]);
+		return $this->db->execute('DELETE FROM ' . $this->_table . ' WHERE id = ?', [$this->fields['id']]);
 	}
 
 	/**
@@ -185,5 +176,15 @@ class Model
 		{
 			return $this->db->query($statement, $one);
 		}
+	}
+
+	public function getFields()
+	{
+		return $this->_fields;
+	}
+
+	public function getTable()
+	{
+		return $this->_table;
 	}
 }

@@ -1,20 +1,11 @@
 <?php
-namespace Core;
+namespace Core\Tables;
 
-/**
- * Class Collection
- *
- * @package Core
- */
-class Collection implements IteratorAggregate, ArrayAccess
+
+class TableCollection implements \IteratorAggregate, \ArrayAccess
 {
-	private $items;
+	public $items = [];
 
-	/**
-	 * Constructeur
-	 *
-	 * @param array $items
-	 */
 	public function __construct(array $items)
 	{
 		$this->items = $items;
@@ -28,8 +19,11 @@ class Collection implements IteratorAggregate, ArrayAccess
 	 */
 	public function get($key)
 	{
-		$index = explode('.', $key);
-		return $this->getValue($index, $this->items);
+		if( $this->has($key) )
+		{
+			return $this->items[$key];
+		}
+		return null;
 	}
 
 	/**
@@ -55,20 +49,18 @@ class Collection implements IteratorAggregate, ArrayAccess
 	}
 
 	/**
-	 * Génère une liste des items
-	 *
 	 * @param $key
 	 * @param $value
-	 * @return mixed
+	 * @return \Core\Tables\TableCollection
 	 */
 	public function listing($key, $value)
 	{
 		$results = [];
-		foreach($this->items as $item)
+		foreach( $this->items as $item )
 		{
 			$results[$item[$key]] = $item[$value];
 		}
-		return Collection($results);
+		return new TableCollection($results);
 	}
 
 	/**
@@ -173,31 +165,4 @@ class Collection implements IteratorAggregate, ArrayAccess
 	{
 		return new \ArrayIterator($this->items);
 	}
-
-	/**
-	 * Retourne la valeur d'un tableau de façon récurssive
-	 *
-	 * @param array $indexes
-	 * @param       $value
-	 * @return \Core\Collection|null
-	 */
-	private function getValue(array $indexes, $value)
-	{
-		$key = array_shift($indexes);
-		if( empty($indexes) )
-		{
-			if( !array_key_exists($key, $value) )
-			{
-				return null;
-			}
-
-			if( is_array($value[$key]) )
-			{
-				return new Collection($value[$key]);
-			}
-			return $value[$key];
-		}
-		return $this->getValue($indexes, $value[$key]);
-	}
-
 }

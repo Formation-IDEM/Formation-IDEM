@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use \App\Collections\CompanyCollection;
 /**
  * Class CompanyController
  *
@@ -17,9 +18,8 @@ class CompanyController extends Controller
 
 	public function indexAction()
 	{
-		print '<pre>';
-		print_r($this->model()->all());
-		print '<pre>';
+		$items = new CompanyCollection();
+		dd($items->all());
 	}
 
 	public function createAction()
