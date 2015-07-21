@@ -1,4 +1,4 @@
-﻿/* Création de la table formateur */
+/* Création de la table formateur */
 CREATE TABLE trainers
 (
 	id SERIAL PRIMARY KEY,
