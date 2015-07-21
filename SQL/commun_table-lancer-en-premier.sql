@@ -4,36 +4,6 @@
 	title VARCHAR
 );
 
-CREATE TABLE trainee_status
-(
-	id SERIAL PRIMARY KEY,
-	title VARCHAR
-);
-
-CREATE TABLE study_levels
-(
-	id SERIAL PRIMARY KEY,
-	title VARCHAR
-);
-
-CREATE TABLE family_status
-(
-	id SERIAL PRIMARY KEY,
-	title VARCHAR
-);
-
-CREATE TABLE nationalities
-(
-	id SERIAL PRIMARY KEY,
-	title VARCHAR
-);
-
-CREATE TABLE renumeration_types
-(
-	id SERIAL PRIMARY KEY,
-	title VARCHAR
-);
-
 CREATE TABLE formation_sessions
 (
 	id SERIAL PRIMARY KEY,
@@ -41,3 +11,5 @@ CREATE TABLE formation_sessions
 	begin_date DATE NOT NULL, -- date début d'une session de formation
 	ending_date DATE NOT NULL, -- date fin de sesion de formation
 );
+
+/* 2 tables, et c'est tout !, si vous avez un problème voyez ça avec Thierry ;) */
