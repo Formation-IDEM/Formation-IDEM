@@ -10,7 +10,7 @@
 	deal_ending_date DATE
 );
 
-CREATE TABLE session_formation 	(
+CREATE TABLE formation_session 	(
 	formation_id INT PRIMARY KEY,
 	begin_date DATE,
 	ending_date DATE,
