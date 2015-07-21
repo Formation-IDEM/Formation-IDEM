@@ -1,6 +1,7 @@
 <?php
-include_once('Models/App.php');
+	
+	include_once('App.php');
 
-App::getInstance()->run();
+	App::getInstance()->run();
 
 ?>
