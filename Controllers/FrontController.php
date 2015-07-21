@@ -1,16 +1,18 @@
 <?php
 
-class FrontController
-{
-	function indexAction()
-	{
-		echo 'default page';
+
+class FrontController {
+
+
+	/*
+	 * 
+	 */
+	function indexAction() {
+		// indexAction - FrontController
+		echo "indexAction - FrontController";
 	}
-	
-	function testAction()
-	{
-		echo 'its a test! On front controller and test action';
-	}	
+
+
 }
 
 ?>
