@@ -7,7 +7,7 @@ use \Core\Session;
 use \Core\Database\Database;
 use \Core\Factories\ModelFactory;
 
-class AuthDatabase
+class AuthDatabase extends Auth
 {
 	private $db;
 	private $model;

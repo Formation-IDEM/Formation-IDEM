@@ -4,17 +4,20 @@ namespace Core\Auth;
  * Auth.php
  */
 use \Core\Session;
+use \Core\Auth\AuthDatabase;
 
 class Auth
 {
+	private $authDB;
 	private $isLogged = false;
 
 	public function __construct()
 	{
-		if( Session::keyExists('is_logged') && Session::get('is_logged') )
+		if( Session::keyExists('logged') && Session::get('logged') )
 		{
 			$this->isLogged = true;
 		}
+		$this->authDB = new AuthDatabase();
 	}
 
 	public function attempt($email, $password)

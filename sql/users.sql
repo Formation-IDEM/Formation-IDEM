@@ -1,7 +1,12 @@
+
+/**
+Table de l'authentification
+ */
 CREATE TABLE users (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   email VARCHAR(120) UNIQUE NOT NULL,
   password VARCHAR(80) NOT NULL,
+  nickname VARCHAR(80) UNIQUE NOT NULL,
   create_date TIMESTAMP NOT NULL DEFAULT(NOW()),
   update_date TIMESTAMP NOT NULL DEFAULT(NOW()),
   active BOOLEAN DEFAULT 0
