@@ -1,7 +1,7 @@
 # Formation-IDEM
-Repository for the IDEM group
+#Repository for the IDEM group
 
-Structure de l'application :
+#Structure de l'application :
 
 	Models/
 	
