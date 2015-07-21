@@ -17,7 +17,7 @@ CREATE TABLE formation_sessions 	(
 	FOREIGN KEY (formations_id) REFERENCES formations(id)
 );
 
-CREATE TABLE ref_pedago(
+CREATE TABLE ref_pedagos(
 	formations_id INT,
 	matters_id INT,  -- code matiere
 	PRIMARY KEY (formations_id, matters_id),
