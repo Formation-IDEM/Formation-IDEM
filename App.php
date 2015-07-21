@@ -48,7 +48,7 @@ class App  {
 	
 	public static function getInstance(){
 		
-		//vérification si l'instance est setp
+		//vérification si l'instance est set
 		if(!self::$_instance){
 		
 			self:: $_instance = new App();
