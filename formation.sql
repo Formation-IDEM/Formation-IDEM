@@ -1,25 +1,25 @@
 ﻿CREATE TABLE formation	(
 	id SERIAL PRIMARY KEY, 
-	intitule VARCHAR,
-	effectif_moyen INT,
-	heure_convention_centre TIME,
-	heure_convention_entreprise TIME,
-	code_marche VARCHAR,
-	donneur_ordre VARCHAR,
-	date_debut_marche DATE,
-	date_fin_marche DATE
+	title VARCHAR,
+	average_effective INT,
+	convention_hour_center TIME,
+	convention_hour_compagny TIME,
+	deal_code VARCHAR,
+	order_giver VARCHAR,
+	deal_begin_date DATE,
+	deal_ending_date DATE
 );
 
 CREATE TABLE session_formation 	(
 	formation_id INT PRIMARY KEY,
-	date_debut DATE,
-	date_fin DATE,
+	begin_date DATE,
+	ending_date DATE,
 	FOREIGN KEY (formation_id) REFERENCES formation(id)
 );
 
 CREATE TABLE ref_pedago(
 	formation_id INT,
-	matiere_id INT,
+	matter_id INT,
 	PRIMARY KEY (formation_id, matiere_id),
 	FOREIGN KEY (formation_id) REFERENCES formation(id),
 	FOREIGN KEY (matiere_id) REFERENCES matiere(id)
