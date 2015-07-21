@@ -14,7 +14,7 @@ CREATE TABLE companies (
 	phone VARCHAR(15) NOT NULL,
 	mobile VARCHAR(15) DEFAULT NULL,
 	fax VARCHAR(15) DEFAULT NULL,
-	manager_id VARCHAR(60) DEFAULT NULL,
+	manager VARCHAR(60) DEFAULT NULL,
 	create_date TIMESTAMP DEFAULT(NOW()),
   update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,
@@ -29,10 +29,10 @@ Table des stages
 CREATE TABLE internships (
 	id SERIAL PRIMARY KEY,
 	title VARCHAR(120) NOT NULL,
-	company_id INT REFERENCES companies(id),
-	formation_id INT(4) REFERENCES formations(id),
 	explain TEXT DEFAULT NULL,
-	referent_id VARCHAR(60) REFERENCES trainers(id),
+	company_id INT NOT NULL,
+	formation_id INT NOT NULL,
+	referent_id VARCHAR(60) NOT NULL,
 	create_date TIMESTAMP DEFAULT(NOW()),
 	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,
@@ -46,12 +46,16 @@ CREATE TABLE internships (
 Table de liaison entre les entreprises, les stagiaires et les stages
  */
 CREATE TABLE company_internship(
-	trainee_id INT REFERENCES trainees(id),
-	company_id INT REFERENCES companies(id),
-	internship_id INT REFERENCES internships(id),
+	trainee_id INT NOT NULL,
+	company_id INT NOT NULL,
+	internship_id INT NOT NULL,
 	active BOOLEAN DEFAULT(false),
 	hiring BOOLEAN DEFAULT(false),
 	total_hours INT NOT NULL DEFAULT(0),
 	date_begin TIMESTAMP DEFAULT(NOW()),
 	date_end TIMESTAMP CHECK(date_end >= date_begin) DEFAULT(NOW())
 );
+
+ALTER TABLE internships ADD FOREIGN KEY (company_id) REFERENCES companies(id);
+ALTER TABLE internships ADD FOREIGN KEY (formation_id) REFERENCES formations(id);
+ALTER TABLE internships ADD FOREIGN KEY (trainee_id) REFERENCES (trainee_id);
