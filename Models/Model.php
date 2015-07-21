@@ -24,9 +24,22 @@
 			
 			foreach( $this->_fields as $key => $value )
 			{
-				$this->_fields[$key] = $value;
+				if (array_key_exists($key,$this->_fields)){
+					$this->_fields[$key] = $value;
+				}
+				// $this->_fields[$key] = $value; bon aussi
 			}
+			return $this;
 
+		}
+
+		public function delete() { // on delete sur un objet deja renseigne donc pas besoin de l'id
+		
+			$requete = 'DELETE FROM'.$this->_table.' WHERE id = '.$this->_fields['id'];
+			$result = Database::getInstance()->getResultats($requete);
+				
+			return $result;
+		
 		}
 		
 		public function save()
@@ -37,8 +50,18 @@
 			}
 			else
 			{
-				$this->insert();
+				
 			}
+		}
+		
+		public function getData($cle) { // on recupere la valeur de la colonne passe en parametre 
+			
+			if (isset($this->_fields[$cle])){
+				return $this->_fields[$cle];
+			}else{
+				return "";
+			}
+		
 		}
 		
     }
