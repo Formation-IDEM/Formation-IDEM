@@ -14,7 +14,7 @@ CREATE TABLE trainees (
 	adress_form_codpost VARCHAR NOT NULL,
 	adress_form_city VARCHAR NOT NULL,
 	phone VARCHAR NOT NULL,
-	mail VARCHAR NOT NULL,cours
+	mail VARCHAR NOT NULL,
 	cellphone VARCHAR NOT NULL,
 	social_security_number INTEGER NOT NULL,
 	photo VARCHAR NOT NULL,
