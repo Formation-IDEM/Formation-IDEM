@@ -4,6 +4,8 @@
 	title VARCHAR
 );
 
+<<<<<<< HEAD
+=======
 CREATE TABLE formation_sessions
 (
 	id SERIAL PRIMARY KEY,
@@ -12,4 +14,5 @@ CREATE TABLE formation_sessions
 	ending_date DATE NOT NULL -- date fin de sesion de formation
 );
 
+>>>>>>> master
 /* 2 tables, et c'est tout !, si vous avez un problème voyez ça avec Thierry ;) */
