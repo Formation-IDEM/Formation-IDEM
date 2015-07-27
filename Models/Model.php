@@ -1,5 +1,7 @@
 <?php
 
+include_once("Database.php");
+
 
 class Model {
 
@@ -12,7 +14,9 @@ class Model {
 	}
 
 	
-	
+	/*
+	 * Recupere la valeur dans $_fields par rapport à $code
+	 */
 	public function getData( $code ) {
 		if( isset($this->_fields[$code]) ) {
 			return $this->_fields[$code];
@@ -20,8 +24,11 @@ class Model {
 		return '';
 	}
 
+	
+	
+	
 	/*
-	 * charge un objet depuis la bdd
+	 * Charge un objet depuis la bdd grâce à son $id
 	 */
 	public function load($id) {
 		$results = Database::getInstance()->getResults( "SELECT * FROM " . $this->_table . " WHERE id = " . $id );
@@ -33,8 +40,11 @@ class Model {
 		return $this;
 	}
 	
+	
+	
+	
 	/*
-	 * associe un retour de form (post) sur un objet
+	 * Renseigne l'objet grâce aux valeurs contenus dans $donnees
 	 */
 	function store($donnes) {
 		foreach( $donnes as $columName => $data ) {
@@ -45,8 +55,10 @@ class Model {
 		return $this;
 	}
 	
+	
+	
 	/*
-	 * enregistre l'objet en bdd
+	 * Enregistre l'objet en bdd
 	 */
 	function save() {
 		if( $this->getData('id') ) { // Mise à jour
@@ -65,7 +77,11 @@ class Model {
 				$i++;
 			}
 			$request .= " WHERE id = " . $this->getData('id');
-			return Database::getInstance()->getResults( $request );
+			if( Database::getInstance()->execute( $request ) ) {
+				return $this;
+			} else {
+				return false;
+			}
 			
 		} else { // Création
 			$request = "INSERT INTO " . $this->_table . " ";
@@ -73,6 +89,10 @@ class Model {
 			$columns = '';
 			$values = '';
 			foreach( $this->_fields as $columnName => $value ) {
+				if( $columnName == 'id' ) {
+					$i++;
+					continue;
+				}
 				$columns .= $columnName;
 				if( is_string($value) ) {
 					$values .= "'" . $value . "'";
@@ -86,16 +106,23 @@ class Model {
 				$i++;
 			}
 			$request .= "(" . $columns . ") VALUES (" . $values . ")"; 
-			return Database::getInstance()->getResults( $request );
+			if( Database::getInstance()->execute( $request ) ) {
+				$this->_fields['id'] = Database::getInstance()->getLastInsertId();
+				return $this;
+			} else {
+				return false;
+			} 
 		}
 	}
 	
+	
+	
 	/*
-	 * supprime un objet en bdd
+	 * Supprime un objet en bdd
 	 */
 	function delete() {
 		if( $this->getData('id') ) {
-			return Database::getInstance()->getResults( "DELETE FROM " . $this->_table . " WHERE id = " . $this->getData('id') );
+			return Database::getInstance()->execute( "DELETE FROM " . $this->_table . " WHERE id = " . $this->getData('id') );
 		}
 		return false;
 	}

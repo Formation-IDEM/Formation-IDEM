@@ -20,6 +20,8 @@ class Database {
 		$this->_password = 'root';
 		
 		$this->_dbname = 'bdd_formationidem';
+		
+		$this->connect();
 	}
 	
 	// Fonction pour récupérer une seule et unique instance de App
@@ -37,11 +39,18 @@ class Database {
 	}
 
 
-	private function execute($query) {
-		// Execution de $query et retour résultat en tableau
-		$exe = $this->_db->prepare( $query );
-		$exe->execute();
+	public function execute($query) {
+		var_dump($query);
+		return $this->_db->exec( $query );
+	}
+	
+	public function getResultats($query) {
+		$exe = $this->execute( $query );
 		return $exe->fetchAll();
+	}
+	
+	public function getLastInsertId() {
+		return $this->_db->lastInsertId();
 	}
 
 }
