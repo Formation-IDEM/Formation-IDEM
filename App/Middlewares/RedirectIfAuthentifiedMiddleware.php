@@ -9,7 +9,7 @@ class RedirectIfAuthentifiedMiddleware extends Middleware
     {
         if( $_SERVER['REMOTE_ADDR'] === '192.168.20.1' )
         {
-            die('salut !' . $_SERVER['REMOTE_ADDR']);
+            die('salut ' . $_SERVER['REMOTE_ADDR']);
         }
     }
 }

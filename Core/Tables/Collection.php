@@ -215,18 +215,18 @@ class Collection
 		{
 			 return $this->db->prepare($sql, $attributes);
 		}
-		return $this->db->query($sql);
+		$this->items = $this->db->query($sql);
 	}
 
 	/**
 	 * Retourne tous les items
 	 *
-	 * @param string $fields
 	 * @return array
 	 */
-	public function all($fields = '*')
+	public function all()
 	{
-		return $this->select($fields)->from($this->collection)->get();
+		$this->select('*')->from($this->collection)->get();
+		return $this->items;
 	}
 
 	/**

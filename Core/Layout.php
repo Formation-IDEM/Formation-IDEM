@@ -44,7 +44,6 @@ class Layout
 
 	public function render($file, $data)
 	{
-		$title = $data['title'];
 		$content = $this->getFile($file, $data);
 		require_once(ROOT . $this->path . '/layouts/layout.tpl.php');
 	}

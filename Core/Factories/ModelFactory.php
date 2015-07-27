@@ -10,7 +10,7 @@ class ModelFactory
 {
 	public static function loadModel($model)
 	{
-		$className = '\\App\\Models\\' . ucfirst($model) . 'Model';
+		$className = '\\App\\Models\\' . ucfirst($model);
 		return new $className(DatabaseFactory::db());
 	}
 }

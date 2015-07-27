@@ -2,13 +2,6 @@
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__) . DS);
 
-function dd($array = array())
-{
-	print '<pre>';
-	print_r($array);
-	print '</pre>';
-}
-
 //	On lance notre application
 require_once(ROOT . 'App/App.php');
 $app = App\App::getInstance();

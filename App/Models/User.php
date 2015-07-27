@@ -8,7 +8,7 @@ use \App\Models\Model;
  *
  * @package App\Models
  */
-class UserModel extends Model
+class User extends Model
 {
 	protected $table = 'users';
 

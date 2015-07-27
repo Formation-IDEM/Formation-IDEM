@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use \Core\Controller;
 use \App\Collections\CompanyCollection;
+use Core\Factories\CollectionFactory;
 
 /**
  * Class CompanyController
@@ -14,14 +15,13 @@ class CompanyController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->loadModel('Company');
-		$this->loadCollection('Company');
 	}
 
 	public function indexAction()
 	{
-		//$items = new CompanyCollection();
-		dd($this->CompanyCollection->all());
+		$collection = CollectionFactory::loadCollection('Company');
+		$items = $collection->all();
+		return $this->layout()->render('single', compact('items'));
 	}
 
 	public function createAction()

@@ -13,8 +13,6 @@ use \Core\Factories\MiddlewareFactory;
  */
 class Controller
 {
-	protected $model;
-	protected $data = [];
 	protected $middlewares = [];
 
 	public function __construct()
@@ -32,31 +30,5 @@ class Controller
 	public function layout()
 	{
 		return $this->layout;
-	}
-
-	/**
-	 * Attribue un modèle au controller
-	 *
-	 * @param $model
-	 */
-	public function loadModel($model)
-	{
-		if( is_null($this->$model) )
-		{
-			$this->$model = ModelFactory::loadModel($model);
-		}
-	}
-
-	/**
-	 * Attribue une collection au controller
-	 *
-	 * @param $collection
-	 */
-	public function loadCollection($collection)
-	{
-		if( is_null($this->{$collection . 'Collection'}) )
-		{
-			$this->{$collection . 'Collection'} = CollectionFactory::loadCollection($collection);
-		}
 	}
 }
