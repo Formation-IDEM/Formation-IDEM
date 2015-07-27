@@ -13,13 +13,13 @@ class Database {
 
 
 	private function __construct() {
-		$this->_host = '127.0.0.1';
+		$this->_host = 'localhost';
 		
-		$this->_username = 'postgres';
+		$this->_username = 'root';
 		
-		$this->_password = 'postgres';
+		$this->_password = 'root';
 		
-		$this->_dbname = 'idem';
+		$this->_dbname = 'bdd_formationidem';
 	}
 	
 	// Fonction pour récupérer une seule et unique instance de App
@@ -31,7 +31,7 @@ class Database {
 	}
 
 
-	public function connect($dbtype = 'pgsql') {
+	public function connect($dbtype = 'mysql') {
 		$this->_db = new PDO( $dbtype . ':dbname=' . $this->_dbname . ';host=' . $this->_host, $this->_username, $this->_password );
 		return $this;
 	}
@@ -43,25 +43,6 @@ class Database {
 		$exe->execute();
 		return $exe->fetchAll();
 	}
-
-
-	public function insert($table, $fields, $values) {
-		$query = 'INSERT INTO ' . $table . ' (' . $fields . ') VALUES (' . $values . ');';
-		return $this->execute( $query );
-	}
-
-
-	public function update($table, $set, $where) {
-		$query = 'UPDATE ' . $table . ' SET ' . $set . ' WHERE ' . $where . ';';
-		return $this->execute( $query );
-	}
-
-
-	public function delete($table, $where) {
-		$query = 'DELETE FROM ' . $table . ' WHERE ' . $where . ';';
-		return $this->execute( $query );
-	}
-
 
 }
 

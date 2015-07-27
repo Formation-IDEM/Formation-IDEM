@@ -52,6 +52,18 @@ class App {
 	}
 	
 	
+	/*
+	 * Retourne une instance d'un modèle 
+	 */
+	public static function getModel( $type ) {
+		if( file_exists("Models/" . $type . ".php") ) {
+			include("Models/" . $type . ".php");
+			return new $type();
+		}
+		return null;
+	}
+	
+	
 	/* 
 	 * Fonction appelée par défaut
 	 */

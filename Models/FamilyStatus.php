@@ -1,25 +1,19 @@
 <?php
 
-class FamilyStatus {
+include_once( "Model.php" );
+
+class FamilyStatus extends Model {
 	
-	private $_id;
-	private $_wording;	
 	
-	public function __construct (
-		$id = 0 ,
-		$wording = "" ) {
+	public function __construct() {
+		$this->_table = 'family_status';
+		$this->_fields = array(
+				'id' 	=> 0,
+				'title' => ''
+		);
 			
 	}
-				
 	
-	public function getFamilyStatus(){
-		return $this -> _wording;
-	}	
-	
-	public function setFamilyStatus($wording) {
-		$this -> _wording = $wording;
-		return $this;
-	}
 }
 
 ?>
