@@ -1,9 +1,11 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Company;
 use \Core\Controller;
 use \App\Collections\CompanyCollection;
 use Core\Factories\CollectionFactory;
+use Core\Factories\DatabaseFactory;
 
 /**
  * Class CompanyController
@@ -26,19 +28,22 @@ class CompanyController extends Controller
 
 	public function createAction()
 	{
-			$this->model()->insert([
-			'name'				=>	'Lalalala',
-			'status'				=>	'SARL',
-			'company_name'		=>	'Ma compagnie',
-			'adress'				=>	'3 rue des fleuristes',
-			'postal_code'		=>	'66000',
-			'city'				=>	'Perpignan',
-			'country'			=>	'France',
-			'phone'				=>	'0734987678',
-			'mobile'				=>	'0909090909',
-			'manager_id'		=>	1,
-			'create_uid'		=>	1
-		]);
+		$collection = CollectionFactory::loadCollection('CompanyInternship');
+
+		for( $i = 0; $i < 5; $i++ )
+		{
+
+			$collection->insert([
+				'trainee_id'		=>	($i + 1),
+				'company_id'		=>	($i + 1),
+				'internship_id'		=>	($i + 1),
+				'active'			=>	true,
+				'total_hours'		=>	rand(100, 200),
+				'date_begin'		=>	date('Y-m-d H:i:s', time()),
+				'date_end'			=>	date('Y-m-d H:i:s', (time() + (60 * 60 * 24 * 30))),
+			]);
+
+		}
 	}
 
 	public function editAction($id)
@@ -50,9 +55,7 @@ class CompanyController extends Controller
 
 	public function showAction($id)
 	{
-		print '<pre>';
-		print_r($this->model()->load($id));
-		print '<pre>';
+		echo 'salut';
 	}
 
 	public function deleteAction($id)

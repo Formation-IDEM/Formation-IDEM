@@ -27,7 +27,7 @@ class Collection
 	protected $limit;
 
 	//	Tableau de résultats
-	public $items = [];
+	protected $items = [];
 
 	public function __construct()
 	{
@@ -238,5 +238,36 @@ class Collection
 	private function check($condition)
 	{
 		return (isset($condition) && !empty($condition) );
+	}
+
+	public function insert($data)
+	{
+		$sql = 'INSERT INTO ' . $this->collection . '(';
+
+		$count = 0;
+		foreach($data as $key => $value )
+		{
+			$sql .= $key;
+			if( $count < (count($data) - 1) )
+			{
+				$sql .= ', ';
+			}
+			$count++;
+		}
+
+		$sql.= ') VALUES (';
+		$count_values = 0;
+		foreach( $data as $key => $value )
+		{
+			$sql .= '\'' . $value . '\'';
+			if( $count_values < (count($data) - 1) )
+			{
+				$sql .= ', ';
+			}
+			$count_values++;
+		}
+		$sql .= ');';
+
+		echo $sql . '<br/><br />';
 	}
 }

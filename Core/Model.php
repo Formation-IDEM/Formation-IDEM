@@ -111,7 +111,9 @@ class Model
 			$count++;
 		}
 
-		return $this->db->execute($sql, $attributes);
+		echo $sql;
+
+		// return $this->db->execute($sql, $attributes);
 	}
 
 	/**
