@@ -53,7 +53,12 @@ class Model {
 			$request = "UPDATE " . $this->_table . " SET ";
 			$i = 1;
 			foreach( $this->_fields as $columnName => $value ) {
-				$request .= $columnName . " = '" . $value . "' ";
+				$request .= $columnName . " = ";
+				if( is_string($value) ) {
+					$request .= "'" . $value . "'";
+				} else {
+					$request .= $value;
+				}
 				if( $i != sizeof($this->_fields) ) {
 					$request .= ', ';
 				}
@@ -69,7 +74,11 @@ class Model {
 			$values = '';
 			foreach( $this->_fields as $columnName => $value ) {
 				$columns .= $columnName;
-				$values .= $value;
+				if( is_string($value) ) {
+					$values .= "'" . $value . "'";
+				} else {
+					$values .= $value;
+				}
 				if( $i != sizeof($this->_fields) ) {
 					$columns .= ', ';
 					$values .= ', ';
