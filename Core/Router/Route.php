@@ -2,6 +2,7 @@
 namespace Core\Router;
 
 use \Core\Factories\ControllerFactory;
+use \Core\Factories\MiddlewareFactory;
 
 /**
  * Class Route
@@ -14,6 +15,7 @@ class Route
 	private $callable;
 	private $matches;
 	private $params = [];
+	private $middlewares = [];
 
 	public function __construct($path, $callable)
 	{
@@ -31,6 +33,12 @@ class Route
 	public function with($param, $regex)
 	{
 		$this->params[$param] = str_replace('(', '(?:', $regex);
+		return $this;
+	}
+
+	public function middleware($middleware)
+	{
+		$this->middlewares[] = 	$middleware;
 		return $this;
 	}
 
@@ -77,6 +85,15 @@ class Route
 	 */
 	public function call()
 	{
+		if( !empty($this->middlewares) )
+		{
+			foreach($this->middlewares as $middleware )
+			{
+				$auth = MiddlewareFactory::loadMiddleware($middleware);
+				$auth->handle();
+			}
+		}
+
 		if( is_string($this->callable) )
 		{
 			$params = explode('@', $this->callable);

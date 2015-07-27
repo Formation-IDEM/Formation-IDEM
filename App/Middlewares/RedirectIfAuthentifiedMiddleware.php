@@ -1,14 +1,15 @@
 <?php
+namespace App\Middlewares;
 
-/**
- * RedirectIfAuthentifiedMiddleware.php
- * ------------
- *
- * @author  :  RIBES Alexandre
- * @contact : ribes.alexandre@gmail.com
- * @website : http://www.alexandre-ribes.fr
- */
-class RedirectIfAuthentifiedMiddleware
+use \Core\Middleware;
+
+class RedirectIfAuthentifiedMiddleware extends Middleware
 {
-	
+    public function handle()
+    {
+        if( $_SERVER['REMOTE_ADDR'] === '192.168.20.1' )
+        {
+            die('salut !' . $_SERVER['REMOTE_ADDR']);
+        }
+    }
 }

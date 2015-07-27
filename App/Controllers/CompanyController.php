@@ -1,7 +1,9 @@
 <?php
 namespace App\Controllers;
 
+use \Core\Controller;
 use \App\Collections\CompanyCollection;
+
 /**
  * Class CompanyController
  *
@@ -9,17 +11,17 @@ use \App\Collections\CompanyCollection;
  */
 class CompanyController extends Controller
 {
-	protected $model = 'Company';
-
 	public function __construct()
 	{
 		parent::__construct();
+		$this->loadModel('Company');
+		$this->loadCollection('Company');
 	}
 
 	public function indexAction()
 	{
-		$items = new CompanyCollection();
-		dd($items->all());
+		//$items = new CompanyCollection();
+		dd($this->CompanyCollection->all());
 	}
 
 	public function createAction()

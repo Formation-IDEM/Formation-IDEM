@@ -17,7 +17,7 @@ class Config
 	 * @param $file
 	 * @return \Core\Config
 	 */
-	public function getInstance($file)
+	public static function getInstance($file)
 	{
 		if( is_null(self::$_instance) )
 		{

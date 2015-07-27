@@ -5,8 +5,8 @@
 
 return [
 	'driver'		=>	'MySQL',
-	'db_user'	=>	'postgres',
-	'db_pass'	=>	'postgres',
+	'db_user'	=>	'homestead',
+	'db_pass'	=>	'secret',
 	'db_name'	=>	'gestForm',
 	'db_host'	=>	'localhost'
 ];

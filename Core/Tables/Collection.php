@@ -15,6 +15,9 @@ class Collection
 	protected $collection;
 
 	//	Requête
+	/**
+	 * @var
+     */
 	protected $fields;
 	protected $conditions = [];
 	protected $from;
@@ -100,22 +103,24 @@ class Collection
 	/**
 	 * Allias par rapport à la date
 	 *
+	 * @param string $field
 	 * @return $this
 	 */
-	public function newest()
+	public function newest($field = 'create_date')
 	{
-		$this->orderBy('create_date', 'DESC');
+		$this->orderBy($field, 'DESC');
 		return $this;
 	}
 
 	/**
 	 * Allias par rapport à la date
 	 *
+	 * @param string $field
 	 * @return $this
 	 */
-	public function latest()
+	public function latest($field = 'create_date')
 	{
-		$this->orderBy('create_date', 'ASC');
+		$this->orderBy($field, 'ASC');
 		return $this;
 	}
 
@@ -150,7 +155,11 @@ class Collection
 	{
 		if( !is_null($id) )
 		{
-			$this->conditions[] = 'id = ' . intval($id);
+			$this->conditions[] = [
+				'key'	=>	'id',
+				'cond'	=>	'=',
+				'value'	=>	intval($id),
+			];
 		}
 
 		//	On onitialise la requête
@@ -212,11 +221,12 @@ class Collection
 	/**
 	 * Retourne tous les items
 	 *
+	 * @param string $fields
 	 * @return array
 	 */
-	public function all()
+	public function all($fields = '*')
 	{
-		return $this->select('*')->from($this->collection)->get();
+		return $this->select($fields)->from($this->collection)->get();
 	}
 
 	/**
