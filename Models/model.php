@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Model (Généralités) class mère
+ * Model (Généralités) classe mère
  */
 class Model {
 	

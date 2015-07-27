@@ -1,5 +1,7 @@
 <?php 
 
+include_once ('model.php');
+
 /**
  * Classe entreprise
  */
@@ -22,7 +24,10 @@ class Company extends Model {
 	
 	public function __construct() {
 		
+		parent::__construct();
+		
 	}
+	
 }
 
 
