@@ -3,6 +3,13 @@
     class Matter extends Model{
         private $_id;
         private $_title;
+        
+        private $_table = "matters";
+        private $_fields = array(
+                                    id,
+                                    title
+                                    
+                                );
 
         public function __contruct(){
             

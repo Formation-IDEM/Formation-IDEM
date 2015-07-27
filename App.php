@@ -7,6 +7,24 @@
             
         }
         
+        public static function getModel($type){
+            
+            if( file_exists('Models/'.$type.'.php') ){
+                
+                include_once ('Models/'.$type.'.php');
+            
+                return new $type();            
+                
+            }else{
+                
+                return null;
+                
+            }
+           
+            
+
+        }
+        
         public static function getInstance(){
             
             // !!!!!!!!!!!!! l'instance d'App est un singleton

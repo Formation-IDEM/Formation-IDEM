@@ -1,81 +1,63 @@
-<?php
-    class Database{
-        
-        private static $_instance = null;
-        
-        private $_connexion;
-        private $_dsn = "localhost";
-        private $_db = "gestForm";
-        private $_user = "postgre";
-        private $_password = "postgre";
+<?php  
 
+class Database{
+    
+    
+    private static $_instance = null;
+    
+    private $_connexion;
+    private $_host ="localhost";
+    private $_user ="postgres";
+    private $_password ="postgres";
+    private $_dbname ="gestForm";
+    
+    
+    private function __contruct(){
         
-        public function __construct($dsn, $db, $user, $password) {
-            
-            self::$_connexion = new PDO('pgsql: host='.$dsn.' dbname='.$db.' user='.$user.' password='.$password);
-            
-        }
-        
-        public static function getDatabase(){
-            
-            if(!self::$_instance){
                 
-                self::$_instance = new Database();
-                                
-            }
-            
-            return self::$_instance;
-            
-        }
         
-//Les méthodes get et set des attributs ci dessous----------------------------------------------------
+        $this -> _connexion = $this -> getConnexion();
         
-        public function getDsn(){
-            
-            return $this -> _dsn;
-            
-        }
+    }   
+    
+    
+    public function getConnexion(){
         
-        public function setDsn($n){
-            
-            $this -> _dsn = $n;            
-            
-        }
-        
-        public function getDb(){
-
-            return $this -> _db;
-            
-        }
-        
-        public function setDb($n){
-            
-            $this -> _db = $n;
-            
-        }
-        
-        public function getUser(){
-
-            return $this -> _user;
-            
-        }
-        
-        public function setUser($n){
-            
-            $this -> _user = $n;
-            
-        }
-        
-         public function getPassword(){
-
-            return $this -> _password;
-            
-        }
-        
-        public function setPassword($n){
-            
-            $this -> _password = $n;
-            
-        }
+        $this -> _connexion = new PDO("pgsql:host=localhost;user=postgres;password=postgres;dbname=gestForm");
         
     }
+    
+    public function getResultats($req){
+        
+        $resultats = $this -> _connexion -> query($req);
+        
+        if($resultats){
+        
+            $donnees = $resultats->fetchAll();
+            var_dump($resultats);
+            return $donnees;            
+        
+        }
+        return array();
+    }
+    
+    
+    
+    public static function getInstance(){
+        
+        //on test s'il n'y a pas d'instance
+        if (!self::$_instance){
+            
+            //on crée une nouvelle instance
+            self::$_instance = new Database();
+            
+        }
+        
+        //on retourne l'instance
+        return self::$_instance;
+        
+    
+    } 
+    
+    
+}

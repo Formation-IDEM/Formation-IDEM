@@ -1,25 +1,30 @@
 <?php
-    class Formation extends Model{        
-        
-        private $_id;
-        private $_intitule;
-        private $_effectif_moyen;
-        private $_code_marche;
-        private $_heure_convention_centre;
-        private $_heure_convention_entreprise;
-        private $_donneur_ordre;
-        private $_date_debut_marche;
-        private $_date_fin_marche;        
-        
-        public function __construct($heure){
-            
-            $this -> _heure_convention_centre = $heure;
-            
-        }        
 
-        public function getHeureConventionCentre(){
-            
-            return $this -> _heure_convention_centre;
+    include_once ('Model.php');
+
+    class Formation extends Model{
+
+        protected $_table = "formations";
+        protected $_fields = array(
+                                    'id'                            => 0,
+                                    'average_effective'             => 0,
+                                    'convention_hour_in_center'     => 0,
+                                    'convention_hour_in_company'    => 0,
+                                    'title'                         => '',
+                                    'deal_code'                     => '',
+                                    'order_giver'                   => '',
+                                    'deal_begin_date'               => '',
+                                    'deal_ending_date'              => ''
+        
+        );
+        
+        public function __construct(){
             
         }
+        
+        
+        public function __construct(){
+            
+        }
+        
     }
