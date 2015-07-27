@@ -50,18 +50,31 @@ class Model
 		{
 			$this->_fields[$key] = $data->$key;
 		}
-		return $this->_fields;
+		return $this;
 	}
 
-	public function all()
+	/**
+	 * Retourne la valeur d'une clé
+	 *
+	 * @param $key
+	 * @return mixed
+	 */
+	public function getData($key = '')
 	{
-		return $this->query('SELECT * FROM ' . $this->_table . ' ORDER BY id DESC');
+		if( !empty($key) )
+		{
+			if( isset($this->_fields[$key]) && !empty($this->_fields[$key]) )
+			{
+				return $this->_fields[$key];
+			}
+		}
+		return $this->_fields;
 	}
 
 	/**
 	 * Renseigne les champs
-	 *
 	 * @param $data
+	 * @return $this
 	 */
 	public function store($data)
 	{
@@ -69,6 +82,8 @@ class Model
 		{
 			$this->_fields[$field] = $data[$field];
 		}
+
+		return $this;
 	}
 
 	/**
@@ -78,12 +93,16 @@ class Model
 	 */
 	public function save()
 	{
-		if( is_null($this->_fields['id']) || empty($this->_fields['id']) || $this->_fields['id'] == 0 )
+		if( $this->getData('id') && $this->getData('id') != 0 )
 		{
-			return $this->insert($this->_fields);
+			$this->insert($this->_fields);
+		}
+		else
+		{
+			$this->update($this->_fields, $this->_fields['id']);
 		}
 
-		return $this->update($this->_fields, $this->_fields['id']);
+		return $this;
 	}
 
 	/**
@@ -111,9 +130,8 @@ class Model
 			$count++;
 		}
 
-		echo $sql;
-
-		// return $this->db->execute($sql, $attributes);
+		$this->db->execute($sql, $attributes);
+		return $this;
 	}
 
 	/**
@@ -147,7 +165,8 @@ class Model
 			':id'	=>	intval($id),
 		]);
 
-		return $this->db->execute($sql, $attributes);
+		$this->db->execute($sql, $attributes);
+		return $this;
 	}
 
 	/**
@@ -157,7 +176,8 @@ class Model
 	 */
 	public function delete()
 	{
-		return $this->db->execute('DELETE FROM ' . $this->_table . ' WHERE id = ?', [$this->fields['id']]);
+		$this->db->execute('DELETE FROM ' . $this->_table . ' WHERE id = ?', [$this->fields['id']]);
+		return $this;
 	}
 
 	/**
@@ -178,6 +198,11 @@ class Model
 		{
 			return $this->db->query($statement, $one);
 		}
+	}
+
+	public function lastId()
+	{
+		return $this->db->lastInsertId();
 	}
 
 	public function getFields()

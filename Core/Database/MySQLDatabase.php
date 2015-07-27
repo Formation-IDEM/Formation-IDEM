@@ -99,7 +99,7 @@ class MySQLDatabase extends Database
 	 *
 	 * @return string
 	 */
-	public function lastInsertId()
+	public function lastInsertId($table = '')
 	{
 		return $this->getPDO()->lastInsertId();
 	}

@@ -17,9 +17,9 @@ class PostgreSQLDatabase extends Database
 	protected $db_pass;
 	protected $db_host;
 
-	public function __construct($db_name)
+	public function __construct($db_name, $db_user = 'root', $db_pass = 'root', $db_host = 'localhost')
 	{
-		parent::__construct($db_name);
+		parent::__construct($db_name, $db_user, $db_pass, $db_host);
 	}
 
 	/*
@@ -95,12 +95,13 @@ class PostgreSQLDatabase extends Database
 	}
 
 	/**
-	 * Retourne la dernière ID enregistrée
+	 * Retourne la dernière id enregistrée
 	 *
+	 * @param $table
 	 * @return string
 	 */
-	public function lastInsertId()
+	public function lastInsertId($table)
 	{
-		return $this->getPDO()->lastInsertId();
+		return $this->getPDO()->lastInsertId($table . '_id_seq');
 	}
 }

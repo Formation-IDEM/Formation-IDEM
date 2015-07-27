@@ -1,11 +1,8 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Company;
 use \Core\Controller;
-use \App\Collections\CompanyCollection;
 use Core\Factories\CollectionFactory;
-use Core\Factories\DatabaseFactory;
 
 /**
  * Class CompanyController
@@ -17,6 +14,7 @@ class CompanyController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->loadModel('Company');
 	}
 
 	public function indexAction()
@@ -48,18 +46,20 @@ class CompanyController extends Controller
 
 	public function editAction($id)
 	{
-		$this->model()->update([
+		$this->company->update([
 			'name'		=>	'Test dsdq',
 		], $id);
 	}
 
 	public function showAction($id)
 	{
-		echo 'salut';
+		$company = $this->company->load($id);
+		 var_dump($company->getData());
+
 	}
 
 	public function deleteAction($id)
 	{
-		return $this->model()->delete($id);
+		return $this->company->delete($id);
 	}
 }
