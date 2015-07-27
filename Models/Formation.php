@@ -7,10 +7,10 @@
         protected $_table = "formations";
         protected $_fields = array(
                                     'id'                            => 0,
-                                    'average_effective'             => 0,
-                                    'convention_hour_in_center'     => 0,
-                                    'convention_hour_in_company'    => 0,
                                     'title'                         => '',
+                                    'average_effective'             => 0,
+                                    'convention_hour_center'        => 0,
+                                    'convention_hour_compagny'      => 0,
                                     'deal_code'                     => '',
                                     'order_giver'                   => '',
                                     'deal_begin_date'               => '',
@@ -21,10 +21,5 @@
         public function __construct(){
             
         }
-        
-        
-        public function __construct(){
-            
-        }
-        
+
     }

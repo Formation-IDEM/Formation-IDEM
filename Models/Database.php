@@ -1,63 +1,67 @@
-<?php  
+<?php
 
-class Database{
+class Database
+{
     
+    private static $_instance;
     
-    private static $_instance = null;
+    private $_host;
     
-    private $_connexion;
-    private $_host ="localhost";
-    private $_user ="postgres";
-    private $_password ="postgres";
-    private $_dbname ="gestForm";
+    private $_user;
     
+    private $_password;
+
+    private $_dbname;
     
-    private function __contruct(){
-        
-                
-        
-        $this -> _connexion = $this -> getConnexion();
-        
-    }   
-    
-    
-    public function getConnexion(){
-        
-        $this -> _connexion = new PDO("pgsql:host=localhost;user=postgres;password=postgres;dbname=gestForm");
-        
-    }
-    
-    public function getResultats($req){
-        
-        $resultats = $this -> _connexion -> query($req);
-        
-        if($resultats){
-        
-            $donnees = $resultats->fetchAll();
-            var_dump($resultats);
-            return $donnees;            
-        
-        }
-        return array();
-    }
-    
-    
-    
-    public static function getInstance(){
-        
-        //on test s'il n'y a pas d'instance
-        if (!self::$_instance){
+    private $_dbh;
             
-            //on crée une nouvelle instance
+    private function __construct()
+    {
+        $this->_host = '127.0.0.1';
+        
+        $this->_username = 'postgres';
+        
+        $this->_password = 'postgres';
+        
+        $this->_dbname = 'gestForm';
+        
+        $this->_dbh = $this->initialConnection(); 
+    }
+    
+    // Fonction pour récupérer une seule et unique instance de App
+    public static function getInstance()
+    {
+        if(!self::$_instance)
+        {
             self::$_instance = new Database();
-            
         }
-        
-        //on retourne l'instance
         return self::$_instance;
+    }
+    
+    public function initialConnection($dbtype = 'pgsql')
+    {
+        return new PDO($dbtype.':dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
+    }
+    
+    public function getConnexion()
+    {
+        return $this->_dbh;
+    }
+    
+    public function getLastInsertId($table){
         
+        return $this->_dbh->lastInsertId( $table."_id_seq");
+        
+    }
     
-    } 
-    
-    
+    public function getResultats($query)
+    {
+        // Execution de $query et retour résultat en tableau
+        $exe = $this->_dbh->prepare($query);
+        $exe->execute();
+        print_r($this->_dbh->errorInfo());
+        return $exe->fetchAll();
+    }
 }
+
+?>

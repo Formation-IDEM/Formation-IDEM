@@ -10,7 +10,7 @@
             
             $a = App::getModel('Formation');
             
-            $b = $a -> load(1);
+            $b = $a -> save();
             
         }
         

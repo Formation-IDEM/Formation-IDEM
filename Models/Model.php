@@ -1,7 +1,12 @@
 <?php
     
     include_once ('Database.php');
-    abstract class Model{
+    
+    class Model{
+        
+        protected $_table = '';
+    
+        protected $_fields = array();
         
         
     
@@ -41,7 +46,7 @@
                     
                     //Si il existe alors on met la valeur de la clef fourni dans donnee
                     //Dans le tableau associatif de l'object
-                    $this -> fields[$key] = $key -> $value;
+                    $this -> fields[$key] = $value;
                 }
                 
             }
@@ -52,59 +57,122 @@
         
         public function save(){
             
+            //connexion a la bdd
             $connexion = Database::getInstance() -> getConnexion();
-                
+            $i = 1;
+            
+            //Si l'id = 0, c'est une insertion    
             if($this -> _fields['id'] == 0 ){
                 
-                //Si l'id = 0, c'est une insertion
-                $req = "INSERT INTO client () 
-                        VALUES ();";
+                $colonne ="";
+                $valeur ="";
+                
+                foreach ($this -> _fields as $key => $value) {
+                    
+                    $colonne .= $key;
+                    
+                    //Si c'est un string, on met les quotes
+                    if(is_string($value)){
+                        
+                        $valeur .= "'".$value."'";
+                    
+                    //Sinon on les met pas    
+                    }else{
+                        
+                        $valeur .= $value;
+                        
+                    }
+                    
+                    //Si on est pas sur la dernière itération, on met des virgules
+                    if( $i != count($this -> _fields) ){
+                        
+                        $valeur .= ",";
+                        $colonne .= ",";
+                                            
+                    }
+                    
+                    $i++;
+                    
+                }
+                //affecte les variables construite précedement dans la requete
+                $req = "INSERT INTO ".$this -> _table." (".$colonne.") VALUES (".$valeur.")";
+                
+                if( Database::getInstance()->getResultats( $req ) ) {
+                    
+                    $this->_fields['id'] = Database::getInstance()->getLastInsertId();
+                    return $this;
+                    
+                } else {
+                    
+                    return false;
+                    
+                } 
+                
                 
             }else{
                 
-                //Sinon c'est un update
-                $req = "UPDATE table 
-                        SET colonne_1 = 'valeur 1',
-                            colonne_2 = 'valeur 2',
-                            colonne_3 = 'valeur 3'
-                        WHERE id=".$this -> _fields['id'];
+                //Sinon c'est un update on crée la requet update
+                $req = "UPDATE ".$this -> _table." SET ";
+
+                foreach ($this -> _fields  as $key => $value){
+                    
+                    $req .= $key."=";
+                    
+                    //Si c'est un string, on met des quotes
+                    if( is_string($value) ){
+                        
+                        $req .= "'".$value."'";
+                        
+                    }else{
+                        
+                        //sinon pas de quote
+                        $req .= $value;
+                        
+                    }
+                    
+                    //Si on est pas sur la dernière itération
+                    //On ajoute une virgule  
+                    if( $i < count($this -> _fields) ){
+                        
+                        $req .= ",";
+                        
+                    }
+                    
+                    $i++;
+                    
+                }
+                            
+                //update là où id correspond         
+                $req .= " WHERE id=".$this -> _fields['id'];
                 
-            }           
+            }
             
+            //Effectue la requete
+            
+            if( Database::getInstance()->getResultats( $req ) ) {
+                return $this;
+            } else {
+                return false;
+            }
+                        
         }
         
         public function delete(){            
             
-            $requete = 'DELETE * FROM '.$this -> getTable().' WHERE '.$this -> getId(); 
-             
-            $row = Database::getResultat($requete);
+            if( $this->getData('id') ) {
+                return Database::getResultat('DELETE * FROM '.$this -> _table.' WHERE '.$this -> getData('id'));
+            } 
+            return false;
             
         }
         
-        //----------------------------------------------------------------------------------------------
-        //Lecture de field----------------------------------------------------------------
-        protected function getFields(){
+        function getData($key){
             
-            return $this -> _fields;
-            
-        }
-        protected function setFields($fields){
-            
-            $this -> _fields = $fields;
-            
-        } 
-
-        //----------------------------------------------------------------------------------------------
-        //Lecture de table----------------------------------------------------------------
-        protected function getTable(){
-            
-            return $this -> _table;
-            
-        }
-        
-        protected function setTable($table){
-            
-            $this -> _table = $table;
+            if( isset( $this -> _fields[$key] ) ){
+                
+                return $this -> _fields[$key];
+                
+            }
             
         }
        
