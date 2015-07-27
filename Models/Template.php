@@ -15,7 +15,13 @@
         
         public function render(){
             
+            extract($this -> _datas);
             
+             if( file_exists( dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml" ) ){
+                 
+                 include_once dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml";
+                 
+             }            
             
         } 
 

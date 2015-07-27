@@ -8,7 +8,7 @@
         
         public function indexAction(){
             
-            echo "Accueil";
+            Template::getInstance() -> render();            
             
         }
         

@@ -64,6 +64,9 @@
         
         public function run(){
             
+            //Nécessaire pour l'affichage de la vue
+            include_once ('Models/Template.php'); 
+            
             //Création de controlleur----------------------------     
             include_once ('Controllers/ControllerFactory.php');            
             $controller = ControllerFactory::createController();
