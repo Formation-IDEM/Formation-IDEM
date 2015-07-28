@@ -1,12 +1,17 @@
 <?php
 
-include_once('Controllers/Database.php');
+include_once('Models/Database.php');
 
 abstract class Model
 {
 	protected $_table = '';
 	
 	protected $_fields = array();
+
+	public function __construct()
+	{
+
+	}
 	
 	public function load($id = null) // charge un objet depuis la bdd
 	{
@@ -22,7 +27,7 @@ abstract class Model
 					{
 						$this->_fields[$field] = $value;
 					}
-				}				
+				}
 			}
 		}
 		return $this;
@@ -89,6 +94,7 @@ abstract class Model
 			
 			// On crée la query finale
 			$query = 'INSERT INTO '.$this->_table.' ('.$fields.') VALUES ('.$values.');';
+			echo $query;
 			
 			// Execution de la requête
 			$db = Database::getInstance();

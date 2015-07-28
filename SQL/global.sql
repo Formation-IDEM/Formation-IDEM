@@ -203,15 +203,8 @@ CREATE TABLE trainers
 	social_security_number INTEGER NOT NULL,
 	photo VARCHAR NOT NULL,
 	family_status_id INTEGER,
-	nationality_id INTEGER
-);
-
-/* Création de la table trainer_extern liée a un formateur */
-CREATE TABLE trainers_externs
-(
-	id SERIAL PRIMARY KEY,
-	hourly_rate FLOAT NOT NULL,
-	trainer_id INT NOT NULL
+	nationality_id INTEGER,
+	hourly_rate FLOAT
 );
 
 /* Création de la table d'association entre formateur et matière */
@@ -272,7 +265,6 @@ ALTER TABLE internships ADD FOREIGN KEY (formation_id) REFERENCES formations(id)
 ALTER TABLE company_internship ADD FOREIGN KEY (trainee_id) REFERENCES trainees(id);
 
 -- Mise en place des clées étrangères --
-ALTER TABLE trainers_externs ADD CONSTRAINT fk_trainers_externs FOREIGN KEY (trainer_id) REFERENCES trainers(id);
 ALTER TABLE levels ADD CONSTRAINT fk_matters_levels FOREIGN KEY (matter_id) REFERENCES matters(id);
 ALTER TABLE levels ADD CONSTRAINT fk_trainers_levels FOREIGN KEY (trainer_id) REFERENCES trainers(id);
 ALTER TABLE timesheets ADD CONSTRAINT fk_formations_sessions_timesheets FOREIGN KEY (formation_session_id) REFERENCES formation_sessions(id);

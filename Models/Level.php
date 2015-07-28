@@ -1,75 +1,42 @@
 <?php 
 
-include_once('Models/Model.php');
-
 class Level extends Model
 {
+	// Attributs	
 	
-	private $_note;
-	private $_appreciation;
-	private $_trainer_id;
-	private $_matter_id;
-	
-	public function __construct(){
-		
-	}
-	
-// ############################ NOTE ###############################	
-	
-	public function getNote(){
-		
-		return $this->_note;
-		
-	}
-	
-	public function setNote($note){
-		
-		$this->_note = $note;
-		return $this;
-		
-	}
+	protected $_trainer = null;
 
-// ############################ APPRECIATION ###############################
-	
-// ############################ APPRECIATION ###############################	
-	
-	public function getAppreciation(){
+	protected $_matter = null;
 		
-		return $this->_appreciation;
+	// Constructeur
+	public function __construct()
+	{
+		parent::__construct();
 		
+		$this->_table = 'levels';
+		$this->_fields['id'] = 0;
+		$this->_fields['note'] = 0;
+		$this->_fields['appreciation'] = '';
+		$this->_fields['trainer_id'] = 0;
+		$this->_fields['matter_id'] = 0;
 	}
 	
-	public function setAppreciation($appreciation){
-		
-		$this->_appreciation = $appreciation;
-		return $this;
-		
-	}
-
-// ############################ TRAINER ###############################
-	
-	public function getTainer(){
-		$trainer = new Trainer();
-		$trainer->load($this->_trainer_id);
-		return $trainer;
+	public function getTrainer()
+	{
+		if(!$this->_trainer)
+		{
+			$this->_trainer = App::getModel('Trainer')->load($this->getData('trainer_id'));
+		}
+		return $this->_trainer;
 	}
 	
-	public function setTrainer($trainer_id){
-		$this->_trainer_id = $trainer_id;
-		return $this;
-	}
-	
-// ############################ MATTER ###############################
-
-	public function getMatter(){
-		$matter = new Matter();
-		$matter->load($this->_matter_id);
-		return $matter;
-	}
-	
-	public function setMatter($matter_id){
-		$this->load($this->_matter_id);
-		return $this;
+	public function getMatter()
+	{
+		if(!$this->_matter)
+		{
+			$this->_matter = App::getModel('Matter')->load($this->getData('matter_id'));
+		}
+		return $this->_matter;
 	}
 }
 ?>

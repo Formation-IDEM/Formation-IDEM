@@ -23,6 +23,22 @@ class App
 		}
 		return self::$_instance;
 	}
+
+	public static function getCollection($type)
+	{
+
+		if(file_exists('./Models/Collections/'.$type.'Collection.php'))
+		{
+			include_once('./Models/Collection.php');
+			include_once('./Models/Collections/'.$type.'Collection.php');
+			$typeCollection = $type.'Collection';
+			return new $typeCollection;
+		}
+		else
+		{
+			return null;
+		}
+	}
 	
 	public static function getModel($type)
 	{
@@ -51,6 +67,9 @@ class App
 	{
 		// inclusion système de template
 		include_once('Models/Template.php');
+
+		// inclusion système de db
+		include_once('Models/Database.php');
 		
 		// Récupère l'action
 		$action = self::getInstance()->setActionName()->_actionName;
