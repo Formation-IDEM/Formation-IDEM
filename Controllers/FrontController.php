@@ -9,9 +9,14 @@ class FrontController{
 	
 	public function indexAction(){
 		
-		Template::getInstance()->setDatas(array("test"=>"pwet"));
-		Template::getInstance()->render();
+		//Template::getInstance()->setDatas(array("test"=>"pwet"));
+		//Template::getInstance()->render();		
 		
+		$f = App::getModel("Formation");
+		
+		$f -> load(1);
+		
+		var_dump($f);
 	}
 	
 	public function noAction(){

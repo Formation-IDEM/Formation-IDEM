@@ -4,7 +4,7 @@ include_once('Model.php');
 
     class RefPedago extends Model{
 		
-		protected $_table = "matters";
+		protected $_table = "ref_pedagos";
 		protected $_fields = array(
 									'formations_id' 	=> 0,
 									'matters_id' 		=> 0	
