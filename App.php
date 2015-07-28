@@ -13,6 +13,9 @@ class App {
 	 * 
 	 */
 	private function __construct() {
+		
+		
+		include_once("Models/Database.php");
 
 		$this->setController();
 		$this->setActionName();
@@ -57,7 +60,22 @@ class App {
 	 */
 	public static function getModel( $type ) {
 		if( file_exists("Models/" . $type . ".php") ) {
-			include("Models/" . $type . ".php");
+			include_once("Models/Model.php");
+			include_once("Models/" . $type . ".php");
+			return new $type();
+		}
+		return null;
+	}
+	
+	/*
+	 * Retourne une instance d'une collection 
+	 */
+	public static function getCollection( $type ) {
+		if( file_exists("Models/Collections/" . $type . "Collection.php") ) {
+			$type = $type. "Collection";
+			include_once("Models/Collection.php");
+			include_once("Models/Collections/" . $type . ".php");
+			
 			return new $type();
 		}
 		return null;
@@ -69,10 +87,12 @@ class App {
 	 */
 	public function run() {
 		
+		
 		// Récupère l'action
 		$action = $this->_actionName;
 		
 		$this->_controller->$action();
+		
 	}
 
 

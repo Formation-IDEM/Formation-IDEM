@@ -1,6 +1,5 @@
 <?php
 
-include_once("Database.php");
 
 
 class Model {
@@ -31,7 +30,7 @@ class Model {
 	 * Charge un objet depuis la bdd grâce à son $id
 	 */
 	public function load($id) {
-		$results = Database::getInstance()->getResultats( "SELECT * FROM " . $this->_table . " WHERE id = " . $id );
+		$results = Database::getInstance()->getResultat( "SELECT * FROM " . $this->_table . " WHERE id = " . $id );
 		foreach( $results as $columName => $data ) {
 			if( array_key_exists($columName, $this->_fields) ) {
 				$this->_fields[$columName] = $data;
@@ -77,7 +76,7 @@ class Model {
 				$i++;
 			}
 			$request .= " WHERE id = " . $this->getData('id');
-			if( Database::getInstance()->getResultats( $request ) ) {
+			if( Database::getInstance()->getResultat( $request ) ) {
 				return $this;
 			} else {
 				return false;
@@ -106,7 +105,7 @@ class Model {
 				$i++;
 			}
 			$request .= "(" . $columns . ") VALUES (" . $values . ")"; 
-			if( Database::getInstance()->getResultats( $request ) ) {
+			if( Database::getInstance()->getResultat( $request ) ) {
 				$this->_fields['id'] = Database::getInstance()->getLastInsertId();
 				return $this;
 			} else {

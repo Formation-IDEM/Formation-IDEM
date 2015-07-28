@@ -1,6 +1,5 @@
 <?php  
 
-
 class FrontController{
 	
 	public function __contruct(){
@@ -12,8 +11,13 @@ class FrontController{
 		//Template::getInstance()->setDatas(array("test"=>"pwet"));
 		//Template::getInstance()->render();		
 		
-		//$f = App::getModel("Matter");
-		//$f -> store(array('title'=>'pouf'));
+		$f = App::getModel('Formation');
+		
+		$c = App::getCollection("FormationSession");
+		
+		$f -> setFormationSessions($c -> getItems(1));
+		
+		var_dump( $f -> getFormationSessions() );
 		
 		
 	}
@@ -24,3 +28,5 @@ class FrontController{
 		
 	}
 }
+
+?>

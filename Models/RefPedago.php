@@ -1,8 +1,5 @@
 <?php
     
-include_once('Model.php');
-
-
     class RefPedago extends Model{
 		
 		protected $_formation = null;
@@ -18,7 +15,8 @@ include_once('Model.php');
 		public function __contruct(){
 				
 		}
-
+		
+		//Récupere la matière lié a la current refpedago
 		public function getMatter(){
 			
 			if(!$this -> _matter){
@@ -33,6 +31,7 @@ include_once('Model.php');
 			
 		}		
 		
+		//Récupere la formation lié a la current refpedago
 		public function getFormation(){
 			
 			if( !$this -> _formation ){

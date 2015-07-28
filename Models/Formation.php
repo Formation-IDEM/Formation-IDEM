@@ -1,7 +1,5 @@
 <?php
 
-include_once('Model.php');
-
     class Formation extends Model{
     	
 		protected $_ref_pedago = null;
@@ -41,8 +39,8 @@ include_once('Model.php');
 			
 		}
 		
-		//permet de récuperé la collection des formations session
-		public function getFormationSession(){
+		//permet de récuperé la collection des formations session------
+		public function getFormationSessions(){
 			
 			if($this->_formation_session){
 				
@@ -50,7 +48,14 @@ include_once('Model.php');
 
 			}
 			
-		}		
+		}
+		public function setFormationSessions($a){
+			
+			$this -> _formation_session = $a;
+			
+			return $this;
+			
+		}
     }
     
 ?>

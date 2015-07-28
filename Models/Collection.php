@@ -1,8 +1,15 @@
 <?php
 
-class Collection{
-		
-	public $_table;
-	public $_model_name;	
+
+class Collection {
 	
+	protected $_table = "";
+	protected $_model_name = "";
+	
+	
+	public function __construct() {
+		
+	}
 }
+
+?>
