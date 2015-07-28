@@ -19,41 +19,33 @@ include_once('Model.php');
 				
 		}
 
-		//----------------------------------------------------------
-		//----------------------
-		public function getFormation(){
-			
-			if( !$this -> _formation){
-				
-				$f = App::getModel('Formation');
-				$f -> load($this->getData('formation_id') );
-				return $f;
-				
-			}else{
-				
-				return $this -> _formation;
-				
-			}
-			
-		}
-		
-		//----------------------------------------------------------
-		//----------------------
 		public function getMatter(){
 			
 			if(!$this -> _matter){
 				
 				$m = App::getModel('Matter');
 				$m -> load($this->getData('matter_id') );
-				return $m;
+				$this -> _matter;
 				
-			}else{
+			}
 				
 				return $this -> _matter;
 			
-			}
-			
 		}		
+		
+		public function getFormation(){
+			
+			if( !$this -> _formation ){
+				
+				$f = App::getModel('Formation');
+				$f -> load($this->getData('formation_id') );
+				$this->_formation = $f;				
+				
+			}
+				
+				return $this -> _formation;
+				
+		}
 			
 	}
 	

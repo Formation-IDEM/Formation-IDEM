@@ -24,13 +24,11 @@ include_once('Model.php');
 				
 				$f = App::getModel('Formation');
 				$f -> load($this-> getData('formation_id') );
-				return $f;
-				
-			}else{
-				
-				return $this -> _formation;
+				$this->_formation = $f;
 				
 			}
+				
+			return $this -> _formation;
 			
 		} 
 		

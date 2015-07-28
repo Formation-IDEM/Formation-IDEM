@@ -3,6 +3,9 @@
 include_once('Model.php');
 
     class Formation extends Model{
+    	
+		protected $_ref_pedago = null;
+		protected $_formation_session = null;
 		
 		protected $_table = "formations";
 		protected $_fields = array(
@@ -26,6 +29,28 @@ include_once('Model.php');
 			
 			return $this -> _table;
 		}
+		
+		//permet de récuperé la collection des reférence pédagogique
+		public function getRedPedago(){
+			
+			if($this->_ref_pedago){
+				
+				return $this -> _ref_pedago;
+
+			}
+			
+		}
+		
+		//permet de récuperé la collection des formations session
+		public function getFormationSession(){
+			
+			if($this->_formation_session){
+				
+				return $this -> _formation_session;
+
+			}
+			
+		}		
     }
     
 ?>
