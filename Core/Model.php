@@ -66,7 +66,7 @@ class Model
 	{
 		if( !empty($key) )
 		{
-			if( isset($this->_fields[$key]) && !empty($this->_fields[$key]) )
+			if( isset($this->_fields[$key]) )
 			{
 				return $this->_fields[$key];
 			}
@@ -99,7 +99,7 @@ class Model
 	 */
 	public function save()
 	{
-		if( $this->getData('id') && $this->getData('id') != 0 )
+		if( $this->getData('id') && $this->getData('id')  !=0 )
 		{
 			$this->insert($this->_fields);
 		}
@@ -145,7 +145,6 @@ class Model
 	 * et l'id passée en paramètre
 	 *
 	 * @param $data
-	 * @param $id
 	 * @return mixed
 	 */
 	public function update($data)
@@ -213,16 +212,56 @@ class Model
 		}
 	}
 
+	/**
+	 * Setter
+	 *
+	 * @param $key
+	 * @param $value
+	 * @return $this
+	 */
+	public function __set($key, $value)
+	{
+		if( isset($this->_fields[$key]) )
+		{
+			$this->_fields[$key] = $value;
+		}
+		return $this;
+	}
+
+	/**
+	 * Getter
+	 *
+	 * @param $key
+	 * @return mixed
+	 */
+	public function __get($key)
+	{
+		return $this->getData($key);
+	}
+
+	/**
+	 * retourne la dernière id renseignée
+	 *
+	 * @return mixed
+	 */
 	public function lastId()
 	{
 		return $this->db->lastInsertId();
 	}
 
+	/**
+	 * Retourne le tableau des champs
+	 * @return array
+	 */
 	public function getFields()
 	{
 		return $this->_fields;
 	}
 
+	/**
+	 * Retourne la table utilisée
+	 * @return string
+	 */
 	public function getTable()
 	{
 		return $this->_table;

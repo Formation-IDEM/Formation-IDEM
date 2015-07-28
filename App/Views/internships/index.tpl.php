@@ -12,8 +12,8 @@
     <tbody>
     <?php foreach($items as $item): ?>
     <tr>
-        <td class="text-center"><?= $item->title; ?></td>
-        <td class="text-center"><?= $item->company_id; ?></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
     </tr>
     <?php endforeach; ?>
     </tbody>

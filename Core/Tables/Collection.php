@@ -188,7 +188,15 @@ class Collection
 			//	On parcourt les conditons pour formater la requête
 			foreach( $this->conditions as $q )
 			{
-				$sql .= $q['key'] . ' ' . $q['cond'] . ' ' . ':' . $q['key'];
+				if( $q['key'] === 'id' )
+				{
+					$sql .= $this->from . '.' . $q['key'] . ' ' . $q['cond'] . ' ' . ':' . $q['key'];
+				}
+				else
+				{
+					$sql .= $q['key'] . ' ' . $q['cond'] . ' ' . ':' . $q['key'];
+				}
+
 				if( $count < (count($this->conditions) - 1) )
 				{
 					$sql .= ' AND ';
@@ -220,7 +228,7 @@ class Collection
 			 return $this->db->prepare($sql, $attributes);
 		}
 
-		$this->items = $this->db->query($sql);
+		$this->items[] = $this->db->query($sql);
 	}
 
 	public function display()

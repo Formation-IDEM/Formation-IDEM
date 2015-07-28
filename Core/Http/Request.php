@@ -76,6 +76,53 @@ class Request
 	}
 
 	/**
+	 * Retourne un tableau contenant les données formatées
+	 *
+	 * @param string $method
+	 * @return array
+	 */
+	public function all($method = 'POST')
+	{
+		switch( $method )
+		{
+			case 'POST':
+				$data = [];
+				foreach( $_POST as $key => $value )
+				{
+					$data[$key] = $this->getPost($key);
+				}
+				return $data;
+			break;
+
+			case 'GET':
+				$data = [];
+				foreach( $_GET as $key => $value )
+				{
+					$data[$key] = $this->getData($key);
+				}
+				return $data;
+			break;
+
+			default:
+				$data = [];
+				foreach( $_POST as $key => $value )
+				{
+					$data = array_merge($data, [
+						$key	=>	$this->getPost($key),
+					]);
+				}
+
+				foreach( $_GET as $key => $value )
+				{
+					$data = array_merge($data, [
+						$key	=>	$this->getData($key),
+					]);
+				}
+				return $data;
+		}
+	}
+
+	/**
 	 * Récupère la méthode
 	 *
 	 * @return mixed

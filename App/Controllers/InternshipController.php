@@ -2,7 +2,6 @@
 namespace App\Controllers;
 
 use Core\Controller;
-use \Core\Factories\CollectionFactory;
 
 /**
  * Class InternshipController
@@ -19,14 +18,14 @@ class InternshipController extends Controller
 
 	public function indexAction()
 	{
-		$collection = CollectionFactory::loadCollection('Internship');
-		$collection->select()
-			->from('internships')
-			->join('companies', 'companies.id = internships.company_id')
-			->newest()
-			->get();
-		$items = $collection->display();
+		$items = $this->internship->getCollection()->getInternshipsCompany();
+		var_dump($items);
+		//return $this->layout()->render('internships/index', compact('items'));
+	}
 
-		return $this->layout()->render('internships/index', compact('items'));
+	public function showAction($id)
+	{
+		$internship = $this->internship->load($id);
+		return $this->layout()->render('internships/internship', compact('internship'));
 	}
 }

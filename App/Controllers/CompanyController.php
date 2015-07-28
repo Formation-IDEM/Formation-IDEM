@@ -2,7 +2,6 @@
 namespace App\Controllers;
 
 use \Core\Controller;
-use \Core\Factories\CollectionFactory;
 
 /**
  * Class CompanyController
@@ -19,9 +18,9 @@ class CompanyController extends Controller
 
 	public function indexAction()
 	{
-		$collection = CollectionFactory::loadCollection('Company');
-		$items = $collection->all();
-		return $this->layout()->render('home', compact('items'));
+		$items = $this->company->getInternships();
+		var_dump($items);
+		//return $this->layout()->render('home', compact('items'));
 	}
 
 	public function showAction($id)
@@ -38,13 +37,8 @@ class CompanyController extends Controller
 
 	public function storeAction()
 	{
-		$data = [];
-		foreach( $_POST as $key => $value )
-		{
-			$data[$key] = htmlspecialchars($value);
-		}
-
-		$this->company->store($data)->save();
+		$request = new \Core\Http\Request();
+		$this->company->store($request->all('POST'))->save();
 	}
 
 	public function editAction()

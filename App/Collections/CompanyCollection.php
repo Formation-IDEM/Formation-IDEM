@@ -16,4 +16,10 @@ class CompanyCollection extends Collection
 	{
 		parent::__construct();
 	}
+
+    public function getInternships($id)
+    {
+        return $this->select()->from('internships')->where('company_id', '=', $id)->get();
+    }
+
 }
