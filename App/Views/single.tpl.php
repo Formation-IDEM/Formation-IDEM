@@ -4,7 +4,7 @@
 
 <ul>
     <?php foreach($company->getInternships() as $stage): ?>
-    <li><?= $stage->title; ?></li>
+        <li><a href="<?= url('internships/' . $stage->id); ?>"><?= $stage->title; ?></a></li>
     <?php endforeach; ?>
 </ul>
 

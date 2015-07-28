@@ -12,12 +12,10 @@ class Collection
 {
 	//	Modèle
 	protected $db;
-	protected $collection;
+	protected $_table;
+	protected $_model;
 
 	//	Requête
-	/**
-	 * @var
-     */
 	protected $fields;
 	protected $conditions = [];
 	protected $from;
@@ -79,7 +77,7 @@ class Collection
 	public function where($key, $cond, $value)
 	{
 		$this->conditions[] = [
-			'key'		=>	$key,
+			'key'	=>	$key,
 			'cond'	=>	$cond,
 			'value'	=>	$value
 		];
@@ -99,6 +97,10 @@ class Collection
 		{
 			$this->orderFields = $this->from . '.' . $fields;
 		}
+		else
+		{
+			$this->orderFields = $fields;
+		}
 
 		$this->orderBy = $order;
 		return $this;
@@ -110,9 +112,9 @@ class Collection
 	 * @param string $field
 	 * @return $this
 	 */
-	public function newest($field = 'create_date')
+	public function oldest($field = 'create_date')
 	{
-		$this->orderBy($field, 'DESC');
+		$this->orderBy($field, 'ASC');
 		return $this;
 	}
 
@@ -124,7 +126,7 @@ class Collection
 	 */
 	public function latest($field = 'create_date')
 	{
-		$this->orderBy($field, 'ASC');
+		$this->orderBy($field, 'DESC');
 		return $this;
 	}
 
@@ -228,7 +230,8 @@ class Collection
 			 return $this->db->prepare($sql, $attributes);
 		}
 
-		$this->items[] = $this->db->query($sql);
+		//$this->items[] = $this->db->query($sql);
+		return $this->db->query($sql);
 	}
 
 	public function display()

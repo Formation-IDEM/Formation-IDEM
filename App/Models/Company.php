@@ -37,9 +37,13 @@ class Company extends Model
 
 	private $_rules = [];
 
+    public function all()
+    {
+        return CollectionFactory::loadCollection('company')->getAll();
+    }
+
 	public function getInternships()
 	{
-		$collection = CollectionFactory::loadCollection('company');
-        return $collection->getInternships($this->getData('id'));
+		return CollectionFactory::loadCollection('internship')->getItemsByCompany($this->getData('id'));
 	}
 }

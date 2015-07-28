@@ -18,9 +18,8 @@ class CompanyController extends Controller
 
 	public function indexAction()
 	{
-		$items = $this->company->getInternships();
-		var_dump($items);
-		//return $this->layout()->render('home', compact('items'));
+		$items = $this->company->all();
+		return $this->layout()->render('companies/index', compact('items'));
 	}
 
 	public function showAction($id)

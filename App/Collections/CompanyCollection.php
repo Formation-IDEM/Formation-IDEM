@@ -2,6 +2,7 @@
 namespace App\Collections;
 
 use \Core\Tables\Collection;
+use Core\Factories\ModelFactory;
 
 /**
  * Class CompanyCollection
@@ -10,16 +11,32 @@ use \Core\Tables\Collection;
  */
 class CompanyCollection extends Collection
 {
-	protected $collection = 'companies';
+	protected $_table = 'companies';
+    protected $_model = 'company';
 
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-    public function getInternships($id)
+    /**
+     * Retourne tous les éléments de la table
+     *
+     * @return array
+     */
+    public function getAll()
     {
-        return $this->select()->from('internships')->where('company_id', '=', $id)->get();
+        if( !$this->items )
+        {
+            $results = $this->select()->from($this->_table)->latest()->get();
+            foreach( $results as $result )
+            {
+                $this->items[] = ModelFactory::loadModel($this->_model)->load($result->id);
+            }
+        }
+
+
+        return $this->items;
     }
 
 }
