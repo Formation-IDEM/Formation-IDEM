@@ -12,9 +12,9 @@ class FormationController{
 		
 		$maFormation = App::getModel("Formation");
 		
-		$maFormation -> load(4);
-		
-		//var_dump($maFormation);
+		$maFormation -> save();
+		$fs->store(array( 'title' => 'Cap Metiers'));
+	
 		
 	}
 	

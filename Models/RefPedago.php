@@ -1,44 +1,28 @@
 <?php
     
-	class RefPedago{
-		private $_formation_id;
-		private $_matter_id;
+include_once('Model.php');
+
+    class RefPedago extends Model{
+		
+		protected $_table = "matters";
+		protected $_fields = array(
+									'formations_id' 	=> 0,
+									'matters_id' 		=> 0	
+		
+		);
 
 		public function __contruct(){
 			
 			
 		}
-		
-		//----------------------------------------------------------
-		//Lecture et mise a jour de l'id----------------------------
-		public function getFormationId(){
-			
-			return $this -> _formation_id;
-		}
-		
-		public function setFormationId($formation_id){
-			
-			$this -> _formation_Id = $formation_id;
-			
-		}
-			
-		//----------------------------------------------------------
-		//Lecture et mise a jour de l'intitulé----------------------
-		public function getMatterId(){
-			
-			return $this -> _matter_id;
-		}
-		
-		public function setMatterId($matter_id){
-			
-			$this -> _matter_id = $matter_id;
-			
-		}
+
 		//----------------------------------------------------------
 		//----------------------
 		public function getFormation(){
 			
-			
+			$f = App::getModel('Formation');
+			$f -> load($this->getData('formation_id') );
+			return $f;
 			
 		}
 		
@@ -46,6 +30,9 @@
 		//----------------------
 		public function getMatter(){
 			
+			$m = App::getModel('Matter');
+			$m -> load($this->getData('matter_id') );
+			return $m;
 			
 			
 		}		
