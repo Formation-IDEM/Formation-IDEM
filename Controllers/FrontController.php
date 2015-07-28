@@ -17,7 +17,7 @@ class FrontController{
 		
 		$f -> setRefPedago($c -> getItems("formations",1));
 		
-		var_dump( $f -> getFormationSessions() );
+		var_dump( $f -> getRefPedago() );
 				
 	}
 	
