@@ -18,6 +18,11 @@ class Layout
 		$this->path = $path;
 	}
 
+	/**
+	 * Singleton
+	 *
+	 * @return Layout
+	 */
 	public static function getInstance()
 	{
 		if( is_null(self::$_instance) )
@@ -27,11 +32,19 @@ class Layout
 		return self::$_instance;
 	}
 
+	/**
+	 * Récupère le fichier appelé
+	 *
+	 * @param $file
+	 * @param array $data
+	 * @return string
+	 * @throws LayoutException
+	 */
 	private function getFile($file, $data = [])
 	{
 		if( is_file(ROOT . $this->path . '/' . $file . '.tpl.php') )
 		{
-			ob_start();
+			ob_start("ob_gzhandler");
 			extract($data);
 			require_once(ROOT . $this->path . '/' . $file . '.tpl.php');
 			$content = ob_get_contents();
@@ -42,6 +55,13 @@ class Layout
 		throw new LayoutException('Le fichier de template ' . $file . ' n\'existe pas');
 	}
 
+	/**
+	 * Génère la vue
+	 *
+	 * @param $file
+	 * @param $data
+	 * @throws LayoutException
+	 */
 	public function render($file, $data)
 	{
 		$content = $this->getFile($file, $data);

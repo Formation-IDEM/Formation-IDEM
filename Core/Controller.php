@@ -15,11 +15,8 @@ class Controller
 
 	public function __construct()
 	{
-		//	On charge les middlewares si il y en a
-		MiddlewareFactory::loadMiddlewares($this->middlewares);
-
-		//	On charge le layout
 		$this->layout = Layout::getInstance();
+		MiddlewareFactory::loadMiddlewares($this->middlewares);
 	}
 
 	/**
@@ -30,6 +27,11 @@ class Controller
 		return $this->layout;
 	}
 
+	/**
+	 * Permet de charger un modèle
+	 *
+	 * @param $model
+	 */
 	public function loadModel($model)
 	{
 		$model = strtolower($model);

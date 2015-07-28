@@ -95,7 +95,11 @@ class Collection
 	 */
 	public function orderBy($fields, $order = 'ASC')
 	{
-		$this->orderFields = $fields;
+		if( $this->join )
+		{
+			$this->orderFields = $this->from . '.' . $fields;
+		}
+
 		$this->orderBy = $order;
 		return $this;
 	}
@@ -215,7 +219,13 @@ class Collection
 		{
 			 return $this->db->prepare($sql, $attributes);
 		}
+
 		$this->items = $this->db->query($sql);
+	}
+
+	public function display()
+	{
+		return $this->items;
 	}
 
 	/**

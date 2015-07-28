@@ -1,3 +1,7 @@
-<h1><?= $header; ?></h1>
+<h1>Page d'accueil</h1>
 
-<?php var_dump($ins); ?>
+<ul>
+    <?php foreach($items as $item): ?>
+    <li><a href="<?= url('companies/' . $item->id); ?>"><?= $item->name; ?></a></li>
+    <?php endforeach; ?>
+</ul>

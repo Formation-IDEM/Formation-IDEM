@@ -41,14 +41,17 @@ class Model
 	 */
 	public function load($id)
 	{
-		$data = $this->query('SELECT * FROM ' . $this->_table . ' WHERE id = ?', [$id], true);
+		$data = $this->query('SELECT * FROM ' . $this->_table . ' WHERE id = ?', [intval($id)], true);
 		if( !$data )
 		{
 			return false;
 		}
-		foreach($this->_fields as $key => $value)
+		foreach($data as $key => $value)
 		{
-			$this->_fields[$key] = $data->$key;
+			if( array_key_exists($key, $this->_fields) )
+			{
+				$this->_fields[$key] = $value;
+			}
 		}
 		return $this;
 	}
@@ -59,7 +62,7 @@ class Model
 	 * @param $key
 	 * @return mixed
 	 */
-	public function getData($key = '')
+	public function getData($key)
 	{
 		if( !empty($key) )
 		{
@@ -68,7 +71,7 @@ class Model
 				return $this->_fields[$key];
 			}
 		}
-		return $this->_fields;
+		return '';
 	}
 
 	/**
@@ -78,9 +81,12 @@ class Model
 	 */
 	public function store($data)
 	{
-		foreach( $this->_fields as $field )
+		foreach( $data as $key => $value )
 		{
-			$this->_fields[$field] = $data[$field];
+			if( array_key_exists($key, $this->_fields) )
+			{
+				$this->_fields[$key] = $value;
+			}
 		}
 
 		return $this;
@@ -142,7 +148,7 @@ class Model
 	 * @param $id
 	 * @return mixed
 	 */
-	public function update($data, $id)
+	public function update($data)
 	{
 		$sql = 'UPDATE ' . $this->_table . ' SET ';
 
@@ -162,10 +168,13 @@ class Model
 		}
 		$sql .= ' WHERE id = :id';
 		$attributes = array_merge($attributes, [
-			':id'	=>	intval($id),
+			':id'	=>	intval($this->getData('id')),
 		]);
 
-		$this->db->execute($sql, $attributes);
+		if( $this->db->execute($sql, $attributes) )
+		{
+			$this->_fields['id'] = $this->db->lastInsertId($this->_table);
+		}
 		return $this;
 	}
 
@@ -176,8 +185,12 @@ class Model
 	 */
 	public function delete()
 	{
-		$this->db->execute('DELETE FROM ' . $this->_table . ' WHERE id = ?', [$this->fields['id']]);
-		return $this;
+		if( $this->getData('id') )
+		{
+			return $this->db->execute('DELETE FROM ' . $this->_table . ' WHERE id = ?', [$this->getData('id')]);
+		}
+
+		return false;
 	}
 
 	/**

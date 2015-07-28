@@ -1,6 +1,7 @@
 <?php
 namespace Core\Router;
 
+use \Core\Http\Request;
 use \App\Exceptions\RouterException;
 
 /**
