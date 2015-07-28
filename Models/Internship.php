@@ -4,35 +4,30 @@
 
 	class internship extends Model
 	{
-		protected $_company = null;
-		protected $_fields = array(
-			'id'=> 0,
-			'title'=> '',
-			'explain'=>'',
-			
-		
-		);
-		
+		private $_id;
+		private	$_entitle;
+		private	$_description;
+		private	$_stageLevel;
+		private	$_stageReferent;
+		private	$_availability;
+		private	$_validity;
+		private	$_pay;				//remunération bool
+		private	$_wage;
+		private	$companyId;				//salaire
 		
 		public function	__construct()
 		{
 			parent::__construct();
 		}
 		
-				
+		/*		
 		public function getCompany()	//recupere les instances de la classe company
 		{
-			if(!$this_company)
-			{
-				$this->_company = App::getModel("company")->load($this->getData("company"));
-			}
-			return $this->_company;
+			$company = new Company();
+			$company->load($this->companyId);
+			return $company;
 		}
-		
+		*/
 	}
 
-
-
 ?>
-
-			
