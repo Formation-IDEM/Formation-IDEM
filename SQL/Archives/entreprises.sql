@@ -16,7 +16,7 @@ CREATE TABLE companies (
 	fax VARCHAR(15) DEFAULT NULL,
 	manager VARCHAR(60) DEFAULT NULL,
 	create_date TIMESTAMP DEFAULT(NOW()),
-  update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+  	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,
 	update_uid INT DEFAULT NULL,
 	visit_date DATE DEFAULT NULL,

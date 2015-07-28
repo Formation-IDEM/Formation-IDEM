@@ -30,7 +30,7 @@ abstract class Person extends Model
 		$this->_fields['photo'] = 'aucune';
 		$this->_fields['nationality_id'] = 0;
 		$this->_fields['family_status_id'] = 0;
-	}	
+	}
 }
 
 ?>

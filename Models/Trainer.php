@@ -9,6 +9,8 @@ class Trainer extends Person
 	protected $_table;
 	
 	protected $_fields;
+	
+	protected $_study_level = null;
 		
 	// Constructeur
 	public function __construct()
@@ -21,11 +23,13 @@ class Trainer extends Person
 		$this->_fields['study_levels_id'] = 0;
 	}
 	
-	public function getStudyLevels()
+	public function getStudyLevel()
 	{
-		$sl = App::getModel('StudyLevel');
-		$sl->load($this->getData('study_levels_id'));
-		return $sl;
+		if(!$this->_study_level)
+		{
+			$this->_study_level = App::getModel('StudyLevel')->load($this->getData('study_levels_id'));
+		}
+		return $this->_study_level;
 	}
 }
 

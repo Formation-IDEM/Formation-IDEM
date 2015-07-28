@@ -9,7 +9,7 @@ class StudyLevel extends Model
 	protected $_table;
 	
 	protected $_fields;
-		
+			
 	// Constructeur
 	public function __construct()
 	{
