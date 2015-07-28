@@ -6,7 +6,8 @@ include_once ('model.php');
  * Classe Stage
  */
 class Internship extends Model {
-	
+
+	protected $_company = null;
 	public $id;
 	private $_internshipName;
 	private $_descriptif;
@@ -17,20 +18,21 @@ class Internship extends Model {
 	private $_validity;
 	private $_pay; //remuneration bool
 	private $_wage; //montant remuneration
-	
+
 	function __construct() {
-		
+
 		parent::__construct();
-		
+
 	}
-	
-	
-	/*
+
 	public function getCompany(){
-	
-		$company= new Company();
-		$company->load($this->_companyId);
-		return $company;
-	
-	}*/
+
+		if (!$this->_company) {
+			$this->_company=App::getModel('Company')->load($this->getData('company'));
+		}
+
+		return $this->_company;
+	}
+
+
 }

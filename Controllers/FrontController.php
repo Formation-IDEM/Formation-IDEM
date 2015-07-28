@@ -12,7 +12,7 @@ class FrontController {
 	
 	public function indexAction(){
 		$maCompany = App::getModel('Company');
-		$maCompany->store(array('name' => 'Azaa',
+		/*$maCompany->store(array('name' => 'Azaa',
 								'status' => 'AFf',
 								'company_name' => 'Vfsil',
 								'address' => 'SafF',
@@ -24,7 +24,7 @@ class FrontController {
 								'fax' => '04684678',
 								'manager' => 'ELLE'
 		));
-		var_dump($maCompany->save());
+		var_dump($maCompany->save());*/
 		//$maCompany->load(1);
 		//$maCompany->delete(1);
 	}

@@ -22,17 +22,17 @@ class Company extends Model {
 								'manager' => '',
 								'create_uid' => '0'
 	);
-	
-	
+
+
 	public function __construct() {
-		
+
 		parent::__construct();
-		
+
+	}
+
+	public function getInternships() {
+
+		App::getModel('Internship')->load($this->getData('company_id'));
+		return $internship;
 	}
 }
-
-
-
-
-
-

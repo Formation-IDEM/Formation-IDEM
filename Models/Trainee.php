@@ -11,8 +11,8 @@ class Trainee extends Person {
 	CONST TYPE = "student";//une constante qui est liée à la class mais non spécifique à une instance
 
 	private static $_trainee_number = 0;//initialisation de la variable
-	private $_pole_emploi_number; 
-	private $_correspondant; 
+	private $_pole_emploi_number;
+	private $_correspondant;
 	private $_remuneration_type_id;
 	private $_study_level_id;
 	private $_trainee_status_id;
@@ -42,10 +42,10 @@ class Trainee extends Person {
 		$photo = "" ,
 		$numero_pole_emploi = "" ,
 		$correspondant = "" ) {
-			
+
 		$this -> _pole_emploi_number = $pole_emploi_number;
 		$this -> _correspondant = $correspondant;
-		
+
 		parent::__construct ($id,
 		$name,
 		$firstname,
@@ -65,18 +65,18 @@ class Trainee extends Person {
 		$adress_form_city,
 		$social_security_number,
 		$photo);
-		
+
 		self::$_trainee_number++;  //incrementation du nombre de stagiaire
 	}
 
 //================================= Fonctions de la class ===========================
-	
+
 	public function load($id) {
-		
+
 	}
 
 	public function store() {
-		
+
 	}
 	
 //================================= Pole emploi number ===============================
@@ -84,18 +84,18 @@ class Trainee extends Person {
 	public function getPoleEmploiNumber(){
 		return $this ->_pole_emploi_number;
 	}
-	
+
 	public function setPoleEmploiNumber($poleemploinumber){
 		$this -> _pole_emploi_number = $poleEmploiNumber;
 		return $this;
 	}
 
 //================================= Correspondant ==================================== 
-	
+
 	public function getCorrespondant(){
 		return $this ->_correspondant;
 	}
-	
+
 	public function setCorrespondant($correspondant){
 		$this -> _correspondant = $correspondant;
 		return $this;
@@ -106,7 +106,7 @@ class Trainee extends Person {
 	public function getCompteur(){
 		return self::$_trainee_number;
 	}
-	
+
 	public function inscription() {
 		$a='hello';
 		return $a;
