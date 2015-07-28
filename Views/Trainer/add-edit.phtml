@@ -1,0 +1,89 @@
+<h2>Ajouter / Modifier un formateur</h2>
+
+<form method="post" action="#" enctype="multipart/form-data">
+	
+	<label for="name">Nom</label>
+	<input type="text" name="name" value="<?php echo $trainer->getData('name'); ?>" id="name">
+	
+	<label for="firstName">Prénom</label>
+	<input type="text" name="firstName" value="<?php echo $trainer->getData('firstName'); ?>" id="firstName">
+	
+	<label for="phone">Téléphone fixe</label>
+	<input type="tel" name="phone" value="<?php echo $trainer->getData('phone'); ?>" id="phone">
+	
+	<label for="cellphone">Téléphone portable</label>
+	<input type="tel" name="cellphone" value="<?php echo $trainer->getData('cellphone'); ?>" id="cellphone">
+	
+	<label for="mail">Email</label>
+	<input type="email" name="mail" value="<?php echo $trainer->getData('mail'); ?>" id="mail">
+	
+	<label for="birthday">Date de naissance</label>
+	<input type="date" name="birthday" value="<?php echo $trainer->getData('birthday'); ?>" id="birthday">
+	
+	<label for="birthPlace">Lieu de naissance</label>
+	<input type="text" name="birthPlace" value="<?php echo $trainer->getData('birthPlace'); ?>" id="birthPlace">
+	
+	<label for="gender">Sexe</label>
+	<input type="text" name="gender" value="<?php echo $trainer->getData('gender'); ?>" id="gender">
+	
+	<label for="address_off_street">Rue</label>
+	<input type="text" name="address_off_street" value="<?php echo $trainer->getData('address_off_street'); ?>" id="address_off_street">
+	
+	<label for="address_off_complement">Complément</label>
+	<input type="text" name="address_off_complement" value="<?php echo $trainer->getData('address_off_complement'); ?>" id="address_off_complement">
+	
+	<label for="address_off_codpost">Code postal</label>
+	<input type="number" name="address_off_codpost" value="<?php echo $trainer->getData('address_off_codpost'); ?>" id="address_off_codpost">
+	
+	<label for="address_off_city">Ville</label>
+	<input type="text" name="address_off_city" value="<?php echo $trainer->getData('address_off_city'); ?>" id="address_off_city">
+	
+	<label for="address_form_street">Rue</label>
+	<input type="text" name="address_form_street" value="<?php echo $trainer->getData('address_form_street'); ?>" id="address_form_street">
+	
+	<label for="address_form_complement">Complement</label>
+	<input type="text" name="address_form_complement" value="<?php echo $trainer->getData('address_form_complement'); ?>" id="address_form_complement">
+	
+	<label for="address_form_codpost">Code postal</label>
+	<input type="number" name="address_form_codpost" value="<?php echo $trainer->getData('address_form_codpost'); ?>" id="address_form_codpost">
+	
+	<label for="address_form_city">Ville </label>
+	<input type="text" name="address_form_city" value="<?php echo $trainer->getData('address_form_city'); ?>" id="address_form_city">
+	
+	<label for="social_security_number">Numéro de sécurité social</label>
+	<input type="number" name="social_security_number" value="<?php echo $trainer->getData('social_security_number'); ?>" id="social_security_number">
+	
+	<label for="photo">Photo</label>
+	<input type="image" name="photo" value="<?php echo $trainer->getData('photo'); ?>" id="photo">
+	
+	<label for="nationality_id">Nationalité</label>
+	<select name="nationality_id" id="nationality_id">
+		<option value="<?php echo $trainer->getData('nationality_id'); ?>" selected=""><?php echo $trainer->getData('nationality_id'); ?></option> 
+		<option value="value2">Valeur 2</option>
+		<option value="value3">Valeur 3</option>
+	</select>
+	
+	<label for="family_status_id">Statut familial</label>
+	<select name="family_status_id" id="family_status_id">
+		<option value="<?php echo $trainer->getData('family_status_id'); ?>" selected=""><?php echo $trainer->getData('family_status_id'); ?></option> 
+		<option value="value2">Valeur 2</option>
+		<option value="value3">Valeur 3</option>
+	</select>
+	
+	<label for="study_level_id">Niveau d'étude</label>
+	<select name="study_level_id" id="study_level_id">
+		<option value="<?php echo $trainer->getData('study_level_id'); ?>" selected=""><?php echo $trainer->getData('study_level_id'); ?></option> 
+		<option value="value2">Valeur 2</option>
+		<option value="value3">Valeur 3</option>
+	</select>
+	
+	<label for="furtherInformations">Plus d'information</label>
+	<textarea name="furtherInformations" value="<?php echo $trainer->getData('furtherInformations'); ?>" id="furtherInformations"></textarea>
+	
+	<input type="hidden" name="id" value="<?php echo $trainer->getData('id'); ?>" id="id">
+	
+	<input type="submit" name="submit" value="Enregistrer" id="submit">
+	
+	<input type="reset" name="reset" value="Reset" id="reset">
+
+</form>

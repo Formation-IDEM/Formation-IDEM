@@ -1,6 +1,4 @@
 <?php
-
-<<<<<<< HEAD
 class FrontController{
 	
 	public function __construct(){
@@ -8,30 +6,11 @@ class FrontController{
 	}
 	
 	public function indexAction(){
-		echo "Accueil général";
+		
+		$trainer = App::getModel('Trainer');
+		//$trainer->load($_GET['id']);
+		Template::getInstance()->setDatas(array('trainer' => $trainer))->setFilename('Trainer/add-edit')->render();
 	}
-	
-	public function bidon(){
-		echo "Bidon";
-	}
-	
-	public function errorCAction(){
-		echo "An error as occured! CONTROLLER NAME";
-	}
-	
-=======
-class FrontController
-{
-	function indexAction()
-	{
-		echo 'default page';
-	}
-	
-	function testAction()
-	{
-		echo 'its a test! On front controller and test action';
-	}	
->>>>>>> 459d5f36845054875cd6af5310157fd8db4d92e7
 }
 
 ?>

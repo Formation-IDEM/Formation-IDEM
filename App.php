@@ -39,12 +39,22 @@ class app{
 	
 	public function run(){
 		
-		include_once ('Controllers/ControllerFactory.php');
+		include_once('Models/Template.php');
+		include_once('Controllers/ControllerFactory.php');
 		$Fcontroller = ControllerFactory::createController();
 		//$actionName = self::getActionName();
 		$actionName = App::getInstance()->getActionName($Fcontroller);
 		
 		$Fcontroller->$actionName();
+	}
+	
+	public static function getModel($type){
+		if(file_exists('Models/'.$type.'.php')){
+			include_once('Models/'.$type.'.php');
+			return new $type();
+		}else{
+			return null;
+		}
 	}
 	
 }
