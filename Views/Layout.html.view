@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>IDEM Project</title>
+	</head>
+	<body>
+		{% block %}
+	</body>
+</html>

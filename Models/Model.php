@@ -93,7 +93,7 @@ abstract class Model
 			$db->getResults($query);
 			
 			// Récupération de l'id inséré
-			$lastInsertId = $db->getConnection()->lastInsertId($this->_table.'_id_seq');
+			$lastInsertId = $db->getLastInsertId($this->_table);
 			$this->_fields['id'] = $lastInsertId;
 		}
 		return $this;
@@ -112,7 +112,7 @@ abstract class Model
 	// Getter pour tous les objets
 	public function getData($field)
 	{
-		if(key_array_exists($this->_fields,$field))
+		if(array_key_exists($field, $this->_fields))
 		{
 			return $this->_fields[$field];			
 		}
@@ -125,7 +125,7 @@ abstract class Model
 	// Setter pour tous les objets
 	public function setData($field, $data)
 	{
-		if(key_array_exists($this->_fields,$field))
+		if(array_key_exists($field, $this->_fields))
 		{
 			$this->_fields[$field] = $data;
 		}

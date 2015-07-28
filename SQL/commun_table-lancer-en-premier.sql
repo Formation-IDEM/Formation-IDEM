@@ -13,7 +13,7 @@ CREATE TABLE trainee_status
 CREATE TABLE study_levels
 (
 	id SERIAL PRIMARY KEY,
-	title VARCHAR
+	wording VARCHAR
 );
 
 CREATE TABLE family_status

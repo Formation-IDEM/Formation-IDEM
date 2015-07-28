@@ -11,8 +11,10 @@ class TrainerExtern extends Trainer
 	public function __construct()
 	{
 		parent:: __construct();
+		$this->_fields['id'] = '0';
 		
 		$this->_table = 'trainers_externs';
+		
 		$this->_fields['hourly_rate'] = 1;
 	}
 	

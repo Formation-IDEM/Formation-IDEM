@@ -49,8 +49,10 @@ class App
 	// Fonction appelée par défaut
 	public function run()
 	{
+		// inclusion système de template
+		include_once('Models/Template.php');
+		
 		// Récupère l'action
-		//$action = $this->setActionName()->_actionName;
 		$action = self::getInstance()->setActionName()->_actionName;
 		
 		// Creation du Controller en fonction de $_GET['c']

@@ -16,9 +16,16 @@ class Trainer extends Person
 		parent::__construct();
 		
 		$this->_table = 'trainers';
-		$this->_fields['id'] = null;
+		$this->_fields['id'] = 0;
 		$this->_fields['further_informations'] = '';
-		$this->_fields['study_levels_id'] = null;
+		$this->_fields['study_levels_id'] = 0;
+	}
+	
+	public function getStudyLevels()
+	{
+		$sl = App::getModel('StudyLevel');
+		$sl->load($this->getData('study_levels_id'));
+		return $sl;
 	}
 }
 

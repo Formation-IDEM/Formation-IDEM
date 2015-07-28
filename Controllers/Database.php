@@ -38,6 +38,11 @@ class Database
 		return self::$_instance;
 	}
 	
+	public function getLastInsertId($table)
+	{
+		return $this->_dbh->lastInsertId($table.'_id_seq');
+	}
+	
 	public function initialConnection($dbtype = 'pgsql')
 	{
 		return new PDO($dbtype.':dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
@@ -48,13 +53,17 @@ class Database
 		return $this->_dbh;
 	}
 	
+	public function execute($query)
+	{
+		$exe = $this->_dbh->prepare($query);
+		$exe->execute();
+		return $exe;
+	}
+	
 	public function getResults($query)
 	{
 		// Execution de $query et retour résultat en tableau
-		$exe = $this->_dbh->prepare($query);
-		$exe->execute();
-		print_r($this->_dbh->errorInfo());
-		return $exe->fetchAll();
+		return $this->execute($query)->fetchAll();
 	}
 }
 
