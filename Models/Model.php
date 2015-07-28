@@ -21,8 +21,13 @@ abstract class Model{
 				$this->_fields[$key] = $value;
 				
 			}
+
 			
+			// Execution de la requête
+			$db = Database::getInstance();
+			$db->getResults($query);
 		}
+
 		
 		return $this;
 	}
@@ -113,6 +118,7 @@ abstract class Model{
 		
 		return $result;
 		
+
 
 	} 
 	

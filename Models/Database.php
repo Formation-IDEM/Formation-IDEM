@@ -15,7 +15,7 @@ class Database
 	private $_dbname;
 	
 	private $_dbh;
-		
+			
 	private function __construct()
 	{
 		$this->_host = '127.0.0.1';
@@ -25,10 +25,12 @@ class Database
 		$this->_password = 'postgres';
 		
 
+
 		$this->_dbname = 'guestForm';
 		
 		$this->_dbh = new PDO('pgsql:dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
 		
+
 	}
 	
 	// Fonction pour récupérer une seule et unique instance de App
@@ -43,6 +45,7 @@ class Database
 	
 	public function getLastInsertId($table)
 	{
+
 		
 		return $this->_dbh->lastInsertId($table."_id_seq");
 		
@@ -55,24 +58,25 @@ class Database
 		$exe->execute();
 		return $exe;
 
-	}
-	
-	public function insert($table, $fields, $values)
-	{
-		$query = 'INSERT INTO '.$table.' ('.$fields.') VALUES ('.$values.');';
-		return $this->execute($query);
-	}
-	
-	public function update($table, $set, $where)
-	{
-		$query = 'UPDATE '.$table.' SET '.$set.' WHERE '.$where.';';
-		return $this->execute($query);
-	}
 
-	public function delete($table, $where)
+	}
+	
+	public function getConnection()
 	{
-		$query = 'DELETE FROM '.$table.' WHERE '.$where.';';
-		return $this->execute($query);
+		return $this->_dbh;
+	}
+	
+	public function execute($query)
+	{
+		$exe = $this->_dbh->prepare($query);
+		$exe->execute();
+		return $exe;
+	}
+	
+	public function getResults($query)
+	{
+		// Execution de $query et retour résultat en tableau
+		return $this->execute($query)->fetchAll();
 	}
 	
 	public function getResultats($query)

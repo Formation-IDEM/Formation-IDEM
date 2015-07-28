@@ -1,6 +1,9 @@
 <?php
 
-class TraineeSession {
+include_once('Models/Model.php');
+
+class TraineeSession extends Model
+{
 	
 	private $_id;
 	private $_lesson_study_hours; // Nombre d'heure cumulée du stagiaire pendant la session

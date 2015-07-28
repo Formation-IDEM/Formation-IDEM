@@ -1,24 +1,20 @@
 <?php
 
-class RemunerationType {
+include_once('Models/Model.php');
+
+class RemunerationType extends Model
+{	
+	protected $_table;
 	
-	private $_id;
-	private $_wording;	
+	protected $_fields;
 	
-	public function __construct (
-		$id = 0 ,
-		$wording = "" ) {
-			
-	}
-				
-	
-	public function getRemunerationType(){
-		return $this -> _wording;
-	}	
-	
-	public function setRemunerationType($wording) {
-		$this -> _wording = $wording;
-		return $this;
+	public function __construct () 
+	{
+		$this->_fields['id'] = '0';
+		
+		$this->_fields['wording'] = 'none';
+		
+		$this->_table = 'remuneration_type';
 	}
 }
 
