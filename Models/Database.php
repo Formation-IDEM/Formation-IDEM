@@ -38,14 +38,20 @@ class Database
 		}
 		return self::$_instance;
 	}
-
 	
-	private function execute($query)
+	public function getLastInsertId($table)
+	{
+		
+		return $this->_dbh->lastInsertId($table."_id_seq");
+		
+	}
+	
+	public function execute($query)
 	{
 		// Execution de $query et retour résultat en tableau
-		$exe = $this->_dbh->prepare($query);
+		$exe = $this->_dbh->prepare( $query );
 		$exe->execute();
-		return $exe->fetchAll();
+		return $exe;
 	}
 	
 	public function insert($table, $fields, $values)
@@ -66,23 +72,9 @@ class Database
 		return $this->execute($query);
 	}
 	
-	public function getResultats($requete){
-		
-		$resultat = $this->_dbh->query($requete);
-		
-		if($resultat){
-			
-			$donnees = $resultat->fetchAll();
-			
-			return $donnees;
-			
-		} else {
-			
-			echo 'requete pourri';
-			
-		}
-		
-		
+	public function getResultats($query)
+	{
+		return $this->execute($query)->fetchAll();		
 	}
 	
 }

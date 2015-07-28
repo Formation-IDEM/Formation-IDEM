@@ -18,9 +18,14 @@ class App  {
 	//methode de routage
 	public function Run(){
 		
+		include_once('Models/Template.php');
+		
 		$monController = ControllerFactory:: createController();
 		
 		$monAction = App:: getInstance()->getAction($monController);
+		
+		
+		
 	}
 	
 	private function getAction($monController){

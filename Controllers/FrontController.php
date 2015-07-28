@@ -14,7 +14,14 @@ class FrontController{
 		
 		$monFormateur = App::getModel('Trainer');
 		$monFormateur->load(1);
-		$monFormateur->delete();
+		//$monFormateur->delete();
+		$monFormateur->store(array(	"further_informations" => 'bonjour',
+									"study_levels_id" => 1)
+							);
+							
+		$monFormateur->save(1);
+		
+		//Template::getInstance()->setDatas(array('test'=>'triple X'))->render();
 		
 	}
 	
