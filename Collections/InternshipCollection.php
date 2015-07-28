@@ -1,7 +1,12 @@
 <?php
 
+include_once "dirname(__FILE__).'/Models/Collection.php'";
+include_once "dirname(__FILE__).'/Models/Model.php'";
+
 class InternshipCollection extends Collection
 {
+			
+	
 	public function __construct()
 	{
 		parent::__construct();
@@ -9,10 +14,21 @@ class InternshipCollection extends Collection
 		$this->_modelName = 'Internship';
 	}
 	
-	public function getItems($id)
+	public function getItems($idCompany)
 	{
-		$sql = "SELECT * FROM" .$this->_table. "WHERE company_id = \'" .$id. "\'";
-		$result = $this->_db->query($sql);
-		return $result;
+		if(!$this->_items)
+		{
+			$sql = "SELECT * FROM" .$this->_table. "WHERE company_id = \'" .$idCompany. "\'";
+			$result = $this->_db->query($sql);
+				foreach ($result as $data)
+				{
+					$this->_items = App::getInstance()->getModel($this->modelName)->load($data->id);			
+				}
+				
+				$this->_items = $//voir code page 4;
+		}
+			
+			
+			return $this->_items;
 	}
 }

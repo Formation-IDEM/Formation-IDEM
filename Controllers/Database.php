@@ -3,17 +3,11 @@
 class Database
 {
 	private $_connexion;
-	
 	private static $_instance;
-	
 	private $_host;
-	
 	private $_user;
-	
 	private $_password;
-
 	private $_dbname;
-	
 	private $_dbh;
 		
 	private function __construct()
@@ -49,24 +43,26 @@ class Database
 	private function execute($query)
 	{
 		// Execution de $query et retour résultat en tableau
-		$exe = $this->_dbh->prepare($query);
-		return $exe->execute();
+		return $this->_dbh->exec( $query );
 	}
 	
-	public function getResult($table, $where, $fields = '*')
+	public function getResults($query)
 	{
-		$result = $this->_connexion->query($req);
-		if ($result)
-		{
-			$donnees = $result->fetchAll();
-			return $donnees;
-		}else
-			{
-				echo "Nada!";
-			}
-			
-		
-		
+		$exe = $this->execute( $query );
+		return $exe->fetchAll();			
+	}
+	
+	public function getResult($query)	//faire une methode idem ci dessus pour n'avoir qu'un seul retour
+	{
+		$exe = $this->execute( $query );
+		return $exe->fet();			
+	}
+	
+	
+	
+	public function getLastInsertId()		//retourne le dernier id rentré
+	{		
+		return $this->_db->lastInsertId();
 	}
 	
 	public function insert($table, $fields, $values)
@@ -90,7 +86,13 @@ class Database
 
 
 
-/*
- * 
- */
+/*$result = $this->_connexion->query($req);
+		if ($result)
+		{
+			$donnees = $result->fetchAll();
+			return $donnees;
+		}else
+			{
+				echo "Nada!";
+			}*/
 ?>

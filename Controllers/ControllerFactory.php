@@ -1,11 +1,13 @@
 <?php
 
+
 class ControllerFactory
 {
 
 	public static function createController() 
 	{
 	$controller = 'FrontController';
+	
 	if( isset( $_GET['c'] ) )
 	{
 		if( file_exists( dirname(dirname(__FILE__)) . '/Controllers/' . $_GET['c'] . 'Controller.php' ) )

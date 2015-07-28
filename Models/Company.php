@@ -41,5 +41,20 @@
 		}
 		
 	}
+	
+	
+	/*class Company extends Model
+{
+public function getInternships()
+{
+return App::getCollection('internships')->getItems($this->getData('id'));
+}
+}
+$item = App::getInstance()->getModel('company')->load(1);
+$item->getData('name');
+foreach($item->getInternships($item->getData('id')) as $stages )
+{
+$stage->getData('title');
+}*/
 
 ?>
