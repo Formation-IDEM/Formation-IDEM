@@ -2,6 +2,7 @@
 
 class Database
 {
+	private $_connexion;
 	
 	private static $_instance;
 	
@@ -23,6 +24,7 @@ class Database
 		
 		$this->_password = 'postgres';
 		
+
 		$this->_dbname = 'guestForm';
 		
 		$this->_dbh = new PDO('pgsql:dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
@@ -52,6 +54,7 @@ class Database
 		$exe = $this->_dbh->prepare( $query );
 		$exe->execute();
 		return $exe;
+
 	}
 	
 	public function insert($table, $fields, $values)
@@ -79,4 +82,7 @@ class Database
 	
 }
 
+/*
+ * 
+ */
 ?>

@@ -29,9 +29,7 @@ class FrontController{
 		
 		echo "adresse introuvable ou erreur dans l'adresse";
 		
-	}
-	
-	
+	}	
 }
 
  

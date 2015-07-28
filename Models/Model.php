@@ -1,4 +1,6 @@
 <?php
+include_once'Controllers/Database.php';
+
 
 include_once( 'Database.php' );
 
@@ -121,8 +123,3 @@ abstract class Model{
 			return "";
 		}
 	}
-	
-}
-
-
-?>

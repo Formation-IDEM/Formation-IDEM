@@ -1,86 +1,79 @@
-<?php 
+<?php
 
-include_once('Controllers/ControllerFactory.php');
+// Utilisation App::getInstance();
+include_once 'Models/Model.php';
 
-/**
- * class pour les patterns singleton
- */
-class App  {
+
+class App extends Model
+{
+	private static $_instance;
 	
-	//initialisation de l'instance a null
-	private static $_instance = null;
+	private $_controllerName;
 	
+	private $_actionName;
 	
-	private function __construct() {
-		
+	public function __construct()
+	{
+		$this->_actionName = 'indexAction';
 	}
 	
-	//methode de routage
-	public function Run(){
-		
-		include_once('Models/Template.php');
-		
-		$monController = ControllerFactory:: createController();
-		
-		$monAction = App:: getInstance()->getAction($monController);
-		
-		
-		
-	}
-	
-	private function getAction($monController){
-		
-		//test si a est vide 		
-		if(isset($_GET['a'])){
-			
-			$a = $_GET['a']."Action";
-			
-		}else{
-			
-			$a = 'indexAction';
-			
+	// Fonction pour récupérer une seule et unique instance de App
+	public static function getInstance()
+	{
+		if(!self::$_instance)
+		{
+			self::$_instance = new App();
 		}
-		
-		//verification d'erreur dans le parametre $_GET (a)
-		if(method_exists($monController, $a)){
-			
-			$monController->$a();
-			
-		}	
-		
-			
+		return self::$_instance;
 	}
 	
-	public static function getInstance(){
-		
-		//vérification si l'instance est set
-		if(!self::$_instance){
-		
-			self:: $_instance = new App();
-		
+	public function setActionName()
+	{
+		if(isset($_GET['a']) && $_GET['a'] != null)
+		{
+			$this->_actionName = $_GET['a'].'Action';
 		}
-			
-		return self:: $_instance;
-		
+		return $this;
 	}
 	
-	public static function getModel($type){
+	// Fonction appelée par défaut
+	public function run()
+	{
+		include_once 'Models/Template.php';
+		// Récupère l'action
 		
-		if(file_exists('Models/'.$type.'.php')){
-			include_once('Models/'.$type.'.php');
-			return new $type();	
-		} else {
-			return null;
+		$action = self::getInstance()->setActionName()->_actionName;
+		
+		// Creation du Controller en fonction de $_GET['c']
+		include_once('./Controllers/ControllerFactory.php');
+		$controller = ControllerFactory::createController();
+		if(method_exists($controller,$action))
+		{
+			$controller->$action();
+		}
+		else
+		{
+			header("HTTP/1.0 404 Not Found");
+			die;
 		}
 	
+		//include_once('./Controllers/Database.php');
+		//Database::getInstance()->connect('pgsql')->insert();
 	}
+	
+	public static function getModel($type)
+	{
+		if(file_exists($type))
+		{
+			include_once("Models/".$type.".php");
+			return new $type();
+		}else
+			{
+				return null;
+			}
+		
+	}	
 }
-
-
-
-
-
-
 
 
 ?>

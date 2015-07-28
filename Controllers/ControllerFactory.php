@@ -1,4 +1,3 @@
-
 <?php 
 
 
@@ -36,10 +35,6 @@ class ControllerFactory{
 		
 		
 	}	
-	
-
-		
-
 }
 
 ?>
