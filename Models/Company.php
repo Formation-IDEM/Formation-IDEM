@@ -31,13 +31,18 @@
 		}
 		
 		
-		public function getIntenrship()	//recupere les instances de la classe intenship
+		public function getInternship()	//recupere les instances de la classe intenship
 		{
 			if(!$this->_internship)
 			{
 				$this->_internship = App::getModel("Internship")->load($this->getData("id"));
 			}
-			return $this->_Internship;
+			return $this->_internship;
+		}
+		
+		public function getAll()
+		{
+			App::getInstance()->getCollection('Internship');
 		}
 		
 	}

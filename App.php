@@ -71,8 +71,18 @@ class App extends Model
 			{
 				return null;
 			}
-		
 	}	
+	
+	public static function getCollection($name)
+	{
+		if(file_exists($name))
+		{
+			include_once("Collections/".$name.".php");
+			return new $name();
+		}else{
+			return null;
+		}
+	}
 }
 
 

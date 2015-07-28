@@ -24,11 +24,7 @@ class InternshipCollection extends Collection
 				{
 					$this->_items = App::getInstance()->getModel($this->modelName)->load($data->id);			
 				}
-				
-				$this->_items = $//voir code page 4;
-		}
-			
-			
+		}			
 			return $this->_items;
 	}
 }
