@@ -1,5 +1,6 @@
 <?php
 
+
 class ControllerFactory
 {
 
@@ -16,7 +17,6 @@ class ControllerFactory
 		include_once ( dirname(dirname(__FILE__)) . '/Controllers/' . $controller . '.php');
 		return new $controller();
 	}		
-
 }
 
 ?>

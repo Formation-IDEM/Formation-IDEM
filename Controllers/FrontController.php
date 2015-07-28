@@ -1,5 +1,6 @@
 <?php
 
+
 class FrontController extends Model
 {
 	/*public function indexAction()
@@ -11,6 +12,7 @@ class FrontController extends Model
 	{
 		Template::getInstance()->setTemplate('Company/AccueilCompany')->setDatas(array('macle' => "Bonjour Jean Luc"))->render();
 	}	
+
 }
 
 ?>
