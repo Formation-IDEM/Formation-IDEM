@@ -1,5 +1,4 @@
 <?php
-
 class FrontController
 {
 	function indexAction()
@@ -21,11 +20,6 @@ class FrontController
 		//$trainer->load(4)->delete();
 		//var_dump($trainer);
 	}
-	
-	function testAction()
-	{
-		echo 'its a test! On front controller and test action';
-	}	
 }
 
 ?>
