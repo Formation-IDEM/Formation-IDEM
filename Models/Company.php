@@ -4,6 +4,7 @@
 
 	class company extends Model	
 	{
+		protected $_internship = null;
 		protected $_fields = array(
 				'id' => 0,
 				'name'=> '',
@@ -18,34 +19,27 @@
 				'fax'=> '',
 				'siret'=> '',
 				'mobile'=> '',
+				
 		
 		);
 		
 		
-
-		private	$_town;
-		private	$_country;
-		private	$_fax;
-		private	$_phone;
-		private	$_mail;
-		private	$_companyName;		//raison sociale
-		private	$_managerID;
-		private	$_siret;
-		private $_stageId;
 		
 		public function __construct()
 		{
 			parrent::__construct();
 		}
 		
-		/*
+		
 		public function getIntenrship()	//recupere les instances de la classe intenship
 		{
-			$intenrship = new Intenrship();
-			$intenrship->load($this->stageId);
-			return $intenrship;
+			if(!$this->_internship)
+			{
+				$this->_internship = App::getModel("Internship")->load($this->getData("internship"));
+			}
+			return $this->_Internship;
 		}
-		*/
+		
 	}
 
 ?>

@@ -4,6 +4,7 @@
 
 	class internship extends Model
 	{
+		protected $_company = null;
 		private $_id;
 		private	$_entitle;
 		private	$_description;
@@ -20,14 +21,16 @@
 			parent::__construct();
 		}
 		
-		/*		
+				
 		public function getCompany()	//recupere les instances de la classe company
 		{
-			$company = new Company();
-			$company->load($this->companyId);
-			return $company;
+			if(!$this->_company)
+			{
+				$this->_company = App::getModel("Company")->load($this->getData("Company"));
+			}
+			return $this->_company;
 		}
-		*/
+		
 	}
 
 ?>
