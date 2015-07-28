@@ -1,27 +1,17 @@
 <?php
-    class TraineeController {
 
-    	public function __construct() {
-    		
-    	}
-		
-		public static function indexAction() {
-			echo "Index trainee";
-		}
-		
-		public static function editAction() {
-			echo "Edit trainee";
-		}
+class TraineeController {
 
-		public static function deleteAction() {
-			echo "Delete trainee";
-		}
-		
-		public function register() {
-			$mf = App::getModel("Trainee");
-			$mf -> load(1); 
-			echo $mf -> getName();
-		}
-		
-    }
+    function indexAction() {
+		// indexAction - FrontController
+		echo "indexAction - TraineeController";
+		//$mytrainee = App::getModel("Trainee");
+		//$nationality = App::getModel('Trainee')->load(3)->getNationality()->getData('title');
+		//echo $nationality;
+		var_dump(App::getModel("Trainee")->load(3)->getSessionsTrainee());
+	}
+	
+
+}
+
 ?>

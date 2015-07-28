@@ -1,25 +1,13 @@
 <?php
 
-class RemunerationType {
-	
-	private $_id;
-	private $_wording;	
-	
-	public function __construct (
-		$id = 0 ,
-		$wording = "" ) {
-			
-	}
-				
-	
-	public function getRemunerationType(){
-		return $this -> _wording;
-	}	
-	
-	public function setRemunerationType($wording) {
-		$this -> _wording = $wording;
-		return $this;
+class RemunerationType extends Model {
+
+	public function __construct() {
+		$this->_table = 'remuneration_types';
+		$this->_fields = array(
+				'id' 	=> 0,
+				'title' => ''
+		);
 	}
 }
-
 ?>

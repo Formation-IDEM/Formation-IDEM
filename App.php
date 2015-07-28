@@ -4,72 +4,85 @@
 	// L'instance App est toujours unique -> donc on passe par le singleton (On ne veut qu'une et une seule instance)
 	// Donc le construteur est en privÃ©
 	
-	include_once ('Models/Model.php');
-
-    class App extends Model {
-    	
-    	private static $_instance;
-		
-    	private function __construct() {
-    		
-    	}
-		
-		public static function getInstance() {
-			if (!self::$_instance){
-				self::$_instance = new App();
-			}
-			return self::$_instance;
-		}
-		
-		public function run() {
-
-// On appelle le factory controller directement avec la classe car elle est statique
+class App {
 	
-			include_once ('Controllers/ControllerFactory.php');
-
-// On controle le nom de l'action
-			
-			$actionName = self::getInstance() -> getActionName();  
-			
- // on stocke l'instance du controleur
- 
-			$mc = ControllerFactory::createController();
-			
-		
-// on execute l'action sur le controleur  
-			if (!method_exists($mc, $actionName)) {
-				
-				$actionName = "register";
-			}
-			
-			$mc -> $actionName();
-		
+	private static $_instance;
+	
+	private $_controller;
+	private $_actionName;
+	/*
+	 * 
+	 */
+	private function __construct() {
+		$this->setController();
+		$this->setActionName();
+	}
+	
+	/*
+	 * Fonction pour récupérer une seule et unique instance de App
+	 */
+	public static function getInstance() {
+		if( ! self::$_instance ) {
+			self::$_instance = new App();
 		}
-
-		private function getActionName() {
-			
-			if (isset($_GET['a'])) {
-				$a = $_GET['a'];
-			}else {
-				$a = "register"; // Initialisation par defaut
-			}		
-			
-			return $a;
+		return self::$_instance;
+	}
+	/*
+	 * 
+	 */
+	public function setActionName() {
+		$this->_actionName = 'indexAction';
 		
+		if( isset( $_GET['a'] ) && method_exists( $this->_controller, $_GET['a'] . 'Action') ) {
+			$this->_actionName = $_GET['a'] . 'Action';
 		}
-		
-		public static function getModel($type) {
-			
-			//if (file_exists(dirname(__FILE__) . "/" . $type . ".php")){
-				include_once ("Models/".$type.".php");
-			//}
-			
-			var_dump ($type);	
-			return new $type(); 
-		
+		return $this;
+	}
+	
+	/*
+	 * 
+	 */
+	public function setController() {
+		// Creation du Controller en fonction de $_GET['c']
+		include_once ('./Controllers/ControllerFactory.php');
+		$this->_controller = ControllerFactory::createController();
+		return $this;
+	}
+	
+	
+	/*
+	 * Retourne une instance d'un modèle 
+	 */
+	public static function getModel( $type ) {
+		if( file_exists("Models/" . $type . ".php") ) {
+			include_once("Models/" . $type . ".php");
+			return new $type();
 		}
-			
-			
+		return null;
+	}
+	/*
+	 * Retourne une instance d'un modèle
+	 */
+	
+	public static function getCollection($type){
+		if( file_exists("Models/Collections/" . $type . ".php") ) {
+			include_once("Models/Collections/" . $type . ".php");
+			return new $type();
+		}
+		return null;	
+	}
+	
+	/* 
+	 * Fonction appelée par défaut
+	 */
+	public function run() {
+		
+		include_once ('Models/Template.php');		
+		// Récupère l'action
+		$action = $this->_actionName;
+		
+		$this->_controller->$action();
+	}
+}
 
-    }
 ?>

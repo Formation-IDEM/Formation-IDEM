@@ -1,15 +1,15 @@
 <?php
-    class FrontController {
 
-    	public function __construct() {
 
-    	}
-		
-		public static function indexAction() {
-			$myTrainee = App::getModel("Trainee");
-			$myTrainee -> load(4);
-			var_dump ($myTrainee);
-		}
-		
+
+class FrontController {
+
+    function indexAction() {
+		// indexAction - FrontController
+		echo "indexAction - FrontController";
+		Template::getInstance()->setDatas(array("test"=>"test"))->render();
 	}
+		
+}
+
 ?>

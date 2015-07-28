@@ -1,28 +1,18 @@
 <?php
-    class ControllerFactory {
 
-    	public function __construct() {
-    		
-    	}
+class ControllerFactory {
+
+    public static function createController() {
+		$controller = 'FrontController';
 		
-		public static function createController() {
-			
-			if (isset($_GET['c'])) {
-				$c = $_GET['c']."Controller";
-			}else {
-				$c = "TraineeController"; // Initialisation par defaut
+		if( isset( $_GET['c'] ) ) {
+			if( file_exists( dirname(dirname(__FILE__)) . '/Controllers/' . $_GET['c'] . 'Controller.php' ) ) {
+				$controller = $_GET['c'] . 'Controller';
 			}
-			
-			
-			if (!file_exists(dirname(__FILE__) . "/" . $c . ".php")){
-				$c = "TraineeController";
-			}
-			
-			include_once (dirname(__FILE__) . "/" . $c . ".php");
-			
-			$controller = new $c();
-			
-			return $controller;
 		}
-    }
+		include_once ( dirname(dirname(__FILE__)) . '/Controllers/' . $controller . '.php');
+		return new $controller();
+	}
+}
+
 ?>

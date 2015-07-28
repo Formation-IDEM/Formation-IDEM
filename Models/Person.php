@@ -1,6 +1,10 @@
 <?php
 
-abstract class Person {
+//================================= Include class person ============================
+
+include_once ('Model.php');
+
+abstract class Person extends Model {
 	private $_name;
 	private $_firstName;
 	private $_phone;

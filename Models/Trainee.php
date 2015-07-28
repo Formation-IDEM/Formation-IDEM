@@ -9,7 +9,13 @@ include_once ('Person.php');
 
 class Trainee extends Person {
 
-	protected $_table = "trainees";
+	private $_nationality = null;
+	private $_remunerationType = null;
+	private $_statusTrainee = null;
+	private $_familyStatus = null;
+	private $_studyLevel = null;
+	private $_sessionsTrainee = null;
+	
 	protected $_fields = array (
 			'id'=>0 ,
 			'name' => "" ,
@@ -44,81 +50,58 @@ class Trainee extends Person {
 	
 	// Fonction construction de la classe trainee
 	
-	public function __construct ()
-	{
+	public function __construct ()	{
+		$this->_table = "trainees";
+			}
 		
-		parent::__construct();
-	}
-
-//================================= Fonctions de la class ===========================
-	
-	public function load($id) {
-		
-	}
-
-	public function store() {
-		
+	function getNationality(){
+		if (!$this->_nationality){
+			$this->_nationality = App::getModel('Nationality');
+			$this->_nationality->load($this->getData('nationality_id'));
+		}
+		return $this->_nationality;
+			
 	}
 	
-//================================= Pole emploi number ===============================
- 	
-	public function getPoleEmploiNumber(){
-		return $this ->_fields['_pole_emploi_number'];
+	function getRemunerationType(){
+		if (!$this->_remunerationType){
+			$remunerationType = App::getModel('RemunerationType');
+			$remunerationType->load($this->getData('remuneration_type_id'));
+		}
+		return $this->_remunerationType;
+	}
+
+	function getStatusTrainee(){
+		if (!$this->_statusTrainee){
+			$statusTrainee = App::getModel('StatusTrainee');
+			$statusTrainee->load($this->getData('status_trainee_id'));
+		}
+		return $this->_statusTrainee;
 	}
 	
-	public function setPoleEmploiNumber($poleemploinumber){
-		$this -> _pole_emploi_number = $poleEmploiNumber;
-		return $this;
-	}
-
-//================================= Correspondant ==================================== 
-	
-	public function getCorrespondant(){
-		return $this ->_correspondant;
+	function getFamilyStatus(){
+		if (!$this->_familyStatus){
+			$familyStatus = App::getModel('FamilyStatus');
+			$familyStatus->load($this->getData('family_status_id'));
+		}
+		return $this->_familyStatus;
 	}
 	
-	public function setCorrespondant($correspondant){
-		$this -> _correspondant = $correspondant;
-		return $this;
-	}
-
-//================================= Fonction compteur ================================ 
-
-	public function getCompteur(){
-		return self::$_trainee_number;
+	function getStudyLevel(){
+		if (!$this->_studyLevel){
+			$studyLevel = App::getModel('StudyLevel');
+			$studyLevel->load($this->getData('study_levels_id'));
+		}
+		return $this->_studyLevel;
 	}
 	
-	public function inscription() {
-		$a='hello';
-		return $a;
+	function getSessionsTrainee(){
+		if (!$this->_sessionsTrainee){
+			$sessionsTrainee = App::getCollection('SessionTraineeCollection');
+			
+			$this->_sessionsTrainee = $sessionsTrainee->getItems($this->getData('id'));
+		}
+		return $this->_sessionsTrainee;
 	}
-
-//==================================================================================== 
-// Fonction chargement du niveau d'étude
-
-	public function getStudyLevel() {
-//		$StudyLevel = new StudyLevel();
-//		$StudyLevel -> load ($this -> StudyLevel_id);
-//		return $StudyLevel;
-	}
-
-//==================================================================================== 
-// Fonction chargement du type de rémunération
-
-	public function getRemunerationType() {
-//		$remunerationtype = new RemunerationType();
-//		$remunerationtype -> load ($this -> remunerationtype_id);
-//		return $remunerationtype;
-	}
-
-//==================================================================================== 
-// Fonction chargement du statut de l'étudiant
-
-	public function getTraineeStatus() {
-//		$traineestatus = new traineestatus();
-//		$traineestatus -> load ($this -> traineestatus_id);
-//		return $traineestatus;
-	}
-
 }
 ?>

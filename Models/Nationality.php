@@ -1,25 +1,15 @@
 <?php
 
-class Nationality {
+include_once( "Model.php" );
+
+class Nationality extends Model {
 	
-	private $_id;
-	private $_wording;	
-	
-	public function __construct (
-		$id = 0 ,
-		$wording = "" ) {
-			
-	}
-				
-	
-	public function getNationality(){
-		return $this -> _wording;
-	}	
-	
-	public function setNationality($wording) {
-		$this -> _wording = $wording;
-		return $this;
+	public function __construct() {
+		$this->_table = 'nationalities';
+		$this->_fields = array(
+				'id' 	=> 0,
+				'title' => ''
+		);	
 	}
 }
-
 ?>
