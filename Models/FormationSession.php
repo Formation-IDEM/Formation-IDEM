@@ -4,6 +4,7 @@ include_once('Model.php');
 
     class FormationSession extends Model{
 		
+		protected $_formation=null;
 		protected $_table = "formation_sessions";
 		protected $_fields = array(
 									'id' 					=> 0,
@@ -19,9 +20,17 @@ include_once('Model.php');
 
 		public function getFormation(){
 			
-			$f = App::getModel('Formation');
-			$f -> load($this-> getData('formation_id') );
-			return $f;
+			if(!$this->_formation){
+				
+				$f = App::getModel('Formation');
+				$f -> load($this-> getData('formation_id') );
+				return $f;
+				
+			}else{
+				
+				return $this -> _formation;
+				
+			}
 			
 		} 
 		

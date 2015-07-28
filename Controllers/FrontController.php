@@ -12,13 +12,9 @@ class FrontController{
 		//Template::getInstance()->setDatas(array("test"=>"pwet"));
 		//Template::getInstance()->render();		
 		
-		$f = App::getModel("Matter");
+		//$f = App::getModel("Matter");
+		//$f -> store(array('title'=>'pouf'));
 		
-		$f -> store(array('title'=>'pouf'));
-		
-		$f -> save();
-		
-		var_dump($f);
 		
 	}
 	
