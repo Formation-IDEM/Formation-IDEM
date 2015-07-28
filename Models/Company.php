@@ -20,7 +20,7 @@ class Company extends Model {
 								'mobile' => '',
 								'fax' => '',
 								'manager' => '',
-								
+								'create_uid' => '0'
 	);
 	
 	

@@ -26,6 +26,17 @@
 			
 		}
 		
+		public function setTemplate($fileName){
+			
+			$this->_fileName = $fileName;
+			return $this;
+			
+		}
+		
+		public function getTemplate(){
+			return $this->_fileName;
+		}
+		
 		public function setDatas($datas){
 			$this->_datas = $datas;
 			return $this;

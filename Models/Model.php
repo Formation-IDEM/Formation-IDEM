@@ -73,7 +73,7 @@ abstract class Model {
 						
 			foreach ($this->_fields as $key => $value) {
 				
-				if ($compteur == count($this->_fields)) {
+				if ($compteur == sizeof($this->_fields)) {
 					if (is_int($value)) {
 						$update .= $key.'='.$value;
 					}else{
@@ -106,17 +106,17 @@ abstract class Model {
 					continue;
 				}
 				
-				$colonnes .= '"'.$cle.'"';
+				$colonnes .= $cle;
 				
 				if (is_string($valeur)) {
-					$valeurs .= '"'.$valeur.'"';
+					$valeurs .= "'".$valeur."'";
 					
 							
 				}else{
 					$valeurs .= $valeur;
 				}
 				
-				if ($count < count($this->_fields)) {
+				if ($count < sizeof($this->_fields)) {
 					$colonnes .= ' , ';
 					$valeurs .= ' , ';
 				
@@ -124,9 +124,9 @@ abstract class Model {
 				$count++;
 				
 			}
-			$insert = 'INSERT INTO '.$this->_table.' ( '.$colonnes.') VALUES ( '.$valeurs.' )';			
-			
-			if( Database::getInstance()->execute( $insert ) ) {
+			$insert = 'INSERT INTO '.$this->_table.' ( '.$colonnes.') VALUES ( '.$valeurs.' )';	
+			$res = Database::getInstance()->execute($insert);
+			if( $res ) {
 				$this->_fields['id'] = Database::getInstance()->getLastInsertId($this->_table);
 				return $this;
 			} else {
@@ -134,8 +134,7 @@ abstract class Model {
 			} 
 			/*$lastId = Database::getInstance()->getLastInsertId($this->_table);
 			var_dump($lastId);
-			$this->_fields['id']= $lastId;
-			*/
+			$this->_fields['id']= $lastId;*/
 			//Prendre la dernière id pour ne pas faire un create à chaque fois
 		}		
 	}

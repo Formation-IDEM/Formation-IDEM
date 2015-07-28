@@ -12,17 +12,17 @@ class FrontController {
 	
 	public function indexAction(){
 		$maCompany = App::getModel('Company');
-		$maCompany->store(array('name' => 'IDEM',
-								'status' => 'ecole',
-								'company_name' => 'escuela',
-								'address' => 'chateaubriand',
-								'postal_code' => '66666',
-								'city' => 'Soler',
+		$maCompany->store(array('name' => 'Azaa',
+								'status' => 'AFf',
+								'company_name' => 'Vfsil',
+								'address' => 'SafF',
+								'postal_code' => '22222',
+								'city' => 'ARGN',
 								'country' => 'France',
-								'phone' => '0125452',
-								'mobile' => '0154542',
-								'fax' => '046846',
-								'manager' => 'Toi'
+								'phone' => '012454552',
+								'mobile' => '015545462',
+								'fax' => '04684678',
+								'manager' => 'ELLE'
 		));
 		var_dump($maCompany->save());
 		//$maCompany->load(1);

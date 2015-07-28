@@ -30,7 +30,6 @@
 		}
 		
 		public function execute($requete){
-			var_dump($requete);
 			$req = $this->_connexion->query($requete);
 			if ($req) {
 				 return $req;
