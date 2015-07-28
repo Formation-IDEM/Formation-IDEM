@@ -1,10 +1,9 @@
 <?php
 
-include_once( "Model.php" );
+include_once('Models/Model.php');
 
-class FamilyStatus extends Model {
-	
-	
+class FamilyStatus extends Model
+{	
 	public function __construct() {
 		
 		$this->_table = 'family_status';
