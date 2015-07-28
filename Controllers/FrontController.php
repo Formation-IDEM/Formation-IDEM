@@ -12,11 +12,14 @@ class FrontController{
 		//Template::getInstance()->setDatas(array("test"=>"pwet"));
 		//Template::getInstance()->render();		
 		
-		$f = App::getModel("Formation");
+		$f = App::getModel("Matter");
 		
-		$f -> load(1);
+		$f -> store(array('title'=>'pouf'));
+		
+		$f -> save();
 		
 		var_dump($f);
+		
 	}
 	
 	public function noAction(){

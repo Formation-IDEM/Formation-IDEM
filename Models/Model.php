@@ -77,7 +77,7 @@ class Model {
 				$i++;
 			}
 			$request .= " WHERE id = " . $this->getData('id');
-			if( Database::getInstance()->getConnexion( $request ) ) {
+			if( Database::getInstance()->getResultats( $request ) ) {
 				return $this;
 			} else {
 				return false;
@@ -106,7 +106,7 @@ class Model {
 				$i++;
 			}
 			$request .= "(" . $columns . ") VALUES (" . $values . ")"; 
-			if( Database::getInstance()->getConnexion( $request ) ) {
+			if( Database::getInstance()->getResultats( $request ) ) {
 				$this->_fields['id'] = Database::getInstance()->getLastInsertId();
 				return $this;
 			} else {
