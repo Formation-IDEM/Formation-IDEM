@@ -35,13 +35,28 @@ class Company extends Model
 		'active'				=>	false,
 	];
 
-	private $_rules = [];
+	private $_rules = [
+        'name'  =>  [
+            'required',
+            'unique'
+        ],
+        ''
+    ];
 
+    /**
+     * Retourne toutes les entreprises
+     * @return mixed
+     */
     public function all()
     {
         return CollectionFactory::loadCollection('company')->getAll();
     }
 
+    /**
+     * Retourne les stages d'une entreprise
+     *
+     * @return mixed
+     */
 	public function getInternships()
 	{
 		return CollectionFactory::loadCollection('internship')->getItemsByCompany($this->getData('id'));
