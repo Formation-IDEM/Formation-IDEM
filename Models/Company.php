@@ -10,28 +10,21 @@
 				'status'=> '',
 				'company_name',
 				'address' => '',
-				'postalCode'=> '',
+				'postal_Code'=> '',
 				'city'=> '',
 				'country'=> '',
 				'phone'=> '',
 				'mobile'=> '',
 				'fax'=> '',
-				'siret'=> '',
-				'mobile'=> '',
+				'manager'=>'',
+				'create_date'=> '',
+				'update_date'=> '',
+				'create_uid'=> 0,
+				'update_uid'=> 0,
+				'visit_date'=>'',
+				'active'=> false,
 		
 		);
-		
-		
-
-		private	$_town;
-		private	$_country;
-		private	$_fax;
-		private	$_phone;
-		private	$_mail;
-		private	$_companyName;		//raison sociale
-		private	$_managerID;
-		private	$_siret;
-		private $_stageId;
 		
 		public function __construct()
 		{
