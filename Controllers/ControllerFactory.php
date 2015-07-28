@@ -1,12 +1,9 @@
 <?php
 
 
-class ControllerFactory {
+class ControllerFactory 
+{
 
-
-	/*
-	 * 
-	 */
 	public static function createController() {
 		$controller = 'FrontController';
 		

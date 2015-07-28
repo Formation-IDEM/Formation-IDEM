@@ -4,7 +4,9 @@ include_once('Controllers/Database.php');
 
 abstract class Model
 {
-	public function __construct(){}
+	protected $_table = '';
+	
+	protected $_fields = array();
 	
 	public function load($id = null) // charge un objet depuis la bdd
 	{

@@ -6,7 +6,7 @@ class Template
 {
 	private static $_instance;
 	
-	private $_filename;
+	private $_filename = 'index';
 
 	private $_datas;	
 	
