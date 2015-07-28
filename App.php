@@ -1,7 +1,10 @@
 <?php
 
 // Utilisation App::getInstance();
-class App
+include_once 'Models/Model.php';
+
+
+class App extends Model
 {
 	private static $_instance;
 	
@@ -9,7 +12,7 @@ class App
 	
 	private $_actionName;
 	
-	private function __construct()
+	public function __construct()
 	{
 		$this->_actionName = 'indexAction';
 	}
@@ -36,8 +39,9 @@ class App
 	// Fonction appelée par défaut
 	public function run()
 	{
+		include_once 'Models/Template.php';
 		// Récupère l'action
-		//$action = $this->setActionName()->_actionName;
+		
 		$action = self::getInstance()->setActionName()->_actionName;
 		
 		// Creation du Controller en fonction de $_GET['c']
@@ -55,6 +59,19 @@ class App
 	
 		//include_once('./Controllers/Database.php');
 		//Database::getInstance()->connect('pgsql')->insert();
+	}
+	
+	public static function getModel($type)
+	{
+		if(file_exists($type))
+		{
+			include_once("Models/".$type.".php");
+			return new $type();
+		}else
+			{
+				return null;
+			}
+		
 	}	
 }
 

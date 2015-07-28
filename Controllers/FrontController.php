@@ -1,15 +1,15 @@
 <?php
 
-class FrontController
+class FrontController extends Model
 {
+	/*public function indexAction()
+	{
+		
+	}*/
+	
 	function indexAction()
 	{
-		echo 'default page';
-	}
-	
-	function testAction()
-	{
-		echo 'its a test! On front controller and test action';
+		Template::getInstance()->setTemplate('Company/AccueilCompany')->setDatas(array('macle' => "Bonjour Jean Luc"))->render();
 	}	
 }
 

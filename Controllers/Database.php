@@ -2,6 +2,7 @@
 
 class Database
 {
+	private $_connexion;
 	
 	private static $_instance;
 	
@@ -24,6 +25,8 @@ class Database
 		$this->_password = 'postgres';
 		
 		$this->_dbname = 'idem';
+		
+		$this->_dbh = new PDO($dbtype.':dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
 	}
 	
 	// Fonction pour récupérer une seule et unique instance de App
@@ -42,12 +45,28 @@ class Database
 		return $this;
 	}
 	
+	
 	private function execute($query)
 	{
 		// Execution de $query et retour résultat en tableau
 		$exe = $this->_dbh->prepare($query);
-		$exe->execute();
-		return $exe->fetchAll();
+		return $exe->execute();
+	}
+	
+	public function getResult($table, $where, $fields = '*')
+	{
+		$result = $this->_connexion->query($req);
+		if ($result)
+		{
+			$donnees = $result->fetchAll();
+			return $donnees;
+		}else
+			{
+				echo "Nada!";
+			}
+			
+		
+		
 	}
 	
 	public function insert($table, $fields, $values)
@@ -69,4 +88,9 @@ class Database
 	}
 }
 
+
+
+/*
+ * 
+ */
 ?>
