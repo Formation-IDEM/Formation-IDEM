@@ -29,7 +29,7 @@
 		}
 		
 		//permet de récuperé la collection des reférence pédagogique
-		public function getRedPedago(){
+		public function getRefPedago(){
 			
 			if($this->_ref_pedago){
 				
@@ -38,7 +38,13 @@
 			}
 			
 		}
-		
+		public function setRefPedago($a){
+			
+			$this -> _ref_pedago = $a;
+			
+			return $this;
+			
+		}
 		//permet de récuperé la collection des formations session------
 		public function getFormationSessions(){
 			

@@ -13,13 +13,12 @@ class FrontController{
 		
 		$f = App::getModel('Formation');
 		
-		$c = App::getCollection("FormationSession");
+		$c = App::getCollection("RefPedago");
 		
-		$f -> setFormationSessions($c -> getItems(1));
+		$f -> setRefPedago($c -> getItems("formations",1));
 		
 		var_dump( $f -> getFormationSessions() );
-		
-		
+				
 	}
 	
 	public function noAction(){

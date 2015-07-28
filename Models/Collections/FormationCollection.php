@@ -1,13 +1,14 @@
 <?php
 
-class FormationSessionCollection extends Collection {
+class FormationCollection extends Collection {
 	
+	protected $_items = null;
 	
 	public function __construct(){
 		
-		$this -> _table = "formation_sessions";
+		$this -> _table = "formations";
 		
-		$this -> _model_name = "FormationSession";
+		$this -> _model_name = "Formation";
 		
 	}	
 	

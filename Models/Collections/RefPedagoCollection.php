@@ -3,8 +3,6 @@
 
 class RefPedagoCollection extends Collection{
 	
-	
-	
 	public function __construct(){
 		
 		$this -> _table = "ref_pedagos";
@@ -12,13 +10,14 @@ class RefPedagoCollection extends Collection{
 		
 	}	
 	
-	public function getItems($id){
+	//1eme permet de choisir par rapport a quoi on récupe les ref pedago
+	//2eme permet de choisir l'id
+	public function getItems( $table_name,$id){
 		
 		//si on a pas encore getItems
 		if(!$this -> _items){
 		
-			$req = 'SELECT * FROM '.$this->_table.' WHERE formations_id='.$id;
-			
+			$req = 'SELECT * FROM '.$this->_table.' WHERE '.$table_name.'_id='.$id;
 			$tab_item = array();
 			
 			if( $result = Database::getInstance()->getResultats( $req ) ){
@@ -33,7 +32,6 @@ class RefPedagoCollection extends Collection{
 					
 				}
 				$this->_items = $tab_item;
-				
 				return $tab_item;
 				
 			}
