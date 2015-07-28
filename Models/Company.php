@@ -35,7 +35,7 @@
 		{
 			if(!$this->_internship)
 			{
-				$this->_internship = App::getModel("Internship")->load($this->getData("internship"));
+				$this->_internship = App::getModel("Internship")->load($this->getData("id"));
 			}
 			return $this->_Internship;
 		}
