@@ -101,4 +101,18 @@ class MySQLDatabase extends Database
 	{
 		return $this->getPDO()->lastInsertId();
 	}
+
+	/**
+	 * @param $table
+	 * @param string $field
+	 * @return mixed
+	 */
+	public function count($table, $field = '*')
+	{
+		$sql = $this->getPDO()->query('SELECT COUNT(' . $field . ') AS total_item FROM ' . $table);
+		$sql->setFetchMode(PDO::FETCH_ASSOC);
+
+		$count = $sql->fetch();
+		return $count['total_item'];
+	}
 }

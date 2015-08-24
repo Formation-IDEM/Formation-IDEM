@@ -129,4 +129,29 @@ class Validation
 
         return true;
     }
+
+    /**
+     * Retourne un tableau contenant les erreurs
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * Retourne une erreur précise
+     *
+     * @param $key
+     * @return null
+     */
+    public function getError($key)
+    {
+        if( array_key_exists($this->errors[$key]) )
+        {
+            return $this->errors[$key];
+        }
+        return null;
+    }
 }

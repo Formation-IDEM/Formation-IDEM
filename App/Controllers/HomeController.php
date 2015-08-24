@@ -1,6 +1,9 @@
 <?php
 namespace App\Controllers;
 
+use \Core\Controller;
+use Core\Factories\DatabaseFactory;
+
 /**
  * Class HomeController
  *
@@ -15,17 +18,15 @@ class HomeController extends Controller
 		parent::__construct();
 	}
 
-	public function hello()
+	public function indexAction()
 	{
-		$this->data += [
-			'variable'	=>	'test',
+		$stats = [
+			'formations'	=>	DatabaseFactory::db()->count('formations', 'id'),
+			'trainees'		=>	DatabaseFactory::db()->count('trainees', 'id'),
+			'trainers'		=>	DatabaseFactory::db()->count('trainers', 'id'),
+			'companies'		=>	DatabaseFactory::db()->count('companies', 'id')
 		];
 
-		return $this->layout()->render('home', $this->data);
-	}
-
-	public function show($id)
-	{
-		echo 'Je suis l\'id n°' . $id;
+		return $this->layout()->render('app/home', compact('stats'));
 	}
 }

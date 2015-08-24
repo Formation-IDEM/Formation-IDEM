@@ -4,7 +4,7 @@
  */
 
 return [
-	'driver'		=>	'PostgreSQL',
+	'driver'	=>	'PostgreSQL',
 	'db_user'	=>	'homestead',
 	'db_pass'	=>	'secret',
 	'db_name'	=>	'gestForm',

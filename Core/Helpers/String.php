@@ -35,7 +35,7 @@ class String
      * @param string $end_char
      * @return mixed|string
      */
-    function limiter($str, $n = 500, $end_char = '...')
+    public static function limiter($str, $n = 500, $end_char = '...')
     {
         if( mb_strlen($str) < $n )
         {
@@ -58,4 +58,15 @@ class String
             }
         }
     }
+
+    public static function plural($str, $count)
+    {
+        return ($count > 1) ? $str . 's' : $str;
+    }
+
+    public static function strPlural($str, $count)
+    {
+        return $count . ' ' .  ($count > 1) ? $str . 's' : $str;
+    }
+
 }

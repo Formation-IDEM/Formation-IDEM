@@ -42,4 +42,12 @@ abstract class Database
      * @return mixed
      */
     abstract public function execute($statement, $attributes);
+
+    /**
+     * @param string $table
+     * @param string $field
+     * @return mixed
+     */
+    abstract public function count($table, $field = '*');
+
 }
