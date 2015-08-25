@@ -5,8 +5,8 @@
 	<label for="name">Nom</label>
 	<input type="text" name="name" value="<?php echo $trainer->getData('name'); ?>" id="name">
 	
-	<label for="firstName">Prénom</label>
-	<input type="text" name="firstName" value="<?php echo $trainer->getData('firstName'); ?>" id="firstName">
+	<label for="firstname">Prénom</label>
+	<input type="text" name="firstname" value="<?php echo $trainer->getData('firstname'); ?>" id="firstname">
 	
 	<label for="phone">Téléphone fixe</label>
 	<input type="tel" name="phone" value="<?php echo $trainer->getData('phone'); ?>" id="phone">
@@ -20,8 +20,8 @@
 	<label for="birthday">Date de naissance</label>
 	<input type="date" name="birthday" value="<?php echo $trainer->getData('birthday'); ?>" id="birthday">
 	
-	<label for="birthPlace">Lieu de naissance</label>
-	<input type="text" name="birthPlace" value="<?php echo $trainer->getData('birthPlace'); ?>" id="birthPlace">
+	<label for="birthdayplace">Lieu de naissance</label>
+	<input type="text" name="birthdayplace" value="<?php echo $trainer->getData('birthdayplace'); ?>" id="birthdayplace">
 	
 	<label for="gender">Sexe</label>
 	<input type="text" name="gender" value="<?php echo $trainer->getData('gender'); ?>" id="gender">
@@ -70,19 +70,28 @@
 		<option value="value3">Valeur 3</option>
 	</select>
 	
-	<label for="study_level_id">Niveau d'étude</label>
-	<select name="study_level_id" id="study_level_id">
-		<option value="<?php echo $trainer->getData('study_level_id'); ?>" selected=""><?php echo $trainer->getData('study_level_id'); ?></option> 
-		<option value="value2">Valeur 2</option>
-		<option value="value3">Valeur 3</option>
+	<label for="study_levels_id">Niveau d'étude</label>
+	<select name="study_levels_id" id="study_levels_id">
+		<option value="<?php echo $trainer->getData('study_levels_id'); ?>" selected="">
+			<?php echo $trainer->getStudyLevel()->getData('wording'); ?>
+		</option> 
 	</select>
-	
-	<label for="furtherInformations">Plus d'information</label>
-	<textarea name="furtherInformations" value="<?php echo $trainer->getData('furtherInformations'); ?>" id="furtherInformations"></textarea>
-	
-	<input type="hidden" name="id" value="<?php echo $trainer->getData('id'); ?>" id="id">
-	
-	<input type="submit" name="submit" value="Enregistrer" id="submit">
+
+	<label for="trainer_extern">Formateur externe ?</label>
+	<input type="hidden" value="0" name="trainer_extern">
+	<input type="checkbox" name="trainer_extern" id="trainer_extern" value="true" <?php if($trainer->getData('trainer_extern')) echo 'checked'; ?> >
+
+	<label for="hourly_rate">Taux horaire</label>
+	<input type="text" name="hourly_rate" id="hourly_rate" value="<?php echo $trainer->getData('hourly_rate'); ?>">
+
+	<label for="further_informations">Plus d'information</label>
+	<textarea name="further_informations" value="<?php echo $trainer->getData('further_informations'); ?>" id="further_informations"></textarea>
+	<br><br>
+
+	<?php echo $trainer->getData('id'); if($trainer->getData('id') != 0) { ?>
+		<input type="hidden" name="id" value="<?php echo $trainer->getData('id'); ?>" id="id">
+	<?php } ?>
+	<input type="submit" value="Enregistrer" id="submit">
 	
 	<input type="reset" name="reset" value="Reset" id="reset">
 

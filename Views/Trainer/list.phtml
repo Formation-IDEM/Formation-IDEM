@@ -5,6 +5,7 @@
 		<td>Nom</td>
 		<td>Id</td>
 		<td></td>
+		<td></td>
 	</tr>
 	<?php
 		foreach($trainers as $trainer)
@@ -16,6 +17,9 @@
 					</td>
 					<td>
 						<?php echo $trainer->getData('id'); ?>		
+					</td>
+					<td>
+						<a href="/index.php?c=Trainer&a=addEdit&id=<?php echo $trainer->getData('id'); ?>">Modifier</a>
 					</td>
 					<td>
 						<a href="/index.php?c=Trainer&a=show&id=<?php echo $trainer->getData('id'); ?>">Afficher</a>

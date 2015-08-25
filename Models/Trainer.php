@@ -14,6 +14,8 @@ class Trainer extends Person
 	protected $_timesheets = null;
 
 	protected $_matters = null;
+
+	protected $_trainer_extern = null;
 	
 	protected $_formation_sessions = null;
 		
@@ -26,6 +28,17 @@ class Trainer extends Person
 		$this->_fields['id'] = 0;
 		$this->_fields['further_informations'] = 'lol';
 		$this->_fields['study_levels_id'] = 1;
+		$this->_fields['hourly_rate'] = 1;
+		$this->_fields['trainer_extern'] = false;
+	}
+
+	public function getTrainerExtern()
+	{
+		if(!$this->_trainer_extern)
+		{
+			$this->_trainer_extern = App::getCollection('TrainerExtern')->getItem($this->_fields['id']);
+		}
+		return $this->_trainer_extern;
 	}
 	
 	public function getStudyLevel()

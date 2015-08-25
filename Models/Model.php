@@ -42,11 +42,12 @@ abstract class Model
 				$this->_fields[$field] = $value;
 			}
 		}
+		return $this;
 	}
 	
 	public function save() // enregistre l'objet en bdd
 	{
-		if($this->_fields['id'] != null) // -> UPDATE (déjà stocké)
+		if($this->_fields['id'] != null || $this->_fields['id'] != 0) // -> UPDATE (déjà stocké)
 		{
 			$set = null;
 			foreach($this->_fields as $field => $value)
@@ -69,6 +70,8 @@ abstract class Model
 			// Execution de la requête
 			$db = Database::getInstance();
 			$db->getResults($query);
+			//var_dump($db->getErrors());
+			echo $query;
 		}
 		else // -> INSERT (pas encore stocké)
 		{
@@ -94,16 +97,20 @@ abstract class Model
 			
 			// On crée la query finale
 			$query = 'INSERT INTO '.$this->_table.' ('.$fields.') VALUES ('.$values.');';
-			echo $query;
+			//echo $query;
 			
 			// Execution de la requête
 			$db = Database::getInstance();
 			$db->getResults($query);
 			//var_dump($db->getErrors());
+			$errors = $db->getErrors();
+			if($errors[2] == null)
+			{
+				// Récupération de l'id inséré
+				$lastInsertId = $db->getLastInsertId($this->_table);
+				$this->_fields['id'] = $lastInsertId;
+			}
 			
-			// Récupération de l'id inséré
-			$lastInsertId = $db->getLastInsertId($this->_table);
-			$this->_fields['id'] = $lastInsertId;
 		}
 		return $this;
 	}
@@ -140,6 +147,7 @@ abstract class Model
 		}
 		return $this;
 	}
+
 }
 
 ?>

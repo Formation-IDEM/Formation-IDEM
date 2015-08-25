@@ -1,0 +1,11 @@
+<h2><?php echo $level->getTrainer()->getData('name') ?>, <?php echo $level->getMatter()->getData('title') ?></h2>
+
+<form method="post" action="#" enctype="multipart/form-data">
+
+	<input type="text" name="note" value="<?php echo $level->getData('note') ?>">
+	<input type="text" name="appreciation" value="<?php echo $level->getData('appreciation') ?>">
+
+	<input type="submit" value="Enregistrer.">
+
+</form>
+	

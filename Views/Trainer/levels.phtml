@@ -1,0 +1,34 @@
+<h2>Ajouter / Modifier niveau</h2>
+
+<form method="post" action="#" enctype="multipart/form-data">
+
+	<?php
+		foreach ($levels as $level)
+		{
+			echo $level->getMatter()->getData('title');
+			echo $level->getData('note');
+			echo $level->getData('appreciation');
+			?>
+				<a href="index.php?c=Trainer&a=editLevel&id=<?php echo $level->getData('id') ?>">Editer</a>
+			<?php
+		}
+	?>
+	<select name="matters">
+		<?php
+			foreach ($matters as $matter)
+			{ 
+				?>
+					<option value="<?php echo $matter->getData('id') ?>">
+						<?php
+							echo $matter->getData('title');
+						?>
+					</option>
+				<?php
+			}
+		?>
+	</select>
+
+	<input type="submit" value="Enregistrer.">
+
+</form>
+	

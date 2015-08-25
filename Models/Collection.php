@@ -10,7 +10,23 @@ class Collection
 
 	protected $_items = null;
 
+	protected $_item = null;
+
 	public function __construct(){}
+
+	public function getItem($id)
+	{
+		if(!$this->_item)
+		{	
+			$query = 'SELECT * FROM '.$this->_table.' WHERE '.$this->_field.'_id = '.$id;
+			$results = Database::getInstance()->getResults($query);
+			if(isset($results[0]))
+			{
+				$this->_item = App::getModel($this->_model_name)->load($results[0]['id']);				
+			}
+		}
+		return $this->_item;
+	}
 
 	public function getItems($id)
 	{

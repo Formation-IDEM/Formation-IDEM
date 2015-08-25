@@ -204,7 +204,8 @@ CREATE TABLE trainers
 	photo VARCHAR NOT NULL,
 	family_status_id INTEGER,
 	nationality_id INTEGER,
-	hourly_rate FLOAT
+	hourly_rate FLOAT NOT NULL,
+	trainer_extern BOOLEAN DEFAULT(false)
 );
 
 /* Création de la table d'association entre formateur et matière */
