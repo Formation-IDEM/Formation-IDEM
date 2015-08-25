@@ -99,6 +99,7 @@ abstract class Model
 			// Execution de la requête
 			$db = Database::getInstance();
 			$db->getResults($query);
+			//var_dump($db->getErrors());
 			
 			// Récupération de l'id inséré
 			$lastInsertId = $db->getLastInsertId($this->_table);

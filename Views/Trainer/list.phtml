@@ -1,2 +1,28 @@
 <h2>Liste des formateurs</h2>
 
+<table>
+	<tr>
+		<td>Nom</td>
+		<td>Id</td>
+		<td></td>
+	</tr>
+	<?php
+		foreach($trainers as $trainer)
+		{
+			?>
+				<tr>
+					<td>
+						<?php echo $trainer->getData('name'); ?>
+					</td>
+					<td>
+						<?php echo $trainer->getData('id'); ?>		
+					</td>
+					<td>
+						<a href="/index.php?c=Trainer&a=show&id=<?php echo $trainer->getData('id'); ?>">Afficher</a>
+					</td>
+				</tr>
+			<?php
+		}
+	?>
+</table>
+<a href="/index.php?c=Trainer&a=addEdit">Ajouter un formateur</a>

@@ -26,6 +26,21 @@ class Collection
 		}
 		return $this->_items;
 	}
+
+	public function getAllItems()
+	{
+		if(!$this->_items)
+		{
+			$query = 'SELECT * FROM '.$this->_table;
+			$results = Database::getInstance()->getResults($query);
+			$items = array();
+			foreach($results as $item) 
+			{
+				$this->_items[$item['id']] = App::getModel($this->_model_name)->load($item['id']);
+			}			
+		}
+		return $this->_items;
+	}
 }
 
 ?>

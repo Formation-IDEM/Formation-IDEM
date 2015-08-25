@@ -44,6 +44,7 @@ class App
 	{
 		if(file_exists('./Models/'.$type.'.php'))
 		{
+			include_once('Models/Model.php');			
 			include_once('Models/'.$type.'.php');			
 			return new $type();
 		}

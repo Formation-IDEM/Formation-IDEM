@@ -10,7 +10,6 @@ class LevelCollection extends Collection
 		$this->_field = 'trainer';
 
 		$this->_model_name = 'Level';
-
 	}	
 
 }
