@@ -8,7 +8,7 @@ use App\Exceptions\LayoutException;
  *
  * @package Core
  */
-class Layout
+class Template
 {
 	private $path;
 	private static $_instance;
@@ -27,7 +27,7 @@ class Layout
 	{
 		if( is_null(self::$_instance) )
 		{
-			self::$_instance = new Layout();
+			self::$_instance = new Template();
 		}
 		return self::$_instance;
 	}
@@ -42,11 +42,11 @@ class Layout
 	 */
 	private function getFile($file, $data = [])
 	{
-		if( is_file(ROOT . $this->path . '/' . $file . '.tpl.php') )
+		if( is_file(ROOT . $this->path . '/' . $file . '.phtml') )
 		{
 			ob_start("ob_gzhandler");
 			extract($data);
-			require_once(ROOT . $this->path . '/' . $file . '.tpl.php');
+			require_once(ROOT . $this->path . '/' . $file . '.phtml');
 			$content = ob_get_contents();
 			ob_end_clean();
 
@@ -65,6 +65,6 @@ class Layout
 	public function render($file, $data)
 	{
 		$content = $this->getFile($file, $data);
-		require_once(ROOT . $this->path . '/layouts/layout.tpl.php');
+		require_once(ROOT . $this->path . '/layouts/layout.phtml');
 	}
 }

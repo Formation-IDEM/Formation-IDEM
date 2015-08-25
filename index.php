@@ -9,7 +9,8 @@ $app = App\App::getInstance();
 $app->run();
 
 //	Définition des routes
-$app->route()->get('/', 'Home@index');
+$app->route()->get('/', 'Front@index');
+$app->route()->get('/toto', 'Front@toto');
 $app->route()->get('/admin', 'Admin/Dashboard@index');
 $app->route()->crud('/companies', 'Company');
 $app->route()->crud('/internships', 'Internship');

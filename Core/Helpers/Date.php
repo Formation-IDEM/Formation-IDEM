@@ -95,7 +95,8 @@ class Date
      * @param int $time
      * @return string
      */
-    public static function timespan($time){
+    public static function timespan($time)
+    {
         $diff_time = time() - $time;
         if( $diff_time < 1 )
         {

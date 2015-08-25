@@ -1,18 +1,17 @@
 <?php
 namespace App\Controllers;
 
+use \Core\Template;
 use \Core\Controller;
-use Core\Factories\DatabaseFactory;
+use \Core\Factories\DatabaseFactory;
 
 /**
  * Class HomeController
  *
  * @package App\Controllers
  */
-class HomeController extends Controller
+class FrontController extends Controller
 {
-	protected $data = [];
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -27,6 +26,6 @@ class HomeController extends Controller
 			'companies'		=>	DatabaseFactory::db()->count('companies', 'id')
 		];
 
-		return $this->layout()->render('app/home', compact('stats'));
+		return Template::getInstance()->render('front/front_index', compact('stats'));
 	}
 }

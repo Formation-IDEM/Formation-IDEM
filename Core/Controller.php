@@ -15,7 +15,7 @@ class Controller
 
 	public function __construct()
 	{
-		$this->layout = Layout::getInstance();
+		$this->layout = Template::getInstance();
 		MiddlewareFactory::loadMiddlewares($this->middlewares);
 	}
 
