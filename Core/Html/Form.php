@@ -34,7 +34,30 @@ class Form
 		}
 		else
 		{
-			$input = '<input type="' . $type .'" name="' . $name . '" value="' . $this->getValue($name) .'" class="form-control">';
+			$input = '';
+			if( isset($options['symbol']) )
+			{
+				$input = '<div class="input-group">';
+				$input .= '<span class="input-group-addon">' . $options['symbol'] . '</span>';
+			}
+
+			if( isset($options['icon']) )
+			{
+				$input = '<div class="input-group">';
+				$input .= '<span class="input-group-addon"><i class="fa fa-' . $options['icon'] . '"></i></span>';
+			}
+
+			$input .= '<input type="' . $type .'" name="' . $name . '" value="' . $this->getValue($name) .'" class="form-control">';
+
+			if( isset($options['symbol']) || isset($options['icon']) )
+			{
+				$input .= '</div>';
+			}
+
+			if( response()->hasError($name) )
+			{
+				$input .= '<p class="text-danger">' . response()->error($name) . '</p>';
+			}
 		}
 		
 		return $this->formGroup($label . $input);
@@ -131,6 +154,24 @@ class Form
 	}
 
 	/**
+	 * Boutton de soumission
+	 *
+	 * @param $value
+	 * @param array $options
+	 * @return string
+	 */
+	public function submit($value, $options = [])
+	{
+		$input = '<input type="submit" value="' . $value . '"';
+		foreach( $options as $key => $value )
+		{
+			$input .= ' ' . $key . '="' . $value . '"';
+		}
+		$input .= '>';
+		return $this->formGroup($input);
+	}
+
+	/**
 	 * Si le formulaire a été saisi, on retourne la valeur du champ
 	 *
 	 * @param $name
@@ -138,9 +179,9 @@ class Form
 	 */
 	public function getValue($name)
 	{
-		if( isset($_POST[$name]) )
+		if( request()->postExists($name) )
 		{
-			return htmlspecialchars($_POST[$name]);
+			return request()->getPost($name);
 		}
 		else
 		{

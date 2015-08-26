@@ -1,0 +1,10 @@
+<?php if( response()->getErrors() ): ?>
+<div class="alert alert-danger">
+    <h4>Des erreurs empêchent la validation du formulaire</h4>
+    <ol>
+    <?php foreach( response()->getErrors() as $error ): ?>
+        <li><?= $error; ?></li>
+    <?php endforeach; ?>
+    </ol>
+</div>
+<?php endif; ?>

@@ -57,6 +57,24 @@ class Model
 	}
 
 	/**
+	 * Permet de charger un élément et d'afficher une erreur si
+	 * aucun résultat n'est retourné
+	 *
+	 * @param $id
+	 * @return mixed
+	 * @throws ModelException
+	 */
+	public function loadOrFail($id)
+	{
+		$data = $this->load($id);
+		if( !$data )
+		{
+			throw new ModelException('Aucun élément ne correspond à cet identifiant.');
+		}
+		return $this;
+	}
+
+	/**
 	 * Retourne la valeur d'une clé
 	 *
 	 * @param $key
@@ -89,6 +107,21 @@ class Model
 			}
 		}
 
+		if( empty($this->_fields['create_date']) )
+		{
+			$this->_fields['create_date'] = date("Y-m-d H:i:s");
+		}
+
+		if( empty($this->_fields['update_date']) )
+		{
+			$this->_fields['update_date'] = date("Y-m-d H:i:s");
+		}
+
+		if( $this->_fields['update_date'] === $this->_fields['create_date'] )
+		{
+			$this->_fields['update_date'] = date("Y-m-d H:i:s");
+		}
+
 		return $this;
 	}
 
@@ -99,8 +132,9 @@ class Model
 	 */
 	public function save()
 	{
-		if( $this->getData('id') && $this->getData('id')  !=0 )
+		if( $this->getData('id') == 0 )
 		{
+			unset($this->_fields['id']);
 			$this->insert($this->_fields);
 		}
 		else
@@ -119,22 +153,35 @@ class Model
 	 */
 	public function insert($data)
 	{
-		$sql = 'INSERT INTO ' . $this->_table . ' SET ';
+		$sql = 'INSERT INTO ' . $this->_table . ' (';
 
-		$count = 0;
+		$countFields = 0;
 		$attributes = [];
 		foreach( $data as $key => $value )
 		{
-			$sql .= $key . ' = :' . $key;
-			if( $count < (count($data) - 1) )
+			$sql .= $key;
+			if( $countFields < (count($data) - 1) )
 			{
 				$sql .= ', ';
 			}
 			$attributes = array_merge($attributes, [
 				':' . $key => $value,
 			]);
-			$count++;
+			$countFields++;
 		}
+
+		$sql .= ') VALUES (';
+		$countValues = 0;
+		foreach( $data as $key => $value )
+		{
+			$sql .= ':' . $key;
+			if( $countValues < (count($data) - 1) )
+			{
+				$sql .= ', ';
+			}
+			$countValues++;
+		}
+		$sql .= ')';
 
 		$this->db->execute($sql, $attributes);
 		return $this;
@@ -144,11 +191,13 @@ class Model
 	 * Met à jour les données d'une ligne grâce à un tableau associatif
 	 * et l'id passée en paramètre
 	 *
-	 * @param $data
+	 * @param array $data
+	 * @param int $id
 	 * @return mixed
 	 */
-	public function update($data)
+	public function update($data, $id)
 	{
+		unset($this->_fields['id']);
 		$sql = 'UPDATE ' . $this->_table . ' SET ';
 
 		$count = 0;
@@ -167,7 +216,7 @@ class Model
 		}
 		$sql .= ' WHERE id = :id';
 		$attributes = array_merge($attributes, [
-			':id'	=>	intval($this->getData('id')),
+			':id'	=>	intval($id),
 		]);
 
 		if( $this->db->execute($sql, $attributes) )
@@ -184,7 +233,7 @@ class Model
 	 */
 	public function delete()
 	{
-		if( $this->getData('id') )
+		if( $this->getData('id') && $this->getData('id') != 0 )
 		{
 			return $this->db->execute('DELETE FROM ' . $this->_table . ' WHERE id = ?', [$this->getData('id')]);
 		}

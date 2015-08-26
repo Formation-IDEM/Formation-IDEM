@@ -6,9 +6,19 @@ namespace Core\Http;
  *
  * @package Core\Http
  */
-class Request
+class Request extends Http
 {
-	private $routes;
+	private static $_instance;
+
+	public static function getInstance()
+	{
+		if( is_null(self::$_instance) )
+		{
+			self::$_instance = new Request();
+		}
+		return self::$_instance;
+	}
+
 	/**
 	 * Retourne la valeur d'un cookie en fonction de sa clée
 	 *
@@ -89,7 +99,9 @@ class Request
 				$data = [];
 				foreach( $_POST as $key => $value )
 				{
-					$data[$key] = $this->getPost($key);
+					$data = array_merge($data, [
+						$key	=>	$this->getPost($key),
+					]);
 				}
 				return $data;
 			break;
@@ -140,11 +152,5 @@ class Request
 	public function getUri()
 	{
 		return $_SERVER['REQUEST_URI'];
-	}
-
-	public function getRoutes($file = 'routes')
-	{
-		$this->routes = require_once(ROOT . 'App/Config/' . $file . '.php');
-		return $this->routes;
 	}
 }

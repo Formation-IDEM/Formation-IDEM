@@ -1,8 +1,12 @@
 <?php
+namespace Core\Http;
+
 /**
- * Http.php
- * ------------
- * @author :  RIBES Alexandre
- * @contact : ribes.alexandre@gmail.com
- * @website : http://www.alexandre-ribes.fr
+ * Class Http
+ * @package Core\Http
  */
+class Http
+{
+    protected $errors = [];
+    protected $inputs = [];
+}

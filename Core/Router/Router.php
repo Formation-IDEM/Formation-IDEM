@@ -84,12 +84,12 @@ class Router
 		$name = strtolower($controller);
 		$this->add($path . '/', $controller . '@' . 'index', $name . '.index', 'GET');
 		$this->add($path . '/create', $controller . '@' . 'create', $name . '.create', 'GET');
-		$this->add($path . '/create', $controller . '@' . 'store', $name . '.store', 'POST');
+		$this->add($path . '/create', $controller . '@' . 'save', $name . '.store', 'POST');
 		$this->add($path . '/:id/edit', $controller . '@' . 'edit', $name . '.edit', 'GET')
 			  ->with(':id', '[-0-9]+');
-		$this->add($path . '/:id/edit', $controller . '@' . 'update', $name . '.update', 'PUT')
+		$this->add($path . '/:id/edit', $controller . '@' . 'save', $name . '.update', 'POST')
 			  ->with(':id', '[-0-9]+');
-		$this->add($path . '/:id/delete', $controller . '@' . 'delete', $name . '.delete', 'DELETE')
+		$this->add($path . '/:id/delete', $controller . '@' . 'delete', $name . '.delete', 'GET')
 			  ->with(':id', '[-0-9]+');
 		$this->add($path . '/:id', $controller . '@' . 'show', $name . '.show', 'GET')
 			   ->with(':id', '[-0-9]+');

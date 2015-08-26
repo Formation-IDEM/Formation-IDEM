@@ -88,7 +88,7 @@ class PostgreSQLDatabase extends Database
 		}
 		else
 		{
-			return $query = $this->getPDO()->query($statement);
+			return $this->getPDO()->query($statement);
 		}
 	}
 

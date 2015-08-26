@@ -31,16 +31,13 @@ class Company extends Model
 		'update_date'			=>	'',
 		'create_uid'			=>	0,
 		'update_uid'			=>	0,
-		'visit_date'			=>	'',
-		'active'				=>	false,
+		'visit_date'			=>	null,
+		'active'				=>	0,
 	];
 
-	private $_rules = [
-        'name'  =>  [
-            'required',
-            'unique'
-        ],
-        ''
+	public $_rules = [
+        'name'	=> 'unique:companies|required',
+		'address' =>	'required',
     ];
 
     /**

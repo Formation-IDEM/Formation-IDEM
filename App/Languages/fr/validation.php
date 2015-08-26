@@ -6,7 +6,7 @@ return [
     'city'              =>  'ville',
     'country'           =>  'pays',
     'postal_code'       =>  'code postal',
-    'adress'            =>  'adresse',
+    'address'           =>  'adresse',
     'phone'             =>  'téléphone',
     'mobile'            =>  'portable',
     'fax'               =>  'fax',

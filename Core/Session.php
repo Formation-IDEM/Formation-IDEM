@@ -8,9 +8,20 @@ namespace Core;
  */
 class Session
 {
+	private static $_instance;
+
 	public function __construct()
 	{
-		return session_start();
+
+	}
+
+	public static function getInstance()
+	{
+		if( is_null(self::$_instance) )
+		{
+			self::$_instance = new Session();
+		}
+		return self::$_instance;
 	}
 
 	/**
@@ -19,7 +30,7 @@ class Session
 	 * @param $key
 	 * @param $value
 	 */
-	public static function set($key, $value)
+	public function set($key, $value)
 	{
 		$_SESSION[$key] = $value;
 	}
@@ -30,7 +41,7 @@ class Session
 	 * @param $key
 	 * @return null
 	 */
-	public static function get($key)
+	public function get($key)
 	{
 		return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
 	}
@@ -41,7 +52,7 @@ class Session
 	 * @param $key
 	 * @return bool
 	 */
-	public static function keyExists($key)
+	public function has($key)
 	{
 		return isset($_SESSION[$key]);
 	}
@@ -51,7 +62,7 @@ class Session
 	 *
 	 * @param $key
 	 */
-	public static function void($key)
+	public function void($key)
 	{
 		unset($_SESSION[$key]);
 	}
@@ -61,7 +72,7 @@ class Session
 	 *
 	 * @return bool
 	 */
-	public static function destroy()
+	public function destroy()
 	{
 		return session_destroy();
 	}
@@ -72,21 +83,31 @@ class Session
 	 * @param $key
 	 * @param $value
 	 */
-	public static function setFlash($key, $value)
+	public function setFlash($key, $value)
 	{
-		$_SESSION['flash']['type'] = $key;
-		$_SESSION['flash']['message'] = $value;
+		$_SESSION['flash'][$key] = $value;
 	}
 
 	/**
 	 * Récupère une variable flash
 	 *
-	 * @return array()
+	 * @param string $type
+	 * @return string
 	 */
-	public static function getFlash()
+	public function getFlashMessage($type)
 	{
-		$flash = extract($_SESSION['flash']);
-		unset($_SESSION['flash']);
-		return $flash;
+		if( isset($_SESSION['flash'][$type]) )
+		{
+			$return = $_SESSION['flash'][$type];
+			unset($_SESSION['flash']);
+			return $return;
+		}
+		return null;
+	}
+
+	public function getFlashType()
+	{
+		$type = array_keys($_SESSION['flash']);
+		return $type[0];
 	}
 }

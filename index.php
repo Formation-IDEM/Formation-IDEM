@@ -9,9 +9,10 @@ $app = App\App::getInstance();
 $app->run();
 
 //	Définition des routes
-$app->route()->get('/', 'Front@index');
-$app->route()->get('/toto', 'Front@toto');
-$app->route()->get('/admin', 'Admin/Dashboard@index');
-$app->route()->crud('/companies', 'Company');
-$app->route()->crud('/internships', 'Internship');
-$app->route()->run();
+route()->get('/', 'Front@index');
+route()->get('/404', 'Errors@404');
+route()->get('/toto', 'Front@toto');
+route()->get('/admin', 'Admin/Dashboard@index');
+route()->crud('/companies', 'Company');
+route()->crud('/internships', 'Internship');
+route()->run();
