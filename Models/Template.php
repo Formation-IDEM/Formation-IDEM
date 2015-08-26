@@ -27,13 +27,14 @@
 		//Prend en parametre un string
 		public function setFileName($a){
 			$this -> _filename = $a;
-			return $this -> _filename;
+			return $this;
 		}
 		
 		//Prend un parametre un array()
+		//Cette méthode permet de pouvoir transferé des tableaux de donnée dans une vue
 		public function setDatas($a){
 			$this -> _datas = $a;
-			return $this -> _datas;
+			return $this;
 		
 		}
 	

@@ -9,19 +9,9 @@
 </nav>
 <div class="list-annonces">
 	<ul>
-		<?php
-		
-			//appel la méthode getItems de la class Collection avec la parametre qui va bien
-			$collection = App::getModel('Collection');			
-			//on initialise les attributs de la collection
-			$collection->setAttribut('formations','Formation');
-			
-			//On récupere le tableau d'object via la méthode pour récuperé une collection
-			$coll_formation = $collection->getItems();
-			
+		<?php					
 			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
-			for ($i=0; $i < count($coll_formation); $i++):
-				
+			for ($i=0; $i < count($coll_formation); $i++):				
 		?>
 						
 				<li><?php  echo $coll_formation[$i]->getData('title'); ?></li>
