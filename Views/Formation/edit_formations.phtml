@@ -1,0 +1,145 @@
+<?php
+
+	//on charge le model de formation
+	$maFormation = App::getModel("Formation");
+	
+	if( isset($_POST['edit']) ){
+		
+		$maFormation->load($_POST['id']);
+		
+	}
+	
+	if( isset($_POST['submit']) ) {
+		//Si id existe et n'est pas vide, on modifie
+		if( isset($_POST['id']) && !empty($_POST['id']) ){
+			
+			$maFormation->store( array(	'id'=> $_POST['id']	));
+			
+		}else{//sinon c'est une création
+			
+			$maFormation->store( array(	'id'=> 0 ));			
+			
+		}
+		
+		$maFormation->store( array(
+					'title' 						=> $_POST['title'],
+					'average_effective' 			=> $_POST['average_effective'],
+					'convention_hour_center'		=> $_POST['convention_hour_center'],
+					'convention_hour_company' 		=> $_POST['convention_hour_company'],
+					'deal_code' 					=> $_POST['deal_code'],
+					'order_giver' 					=> $_POST['order_giver'],
+					'deal_begin_date' 				=> $_POST['deal_begin_date'],
+					'deal_ending_date' 				=> $_POST['deal_ending_date']							
+		));
+		//on appelle la méthode qui stock les infos dans l'objet crée
+		$maFormation->save();
+			
+		header("Location: index.php?c=Formation");
+	}
+	
+
+?>
+<div>
+	
+	<form method="post" action="">
+			<input type="hidden" name="id" value="<?php			 	
+			if( isset($_POST['edit']) ){
+		
+				echo $maFormation->getData('id');
+		
+			} 
+			?>" />
+			<p>
+				<label>Titre : 
+					<input type="text" name="title" value="<?php			 	
+			if( isset($_POST['edit']) ){
+		
+				echo $maFormation->getData('title');
+		
+			} 
+			?>" />
+				</label>
+			</p>
+			<p>
+				<label>Effectif moyen : 
+					<input type="text" name="average_effective" value="<?php			 	
+			if( isset($_POST['edit']) ){
+		
+				echo $maFormation->getData('average_effective');
+		
+			} 
+			?>" />
+				</label>
+			</p>			
+			<p>
+				<label>Heures conventionnées en Centre : 
+					<input type="text" name="convention_hour_center" value="<?php			 	
+			if( isset($_POST['edit']) ){
+		
+				echo $maFormation->getData('convention_hour_center');
+		
+			} 
+			?>" />
+				</label>
+			</p>
+			<p>
+				<label>Heures conventionnées en Entreprise : 
+					<input type="text" name="convention_hour_company" value="<?php			 	
+			if( isset($_POST['edit']) ){
+		
+				echo $maFormation->getData('convention_hour_company');
+		
+			} 
+			?>" />
+				</label>
+			</p>
+			<p>
+				<label>Code Marché : 
+					<input type="text" name="deal_code" value="<?php			 	
+			if( isset($_POST['edit']) ){
+		
+				echo $maFormation->getData('deal_code');
+		
+			} 
+			?>" />
+				</label>
+			</p>
+			<p>
+				<label>Donneur d'ordre : 
+					<input type="text" name="order_giver" value="<?php			 	
+			if( isset($_POST['edit']) ){
+		
+				echo $maFormation->getData('order_giver');
+		
+			} 
+			?>" />
+				</label>
+			</p>
+			<p>
+				<label>Date de début : 
+					<input type="text" name="deal_begin_date" value="<?php			 	
+			if( isset($_POST['edit']) ){
+		
+				echo $maFormation->getData('deal_begin_date');
+		
+			} 
+			?>" />
+				</label>
+			</p>
+			<p>
+				<label>Date de fin : 
+					<input type="text" name="deal_ending_date" value="<?php			 	
+			if( isset($_POST['edit']) ){
+		
+				echo $maFormation->getData('deal_ending_date');
+		
+			} 
+			?>" />
+				</label>
+			</p>
+			<p>
+				<button name="submit">Envoyer</button>
+			</p>
+		</form>
+	
+</div>

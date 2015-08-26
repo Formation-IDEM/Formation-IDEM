@@ -1,101 +1,52 @@
 <?php
-
-
-class App {
-	
-	private static $_instance;
-	
-	private $_controller;
-	private $_actionName;
-
-
-	/*
-	 * 
-	 */
-	private function __construct() {
-		
-		
-		include_once("Models/Database.php");
-
-		$this->setController();
-		$this->setActionName();
+	class App{
+	private static $_instance = null;
+	private function __construct(){
 	}
 	
-	/*
-	 * Fonction pour récupérer une seule et unique instance de App
-	 */
-	public static function getInstance() {
-		if( ! self::$_instance ) {
+	public static function getModel($type){
+		if( file_exists('Models/'.$type.'.php') ){
+			include_once ('Models/'.$type.'.php');
+			return new $type();
+		}else{
+			return null;
+		}
+	}
+	
+	public static function getInstance(){
+		// !!!!!!!!!!!!! l'instance d'App est un singleton
+		//Il est donc unique !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if(!self::$_instance){
 			self::$_instance = new App();
 		}
-		return self::$_instance;
+			return self::$_instance;
 	}
-
-	/*
-	 * 
-	 */
-	public function setActionName() {
-		$this->_actionName = 'indexAction';
-		
-		if( isset( $_GET['a'] ) && method_exists( $this->_controller, $_GET['a'] . 'Action') ) {
-			$this->_actionName = $_GET['a'] . 'Action';
+	
+	private function getActionName($controller){
+		if( isset( $_GET['a']) ){
+			$a = $_GET['a'].'Action';
+		if( !method_exists($controller,$a) ){
+			$a = "indexAction";
+			return $a;
 		}
-		return $this;
-	}
-	
-
-	/*
-	 * 
-	 */
-	public function setController() {
-		// Creation du Controller en fonction de $_GET['c']
-		include_once ('./Controllers/ControllerFactory.php');
-		$this->_controller = ControllerFactory::createController();
-		return $this;
-	}
-	
-	
-	/*
-	 * Retourne une instance d'un modèle 
-	 */
-	public static function getModel( $type ) {
-		if( file_exists("Models/" . $type . ".php") ) {
-			include_once("Models/Model.php");
-			include_once("Models/" . $type . ".php");
-			return new $type();
+			return $a;
+		}else{
+			$a = "indexAction";
+			return $a;
 		}
-		return null;
 	}
 	
-	/*
-	 * Retourne une instance d'une collection 
-	 */
-	public static function getCollection( $type ) {
-		if( file_exists("Models/Collections/" . $type . "Collection.php") ) {
-			$type = $type. "Collection";
-			include_once("Models/Collection.php");
-			include_once("Models/Collections/" . $type . ".php");
-			
-			return new $type();
-		}
-		return null;
+	public function run(){
+		//Nécessaire pour l'affichage de la vue
+		include_once ('Models/Template.php');
+		include_once ('Models/Model.php');
+		include_once ('functions.php');
+		//Création de controlleur----------------------------
+		include_once ('Controllers/ControllerFactory.php');
+		$controller = ControllerFactory::createController();
+		//On lance l'action
+		$action = self::getInstance() -> getActionName($controller);
+		$controller -> $action();
 	}
-	
-	
-	/* 
-	 * Fonction appelée par défaut
-	 */
-	public function run() {
-		
-		
-		// Récupère l'action
-		$action = $this->_actionName;
-		
-		$this->_controller->$action();
-		
-	}
-
-
 }
-
 ?>

@@ -1,75 +1,41 @@
 <?php
-
 	class Template{
-	
+		
+		//attribut du singleton
+		private static $_instance = null;
 		protected $_filename = "index";
 		protected $_datas = array();
 		
-		private static $_instance = null;		
+		private function __construct(){
+		}
 		
-	
-		public function __contruct(){
-			
-			
+		public function render(){
+			extract($this -> _datas);
+			if( file_exists( dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml" ) ){
+				include_once dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml";
+			}
 		}
 		
 		//singleton
-	 	public static function getInstance(){
-	 	
-			//on test s'il n'y a pas d'instance
-			if (!self::$_instance){
-				
-				//on crée une nouvelle instance
+		public static function getInstance(){
+			if(!self::$_instance){
 				self::$_instance = new Template();
-				
 			}
-			
-			//on retourne l'instance
 			return self::$_instance;
-	
-		} 
-	
-		public function getFilename(){
-	            
-	            return $this -> _filename;
-	            
-	    }
-	        
-	     public function setFilename($filename){
-	            
-	            return $this -> _filename = $filename;
-	            
-	     }
-		 
-		 public function getDatas(){
-	            
-	            return $this -> _datas;
-	            
-	    }
-	        
-	     public function setDatas($datas){
-	            
-	            $this -> _datas = $datas;
-				
-				return $this -> _datas;
-	            
-	     }	
-		 
-		 public function render(){
-		 	
-			extract($this -> _datas);
-			
-			if(file_exists(dirname(dirname(__FILE__))."/Views/".$this->_filename.".phtml")){
-				
-				include_once(dirname(dirname(__FILE__))."/Views/".$this->_filename.".phtml");
-				
-			}else{
-				
-				echo "ce fichier n'existe pas";
-			}
-			
-		 }
+		}
+		
+		//Prend en parametre un string
+		public function setFileName($a){
+			$this -> _filename = $a;
+			return $this -> _filename;
+		}
+		
+		//Prend un parametre un array()
+		public function setDatas($a){
+			$this -> _datas = $a;
+			return $this -> _datas;
+		
+		}
 	
 	}
-	
-	
+?>

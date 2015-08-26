@@ -64,6 +64,7 @@ class Database
 		//Ici on return le resultat mais sur le première element
 		//Celui qui contient le tableau
 		return $datas[0];
+		
     }
 	
     public function getResultats($query)

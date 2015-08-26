@@ -1,6 +1,6 @@
 <?php
 
-
+include_once ('Models/Database.php');
 
 class Model {
 
@@ -76,13 +76,14 @@ class Model {
 				$i++;
 			}
 			$request .= " WHERE id = " . $this->getData('id');
-			if( Database::getInstance()->getResultat( $request ) ) {
+			if( Database::getInstance()->getResultats( $request ) ) {
 				return $this;
 			} else {
 				return false;
 			}
 			
-		} else { // Création
+		} else { // Création		
+			
 			$request = "INSERT INTO " . $this->_table . " ";
 			$i = 1;
 			$columns = '';
@@ -104,11 +105,13 @@ class Model {
 				}
 				$i++;
 			}
-			$request .= "(" . $columns . ") VALUES (" . $values . ")"; 
-			if( Database::getInstance()->getResultat( $request ) ) {
-				$this->_fields['id'] = Database::getInstance()->getLastInsertId();
+			$request .= "(" . $columns . ") VALUES (" . $values . ")";
+			var_dump($request);
+			if( Database::getInstance()->getResultats( $request ) ) {
+				$this->_fields['id'] = Database::getInstance()->getLastInsertId();			
 				return $this;
 			} else {
+				
 				return false;
 			} 
 		}
@@ -121,7 +124,7 @@ class Model {
 	 */
 	function delete() {
 		if( $this->getData('id') ) {
-			return Database::getInstance()->getConnexion( "DELETE FROM " . $this->_table . " WHERE id = " . $this->getData('id') );
+			return Database::getInstance()->getResultats( "DELETE FROM " . $this->_table . " WHERE id = " . $this->getData('id') );
 		}
 		return false;
 	}

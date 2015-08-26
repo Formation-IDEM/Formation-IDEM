@@ -3,36 +3,36 @@
 class FormationController{
 	
 	public function __contruct(){
-		
-		
-		
 	}
 	
 	public function indexAction(){
 		
-		$maFormation = App::getModel("Formation");
+		Template::getInstance()->setFileName("Formation/list_formations");
 		
-		$maFormation -> save();
-		$fs->store(array( 'title' => 'Cap Metiers'));
-	
-		
-	}
-	
-	public function noAction(){
-		
-		echo "Formation :aucune action exécutée";
+		Template::getInstance()->render();
 		
 	}
 	
 	public function editAction(){
 		
-		echo "Edit";
+		Template::getInstance()->setFileName("Formation/edit_formations");
+		
+		Template::getInstance()->render();
 		
 	}
 	
 	public function deleteAction(){
 		
-		echo "Delete";
+		$maFormation = App::getModel("Formation");
+		
+		if( isset($_POST['delete']) ){
+		
+			$maFormation->load($_POST['id']);
+			$maFormation->delete();
+			header("Location: index.php?c=Formation");
+			
+		}
 		
 	}
+
 }
