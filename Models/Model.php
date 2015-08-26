@@ -1,166 +1,159 @@
 <?php
-include_once 'Controllers/Database.php';
+include_once 'Database.php';
 /**
  * Model (Généralités) classe mère
  */
 abstract class Model {
-	
-	
+
+
 	protected $_table = '';
 	protected $_fields = array();
-	
+
 	function __construct() {
-		
-		
+
+
 	}
-	
-	public function load($id){
-		
-		/*$bdd = Database::getInstance()->getConnexion();
-		$query = 'SELECT * FROM'.$this->_table.'WHERE id='.$id;
-		$result = $bdd->query($query) or die ('Erreur');*/
-		
-		$query = 'SELECT * FROM '.$this->_table.' WHERE id='.$id;
-		$bdd = Database::getInstance()->execute($query);
-		//$this->_fields = $bdd;
-		foreach ($bdd as $key => $value) {
-			
-			if (array_key_exists($key, $this->_fields)) {
-				$this->_fields[$key]=$value;
+
+	public function load($id = null) { // charge un objet depuis la bdd
+
+		if($id != null){
+			$query = 'SELECT * FROM '.$this->_table.' WHERE id = '.$id;
+			$results = Database::getInstance()->getResultats($query);
+
+			if($results != null){
+
+				foreach($results[0] as $field => $value){
+					if(array_key_exists($field, $this->_fields))
+					{
+					$this->_fields[$field] = $value;
+					}
+				}
 			}
 		}
-		return $this;				
+		return $this;
 	}
-	
-	public function getData($cle){
+
+	public function store($array) { // associe un retour de form (post) sur un objet
+		foreach($array as $field => $value){
+
+			if(array_key_exists($field, $this->_fields)){
+
+			$this->_fields[$field] = $value;
+
+			}
+		}
+	}
+
+	public function save(){ // enregistre l'objet en bdd
+
+		if($this->_fields['id'] != null) { // -> UPDATE (déjà stocké)
+
+			$set = null;
+			foreach($this->_fields as $field => $value)
+			{
+				if($value != null){ // Si l'attribut a une valeur null
+
+					$set .= $field.' = \''.$value.'\', ';
+				}else{
+
+					$set .= $field.' = NULL, ';
+				}
+			}
+
+			// On retire la virgule et l'espace du dernier field et value
+			$set = substr($set,0,-2);
+
+			// On crée la query finale
+			$query = 'UPDATE '.$this->_table.' SET '.$set.' WHERE id = '.$this->_fields['id'].';';
+
+			// Execution de la requête
+			$db = Database::getInstance();
+			$db->getResults($query);
+		}
+		else { // -> INSERT (pas encore stocké)
+
+		$fields = $values = null;
+		foreach($this->_fields as $field => $value){
+
+			if($field != 'id') { // car il est auto-incrémenté
+
+				$fields .= $field.', ';
+				if($value != null){ // Si l'attribut a une valeur null
+
+					$values .= '\''.$value.'\', ';
+				}
+				else{
+					$values .= 'NULL, ';
+				}
+			}
+		}
+			// On retire la virgule et l'espace du dernier field et value
+			$fields = substr($fields,0,-2);
+			$values = substr($values,0,-2);
+
+			// On crée la query finale
+			$query = 'INSERT INTO '.$this->_table.' ('.$fields.') VALUES ('.$values.');';
+
+			// Execution de la requête
+			$db = Database::getInstance();
+			$db->getResults($query);
+
+			// Récupération de l'id inséré
+			$lastInsertId = $db->getLastInsertId($this->_table);
+			$this->_fields['id'] = $lastInsertId;
+		}
+		return $this;
+	}
+
+	public function delete() { // supprime un objet en bdd
+
+		$query = 'DELETE FROM '.$this->_table.' WHERE id = '.$this->_fields['id'];
+		// Execution de la requête
+		$db = Database::getInstance();
+		return $db->getResults($query);
+	}
+
+	// Getter pour tous les objets
+	public function getData($field){
 		
-		if (isset($this->_fields[$cle])) {
-		
-			return $this->_fields[$cle];
+		if(array_key_exists($field, $this->_fields)){
 			
-		}else{
+			return $this->_fields[$field];
+		}
+		else{
 			
 			return '';
 		}
-		
 	}
-	
-	public function store($table){
-		
-		//Stocker tableau dans fields
-			
-		foreach ($table as $key => $value) {
-			
-			if (array_key_exists($key, $this->_fields)) {
-				
-				$this->_fields[$key]=$value;
-				
-			}
+
+	// Setter pour tous les objets
+	public function setData($field, $data)
+	{
+		if(array_key_exists($field, $this->_fields)){
+
+			$this->_fields[$field] = $data;
 		}
-		
-		
+
 		return $this;
+	}
 
-	}
-	
-	public function save(){
-		
-		
-		if ($this->getData(1)) {
-			
-			$update = 'UPDATE '.$this->_table.' SET ';
-			$compteur = 1;
-						
-			foreach ($this->_fields as $key => $value) {
-				
-				if ($compteur == count($this->_fields)) {
-					if (is_int($value)) {
-						$update .= $key.'='.$value;
-					}else{
-						$update .= $key.'="'.$value.'"';
-					}
-					
-				}else{
-					if (!is_string($value)) {
-						$update .= $key.'='.$value.',';
-					}else{
-						$update .= $key.'="'.$value.'",';
-					}
-				}
-				
-				$compteur++;
-			}
-			
-			$update .= ' WHERE id = '.$this->getData("id");
-			Database::getInstance()->execute($update);
-
-		}else{
-			
-			$colonnes = '';
-			$valeurs = '';
-			$count = 1;
-			
-			foreach ($this->_fields as $cle => $valeur) {
-				if( $cle == 'id' ) {
-					$count++;
-					continue;
-				}
-				
-				$colonnes .= '"'.$cle.'"';
-				
-				if (is_string($valeur)) {
-					$valeurs .= '"'.$valeur.'"';
-					
-							
-				}else{
-					$valeurs .= $valeur;
-				}
-				
-				if ($count < count($this->_fields)) {
-					$colonnes .= ' , ';
-					$valeurs .= ' , ';
-				
-				}
-				$count++;
-				
-			}
-			$insert = 'INSERT INTO '.$this->_table.' ( '.$colonnes.') VALUES ( '.$valeurs.' )';			
-			
-			if( Database::getInstance()->execute( $insert ) ) {
-				$this->_fields['id'] = Database::getInstance()->getLastInsertId($this->_table);
-				return $this;
-			} else {
-				return false;
-			} 
-			/*$lastId = Database::getInstance()->getLastInsertId($this->_table);
-			var_dump($lastId);
-			$this->_fields['id']= $lastId;
-			*/
-			//Prendre la dernière id pour ne pas faire un create à chaque fois
-		}		
-	}
-	
-	public function delete(){
-		
-		$query = 'DELETE FROM '.$this->_table.' WHERE id='.$this->_fields['id'];
-		$result = Database::getInstance()->getResultats($query);
-		return $result;
-		
-	}
-	
 	public function __set($key, $value){
-		
+
 		$this->{$key} = $value;
 		return $this;
-	
+
 	}
-	
-	public function __get($key)
-	{
+
+	public function __get($key){
 
 		return $this->{$key};
 
 	}
 	
+	public function getFields(){
+
+		return $this->_fields;
+	}
+
 }
 ?>
