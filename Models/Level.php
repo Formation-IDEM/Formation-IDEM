@@ -15,7 +15,7 @@ class Level extends Model
 		
 		$this->_table = 'levels';
 		$this->_fields['id'] = 0;
-		$this->_fields['note'] = 0;
+		$this->_fields['note'] = 1;
 		$this->_fields['appreciation'] = '';
 		$this->_fields['trainer_id'] = 0;
 		$this->_fields['matter_id'] = 0;

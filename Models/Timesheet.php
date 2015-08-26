@@ -11,9 +11,10 @@ class Timesheet extends Model
 		parent::__construct();
 		$this->_table = 'timesheets';
 
+		$this->_fields['id'] = 0;
 		$this->_fields['month'] = 0;
 		$this->_fields['year'] = 0;
-		$this->_fields['totalHours'] = 0;
+		$this->_fields['total_hours'] = 0;
 		$this->_fields['trainer_id'] = 0;
 		$this->_fields['formation_session_id'] = 0;
 	}

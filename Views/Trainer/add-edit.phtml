@@ -2,11 +2,11 @@
 
 <form method="post" action="#" enctype="multipart/form-data">
 	
-	<label for="name">Nom</label>
-	<input type="text" name="name" value="<?php echo $trainer->getData('name'); ?>" id="name">
-	
 	<label for="firstname">Prénom</label>
 	<input type="text" name="firstname" value="<?php echo $trainer->getData('firstname'); ?>" id="firstname">
+
+	<label for="name">Nom</label>
+	<input type="text" name="name" value="<?php echo $trainer->getData('name'); ?>" id="name">
 	
 	<label for="phone">Téléphone fixe</label>
 	<input type="tel" name="phone" value="<?php echo $trainer->getData('phone'); ?>" id="phone">
@@ -54,7 +54,7 @@
 	<input type="number" name="social_security_number" value="<?php echo $trainer->getData('social_security_number'); ?>" id="social_security_number">
 	
 	<label for="photo">Photo</label>
-	<input type="image" name="photo" value="<?php echo $trainer->getData('photo'); ?>" id="photo">
+	<input type="file" name="photo" value="<?php echo $trainer->getData('photo'); ?>" id="photo">
 	
 	<label for="nationality_id">Nationalité</label>
 	<select name="nationality_id" id="nationality_id">

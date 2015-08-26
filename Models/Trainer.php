@@ -59,7 +59,8 @@ class Trainer extends Person
 		return $this->_levels;
 	}
 
-	public function getTimesheets(){
+	public function getTimesheets()
+	{
 
 		if(!$this->_timesheets)
 		{

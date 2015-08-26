@@ -97,7 +97,7 @@ abstract class Model
 			
 			// On crée la query finale
 			$query = 'INSERT INTO '.$this->_table.' ('.$fields.') VALUES ('.$values.');';
-			//echo $query;
+			echo $query;
 			
 			// Execution de la requête
 			$db = Database::getInstance();
