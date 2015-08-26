@@ -28,7 +28,7 @@
 				<li>
 					<form method="post" action="index.php?c=Formation&a=edit">						
 						
-						<input type="hidden" name="id" value="<?php echo $coll_formation[$i]->getData('id'); ?>" />					
+						<input type="hidden" name="id" value="<?= $coll_formation[$i]->getData('id'); ?>" />					
 						<button name="edit">Modifier</button>
 			
 					</form>
@@ -36,7 +36,7 @@
 				<li>
 					<form method="post" action="index.php?c=Formation&a=delete">						
 						
-						<input type="hidden" name="id" value="<?php echo $coll_formation[$i]->getData('id'); ?>" />					
+						<input type="hidden" name="id" value="<?= $coll_formation[$i]->getData('id'); ?>" />					
 						<button name="delete">Supprimer</button>
 			
 					</form>

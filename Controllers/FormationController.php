@@ -11,6 +11,8 @@ class FormationController{
 		
 		Template::getInstance()->render();
 		
+		
+		
 	}
 	
 	public function editAction(){
