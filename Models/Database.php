@@ -7,7 +7,7 @@ class Database
     
     private $_host;
     
-    private $_user;
+    private $_username;
     
     private $_password;
 
@@ -48,20 +48,38 @@ class Database
         return $this->_dbh;
     }
     
-    public function getLastInsertId($table){
-        
-        return $this->_dbh->lastInsertId( $table."_id_seq");
-        
-    }
+	public function getLastInsertId() {
+		return $this->_dbh->lastInsertId();
+	}
     
+    public function getResultat($query)
+    {
+        // Execution de $query et retour résultat en tableau
+        $exe = $this->_dbh->prepare($query);
+        $exe->execute();
+		//Cette ligne sert a debug
+        	//print_r($this->_dbh->errorInfo());
+		//!!!attention fetchAll est un gros vicieux
+        $datas = $exe->fetchAll();
+		//Ici on return le resultat mais sur le première element
+		//Celui qui contient le tableau
+		return $datas[0];
+		
+    }
+	
     public function getResultats($query)
     {
         // Execution de $query et retour résultat en tableau
         $exe = $this->_dbh->prepare($query);
         $exe->execute();
-        print_r($this->_dbh->errorInfo());
-        return $exe->fetchAll();
-    }
+		//Cette ligne sert a débug
+        		//print_r($this->_dbh->errorInfo());
+		//!!!attention fetchAll est un gros vicieux
+        $datas = $exe->fetchAll();
+		//Ici on return le resultat mais sur le première element
+		//Celui qui contient le tableau
+		return $datas;
+    }	
 }
 
 ?>

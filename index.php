@@ -1,5 +1,7 @@
 <?php
+	
+	include_once('App.php');
 
-    include_once('App.php');
-    
-    App::getInstance()-> run();
+	App::getInstance()->run();
+
+?>

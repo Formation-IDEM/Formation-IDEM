@@ -1,27 +1,23 @@
-<?php
+<?php  
 
-    class FormationController{
-        
-        public function __construct(){
-            
-        }
-        
-        public function indexAction(){
-            
-            echo "Session de formation";
-            
-        }
-        
-        public function editAction(){
-            
-            echo "Edit session de formation";
-            
-        }
-        
-        public function deleteAction(){
- 
-            echo "Suppression session de formation"; 
-            
-        }
-        
-    }
+class FormationSessionController{
+	
+	public function __contruct(){
+		
+		
+		
+	}
+	
+	public function indexAction(){
+		
+		echo "Session de Formation";
+		
+	}
+	
+	public function noAction(){
+		
+		echo "Session de Formation :aucune action exécutée";
+		
+	}
+}
+?>

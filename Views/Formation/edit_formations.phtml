@@ -1,0 +1,50 @@
+<div>
+	
+	<form method="post" action="">
+			<input type="hidden" name="id" value="<?= $maFormation->getData('id');?>" />
+			<p>
+				<label>Titre : 
+					<input type="text" name="title" value="<?= $maFormation->getData('title'); ?>" />
+				</label>
+			</p>
+			<p>
+				<label>Effectif moyen : 
+					<input type="text" name="average_effective" value="<?= $maFormation->getData('average_effective'); ?>" />
+				</label>
+			</p>			
+			<p>
+				<label>Heures conventionnées en Centre : 
+					<input type="text" name="convention_hour_center" value="<?= $maFormation->getData('convention_hour_center');?>" />
+				</label>
+			</p>
+			<p>
+				<label>Heures conventionnées en Entreprise : 
+					<input type="text" name="convention_hour_company" value="<?= $maFormation->getData('convention_hour_company');?>" />
+				</label>
+			</p>
+			<p>
+				<label>Code Marché : 
+					<input type="text" name="deal_code" value="<?= $maFormation->getData('deal_code');?>" />
+				</label>
+			</p>
+			<p>
+				<label>Donneur d'ordre : 
+					<input type="text" name="order_giver" value="<?= $maFormation->getData('order_giver');?>" />
+				</label>
+			</p>
+			<p>
+				<label>Date de début : 
+					<input type="text" name="deal_begin_date" value="<?= $maFormation->getData('deal_begin_date');?>" />
+				</label>
+			</p>
+			<p>
+				<label>Date de fin : 
+					<input type="text" name="deal_ending_date" value="<?= $maFormation->getData('deal_ending_date');?>" />
+				</label>
+			</p>
+			<p>
+				<button name="submit">Envoyer</button>
+			</p>
+		</form>
+	
+</div>
