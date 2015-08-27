@@ -18,7 +18,19 @@ class Model {
 	 */
 	public function getData( $code ) {
 		if( isset($this->_fields[$code]) ) {
+			$date = strtotime( $this->_fields[$code] );
+			var_dump(dateformat( $date, "d/m/Y" ));
 			return $this->_fields[$code];
+		}
+		return '';
+	}
+	
+	public function getDate( $code ) {
+		if( isset($this->_fields[$code]) ) {
+			
+			$date = strtotime( $this->_fields[$code] );
+			return dateformat( $date, "d/m/Y" );
+			
 		}
 		return '';
 	}
