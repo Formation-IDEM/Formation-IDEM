@@ -1,1 +1,24 @@
-Nom : <?php echo $trainer->getData('name'); ?>
+Prénom : <?php echo $trainer->getData('firstname'); ?>
+<br/>Nom : <?php echo $trainer->getData('name'); ?>
+<br/>Téléphone fixe: <?php echo $trainer->getData('phone'); ?>
+<br/>Téléphone portable: <?php echo $trainer->getData('cellphone'); ?>
+<br/>Date de naissance: <?php echo $trainer->getData('birthday'); ?>
+<br/>Lieu de naissance: <?php echo $trainer->getData('birthplace'); ?>
+<br/>Sexe: <?php echo $trainer->getData('gender'); ?>
+<br/>Rue: <?php echo $trainer->getData('address_off_street'); ?>
+<br/>Complément: <?php echo $trainer->getData('address_off_complement'); ?>
+<br/>Code postal: <?php echo $trainer->getData('address_off_codpost'); ?>
+<br/>Ville: <?php echo $trainer->getData('address_off_city'); ?>
+<br/>Rue: <?php echo $trainer->getData('address_form_street'); ?>
+<br/>Complement: <?php echo $trainer->getData('address_form_complement'); ?>
+<br/>Code postal: <?php echo $trainer->getData('address_form_codpost'); ?>
+<br/>Ville: <?php echo $trainer->getData('address_form_city'); ?>
+<br/>Numéro de sécurité social: <?php echo $trainer->getData('social_security_number'); ?>
+<br/>Nationalité: <?php echo $trainer->getData('nationality_id'); ?>
+<br/>Statut familial: <?php echo $trainer->getData('family_status_id'); ?>
+<br/>Niveau d'étude: <?php echo $trainer->getData('study_levels_id'); ?>
+<br/>Formateur externe ?: <?php echo $trainer->getData('trainer_extern'); ?>
+<br/>Taux horaire: <?php echo $trainer->getData('hourly_rate'); ?>
+<br/>Plus d'information: <?php echo $trainer->getData('further_informations'); ?>
+<br>
+<a href="/index.php?c=Trainer&a=list">Retour</a>

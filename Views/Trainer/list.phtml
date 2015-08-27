@@ -1,6 +1,5 @@
 <h2>Liste des formateurs</h2>
-
-<table>
+<table class="table table-striped table-bordered">
 	<tr>
 		<td>ID</td>
 		<td>Prénom</td>
@@ -51,16 +50,16 @@
 							<?php echo $trainer->getData('further_informations'); ?>
 						</td>
 						<td>
-							<a href="/index.php?c=Trainer&a=addEdit&id=<?php echo $trainer->getData('id'); ?>">Modifier</a>
+							<a href="/index.php?c=Trainer&a=addEdit&id=<?php echo $trainer->getData('id'); ?>" class="btn btn-primary">Modifier</a>
 						</td>
 						<td>
-							<a href="/index.php?c=Trainer&a=show&id=<?php echo $trainer->getData('id'); ?>">Afficher</a>
+							<a href="/index.php?c=Trainer&a=show&id=<?php echo $trainer->getData('id'); ?>" class="btn btn-primary">Afficher</a>
 						</td>
 						<td>
 							<form method="post">
 								<input type="hidden" name="trainer" value="<?php echo $trainer->getData('id'); ?>">
 								<input type="hidden" name="delete" value="1">
-								<input type="submit" value="Supprimer">
+								<input type="submit" class="btn btn-primary" value="Supprimer">
 							</form>
 						</td>
 					</tr>
@@ -69,4 +68,4 @@
 		}
 	?>
 </table>
-<a href="/index.php?c=Trainer&a=addEdit">Ajouter un formateur</a>
+<a class="btn btn-success" href="/index.php?c=Trainer&a=addEdit">Ajouter un formateur</a>

@@ -87,7 +87,8 @@ class TrainerController
 			Template::getInstance()
 				->setDatas(array(
 						'matters' 	=> App::getCollection('Matter')->getAllItems(),
-						'levels'	=> $trainer->getLevels()
+						'levels'	=> $trainer->getLevels(),
+						'trainer'	=> $trainer
 						))
 				->setFilename('Trainer/levels')
 				->render();

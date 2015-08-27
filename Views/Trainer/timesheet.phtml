@@ -1,3 +1,4 @@
+<?php include_once 'Views/Layouts/menu-trainer.phtml'; ?>
 <h2>Feuilles de présence de <?php echo $trainer->getData('firstname').' '.$trainer->getData('name'); ?></h2>
 
 <table>
@@ -92,3 +93,5 @@
 	<input type="submit" value"Ajouter">
 
 </form>
+
+<a href="/index.php?c=Trainer&a=list">Retour</a>

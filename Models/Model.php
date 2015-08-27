@@ -70,7 +70,7 @@ abstract class Model
 			// Execution de la requête
 			$db = Database::getInstance();
 			$db->getResults($query);
-			//var_dump($db->getErrors());
+			var_dump($db->getErrors());
 			echo $query;
 		}
 		else // -> INSERT (pas encore stocké)

@@ -23,7 +23,7 @@ abstract class Person extends Model
 		$this->_fields['address_form_complement'] = '0';
 		$this->_fields['address_form_codpost'] = '0';
 		$this->_fields['address_form_city'] = '0';
-		$this->_fields['social_security_number'] = 1111111;
+		$this->_fields['social_security_number'] = 123456789012345;
 		$this->_fields['photo'] = 'aucune';
 		$this->_fields['nationality_id'] = 1;
 		$this->_fields['family_status_id'] = 1;
