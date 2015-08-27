@@ -9,7 +9,8 @@ use Core\Tables\Collection;
  */
 class TraineeCollection extends Collection
 {
-    protected $collection = 'trainees';
+    protected $_table = 'trainees';
+    protected $_model = 'trainee';
 
     public function __construct()
     {

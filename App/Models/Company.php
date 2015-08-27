@@ -11,14 +11,13 @@ use Core\Factories\CollectionFactory;
  */
 class Company extends Model
 {
-	protected $db;
 	protected $_table = 'companies';
 
 	protected $_fields = [
 		'id'					=>	0,
 		'name'					=>	'',
 		'status'				=>	'',
-		'company_name'			=>	'',
+		'email'					=>	'',
 		'address'				=>	'',
 		'postal_code'			=>	'',
 		'city'					=>	'',
@@ -36,8 +35,12 @@ class Company extends Model
 	];
 
 	public $_rules = [
-        'name'	=> 'unique:companies|required',
-		'address' =>	'required',
+        'name'		=> 	'unique:companies|required|min:3',
+		'address' 	=>	'required',
+		'email'		=>	'required|email',
+		'city'		=>	'required',
+		'country'	=>	'required',
+		'phone'		=>	'required|phone'
     ];
 
     /**
@@ -57,5 +60,15 @@ class Company extends Model
 	public function getInternships()
 	{
 		return CollectionFactory::loadCollection('internship')->getItemsByCompany($this->getData('id'));
+	}
+
+	/**
+	 * Retourne le nombre de stages d'une entreprise
+	 *
+	 * @return mixed
+	 */
+	public function countInternships()
+	{
+		return collection('internship')->countInternships($this->getData('id'));
 	}
 }

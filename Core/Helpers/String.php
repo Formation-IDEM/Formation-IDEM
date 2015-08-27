@@ -80,7 +80,8 @@ class String
      */
     public static function strPlural($str, $count)
     {
-        return $count . ' ' .  ($count > 1) ? $str . 's' : $str;
+        $return = ($count > 1) ? $str . 's' : $str;
+        return $count . ' ' . $return;
     }
 
     /**

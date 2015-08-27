@@ -19,23 +19,15 @@ class CompanyCollection extends Collection
 		parent::__construct();
 	}
 
-    /**
-     * Retourne tous les éléments de la table
-     *
-     * @return array
-     */
-    public function getAll()
-    {
-        if( !$this->items )
-        {
-            $results = $this->select()->from($this->_table)->latest()->get();
-            foreach( $results as $result )
-            {
-                $this->items[] = ModelFactory::loadModel($this->_model)->load($result->id);
-            }
-        }
-
-        return $this->items;
-    }
-
+	/**
+	 * Retourne une entreprise en fonction de son id
+	 *
+	 * @param $id
+	 * @return array
+	 */
+	public function getCompany($id)
+	{
+		$result = $this->select('id, name')->from($this->_table)->limit(1)->get($id);
+		return $result->name;
+	}
 }

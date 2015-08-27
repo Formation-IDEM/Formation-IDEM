@@ -46,8 +46,9 @@ abstract class Database
     /**
      * @param string $table
      * @param string $field
+     * @param string $where
      * @return mixed
      */
-    abstract public function count($table, $field = '*');
+    abstract public function count($table, $field = '*', $where = '');
 
 }

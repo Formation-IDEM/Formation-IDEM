@@ -42,12 +42,20 @@ class PostgreSQLDatabase extends Database
 	 *
 	 * @param      $statement
 	 * @param bool $one
+	 * @param bool $asArray
 	 * @return array|mixed
 	 */
-	public function query($statement, $one = false)
+	public function query($statement, $one = false, $asArray = false)
 	{
 		$sql = $this->getPDO()->query($statement);
-		$sql->setFetchMode(PDO::FETCH_OBJ);
+		if( $asArray )
+		{
+			$sql->setFetchMode(PDO::FETCH_ASSOC);
+		}
+		else
+		{
+			$sql->setFetchMode(PDO::FETCH_OBJ);
+		}
 
 		$data = $one ? $sql->fetch() : $sql->fetchAll();
 		return $data;
@@ -60,13 +68,21 @@ class PostgreSQLDatabase extends Database
 	 * @param      $statement
 	 * @param      $attributes
 	 * @param bool $one
+	 * @param bool $asArray
 	 * @return array|mixed
 	 */
-	public function prepare($statement, $attributes, $one = false)
+	public function prepare($statement, $attributes, $one = false, $asArray = false)
 	{
 		$query =  $this->getPDO()->prepare($statement);
 		$query->execute($attributes);
-		$query->setFetchMode(PDO::FETCH_OBJ);
+		if( $asArray )
+		{
+			$query->setFetchMode(PDO::FETCH_ASSOC);
+		}
+		else
+		{
+			$query->setFetchMode(PDO::FETCH_OBJ);
+		}
 
 		$data = $one ? $query->fetch() : $query->fetchAll();
 		return $data;
@@ -106,11 +122,17 @@ class PostgreSQLDatabase extends Database
 	/**
 	 * @param $table
 	 * @param string $field
+	 * @param string $where
 	 * @return mixed
 	 */
-	public function count($table, $field = '*')
+	public function count($table, $field = '*', $where = '')
 	{
-		$sql = $this->getPDO()->query('SELECT COUNT(' . $field . ') AS total_item FROM ' . $table);
+		$query = 'SELECT COUNT(' . $field . ') AS total_item FROM ' . $table;
+		if( !empty($where) )
+		{
+			$query .= ' WHERE ' . $where;
+		}
+		$sql = $this->getPDO()->query($query);
 		$sql->setFetchMode(PDO::FETCH_ASSOC);
 
 		$count = $sql->fetch();

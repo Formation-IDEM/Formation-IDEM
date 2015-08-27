@@ -2,6 +2,7 @@
 namespace Core\Tables;
 
 use Core\Factories\DatabaseFactory;
+use Core\Factories\ModelFactory;
 
 /**
  * Class Collection
@@ -26,6 +27,7 @@ class Collection
 
 	//	Tableau de résultats
 	protected $items = [];
+	protected $as_array = false;
 
 	public function __construct()
 	{
@@ -42,6 +44,18 @@ class Collection
 	{
 		$this->fields = $fields;
 		return $this;
+	}
+
+	/**
+	 * Permet d'effectuer une requête de type COUNT()
+	 *
+	 * @param string $field
+	 * @param string $where
+	 * @return $this
+	 */
+	public function count($field = '*', $where = '')
+	{
+		return $this->db->count($this->_table, $field, $where);
 	}
 
 	/**
@@ -227,11 +241,24 @@ class Collection
 		//	Selon le cas on fait une requête préparée
 		if( $this->check($this->conditions) )
 		{
-			 return $this->db->prepare($sql, $attributes);
+			if( !is_null($id) )
+			{
+				return $this->db->prepare($sql, $attributes, true, $this->as_array);
+			}
+			else
+			{
+				return $this->db->prepare($sql, $attributes, false, $this->as_array);
+			}
 		}
 
 		//$this->items[] = $this->db->query($sql);
-		return $this->db->query($sql);
+		return $this->db->query($sql, false, $this->as_array);
+	}
+
+	public function asArray()
+	{
+		$this->as_array = true;
+		return $this;
 	}
 
 	public function display()
@@ -246,7 +273,22 @@ class Collection
 	 */
 	public function all()
 	{
-		$this->select('*')->from($this->collection)->get();
+		if( !$this->items )
+		{
+			$results = $this->select()->from($this->_table)->latest()->get();
+			foreach( $results as $result)
+			{
+				if( $this->as_array )
+				{
+					$this->items[] = ModelFactory::loadModel($this->_model)->load($result['id']);
+				}
+				else
+				{
+					$this->items[] = ModelFactory::loadModel($this->_model)->load($result->id);
+				}
+			}
+		}
+
 		return $this->items;
 	}
 
@@ -259,36 +301,5 @@ class Collection
 	private function check($condition)
 	{
 		return (isset($condition) && !empty($condition) );
-	}
-
-	public function insert($data)
-	{
-		$sql = 'INSERT INTO ' . $this->collection . '(';
-
-		$count = 0;
-		foreach($data as $key => $value )
-		{
-			$sql .= $key;
-			if( $count < (count($data) - 1) )
-			{
-				$sql .= ', ';
-			}
-			$count++;
-		}
-
-		$sql.= ') VALUES (';
-		$count_values = 0;
-		foreach( $data as $key => $value )
-		{
-			$sql .= '\'' . $value . '\'';
-			if( $count_values < (count($data) - 1) )
-			{
-				$sql .= ', ';
-			}
-			$count_values++;
-		}
-		$sql .= ');';
-
-		echo $sql . '<br/><br />';
 	}
 }

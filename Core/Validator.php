@@ -67,6 +67,13 @@ class Validator
                         $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit être de confirmé.';
                     }
 
+                    //  Numéro de téléphone
+                    if( $r === 'phone' &&
+                        !preg_match('/^0[1-9]([-\/. ]?[0-9]{2}){4}$/', $request[$key]))
+                    {
+                        $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit être un numéro de téléphone valide';
+                    }
+
                     //  Règles avec attributs
                     if( strpos(':', $r) )
                     {
@@ -95,6 +102,33 @@ class Validator
                             if( count($result) >= 1 )
                             {
                                 $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit être unique.';
+                            }
+                        }
+
+                        //  Longueur minimum
+                        if( $params[0] === 'min' )
+                        {
+                            if( strlen($request[$params[0]]) < $params[1] )
+                            {
+                                $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit compter ' . $params[1] . ' caractères au minimum.';
+                            }
+                        }
+
+                        //  Longueur maximum
+                        if( $params[0] === 'max' )
+                        {
+                            if( strlen($request[$params[0]]) > $params[1] )
+                            {
+                                $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit compter ' . $params[1] . ' caractères au maximum.';
+                            }
+                        }
+
+                        //  Longueur exacte
+                        if( $params[0] === 'equals' )
+                        {
+                            if( strlen($request[$params[0]]) != $params[1] )
+                            {
+                                $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit compter ' . $params[1] . ' caractères.';
                             }
                         }
 

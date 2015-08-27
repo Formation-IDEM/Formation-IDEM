@@ -8,42 +8,11 @@ namespace Core\Helpers;
 class Date
 {
     /**
-     * Convertit une datetime en timestamp
+     * Convertit un datetime en timestamp
      *
-     * @param $datetime
-     * @return bool|int
+     * @param $time
+     * @return int
      */
-    public static function humanToUnix($datetime)
-    {
-        if( $datetime === '' )
-        {
-            return false;
-        }
-
-        $datetime = preg_replace('/\040+/', ' ', trim($datetime));
-        if( ! preg_match('/^(\d{2}|\d{4})\-[0-9]{1,2}\-[0-9]{1,2}\s[0-9]{1,2}:[0-9]{1,2}(?::[0-9]{1,2})?(?:\s[AP]M)?$/i', $datetime) )
-        {
-            return false;
-        }
-
-        sscanf($datetime, '%d-%d-%d %s %s', $year, $month, $day, $time, $ampm);
-        sscanf($time, '%d:%d:%d', $hour, $min, $sec);
-        isset($sec) OR $sec = 0;
-        if (isset($ampm))
-        {
-            $ampm = strtolower($ampm);
-            if( $ampm[0] === 'p' && $hour < 12 )
-            {
-                $hour += 12;
-            }
-            elseif( $ampm[0] === 'a' && $hour === 12 )
-            {
-                $hour = 0;
-            }
-        }
-        return mktime($hour, $min, $sec, $month, $day, $year);
-    }
-
     public static function mysqlToUnix($time)
     {
         $time = str_replace(array('-', ':', ' '), '', $time);
@@ -72,6 +41,27 @@ class Date
     }
 
     /**
+     * Retourne une date formatée proprement et traduite
+     *
+     * @param $timestamp
+     * @param bool|true $datetime
+     * @return string
+     */
+    public static function datetime($timestamp, $datetime = true)
+    {
+        if( is_null($timestamp) || empty($timestamp) )
+        {
+            $timestamp = time();
+        }
+
+        if( $datetime && $timestamp != time() )
+        {
+            $timestamp = self::mysqlToUnix($timestamp);
+        }
+        return lang('date.' . date('l', $timestamp)) . ' ' . date('d', $timestamp) . ' ' . lang('date.' . date('F', $timestamp)) . ' ' . date('Y', $timestamp);
+    }
+
+    /**
      * Allias de timespan
      *
      * @param $timestamp
@@ -80,11 +70,15 @@ class Date
      */
     public static function ago($timestamp, $datetime = true)
     {
+        if( is_null($timestamp) || empty($timestamp) )
+        {
+            return self::timespan(time());
+        }
+
         if( $datetime )
         {
             $timestamp = self::mysqlToUnix($timestamp);
         }
-
         return self::timespan($timestamp);
     }
 
@@ -97,33 +91,33 @@ class Date
      */
     public static function timespan($time)
     {
-        $diff_time = time() - $time;
-        if( $diff_time < 1 )
+        $diffTime = time() - $time;
+        if( $diffTime < 1 )
         {
-            return '0 secondes';
+            return lang('date.now');
         }
 
         $sec = [
-            31556926    => 'an',
-            2629743.83  => 'mois',
-            86400       => 'jour',
-            3600        => 'heure',
-            60          => 'minute',
-            1           => 'seconde'
+            31556926    => lang('date.year'),
+            2629743.83  => lang('date.month'),
+            86400       => lang('date.day'),
+            3600        => lang('date.hour'),
+            60          => lang('date.minute'),
+            1           => lang('date.second')
         ];
 
         foreach( $sec as $sec => $value )
         {
-            $div = $diff_time / $sec;
+            $div = $diffTime / $sec;
             if( $div >= 1 )
             {
-                $time_ago = round($div);
-                $time_type = $value;
-                if( $time_ago >= 2 && $time_type != "mois" )
+                $timeAgo = round($div);
+                $timeType = $value;
+                if( $timeAgo >= 2 && $timeType != lang('date.month') )
                 {
-                    $time_type .= "s";
+                    $timeType .= 's';
                 }
-                return 'Il y a ' . $time_ago . ' ' . $time_type;
+                return sprintf(lang('date.ago'), $timeAgo, $timeType);
             }
         }
     }

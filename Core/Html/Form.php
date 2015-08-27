@@ -26,11 +26,19 @@ class Form
 	 */
 	public function input($name = '', $label = '', $options = [], $type = 'text')
 	{
-		$label = empty($label) ? ucfirst($name) : $label;
-		$label = '<label>' . $label . '</label>';
+		if( !empty($label) )
+		{
+			$label = '<label>' . $label . '</label>';
+		}
+
 		if( $type === 'textarea' )
 		{
-			$input = '<textarea name="' . $name . '" class="form-control">' . $this->getValue($name) . '<textarea>';
+			$input = '<textarea name="' . $name . '" class="form-control"';
+			foreach( $options as $key => $value )
+			{
+				$input .= ' ' . $key . '="' . $value . '"';
+			}
+			$input .= '>' . $this->getValue($name) . '</textarea>';
 		}
 		else
 		{
@@ -47,7 +55,12 @@ class Form
 				$input .= '<span class="input-group-addon"><i class="fa fa-' . $options['icon'] . '"></i></span>';
 			}
 
-			$input .= '<input type="' . $type .'" name="' . $name . '" value="' . $this->getValue($name) .'" class="form-control">';
+			$input .= '<input type="' . $type .'" name="' . $name . '" value="' . $this->getValue($name) .'" class="form-control"';
+			foreach( $options as $key => $value )
+			{
+				$input .= ' ' . $key . '="' . $value . '"';
+			}
+			$input .= '>';
 
 			if( isset($options['symbol']) || isset($options['icon']) )
 			{
@@ -88,6 +101,18 @@ class Form
 	}
 
 	/**
+	 * Retourne un input de type hidden
+	 *
+	 * @param string $name
+	 * @param string $value
+	 * @return string
+	 */
+	public function hidden($name, $value)
+	{
+		return $this->input($name, '', ['value' => $value], 'hidden');
+	}
+
+	/**
 	 * Retourne un input de type password
 	 *
 	 * @param string $name
@@ -123,18 +148,19 @@ class Form
 	 */
 	public function textarea($name = '', $label = '', $options = [])
 	{
-		return $this->input($name, $label, $options, 'email');
+		return $this->input($name, $label, $options, 'textarea');
 	}
 
 	/**
 	 * Retourne un select formaté
 	 *
-	 * @param $name
-	 * @param $label
-	 * @param $options
+	 * @param string 	$name
+	 * @param string 	$label
+	 * @param array 	$options
+	 * @param string 	$title
 	 * @return string
 	 */
-	public function select($name, $label, $options)
+	public function select($name, $label, $options, $title = 'name')
 	{
 		$label = '<label>' . $label . '</label>';
 		$input = '<select name="' . $name . '" class="form-control">';
@@ -142,11 +168,22 @@ class Form
 
 		foreach( $options as $key => $value )
 		{
-			if( $key === $this->getValue($name) )
+			if( is_object($value) )
 			{
-				$attributes = ' selected';
+				if( $value->id === $this->getValue($name) )
+				{
+					$attributes = ' selected';
+				}
+				$input .= '<option value="' . $value->id . '"' . $attributes . '>' . $value->$title . '</option>';
 			}
-			$input .= '<option value="' . $key . '"' . $attributes . '>' . $value . '</option>';
+			else
+			{
+				if( $key === $this->getValue($name) )
+				{
+					$attributes = ' selected';
+				}
+				$input .= '<option value="' . $value . '"' . $attributes . '>' . $key . '</option>';
+			}
 		}
 
 		$input .= '</select>';

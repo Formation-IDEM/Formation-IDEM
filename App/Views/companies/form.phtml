@@ -1,0 +1,58 @@
+<div class="page-header">
+    <h1><i class="fa fa-building-o"></i> Gestion des entreprises <small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="index.php">Panneau de Contrôle</a></li>
+    <li><i class="fa fa-building"></i> <a href="<?= url('companies'); ?>">Entreprises</a></li>
+    <li class="active"> <?= $title; ?></li>
+</ol>
+
+<?php viewFile('partials.errors'); ?>
+
+<form class="form-vertical" method="POST" action="<?= $url; ?>">
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->text('name', 'Nom de l\'entreprise', ['icon' => 'building', 'data-validation' => 'required']); ?>
+            <?= $form->hidden('id', $company->id); ?>
+            <?= $form->hidden('create_date', $company->create_date); ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->text('status', 'Status de l\'entreprise', ['icon' => 'suitcase']); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->text('email', 'Email de contact', ['icon' => 'envelope', 'data-validation' => 'required email']); ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->text('manager', 'Gérant de l\'entreprise', ['icon' => 'user-secret']); ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->text('mobile', 'Mobile de contact', ['icon' => 'mobile']); ?>
+        </div>
+    </div>
+    <?= $form->text('address', 'Adresse de l\'entreprise', ['icon' => 'map']); ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->text('city', 'Ville de l\'entreprise', ['icon' => 'map-signs', 'data-validation' => 'required']); ?>
+        </div>
+
+        <div class="col-md-4">
+            <?= $form->text('postal_code', 'Code postal', ['icon' => 'map-marker']); ?>
+        </div>
+
+        <div class="col-md-4">
+            <?= $form->text('country', 'Pays de l\'entreprise', ['icon' => 'compass', 'data-validation' => 'required']); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->text('phone', 'Fixe de l\'entreprise', ['icon' => 'phone', 'data-validation' => 'required number length', 'data-validation-length' => '4-15']); ?>
+        </div>
+
+        <div class="col-md-6">
+            <?= $form->text('fax', 'Fax de l\'entreprise', ['icon' => 'fax']); ?>
+        </div>
+    </div>
+    <?= $form->submit('Soumettre le formulaire', ['class' => 'btn btn-block btn-success']); ?>
+</form>

@@ -1,7 +1,9 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Company;
 use \Core\Controller;
+use Core\Factories\ModelFactory;
 use \Core\Html\Form;
 use Core\Validator;
 
@@ -12,6 +14,9 @@ use Core\Validator;
  */
 class CompanyController extends Controller
 {
+	/**
+	 * Constructor
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -25,7 +30,7 @@ class CompanyController extends Controller
 	 */
 	public function indexAction()
 	{
-		$items = $this->company->all();
+		$items = collection('company')->all();
 		return view('companies/index', compact('items'));
 	}
 
@@ -48,18 +53,35 @@ class CompanyController extends Controller
 	 */
 	public function createAction()
 	{
-		$form = new Form($_POST);
-		return view('companies/create', compact('form'));
+		return view('companies/form', [
+			'url'		=>	url('companies/create'),
+			'title'		=>	'Ajouter une nouvelle entreprise',
+			'form'		=>	new Form($_POST),
+			'company'	=>	ModelFactory::loadModel('company'),
+		]);
 	}
 
+	/**
+	 * Formulaire d'édition
+	 *
+	 * @param $id
+	 * @return mixed
+	 */
 	public function editAction($id)
 	{
-		$form = new Form($this->company->loadOrFail($id));
-		return view('companies/create', compact('form'));
+		$company = $this->company->loadOrFail($id);
+		return view('companies/form', [
+			'url'		=>	url('companies/' . $company->id . '/edit'),
+			'title'		=>	'Mettre à jour l\'entreprise "' . $company->name . '"',
+			'form'		=>	new Form($company),
+			'company'	=>	$company,
+		]);
 	}
 
 	/**
 	 * Sauvegarde d'une entreprise
+	 *
+	 * @return mixed
 	 */
 	public function saveAction()
 	{
@@ -68,14 +90,14 @@ class CompanyController extends Controller
 		{
 			$this->company->store(request()->all());
 			$this->company->save();
-			return redirect(url('companies'))->flash('success', 'L\'entreprise a correctement été enregistrée.');
+			return redirect(url('companies'))->flash('success', 'L\'entreprise a correctement été sauvegardée.');
 		}
 		response()->posts()->errors($validator->getErrors());
-		$this->createAction();
+		return $this->createAction();
 	}
 
 	/**
-	 * Supprime
+	 * Supprime un élément
 	 *
 	 * @param $id
 	 * @return $this

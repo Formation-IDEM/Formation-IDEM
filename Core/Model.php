@@ -10,7 +10,7 @@ use \Core\Database\Database;
  */
 class Model
 {
-	protected $db;
+	private $db;
 	protected $_table;
 	protected $_fields = [];
 
@@ -107,21 +107,6 @@ class Model
 			}
 		}
 
-		if( empty($this->_fields['create_date']) )
-		{
-			$this->_fields['create_date'] = date("Y-m-d H:i:s");
-		}
-
-		if( empty($this->_fields['update_date']) )
-		{
-			$this->_fields['update_date'] = date("Y-m-d H:i:s");
-		}
-
-		if( $this->_fields['update_date'] === $this->_fields['create_date'] )
-		{
-			$this->_fields['update_date'] = date("Y-m-d H:i:s");
-		}
-
 		return $this;
 	}
 
@@ -134,11 +119,25 @@ class Model
 	{
 		if( $this->getData('id') == 0 )
 		{
+			//	Date de création
+			if( empty($this->_fields['create_date']) )
+			{
+				$this->_fields['create_date'] = date("Y-m-d H:i:s");
+			}
+
+			//	Date de modification
+			if( empty($this->_fields['update_date']) )
+			{
+				$this->_fields['update_date'] = date("Y-m-d H:i:s");
+			}
+
 			unset($this->_fields['id']);
 			$this->insert($this->_fields);
 		}
 		else
 		{
+			//	On change la date de modification
+			$this->_fields['update_date'] = date("Y-m-d H:i:s");
 			$this->update($this->_fields, $this->_fields['id']);
 		}
 
@@ -197,7 +196,6 @@ class Model
 	 */
 	public function update($data, $id)
 	{
-		unset($this->_fields['id']);
 		$sql = 'UPDATE ' . $this->_table . ' SET ';
 
 		$count = 0;
@@ -219,10 +217,13 @@ class Model
 			':id'	=>	intval($id),
 		]);
 
+		$this->db->execute($sql, $attributes);
+		/*
 		if( $this->db->execute($sql, $attributes) )
 		{
 			$this->_fields['id'] = $this->db->lastInsertId($this->_table);
 		}
+		*/
 		return $this;
 	}
 
@@ -314,5 +315,10 @@ class Model
 	public function getTable()
 	{
 		return $this->_table;
+	}
+
+	public static function __callStatic($method, $args)
+	{
+		return call_user_func_array([get_called_class(), $method], $args);
 	}
 }

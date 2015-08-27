@@ -51,6 +51,22 @@ if( !function_exists('lang') )
     }
 }
 
+/**
+ * Permert de charge un fichier de vue
+ */
+if( !function_exists('viewFile') )
+{
+    function viewFile($file, $params = [])
+    {
+        $file = str_replace('.', '/', $file);
+        if( !empty($params) )
+        {
+            extract($params);
+        }
+        require_once(ROOT . 'App/Views/' . $file . '.phtml');
+    }
+}
+
 /*  |-----------------------------------------------
  *  |   Appels rapides aux classes
  *  |-----------------------------------------------
@@ -119,5 +135,18 @@ if( !function_exists('session') )
     function session()
     {
         return \Core\Session::getInstance();
+    }
+}
+
+/*  |-----------------------------------------------
+ *  |   Appels rapides aux factories
+ *  |-----------------------------------------------
+ */
+
+if( !function_exists('collection') )
+{
+    function collection($collection)
+    {
+        return \Core\Factories\CollectionFactory::loadCollection($collection);
     }
 }

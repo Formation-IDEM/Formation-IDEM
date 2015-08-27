@@ -26,6 +26,11 @@ class Internship extends Model
         'wage'          =>  0
     ];
 
+    public $_rules = [
+        'title'     =>  'required|min:6|trim|entities',
+        'explain'   =>  'trim|entities'
+    ];
+
     protected $_company;
     protected $_formation;
     protected $_referent;
@@ -76,14 +81,5 @@ class Internship extends Model
         }
 
         return $this->_referent;
-    }
-
-    /**
-     * Retourne la collection
-     * @return mixed
-     */
-    public function getCollection()
-    {
-        return CollectionFactory::loadCollection('internship');
     }
 }
