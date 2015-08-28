@@ -58,7 +58,10 @@ class Form
 			$input .= '<input type="' . $type .'" name="' . $name . '" value="' . $this->getValue($name) .'" class="form-control"';
 			foreach( $options as $key => $value )
 			{
-				$input .= ' ' . $key . '="' . $value . '"';
+				if( $options[$key] != 'icon' || $options[$key] != 'symbol' )
+				{
+					$input .= ' ' . $key . '="' . $value . '"';
+				}
 			}
 			$input .= '>';
 
@@ -156,33 +159,40 @@ class Form
 	 *
 	 * @param string 	$name
 	 * @param string 	$label
+	 * @param string	$select
 	 * @param array 	$options
 	 * @param string 	$title
+	 * @param boolean 	$multiple
 	 * @return string
 	 */
-	public function select($name, $label, $options, $title = 'name')
+	public function select($name, $label, $select = null, $options, $title = 'name', $multiple = false)
 	{
 		$label = '<label>' . $label . '</label>';
-		$input = '<select name="' . $name . '" class="form-control">';
-		$attributes = '';
-
-		foreach( $options as $key => $value )
+		$input = '<select name="' . $name . '" class="form-control"';
+		if( $multiple )
 		{
-			if( is_object($value) )
+			$input .= ' multiple';
+		}
+		$input .= '>';
+
+		foreach( $options as $key )
+		{
+			$input .= '<option value="' . $key->id . '"';
+			if( is_object($key) )
 			{
-				if( $value->id === $this->getValue($name) )
+				if( ($key->id === $select) && !is_null($select) )
 				{
-					$attributes = ' selected';
+					$input .= ' selected';
 				}
-				$input .= '<option value="' . $value->id . '"' . $attributes . '>' . $value->$title . '</option>';
+				 $input .= '>' . $key->$title . '</option>';
 			}
 			else
 			{
-				if( $key === $this->getValue($name) )
+				if( $key === $select )
 				{
-					$attributes = ' selected';
+					$input .= ' selected';
 				}
-				$input .= '<option value="' . $value . '"' . $attributes . '>' . $key . '</option>';
+				$input .= '>' . $key . '</option>';
 			}
 		}
 

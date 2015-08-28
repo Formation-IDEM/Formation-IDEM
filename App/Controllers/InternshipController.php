@@ -2,9 +2,9 @@
 namespace App\Controllers;
 
 use Core\Controller;
-use Core\Factories\ModelFactory;
+
 use Core\Html\Form;
-use Core\Model;
+use Core\Factories\ModelFactory;
 
 /**
  * Class InternshipController
@@ -49,13 +49,13 @@ class InternshipController extends Controller
 	 */
 	public function createAction()
 	{
-		$companies = collection('company');
 		return view('internships/form', [
 			'url'			=>	url('internships/create'),
-			'title'			=>	'Proposer un nouveau stage',
+			'title'			=>	'Enregistrer un nouveau stage',
 			'form'			=>	new Form($_POST),
+			'internship'	=>	ModelFactory::loadModel('internship'),
 			'company'		=>	ModelFactory::loadModel('company'),
-			'companies'		=>	$companies->all(),
+			'companies'		=>	collection('company')->all(),
 			'formations'	=>	collection('formation')->all(),
 		]);
 	}
@@ -70,10 +70,13 @@ class InternshipController extends Controller
 	{
 		$internship = $this->internship->loadOrFail($id);
 		return view('internships/form', [
-			'url'		=>	url('internships/' . $internship->id . '/edit'),
-			'title'		=>	'Modifier un stage',
-			'form'		=>	new Form($internship),
-			'company'	=>	ModelFactory::loadModel('internship'),
+			'url'			=>	url('internships/' . $internship->id . '/edit'),
+			'title'			=>	'Modifier un stage',
+			'form'			=>	new Form($internship),
+			'internship'	=>	$internship,
+			'company'		=>	ModelFactory::loadModel('company'),
+			'companies'		=>	collection('company')->orderBy('id', 'ASC')->all(),
+			'formations'	=>	collection('formation')->orderBy('id', 'ASC')->all(),
 		]);
 	}
 

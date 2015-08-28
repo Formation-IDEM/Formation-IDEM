@@ -75,10 +75,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="./Design/js/form-validator/jquery.form-validator.min.js"></script>
 <script src="./Design/js/form-validator/lang/fr.js"></script>
-<script src="./Design/js.main.js"></script>
+<script src="./Design/js/form-validator/location.js"></script>
 <script>
     $.validate({
-        lang: 'fr'
+        lang: 'fr',
+        modules: 'location',
+        onModulesLoaded: function() {
+            $('input[name="country"]').suggestCountry();
+        }
     });
 </script>
 </body>

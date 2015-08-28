@@ -9,7 +9,7 @@
 
 <?php viewFile('partials.errors'); ?>
 
-<form class="form-vertical" method="POST" action="<?= $url; ?>">
+<form class="form-vertical" method="POST" action="<?= $url; ?>" autocomplete="off">
     <div class="row">
         <div class="col-md-6">
             <?= $form->text('name', 'Nom de l\'entreprise', ['icon' => 'building', 'data-validation' => 'required']); ?>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-md-4">
-            <?= $form->text('country', 'Pays de l\'entreprise', ['icon' => 'compass', 'data-validation' => 'required']); ?>
+            <?= $form->text('country', 'Pays de l\'entreprise', ['icon' => 'compass', 'data-validation' => 'country', 'autocomplete' => 'off']); ?>
         </div>
     </div>
     <div class="row">

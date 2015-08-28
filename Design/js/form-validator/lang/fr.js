@@ -29,7 +29,7 @@
       notConfirmed: "Vous devez confirmer ce champ",
       badDomain: "Vous devez saisir un domaine correct",
       badUrl: "Vous devez saisir une URL correcte",
-      badCustomVal: "Re-taper une réponse incorrecte",
+      badCustomVal: "Champ incorrect",
       andSpaces: " et des espaces",
       badInt: "Vous devez saisir un nombre",
       badSecurityNumber: "Vous avez entré un mauvais numéro de sécurité sociale",

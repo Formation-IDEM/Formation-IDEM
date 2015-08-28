@@ -1,9 +1,12 @@
 <div class="page-header">
-    <h1><i class="fa fa-building-o"></i> Gestion des stages <small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
+    <p class="pull-right">
+        <a href="<?= url('companies/create'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Enregistrer une entreprise</a>
+    </p>
+    <h1><i class="fa fa-laptop"></i> Gestion des stages <small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
 </div>
 <ol class="breadcrumb">
     <li><i class="fa fa-dashboard"></i> <a href="index.php">Panneau de Contrôle</a></li>
-    <li><i class="fa fa-laptop"></i> <a href="<?= url('companies'); ?>">Stages</a></li>
+    <li><i class="fa fa-laptop"></i> <a href="<?= url('internships'); ?>">Stages</a></li>
     <li class="active"> <?= $title; ?></li>
 </ol>
 
@@ -16,26 +19,27 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <?= $form->select('company_id', 'Entreprise proposant le stage', $companies); ?>
+                <?= $form->select('company_id', 'Entreprise proposant le stage', $internship->company_id, $companies); ?>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <?= $form->text('referent', 'Tuteur de stage'); ?>
+                <?= $form->select('formation_id', 'Formation en rapport avec le stage', $internship->formation_id, $formations, 'title'); ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <?= $form->text('student', 'Etudiant concerné'); ?>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <?= $form->text('referent', 'Nom du tuteur de stage'); ?>
             </div>
         </div>
     </div>
     <?= $form->textarea('explain', 'Description du stage', ['rows' => '5']); ?>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <?= $form->select('formation_id', 'Formation en rapport avec le stage', $formations, 'title'); ?>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
 
-            </div>
-        </div>
-    </div>
 </form>
