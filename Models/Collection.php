@@ -97,13 +97,17 @@ class Collection
 	 */
 	public function count($field = 'id', $where = '')
 	{
-		$query = 'SELECT COUNT(' . $field . ') AS total FROM ' . $this->_table;
-		if( !empty($where) )
+		if( !$this->_items )
 		{
-			$query .= ' WHERE ' . $where;
-		}
-		$result = Database::getInstance()->getResult($query);
+			$query = 'SELECT COUNT(' . $field . ') AS total FROM ' . $this->_table;
+			if( !empty($where) )
+			{
+				$query .= ' WHERE ' . $where;
+			}
+			$result = Database::getInstance()->getResult($query);
 
-		return $result['total'];
+			return $result['total'];
+		}
+		return count($this->_items);
 	}
 }
