@@ -23,7 +23,6 @@
 				
 				$this -> _matter = App::getModel('Matter');
 				$this -> _matter -> load($this->getData('matters_id') );
-				$this -> _matter;
 				
 			}
 				

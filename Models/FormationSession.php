@@ -1,10 +1,8 @@
 <?php	
-	
 
     class FormationSession extends Model{
 		
-		protected $_formation = null;
-		
+		protected $_formation = null;		
 		protected $_session_trainee = null;
 		protected $_time_sheet = null;
 		
