@@ -7,7 +7,7 @@ class CompanyController
      */
     public function indexAction()
     {
-
+		die('salut jean luc');
     }
 
     public function showAction()

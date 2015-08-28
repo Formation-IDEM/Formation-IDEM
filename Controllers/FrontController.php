@@ -7,7 +7,7 @@ class FrontController
 {
 	function indexAction()
 	{
-		return Template::getInstance()->setFilename('front.index')->setDatas([
+		return Template::getInstance()->setFilename('Front/index')->setDatas([
 			'title'	=>	'Accueil',
 		])->render();
 	}

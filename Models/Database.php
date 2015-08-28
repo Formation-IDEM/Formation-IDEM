@@ -18,8 +18,8 @@ class Database
 	private function __construct()
 	{
 		$this->_host = 'localhost';
-		$this->_username = 'homestead';
-		$this->_password = 'secret';
+		$this->_username = 'root';
+		$this->_password = 'root';
 		$this->_dbname = 'gestForm';
 		
 		$this->_dbh = $this->initialConnection(); 

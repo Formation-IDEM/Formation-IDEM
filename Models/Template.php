@@ -5,7 +5,7 @@
 class Template
 {
 	private static $_instance;
-	private $_filename = 'index';
+	private $_filename;
 	private $_datas;	
 	
 	public function __construct()
@@ -38,6 +38,8 @@ class Template
 	{
 		$filename = str_replace('.', '/', $filename);
 		$this->_filename = $filename;
+		var_dump($this->_filename);
+		
 		return $this;
 	}
 
