@@ -9,10 +9,9 @@ class CompanyController {
 
 	public function indexAction(){
 		echo "Entreprises";
+		App::getModel('TraineeCompany')->load($_GET['id'])->getInternship();
 		
-		App::getInstance()->getModel('TraineeCompany')->load($_GET['id'])->getInternship();
-		
-		Template::getInstance()->setTemplate('editcompany')->setDatas(array('test' => "testo"))->render();
+		Template::getInstance()->setFileName('editcompany')->render();
 	}
 
 	public function editAction(){
@@ -23,7 +22,7 @@ class CompanyController {
 		//var_dump(App::getInstance()->getModel('Company')->getFields());
 		
 		//Database::getInstance()->getItems(1);
-		Template::getInstance()->setTemplate('editcompany')->setDatas(['truc' => 'toto'])->render();
+		Template::getInstance()->setTemplate('editcompany')->render();
 
 	}
 }

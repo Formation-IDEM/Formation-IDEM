@@ -17,6 +17,8 @@ class TraineeCompany extends Model {
 		
 		parent::__construct();
 		
+		$this->_table = 'company_internship';
+		
 	}
 	
 	public function getInternship(){
@@ -29,7 +31,7 @@ class TraineeCompany extends Model {
 	
 	public function getCompany(){
 		
-		$company=App::getModel('Company');
+		$company = App::getModel('Company');
 		$company->load($this->getData('company_id'));
 		return $company;
 		

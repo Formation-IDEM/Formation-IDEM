@@ -1,17 +1,23 @@
 <?php
 
-include_once('Controllers/Database.php');
+include_once('Models/Database.php');
 
-abstract class Model
-{
-	public function __construct(){}
+abstract class Model{
 	
-	public function load($id = null) // charge un objet depuis la bdd
+	protected $_table = '';
+	protected $_fields = array();
+	
+	public function __construct(){
+		
+	}
+	
+	public function load($id) // charge un objet depuis la bdd
 	{
 		if($id != null)
 		{
 			$query = 'SELECT * FROM '.$this->_table.' WHERE id = '.$id;
-			$results = Database::getInstance()->getResults($query);
+			var_dump($query);
+			$results = Database::getInstance()->getResultats($query);
 			if($results != null)
 			{
 				foreach($results[0] as $field => $value)

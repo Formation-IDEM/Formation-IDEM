@@ -13,13 +13,13 @@ class Database {
 
 
 	private function __construct() {
-		$this->_host = 'localhost';
+		$this->_host = '127.0.0.1';
 		
-		$this->_username = 'root';
+		$this->_user = 'postgres';
 		
-		$this->_password = 'root';
+		$this->_password = 'postgres';
 		
-		$this->_dbname = 'bdd_formationidem';
+		$this->_dbname = 'gestform';
 		
 		$this->connect();
 	}
@@ -33,25 +33,31 @@ class Database {
 	}
 
 
-	public function connect($dbtype = 'mysql') {
-		$this->_db = new PDO( $dbtype . ':dbname=' . $this->_dbname . ';host=' . $this->_host, $this->_username, $this->_password );
+	public function connect($dbtype = 'pgsql') {
+		
+		$this->_db = new PDO( $dbtype . ':dbname=' . $this->_dbname . ';host=' . $this->_host, $this->_user, $this->_password );
+		
 		return $this;
 	}
 
 
 	public function execute($query) {
-		var_dump($query);
 		return $this->_db->exec( $query );
-	}
-	
-	public function getResultats($query) {
-		$exe = $this->execute( $query );
-		return $exe->fetchAll();
 	}
 	
 	public function getLastInsertId() {
 		return $this->_db->lastInsertId();
 	}
+	
+	public function getResultats($query) {
+		$exe = $this->execute( $query );
+		if( $exe ) {
+			return $exe->fetchAll();
+		}
+		return false;
+		
+	}
+
 
 }
 
