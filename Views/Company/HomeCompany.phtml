@@ -1,0 +1,14 @@
+<table>
+
+<?php
+
+foreach ($companies as $company) {
+	
+	echo '<tr><td>'.$company->getData('name').'</td>';
+	echo '<td>'.$company->getData('city').'</td>';
+	echo '<td>'.$company->getData('country').'</td>';
+	echo '<td>'.$company->getData('phone').'</td></tr>';
+	
+}
+?>
+</table>

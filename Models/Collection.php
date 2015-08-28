@@ -48,38 +48,7 @@ class Collection{
 
 			$query = 'SELECT * FROM ' . $this->_table . ' WHERE ' . $this->_field . '_id = ' . $id;
 			$results = Database::getInstance()->getResults($query);
-<<<<<<< HEAD
-			foreach($results as $item) 
-			{
-=======
-			$items = array();
-			foreach($results as $item) {
 
->>>>>>> 4f3fba972d0cbb68eb55ba508718178f674ac60e
-				$this->_items[$item['id']] = App::getModel($this->_model_name)->load($item['id']);
-			}			
-		}
-
-		return $this->_items;
-	}
-
-	/**
-	 * Retourne tous les items d'une table
-	 *
-	 * @return array
-	 */
-	public function getAllItems()
-	{
-<<<<<<< HEAD
-		if( !$this->_items )
-		{
-			$query = 'SELECT * FROM ' . $this->_table;
-=======
-		if(!$this->_items){
-
-			$query = 'SELECT * FROM '.$this->_table.' WHERE ' . $this->_field1 . '_id = ' . $id1.' AND '.$this->_field2.'_id = '.$id2;
->>>>>>> 4f3fba972d0cbb68eb55ba508718178f674ac60e
-			$results = Database::getInstance()->getResults($query);
 			foreach($results as $item) {
 
 				$this->_items[$item['id']] = App::getModel($this->_model_name)->load($item['id']);
@@ -88,6 +57,8 @@ class Collection{
 
 		return $this->_items;
 	}
+
+
 
 	/**
 	 * Retourne le nombre d'éléments d'une table
@@ -96,7 +67,7 @@ class Collection{
 	 * @param string $where
 	 * @return mixed
 	 */
-<<<<<<< HEAD
+
 	public function count($field = 'id', $where = '')
 	{
 		if( !$this->_items )
@@ -111,8 +82,14 @@ class Collection{
 			return $result['total'];
 		}
 		return count($this->_items);
-=======
 
+	}
+	
+		/**
+	 * Retourne tous les items d'une table
+	 *
+	 * @return array
+	 */
 	public function getAllItems(){
 
 		if( !$this->_items ){
@@ -126,7 +103,6 @@ class Collection{
 		}
 
 		return $this->_items;
->>>>>>> 4f3fba972d0cbb68eb55ba508718178f674ac60e
 	}
 
 	public function getFilteredItems($champs, $valeur){

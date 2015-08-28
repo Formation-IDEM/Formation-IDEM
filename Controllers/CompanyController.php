@@ -6,7 +6,8 @@ class CompanyController{
      */
     public function indexAction(){
     	
-		App::getCollection('Company')->getAllItems();
+		$companies = App::getCollection('Company')->getAllItems();
+		Template::getInstance()->setFileName('Company/HomeCompany')->setDatas(array('companies' => $companies))->render();
     }
 
     public function showAction(){
@@ -27,7 +28,7 @@ class CompanyController{
 
 		App::getModel('Company')->load($_GET['id']);
 		
-		Template::getInstance()->setFileName('Editcompany')->render();
+		Template::getInstance()->setFileName('Company/Editcompany')->render();
         }
         else {   // En cas de création
 
