@@ -141,7 +141,8 @@ class TrainerController
 			}
 			Template::getInstance()
 				->setDatas(array(
-						'level' 	=> $level
+						'level' 	=> $level,
+						'trainer'	=>$level->getTrainer()
 						))
 				->setFilename('Trainer/edit-level')
 				->render();
@@ -162,32 +163,16 @@ class TrainerController
 		// Si retour de formulaire
 		if(isset($_POST) && $_POST != null)
 		{
-			// $trainer_extern = $_POST['trainer_extern'];
-			// $hourly_rate = $_POST['hourly_rate'];
-
-			// unset($_POST['trainer_extern'],$_POST['hourly_rate']);
 			$trainer
 			->store($_POST)
 			->save();
-			
-			// if($trainer_extern)
-			// {
-			// 	$trainerExtern = $trainer->getTrainerExtern();
-			// 	var_dump($trainerExtern);
-			// 	if(!$trainerExtern)
-			// 	{
-			// 		$trainerExtern = App::getModel('TrainerExtern');
-			// 		$trainerExtern->setData('trainer_id', $trainer->getData('id'));
-			// 	}
-			// 	var_dump($trainerExtern);
-			// 	$trainerExtern
-			// 	->setData('hourly_rate',$hourly_rate)
-			// 	->save();
-			// }
 		}
 		Template::getInstance()
 			->setDatas(array(
-					'trainer' 	=> $trainer,
+					'trainer' 		=> $trainer,
+					'nationalities' => App::getCollection('Nationality')->getAllItems(),
+					'familyStatuss' => App::getCollection('FamilyStatus')->getAllItems(),
+					'studyLevels' => App::getCollection('StudyLevel')->getAllItems()
 					))
 			->setFilename('Trainer/add-edit')
 			->render();

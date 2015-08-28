@@ -54,12 +54,12 @@
 			<div class="btn-group" id="genders" data-toggle="buttons">
 				<label class="btn btn-default <?php echo $trainer->getData('gender') == 'male' ? 'active':''; ?>" for="radio1">
 					Homme
-					<input id="radio1" type="radio" name="gender" <?php echo $trainer->getData('gender') == 'male' ? 'checked':''; ?> value="male" data-validation="required" required />
+					<input id="radio1" type="radio" name="gender" <?php echo $trainer->getData('gender') == 'male' ? 'checked':''; ?> value="male" required />
 				</label>
 				
 				<label class="btn btn-default <?php echo $trainer->getData('gender') == 'female' ? 'active': ''; ?>" for="radio2">
 					Femme
-					<input id="radio2" type="radio" name="gender" <?php echo $trainer->getData('gender') == 'female' ? 'checked': ''; ?> value="female" data-validation="required" required />
+					<input id="radio2" type="radio" name="gender" <?php echo $trainer->getData('gender') == 'female' ? 'checked': ''; ?> value="female" required />
 				</label>
 			</div>
 		</div>
@@ -68,7 +68,7 @@
 		<div class="col-md-3"> 
 			<div class="form-group">
 				<label for="address_off_street">Rue</label>
-				<input class="form-control" type="text" name="address_off_street" value="<?php echo $trainer->getData('address_off_street'); ?>" id="address_off_street" data-validation="required" required>
+				<input class="form-control" type="text" name="address_off_street" value="<?php echo $trainer->getData('address_off_street'); ?>" id="address_off_street" data-validation="required">
 			</div>
 		</div>
 		<div class="col-md-3">
@@ -133,7 +133,14 @@
 			<div class="form-group">
 				<label for="nationality_id">Nationalité</label>
 				<select class="form-control" name="nationality_id" id="nationality_id">
-					<option value="<?php echo $trainer->getData('nationality_id'); ?>" selected=""><?php echo $trainer->getData('nationality_id'); ?></option>
+					<?php
+						foreach($nationalities as $nationality)
+						{
+							?>
+								<option value="<?php echo $nationality->getData('id'); ?>" <?php echo $trainer->getData('nationality_id') == $nationality->getData('id') ? 'selected': ''; ?>><?php echo $nationality->getData('title'); ?></option>
+							<?php
+						}
+					?>
 				</select>
 			</div>
 		</div>
@@ -141,7 +148,15 @@
 			<div class="form-group">
 				<label for="family_status_id">Statut familial</label>
 				<select class="form-control" name="family_status_id" id="family_status_id">
-					<option value="<?php echo $trainer->getData('family_status_id'); ?>" selected=""><?php echo $trainer->getData('family_status_id'); ?></option> 
+				<?php
+					foreach($familyStatuss as $familyStatus)
+					{
+						?>
+							<option value="<?php echo $familyStatus->getData('id'); ?>" <?php echo $familyStatus->getData('id') == $trainer->getData('family_status_id') ? 'selected' : '';?>><?php echo $familyStatus->getData('title'); ?></option> 
+						
+						<?php
+					}
+				?>
 				</select>
 			</div>
 		</div>
@@ -151,9 +166,19 @@
 			<div class="form-group">
 				<label for="study_levels_id">Niveau d'étude</label>
 				<select class="form-control" name="study_levels_id" id="study_levels_id">
-					<option value="<?php echo $trainer->getData('study_levels_id'); ?>" selected="">
-						<?php echo $trainer->getStudyLevel()->getData('wording'); ?>
-					</option> 
+
+					<?php 
+						foreach ($studyLevels as $studyLevel) {
+							?>
+								<option value="<?php echo $studyLevel->getData('id') ?>" <?php echo $studyLevel->getData('id') == $trainer->getData('study_levels_id') ? 'selected' : ''; ?>>
+									<?php echo $studyLevel->getData('wording'); ?>
+								</option> 
+
+							<?php
+						}
+					?>
+
+
 				</select>
 			</div>
 		</div>

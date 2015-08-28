@@ -10,7 +10,7 @@
 			Feuilles de présence & Sessions de formation
 		</a>
 	</li>
-	<li role="presentation" <?php echo ($_GET['a'] == 'addEditMatters' ? 'class="active"' : '') ?>>
+	<li role="presentation" <?php echo (($_GET['a'] == 'addEditMatters' || $_GET['a'] == 'editLevel') ? 'class="active"' : '') ?>>
 		<a href="/index.php?c=Trainer&a=addEditMatters&id=<?php echo $trainer->getData('id'); ?>">
 			Niveaux & Compétences
 		</a>

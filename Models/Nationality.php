@@ -4,25 +4,15 @@ include_once('Models/Model.php');
 
 class Nationality extends Model
 {
-	
-	private $_id;
-	private $_wording;	
-	
-	public function __construct (
-		$id = 0 ,
-		$wording = "" ) {
-			
-	}
-				
-	
-	public function getNationality(){
-		return $this -> _wording;
-	}	
-	
-	public function setNationality($wording) {
-		$this -> _wording = $wording;
-		return $this;
-	}
+
+	public function __construct ()
+	{
+		parent::__construct();
+
+		$this->_table = 'nationalities';
+        $this->_fields['id'] = 0;
+        $this->_fields['title'] = '';			
+	}				
 }
 
 ?>

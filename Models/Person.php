@@ -7,24 +7,24 @@ abstract class Person extends Model
 
 	public function __construct()
 	{
-		$this->_fields['name'] = 'anonyme';
-		$this->_fields['firstname'] = '0';
-		$this->_fields['phone'] = '0';
-		$this->_fields['cellphone'] = '0';
-		$this->_fields['mail'] = '0';
-		$this->_fields['birthday'] = '0001-01-01';
-		$this->_fields['birthdayplace'] = '0';
-		$this->_fields['gender'] = '0';
-		$this->_fields['address_off_street'] = '0';
-		$this->_fields['address_off_complement'] = '0';
-		$this->_fields['address_off_codpost'] = '0';
-		$this->_fields['address_off_city'] = '0';
-		$this->_fields['address_form_street'] = '0';
-		$this->_fields['address_form_complement'] = '0';
-		$this->_fields['address_form_codpost'] = '0';
-		$this->_fields['address_form_city'] = '0';
-		$this->_fields['social_security_number'] = 123456789012345;
-		$this->_fields['photo'] = 'aucune';
+		$this->_fields['name'] = '';
+		$this->_fields['firstname'] = '';
+		$this->_fields['phone'] = '';
+		$this->_fields['cellphone'] = '';
+		$this->_fields['mail'] = '';
+		$this->_fields['birthday'] = date('Y-m-d', time());
+		$this->_fields['birthdayplace'] = '';
+		$this->_fields['gender'] = '';
+		$this->_fields['address_off_street'] = '';
+		$this->_fields['address_off_complement'] = '';
+		$this->_fields['address_off_codpost'] = '';
+		$this->_fields['address_off_city'] = '';
+		$this->_fields['address_form_street'] = '';
+		$this->_fields['address_form_complement'] = '';
+		$this->_fields['address_form_codpost'] = '';
+		$this->_fields['address_form_city'] = '';
+		$this->_fields['social_security_number'] = null;
+		$this->_fields['photo'] = '';
 		$this->_fields['nationality_id'] = 1;
 		$this->_fields['family_status_id'] = 1;
 	}

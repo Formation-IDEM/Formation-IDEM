@@ -1,7 +1,7 @@
 <?php include_once 'Views/Layouts/menu-trainer.phtml'; ?>
 <h2>Feuilles de présence de <?php echo $trainer->getData('firstname').' '.$trainer->getData('name'); ?></h2>
 
-<table>
+<table class="table table-striped table-bordered">
 	<tr>
 		<td>Session de Formation</td>
 		<td>Mois</td>
@@ -25,7 +25,7 @@
 							<form method="post">
 								<input type="hidden" name="timesheet_id" value="<?php echo $timesheet->getData('id'); ?>">
 								<input type="hidden" name="delete" value="1">
-								<input type="submit" value="Supprimer">
+								<input type="submit" value="Supprimer" class="btn btn-danger">
 							</form>
 						</td>
 					</tr>
@@ -36,62 +36,74 @@
 </table>
 <h2>Ajouter feuille de présence</h2>
 
-<form method="post" action="#" enctype="multipart/form-data">
-	
-	<label for="month">Mois</label>
-	<select name="month" id="month">
-		<option value="1">Janvier</option>
-		<option value="2">Février</option>
-		<option value="3">Mars</option>
-		<option value="4">Avril</option>
-		<option value="5">Mai</option>
-		<option value="6">Juin</option>
-		<option value="7">Juillet</option>
-		<option value="8">Août</option>
-		<option value="9">Septembre</option>
-		<option value="10">Octobre</option>
-		<option value="11">Novembre</option>
-		<option value="12">Décembre</option>
-	</select>
+<form method="post" action="#" enctype="multipart/form-data" class="form-horizontal">
+	<div class="form-group">
+		<label for="month" class="col-sm-2 control-label">Mois</label>
+		<div class="col-sm-10">	
+			<select name="month" id="month" class="form-control">
+				<option value="1">Janvier</option>
+				<option value="2">Février</option>
+				<option value="3">Mars</option>
+				<option value="4">Avril</option>
+				<option value="5">Mai</option>
+				<option value="6">Juin</option>
+				<option value="7">Juillet</option>
+				<option value="8">Août</option>
+				<option value="9">Septembre</option>
+				<option value="10">Octobre</option>
+				<option value="11">Novembre</option>
+				<option value="12">Décembre</option>
+			</select>
+		</div>
+	</div>
 
-	<label for="year">Année</label>
-	<select name="year" id="year">
-		<?php
-			for ($y=2000; $y <= 2100; $y++) 
-			{ 
-				if (date("Y") == $y)
-				{
-					?><option value="<?php echo $y ?>" selected><?php echo $y; ?></option><?php
-				}
-				else
-				{
-					?><option value="<?php echo $y ?>"><?php echo $y; ?></option><?php
-				}
-			}
-		?>
-	</select>
-
-	<label for="total_hours">Total heures</label>
-	<input type="text" name="total_hours" id="total_hours">
-
-	<label for="formation_session">Session de formation</label>
-	<select name="formation_session_id" id="formation_session">
-		<?php
-			foreach($formationSessions as $formationSession)
-			{ 
-				?>
-					<option value="<?php echo $formationSession->getData('id') ?>">
-						<?php
-							echo $formationSession->getFormation()->getData('title').' du '.date('d/m/y', strtotime($formationSession->getData('begin_date'))).' au '.date('d/m/y', strtotime($formationSession->getData('ending_date')));
-						?>
-					</option>
+	<div class="form-group">
+		<label for="year" class="col-sm-2 control-label">Année</label>
+		<div class="col-sm-10">
+			<select name="year" id="year" class="form-control">
 				<?php
-			}
-		?>
-	</select>
+					for ($y=2000; $y <= 2100; $y++) 
+					{ 
+						if (date("Y") == $y)
+						{
+							?><option value="<?php echo $y ?>" selected><?php echo $y; ?></option><?php
+						}
+						else
+						{
+							?><option value="<?php echo $y ?>"><?php echo $y; ?></option><?php
+						}
+					}
+				?>
+			</select>
+		</div>
+	</div>
 
-	<input type="submit" value"Ajouter">
+	<div class="form-group">
+		<label for="total_hours" class="col-sm-2 control-label">Total heures</label>
+		<div class="col-sm-10">
+			<input type="text" name="total_hours" id="total_hours" data-validation="number" data-validation="required" class="form-control">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="formation_session" class="col-sm-2 control-label">Session de formation</label>
+		<div class="col-sm-10">
+			<select name="formation_session_id" id="formation_session" class="form-control">
+				<?php
+					foreach($formationSessions as $formationSession)
+					{ 
+						?>
+							<option value="<?php echo $formationSession->getData('id') ?>">
+								<?php
+									echo $formationSession->getFormation()->getData('title').' du '.date('d/m/y', strtotime($formationSession->getData('begin_date'))).' au '.date('d/m/y', strtotime($formationSession->getData('ending_date')));
+								?>
+							</option>
+						<?php
+					}
+				?>
+			</select>
+		</div>
+	</div>
+	<input type="submit" value="Ajouter" class="btn btn-success col-sm-offset-2 col-sm-3">
 
 </form>
-
-<a href="/index.php?c=Trainer&a=list">Retour</a>

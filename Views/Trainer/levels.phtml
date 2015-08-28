@@ -19,13 +19,13 @@
 					<td><?php echo $level->getData('note'); ?></td>
 					<td><?php echo $level->getData('appreciation'); ?></td>
 					<td>
-						<a href="index.php?c=Trainer&a=editLevel&id=<?php echo $level->getData('id') ?>">Editer</a>
+						<a class="btn btn-primary" href="index.php?c=Trainer&a=editLevel&id=<?php echo $level->getData('id') ?>">Editer</a>
 					</td>
 					<td>
 						<form method="post">
 							<input type="hidden" name="level" value="<?php echo $level->getData('id'); ?>">
 							<input type="hidden" name="delete" value="1">
-							<input type="submit" class="btn btn-alert" value="Supprimer">
+							<input type="submit" class="btn btn-danger" value="Supprimer">
 						</form>
 					</td>
 				</tr>
