@@ -27,41 +27,35 @@
 			
 			return $this -> _table;
 		}
-		
+	
 		//permet de récuperé la collection des reférence pédagogique
 		public function getRefPedago(){
 			
-			if($this->_ref_pedago){
+			if($this->_ref_pedago == null){
 				
-				return $this -> _ref_pedago;
-
+				$this->_ref_pedago = App::getModel('RefPedago');
+                $this->_ref_pedago->load( $this->getData('id') );
+                
 			}
+            
+            return $this -> _ref_pedago;
 			
 		}
-		public function setRefPedago($a){
-			
-			$this -> _ref_pedago = $a;
-			
-			return $this;
-			
-		}
-		//permet de récuperé la collection des formations session------
+
+		//permet de récuperé la collection des formations session
 		public function getFormationSessions(){
 			
-			if($this->_formation_session){
-				
-				return $this -> _formation_session;
-
-			}
+            if($this->_formation_session == null){
+                
+                $this->_formation_session = App::getModel('FormationSession');
+                $this->_formation_session->load( $this->getData('id') );
+                
+            }
+            
+            return $this -> _ref_pedago;
 			
 		}
-		public function setFormationSessions($a){
-			
-			$this -> _formation_session = $a;
-			
-			return $this;
-			
-		}
+     
     }
     
 ?>

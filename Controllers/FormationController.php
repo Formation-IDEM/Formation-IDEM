@@ -27,9 +27,9 @@ class FormationController{
 		//on charge le model de formation
 		$maFormation = App::getModel("Formation");
 		
-		if( isset($_POST['edit']) ){
+		if( isset($_GET['id']) ){
 			
-			$maFormation->load($_POST['id']);
+			$maFormation->load($_GET['id']);
 			
 		}
 		
@@ -74,9 +74,9 @@ class FormationController{
 		
 		$maFormation = App::getModel("Formation");
 		
-		if( isset($_POST['delete']) ){
+		if( isset($_GET['id']) ){
 		
-			$maFormation->load($_POST['id']);
+			$maFormation->load($_GET['id']);
 			$maFormation->delete();
 			header("Location: index.php?c=Formation");
 			

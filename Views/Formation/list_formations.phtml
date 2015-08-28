@@ -7,33 +7,22 @@
 				
 	</ul>
 </nav>
-<div class="list-annonces">
-	<ul>
+<div class="col-md-12">
 		<?php					
 			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
 			for ($i=0; $i < count($coll_formation); $i++):				
-		?>
-						
-				<li><?php  echo $coll_formation[$i]->getData('title'); ?></li>
-				<li>
-					<form method="post" action="index.php?c=Formation&a=edit">						
-						
-						<input type="hidden" name="id" value="<?= $coll_formation[$i]->getData('id'); ?>" />					
-						<button name="edit">Modifier</button>
-			
-					</form>
-				</li>
-				<li>
-					<form method="post" action="index.php?c=Formation&a=delete">						
-						
-						<input type="hidden" name="id" value="<?= $coll_formation[$i]->getData('id'); ?>" />					
-						<button name="delete">Supprimer</button>
-			
-					</form>
-				</li>
-				
+		?>						
+				<div class="col-md-2">
+				    <?php  echo $coll_formation[$i]->getData('title'); ?>
+				</div>
+				<div class="col-md-2">
+                    <a href="index.php?c=Formation&a=edit&id=<?= $coll_formation[$i]->getData('id'); ?>">Modifer</a>
+				</div>
+				<div class="col-md-2">					
+					<a href="index.php?c=Formation&a=delete&id=<?= $coll_formation[$i]->getData('id'); ?>">Supprimer</a>
+				</div>				
 		<?php	
 			endfor;
 		?>
-	</ul>
+
 </div>

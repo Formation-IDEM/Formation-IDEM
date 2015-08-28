@@ -67,7 +67,6 @@ class Model {
     }
     
     
-    
     /*
      * Enregistre l'objet en bdd
      */
