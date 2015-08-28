@@ -27,7 +27,7 @@
 			
 			return $this -> _table;
 		}
-     
+        
     }
     
 ?>

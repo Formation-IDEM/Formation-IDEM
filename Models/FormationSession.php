@@ -19,13 +19,13 @@
 			
 		}
 		
-        //Récupere la formation lié a la current refpedago
+        //Récupere la formation lié a la current formationsession
         public function getFormation(){
             
             if( !$this -> _formation ){
                 
-                $this->_formation = App::getModel('Formation');
-                $this->_formation -> load($this->getData('formations_id') );             
+                $this->_formation = App::getModel('Timesheet');
+                $this->_formation -> load($this->getData('formation_session_id') );             
                 
             }
                 
@@ -33,5 +33,17 @@
                 
         }
 		
-	
+        //Récupere la formation lié a la current formationsession
+        public function getTimesheet(){
+            
+            if( !$this -> _time_sheet ){
+                
+                $this->_time_sheet = App::getModel('Formation');
+                $this->_time_sheet -> load($this->getData('formations_id') );             
+                
+            }
+                
+            return $this -> _time_sheet;
+                
+        }
 	}
