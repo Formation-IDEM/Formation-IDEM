@@ -16,13 +16,13 @@ class Internship extends Model
         'explain'       =>  '',
         'company_id'    =>  0,
         'formation_id'  =>  0,
-        'referent_id'   =>  0,
-        'create_date'   =>  '',
-        'update_date'   =>  '',
+        'referent'      =>  '',
+        'create_date'   =>  null,
+        'update_date'   =>  null,
         'create_uid'    =>  0,
         'update_uid'    =>  0,
         'active'        =>  0,
-        'pay'           =>  false,
+        'pay'           =>  0,
         'wage'          =>  0
     ];
 

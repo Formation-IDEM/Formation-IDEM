@@ -10,19 +10,31 @@
 <?php viewFile('partials.errors'); ?>
 
 <form class="form-vertical" action="<?= $url; ?>" method="POST">
-    <div class="form-group">
-        <?= $form->text('title', 'Intitulé du stage'); ?>
-        <?= $form->textarea('explain', 'Description du stage', ['rows' => '5']); ?>
-    </div>
     <div class="row">
         <div class="col-md-6">
+            <?= $form->text('title', 'Intitulé du stage'); ?>
+        </div>
+        <div class="col-md-3">
             <div class="form-group">
                 <?= $form->select('company_id', 'Entreprise proposant le stage', $companies); ?>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
+            <div class="form-group">
+                <?= $form->text('referent', 'Tuteur de stage'); ?>
+            </div>
+        </div>
+    </div>
+    <?= $form->textarea('explain', 'Description du stage', ['rows' => '5']); ?>
+    <div class="row">
+        <div class="col-md-4">
             <div class="form-group">
                 <?= $form->select('formation_id', 'Formation en rapport avec le stage', $formations, 'title'); ?>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+
             </div>
         </div>
     </div>

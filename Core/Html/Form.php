@@ -191,6 +191,68 @@ class Form
 	}
 
 	/**
+	 * Génère un checkbox
+	 *
+	 * @param $name
+	 * @param string $label
+	 * @return string
+	 */
+	public function checkbox($name, $label = '')
+	{
+		$input = '<div class="checkbox">';
+		if( is_array($name) )
+		{
+			foreach( $name as $key => $value )
+			{
+				$input .= '<label>';
+				$input .= '<input name="' . $key . '" type="checkbox" value="' . $this->getValue($key) . '"> ';
+				$input .= $value;
+				$input .= '</label>';
+			}
+		}
+		else
+		{
+			$input .= '<label>';
+			$input .= '<input name="' . $name . '" type="checkbox" value="' . $this->getValue($name) . '"> ';
+			$input .= $label;
+			$input .= '</label>';
+		}
+
+		return $this->formGroup($input);
+	}
+
+	/**
+	 * Génère un bouton de type radio
+	 *
+	 * @param $name
+	 * @param string $label
+	 * @return string
+	 */
+	public function radio($name, $label = '')
+	{
+		$input = '<div class="radio">';
+		if( is_array($name) )
+		{
+			foreach( $name as $key => $value )
+			{
+				$input .= '<label>';
+				$input .= '<input name="' . $key . '" type="radio" value="' . $this->getValue($key) . '"> ';
+				$input .= $value;
+				$input .= '</label>';
+			}
+		}
+		else
+		{
+			$input .= '<label>';
+			$input .= '<input name="' . $name . '" type="radio" value="' . $this->getValue($name) . '"> ';
+			$input .= $label;
+			$input .= '</label>';
+		}
+
+		return $this->formGroup($input);
+	}
+
+	/**
 	 * Boutton de soumission
 	 *
 	 * @param $value
@@ -209,12 +271,31 @@ class Form
 	}
 
 	/**
+	 * Génère un boutton html
+	 *
+	 * @param $name
+	 * @param array $options
+	 * @return string
+	 */
+	public function button($name, $options = [])
+	{
+		$button = '<button';
+		foreach( $options as $key => $value )
+		{
+			$button .= ' ' . $key . '="' . $value . '"';
+		}
+		$button .= '>' . $name . '</button>';
+
+		return $this->formGroup($button);
+	}
+
+	/**
 	 * Si le formulaire a été saisi, on retourne la valeur du champ
 	 *
 	 * @param $name
 	 * @return null|string
 	 */
-	public function getValue($name)
+	private function getValue($name)
 	{
 		if( request()->postExists($name) )
 		{

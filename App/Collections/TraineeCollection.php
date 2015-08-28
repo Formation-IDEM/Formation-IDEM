@@ -1,7 +1,7 @@
 <?php
 namespace App\Collections;
 
-use Core\Tables\Collection;
+use Core\Collection;
 
 /**
  * Class TraineeCollection

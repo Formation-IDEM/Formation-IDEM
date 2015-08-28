@@ -1,8 +1,7 @@
 <?php
 namespace App\Collections;
 
-use \Core\Tables\Collection;
-use Core\Factories\ModelFactory;
+use \Core\Collection;
 
 /**
  * Class CompanyCollection
