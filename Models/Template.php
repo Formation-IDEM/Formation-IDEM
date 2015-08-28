@@ -5,7 +5,7 @@
 class Template
 {
 	private static $_instance;
-	private $_filename = 'index';
+	private $_filename;
 	private $_datas;	
 	
 	public function __construct()
@@ -38,6 +38,8 @@ class Template
 	{
 		$filename = str_replace('.', '/', $filename);
 		$this->_filename = $filename;
+		var_dump($this->_filename);
+		
 		return $this;
 	}
 
@@ -59,10 +61,9 @@ class Template
 	public function render()
 	{
 		extract($this->_datas);
-		if(file_exists('Views/' . $this->_filename . '.phtml'))
-		{
+		if(file_exists('Views/Company/' . $this->_filename . '.phtml')){
 			include_once('Views/Layouts/header.phtml');			
-			include_once('Views/' . ucfirst($this->_filename) . '.phtml');
+			include_once('Views/Company/' . ucfirst($this->_filename) . '.phtml');
 			include_once('Views/Layouts/footer.phtml');			
 		}
 		else

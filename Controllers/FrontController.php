@@ -10,11 +10,16 @@ class FrontController
 	 */
 	function indexAction()
 	{
+<<<<<<< HEAD
 		return Template::getInstance()->setFilename('front.index')->setDatas([
 			'title'				=>	'Tableau de bord',
 			'countCompanies'		=>	App::getInstance()->getCollection('company')->count(),
 			'countInternships'	=>	App::getInstance()->getCollection('internship')->count(),
 			'countTrainers'		=>	App::getInstance()->getCollection('trainer')->count(),
+=======
+		return Template::getInstance()->setFilename('Front/index')->setDatas([
+			'title'	=>	'Accueil',
+>>>>>>> 4f3fba972d0cbb68eb55ba508718178f674ac60e
 		])->render();
 	}
 }

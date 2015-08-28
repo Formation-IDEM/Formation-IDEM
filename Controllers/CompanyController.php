@@ -1,17 +1,16 @@
 <?php
 
-class CompanyController
-{
+class CompanyController{
     /**
      * Liste des entreprises
      */
-    public function indexAction()
-    {
-
+    public function indexAction(){
+    	
+		App::getCollection('Company')->getAllItems();
     }
 
-    public function showAction()
-    {
+    public function showAction(){
+
         if( isset($_GET['id']) )
         {
 
@@ -24,12 +23,13 @@ class CompanyController
     public function editAction()
     {
         //  En cas d'édition
-        if( isset($_GET['id']) )
-        {
+        if( isset($_GET['id']) ){
 
+		App::getModel('Company')->load($_GET['id']);
+		
+		Template::getInstance()->setFileName('Editcompany')->render();
         }
-        else    // En cas de création
-        {
+        else {   // En cas de création
 
         }
     }
@@ -37,8 +37,8 @@ class CompanyController
     /**
      * Suppression
      */
-    public function deleteAction()
-    {
+    public function deleteAction(){
+
 
     }
 }
