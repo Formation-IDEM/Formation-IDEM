@@ -29,7 +29,8 @@ class Model {
 		if( isset($this->_fields[$code]) ) {
 			
 			$date = strtotime( $this->_fields[$code] );
-			return dateformat( $date, "d/m/Y" );
+			//A finir
+			return date( "d/m/Y" , $date );
 			
 		}
 		return '';
