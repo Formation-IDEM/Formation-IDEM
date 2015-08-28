@@ -2,4 +2,35 @@
     <h1><?= $title; ?></h1>
 </div>
 
-<?= $companies; ?>
+<div class="row">
+    <div class="col-md-3">
+        <div class="well text-center">
+            <h2><i class="fa fa-male fa-lg"></i></h2>
+            <p><?= $countTrainers; ?> formateur<?= $countTrainers > 1 ? 's' : ''; ?></p>
+            <p>
+                <a href="index.php?c=trainers" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
+                <a href="index.php?c=trainers&a=create" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="well text-center">
+            <h2><i class="fa fa-building fa-lg"></i></h2>
+            <p><?= $countCompanies; ?> entreprise<?= $countCompanies > 1 ? 's' : ''; ?></p>
+            <p>
+                <a href="index.php?c=company" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
+                <a href="index.php?c=company&a=create" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="well text-center">
+            <h2><i class="fa fa-laptop fa-lg"></i></h2>
+            <p><?= $countInternships; ?> stage<?= $countInternships > 1 ? 's' : ''; ?></p>
+            <p>
+                <a href="index.php?c=internship" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
+                <a href="index.php?c=internship&a=create" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
+            </p>
+        </div>
+    </div>
+</div>
