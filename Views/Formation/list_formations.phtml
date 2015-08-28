@@ -7,19 +7,41 @@
 				
 	</ul>
 </nav>
+
+<div class="col-md-1">
+    
+    <form method="post" action="">
+        
+        <label>Filtre par matière</label>
+        <select class="form-control col-md-2" data-validation="required" name="matters"> 
+                <option value="0"></option>                   
+        <?php                   
+            //faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
+            for ($i=0; $i < count($coll_matter); $i++):              
+        ?>
+                <option <?php if(isset($active) && $coll_matter[$i]->getData('id') == $active ){ echo  'selected="selected"'; }?>value="<?= $coll_matter[$i]->getData('id'); ?>"><?= $coll_matter[$i]->getData('title'); ?></option>
+        <?php   
+            endfor;
+        ?>
+        </select>
+        <button name="submit">Filtrer</button>
+    </form>
+    
+</div>
 <div class="col-md-6">
-		<?php					
+		<?php
+            //var_dump($coll_ref);
 			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
-			for ($i=0; $i < count($coll_formation); $i++):				
+			for ($i=0; $i < count($coll_ref); $i++):				
 		?>						
 				<div class="col-md-2">
-				    <?php  echo $coll_formation[$i]->getData('title'); ?>
+				    <?php  echo $coll_ref[$i]->getData('title'); ?>
 				</div>
 				<div class="col-md-2">
-                    <a href="index.php?c=Formation&a=edit&id=<?= $coll_formation[$i]->getData('id'); ?>">Modifer</a>
+                    <a href="index.php?c=Formation&a=edit&id=<?= $coll_ref[$i]->getData('id'); ?>">Modifer</a>
 				</div>
 				<div class="col-md-2">					
-					<a href="index.php?c=Formation&a=delete&id=<?= $coll_formation[$i]->getData('id'); ?>">Supprimer</a>
+					<a href="index.php?c=Formation&a=delete&id=<?= $coll_ref[$i]->getData('id'); ?>">Supprimer</a>
 				</div>				
 		<?php	
 			endfor;

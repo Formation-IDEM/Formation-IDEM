@@ -18,12 +18,20 @@ class Collection {
 		$this->_model_name = $model;
 	}
 	
-	public function getItems(){		
-		
+	public function getItems($where = "",$id = 0){
+	    
 		//si on a pas encore getItems
 		if(!$this -> _items){
-		
-			$req = 'SELECT * FROM '.$this->_table;
+		    
+            if($id != 0){                
+                //Si on a récuperé un id dans l'URL pour le filtre
+                $req = 'SELECT DISTINCT * FROM '.$this->_table.' WHERE ';
+                $req .= $where;
+                $req .= '='.$id;
+            }else{
+                //Si on est dans l'cas par défaut, afficher tous
+                $req = 'SELECT * FROM '.$this->_table;
+            }
 			
 			$tab_item = array();
 			
