@@ -1,0 +1,119 @@
+
+
+	function creerTableau(){
+		
+		var nb_row = 11;
+		var nb_col = 11;
+		var createTable = document.createElement("table");
+		document.getElementById('game-wrapper').appendChild(createTable);
+		
+		
+		for (var i=0; i < nb_row; i++) {
+			var createRow = document.createElement('tr');
+			createTable.appendChild(createRow);
+				for (var j=0; j < nb_col; j++) {
+					var createCol = document.createElement('td');
+					if (j == 0 && i!=0){
+						
+						createCol.innerHTML=i;
+						
+					}
+					if (j != 0 && i==0){
+						
+						var letters = ['A','B','C','D','E','F','G','H','I','J'];
+						createCol.innerHTML=letters[j-1];
+						
+					}
+					if (j != 0 && i != 0) {
+						createCol.className = 'vide';
+					}else{
+						createCol.className = 'entete';
+					}
+			  		createRow.appendChild(createCol);
+				}
+		}
+			
+		
+	}
+	
+	function getCellule (x, y) {
+			
+		var getLine = document.getElementById('game-wrapper').getElementsByTagName('tr');
+		var getCol = getLine[y].getElementsByTagName('td');
+		return getCol[x];
+	}	
+	
+	
+	function placerBateau (){
+		// 3 cases
+		//définir le sens
+		//définir l'origine 
+		//placer les points suivants
+		
+		function random ($min, $max) {
+			
+		 	return Math.floor(Math.random() * ($max - $min + 1) + $min);
+		 
+		}
+		
+		var sens = random(1,2);
+		
+
+		 
+		if (sens == 1){
+			//Horizontal
+			var x = random(1,8);
+			var y = random (1,10);
+						
+			getCellule(x,y).className = 'bateau';
+			getCellule(x+1,y).className = 'bateau';
+			getCellule(x+2,y).className = 'bateau';
+						
+		}else{
+			//Vertical
+			var x = random(1,10);
+			var y = random (1,8);
+			
+			getCellule(x,y).className = 'bateau';			
+			getCellule(x,y+1).className = 'bateau';
+			getCellule(x,y+2).className = 'bateau';
+			
+		}		
+	}
+
+	function jouer (){
+		
+		//appeler les 2 fonctions précédentes
+		
+		creerTableau();
+		placerBateau ();
+		
+		//attacher l'event click à chaque case du tableau
+		
+		var getCels = document.getElementById('game-wrapper').getElementsByTagName('td');
+		for (var i=0; i < getCels.length; i++) {
+		  	if (getCels[i].className != 'entete'){
+				// ecouter l'evenement Click sur ce td
+				getCels[i].addEventListener("click", console.log('click'), false);
+			}
+		};
+		
+		//getCel.addEventListener("click", console.log('click'), false);
+	}
+	
+	jouer();
+
+function estTouche($case){
+	//Tester si case remplie
+	//mettre un marqueur sur la case cliquée
+	//si touché => score++ et coup--
+	//si non touché => coup--
+	//appeler checkscore
+}
+
+function checkScore(){
+	//comparer score actuel au score à atteindre
+	//Si score == scoreMax => Afficher Gagné en cb de coups
+	//Si score < score Max => Verifier Coups restants
+	//Si score > scoreMax => Afficher Tricheur
+}

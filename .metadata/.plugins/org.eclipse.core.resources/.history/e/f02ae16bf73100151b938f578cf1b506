@@ -1,0 +1,5 @@
+td{
+	width 20px;
+	height20px;
+	border: solid 1px #000;
+}
