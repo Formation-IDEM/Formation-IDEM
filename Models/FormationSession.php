@@ -21,40 +21,19 @@
 			
 		}
 		
-		//récupere l'instance de la formation ou en crée une si non existante
-		public function getFormation(){
-			
-			if(!$this->_formation){
-				
-				$f = App::getModel('Formation');
-				$f -> load($this-> getData('formation_id') );
-				$this->_formation = $f;
-				
-			}
-				
-			return $this -> _formation;
-			
-		}
+        //Récupere la formation lié a la current refpedago
+        public function getFormation(){
+            
+            if( !$this -> _formation ){
+                
+                $this->_formation = App::getModel('Formation');
+                $this->_formation -> load($this->getData('formations_id') );             
+                
+            }
+                
+            return $this -> _formation;
+                
+        }
 		
-		//récupere la collection des session trainee
-		public function getSessionTrainee(){
-			
-			if($this->_session_trainee){
-				
-				return $this -> _session_trainee;
-
-			}
-			
-		}
-		
-		//Récupere la collection des emplois du temps
-		public function getTimeSheet(){
-			
-			if($this->_time_sheet){
-				
-				return $this -> _time_sheet;
-
-			}
-			
-		} 		
+	
 	}

@@ -21,13 +21,13 @@
 			
 			if(!$this -> _matter){
 				
-				$m = App::getModel('Matter');
-				$m -> load($this->getData('matter_id') );
+				$this -> _matter = App::getModel('Matter');
+				$this -> _matter -> load($this->getData('matters_id') );
 				$this -> _matter;
 				
 			}
 				
-				return $this -> _matter;
+			return $this -> _matter;
 			
 		}		
 		
@@ -36,13 +36,12 @@
 			
 			if( !$this -> _formation ){
 				
-				$f = App::getModel('Formation');
-				$f -> load($this->getData('formation_id') );
-				$this->_formation = $f;				
+				$this->_formation = App::getModel('Formation');
+				$this->_formation-> load($this->getData('formations_id') );			
 				
 			}
 				
-				return $this -> _formation;
+			return $this -> _formation;
 				
 		}
 			
