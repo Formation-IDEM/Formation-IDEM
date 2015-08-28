@@ -7,7 +7,12 @@ class InternshipController
      */
     public function indexAction()
     {
-
+		$Internships = App::getCollection('Internship')->getAllItems();
+		
+		return Template::getInstance()->setFilename('Internship/index')->setDatas([
+			'stages'	=>	$Internships
+		])->render();
+		
     }
 
     public function showAction()

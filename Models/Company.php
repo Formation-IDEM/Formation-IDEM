@@ -26,4 +26,8 @@ class Company extends Model
         'visit_date'			=>	null,
         'active'				=>	0,
     ];
+	
+	
+	
+	
 }
