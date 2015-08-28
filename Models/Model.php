@@ -149,5 +149,3 @@ abstract class Model
 	}
 
 }
-
-?>
