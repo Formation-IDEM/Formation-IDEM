@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-12">
     
     <form method="post" action="">
             <input type="hidden" name="id" value="<?= $maFormation->getData('id');?>" />
@@ -28,12 +28,12 @@
                 
                 </div>
                 <label>Matières: </label>
-                <select multiple class="form-control" data-validation="required" name="matters">                    
+                <select multiple class="form-control col-md-2" data-validation="required" name="matters[]">                    
                 <?php                   
                     //faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
                     for ($i=0; $i < count($coll_matter); $i++):              
                 ?>
-                        <option value[]="<?= $coll_matter[$i]->getData('id'); ?>"><?= $coll_matter[$i]->getData('title'); ?></option>
+                        <option value="<?= $coll_matter[$i]->getData('id'); ?>"><?= $coll_matter[$i]->getData('title'); ?></option>
                 <?php   
                     endfor;
                 ?>

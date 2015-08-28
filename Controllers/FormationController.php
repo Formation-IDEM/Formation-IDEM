@@ -66,9 +66,23 @@ class FormationController{
 			//on appelle la méthode qui stock les infos dans l'objet crée
 			$maFormation->save();
             
-            var_dump($_POST['matters']);
-				
-			//header("Location: index.php?c=Formation");
+            //On prépare la sauvegardes des references pedagogique lié a la formation
+            for( $i=0;$i<count($_POST['matters']);$i++){
+                
+                //on crée un model de refpedago
+                $ref = App::getModel('RefPedago');
+                //on store l'ID de la formation qui vien d'être crée et l'ID de la matière courante
+                $ref->store( array(
+                    'formations_id' =>  $maFormation->getData('id'),
+                    'matters_id'    =>  $_POST['matters'][$i]
+                ));
+                //On sauvegarde dans la bdd la réf pedago une fois initialisé
+                $ref->save();
+                
+            }
+			
+            //Formation et les réf pedago lié sont crée, on retoure au listing
+			header("Location: index.php?c=Formation");
 		}	
 			//On transmet via setDatas() la collection de formation dans un tableau associatif
 			Template::getInstance()->setFileName("Formation/edit_formations")->setDatas(array(
