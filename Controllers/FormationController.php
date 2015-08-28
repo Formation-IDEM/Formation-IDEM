@@ -25,8 +25,13 @@ class FormationController{
 	public function editAction(){
 		
 		//on charge le model de formation
-		$maFormation = App::getModel("Formation");
+		$maFormation = App::getModel('Formation');
 		
+        //crée la liste des matières via une collection
+        $collection = App::getModel('Collection');
+        $collection->setAttribut('matters','Matter');
+        $coll_matter = $collection->getItems();        
+        
 		if( isset($_GET['id']) ){
 			
 			$maFormation->load($_GET['id']);
@@ -60,12 +65,15 @@ class FormationController{
 
 			//on appelle la méthode qui stock les infos dans l'objet crée
 			$maFormation->save();
+            
+            var_dump($_POST['matters']);
 				
-			header("Location: index.php?c=Formation");
+			//header("Location: index.php?c=Formation");
 		}	
 			//On transmet via setDatas() la collection de formation dans un tableau associatif
 			Template::getInstance()->setFileName("Formation/edit_formations")->setDatas(array(
-				'maFormation' => $maFormation
+				'maFormation'   => $maFormation,
+				'coll_matter'   => $coll_matter
 			))->render();
 		
 	}
