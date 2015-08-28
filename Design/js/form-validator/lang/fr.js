@@ -32,29 +32,30 @@
             badCustomVal: "Champ incorrect",
             andSpaces: " et des espaces",
             badInt: "Vous devez saisir un nombre",
-            badSecurityNumber: "Vous avez entré un mauvais numéro de sécurité sociale",
-            badUKVatAnswer: "Vous avez pas entré un numéro de TVA au Royaume-Uni",
-            badStrength: "Vous avez entré un mot de passe qui ne soit pas suffisamment en sécurité",
+            badSecurityNumber: "Veuillez saisir un numéro de sécurité sociale valide",
+            badUKVatAnswer: "Vous devez saisir un numéro de TVA valide",
+            badStrength: "Vous devez saisir un mot de passe plus robuste",
             badNumberOfSelectedOptionsStart: "Vous devez sélectionner au moins",
             badNumberOfSelectedOptionsEnd: " réponse",
-            badAlphaNumeric: "Vous ne pouvez répondre avec alfanumersika caractères (az) et des chiffres",
+            badAlphaNumeric: "Le champ doit compoter des caractères alphanumérques (az) et des chiffres",
             badAlphaNumericExtra: " et",
             wrongFileSize: "Le fichier que vous essayez de télécharger est trop grand (max %s)",
-            wrongFileType: "Seuls les fichiers de type %s est autorisée",
+            wrongFileType: "Seuls les fichiers de type %s sont autorisés",
             groupCheckedRangeStart: "Choisissez entre",
             groupCheckedTooFewStart: "Ensuite, vous devez faire au moins",
             groupCheckedTooManyStart: "Vous ne pouvez pas faire plus de",
             groupCheckedEnd: " sélection",
             badCreditCard: "Vous avez entré un numéro de carte de crédit valide",
-            badCVV: "Vous avez saisi un CVV incorrecte",
+            badCVV: "Vous avez saisi un numéro de carte incorrect",
             wrongFileDim: "La taille de l'image est trop élevée,",
             imageTooTall: "l'image doit avoir pour hauteur",
             imageTooWide: "L'image doit avoir pour largeur",
             imageTooSmall: "l'image est trop petite",
             min: "moins",
             max: "max",
-            imageRatioNotAccepted : "Ratio de l'image est pas acceptée"
+            imageRatioNotAccepted : "Le ration de l'image n\'est pas accepté"
         };
+
     });
 
 })(jQuery, window);
