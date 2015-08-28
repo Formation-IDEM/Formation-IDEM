@@ -38,7 +38,6 @@ class Template
 	{
 		$filename = str_replace('.', '/', $filename);
 		$this->_filename = $filename;
-		var_dump($this->_filename);
 		
 		return $this;
 	}
@@ -61,14 +60,18 @@ class Template
 	public function render()
 	{
 		extract($this->_datas);
+<<<<<<< HEAD
 		if(file_exists('Views/' . $this->_filename . '.phtml')){
+=======
+		if(file_exists('Views/' . ucfirst($this->_filename) . '.phtml')){
+>>>>>>> 305bc1bcc96c8095a1564632f3c5d56523c74bc4
 			include_once('Views/Layouts/header.phtml');			
 			include_once('Views/' . ucfirst($this->_filename) . '.phtml');
 			include_once('Views/Layouts/footer.phtml');			
 		}
 		else
 		{
-			echo 'template introuvable';	
+			echo 'Le template ' . $this->_filename . ' est introuvable';
 		}
 	}
 }
