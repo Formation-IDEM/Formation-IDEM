@@ -7,7 +7,7 @@ class Database
 	
 	private $_host;
 	
-	private $_user;
+	private $_username;
 	
 	private $_password;
 
@@ -17,18 +17,19 @@ class Database
 			
 	private function __construct()
 	{
-		$this->_host = '127.0.0.1';
-		
-		$this->_username = 'postgres';
-		
-		$this->_password = 'postgres';
-		
-		$this->_dbname = 'idem';
+		$this->_host = 'localhost';
+		$this->_username = 'homestead';
+		$this->_password = 'secret';
+		$this->_dbname = 'gestForm';
 		
 		$this->_dbh = $this->initialConnection(); 
 	}
-	
-	// Fonction pour récupérer une seule et unique instance de App
+
+	/**
+	 * Récupère une instance de la base de donnée
+	 *
+	 * @return Database
+	 */
 	public static function getInstance()
 	{
 		if(!self::$_instance)
@@ -38,37 +39,76 @@ class Database
 		return self::$_instance;
 	}
 
+	/**
+	 * Retourne un tableau d'erreurs
+	 *
+	 * @return array
+	 */
 	public function getErrors()
 	{
 		return $this->_dbh->errorInfo();
 	}
-	
+
+	/**
+	 * Retourne la dernière ID
+	 *
+	 * @param $table
+	 * @return string
+	 */
 	public function getLastInsertId($table)
 	{
 		return $this->_dbh->lastInsertId($table.'_id_seq');
 	}
-	
+
+	/**
+	 * Etablit la connexion à PostgreSQL
+	 *
+	 * @param string $dbtype
+	 * @return PDO
+	 */
 	public function initialConnection($dbtype = 'pgsql')
 	{
 		return new PDO($dbtype.':dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
 	}
-	
+
+	/**
+	 * Retourne la connexion
+	 *
+	 * @return PDO
+	 */
 	public function getConnection()
 	{
 		return $this->_dbh;
 	}
-	
+
+	/**
+	 * Exécute une requête sans retourner de résultats
+	 *
+	 * @param $query
+	 * @return PDOStatement
+	 */
 	public function execute($query)
 	{
 		$exe = $this->_dbh->prepare($query);
 		$exe->execute();
 		return $exe;
 	}
-	
+
+	/**
+	 * Exécute une requête contenant des résultats
+	 *
+	 * @param $query
+	 * @return array
+	 */
 	public function getResults($query)
 	{
 		// Execution de $query et retour résultat en tableau
 		return $this->execute($query)->fetchAll();
+	}
+
+	public function getResult($query)
+	{
+		return $this->execute($query)->fetch();
 	}
 }
 

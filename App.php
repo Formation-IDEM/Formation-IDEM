@@ -1,20 +1,23 @@
 <?php
 
-// Utilisation App::getInstance();
+/**
+ * Class App
+ */
 class App
 {
 	private static $_instance;
-	
-	private $_controllerName;
-	
 	private $_actionName;
 	
 	private function __construct()
 	{
 		$this->_actionName = 'indexAction';
 	}
-	
-	// Fonction pour récupérer une seule et unique instance de App
+
+	/**
+	 * Retourne l'instance d'App
+	 *
+	 * @return App
+	 */
 	public static function getInstance()
 	{
 		if(!self::$_instance)
@@ -24,46 +27,61 @@ class App
 		return self::$_instance;
 	}
 
+	/**
+	 * Retourne une collection
+	 *
+	 * @param $type
+	 * @return null
+	 */
 	public static function getCollection($type)
 	{
-
 		if(file_exists('./Models/Collections/'.$type.'Collection.php'))
 		{
 			include_once('./Models/Collection.php');
-			include_once('./Models/Collections/'.$type.'Collection.php');
-			$typeCollection = $type.'Collection';
+			include_once('./Models/Collections/' . $type . 'Collection.php');
+			$typeCollection = ucfirst($type) . 'Collection';
 			return new $typeCollection;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
-	
+
+	/**
+	 * Retourne un modèle en fonction de son nom
+	 *
+	 * @param $type
+	 * @return null
+	 */
 	public static function getModel($type)
 	{
-		if(file_exists('./Models/'.$type.'.php'))
+		if( file_exists('./Models/'.$type.'.php') )
 		{
 			include_once('Models/Model.php');			
-			include_once('Models/'.$type.'.php');			
+			include_once('Models/'.$type.'.php');
+
+			$type = ucfirst($type);
 			return new $type();
 		}
-		else
-		{
-			return null;
-		}
+		return null;
 	}
-	
+
+	/**
+	 * Définit l'action courante
+	 *
+	 * @return $this
+	 */
 	public function setActionName()
 	{
-		if(isset($_GET['a']) && $_GET['a'] != null)
+		if( isset($_GET['a']) && $_GET['a'] != null )
 		{
-			$this->_actionName = $_GET['a'].'Action';
+			$this->_actionName = htmlspecialchars($_GET['a']) . 'Action';
 		}
 		return $this;
 	}
-	
-	// Fonction appelée par défaut
+
+	/**
+	 * Lancement de l'application
+	 */
 	public function run()
 	{
 		// inclusion système de template
@@ -78,7 +96,7 @@ class App
 		// Creation du Controller en fonction de $_GET['c']
 		include_once('./Controllers/ControllerFactory.php');
 		$controller = ControllerFactory::createController();
-		if(method_exists($controller,$action))
+		if( method_exists($controller,$action) )
 		{
 			$controller->$action();
 		}
@@ -87,11 +105,5 @@ class App
 			header("HTTP/1.0 404 Not Found");
 			die;
 		}
-	
-		//include_once('./Controllers/Database.php');
-		//Database::getInstance()->connect('pgsql')->insert();
 	}	
 }
-
-
-?>
