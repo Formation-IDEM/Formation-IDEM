@@ -87,4 +87,23 @@ class Collection
 		}
 		return $this->_items;
 	}
+
+	/**
+	 * Retourne le nombre d'éléments d'une table
+	 *
+	 * @param string $field
+	 * @param string $where
+	 * @return mixed
+	 */
+	public function count($field = 'id', $where = '')
+	{
+		$query = 'SELECT COUNT(' . $field . ') AS total FROM ' . $this->_table;
+		if( !empty($where) )
+		{
+			$query .= ' WHERE ' . $where;
+		}
+		$result = Database::getInstance()->getResult($query);
+
+		return $result['total'];
+	}
 }
