@@ -1,7 +1,6 @@
 <?php 
 
 include_once ('Model.php');
-
 /**
  * Classe entreprise
  */
@@ -20,19 +19,20 @@ class Company extends Model {
 								'mobile' => '',
 								'fax' => '',
 								'manager' => '',
-								
+								'create_uid' => 0
 	);
-	
-	
+
+
 	public function __construct() {
-		
+
 		parent::__construct();
-		
+
 	}
+
+	/*public function getInternship() {
+
+		App::getModel('Internship')->load($this->getData('id'));
+		return $internship;
+		getItems($this->getData('id'));
+	}*/
 }
-
-
-
-
-
-

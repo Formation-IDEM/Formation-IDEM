@@ -1,70 +1,77 @@
 <?php
 
-/**
- * 
- */
-class App {
+// Utilisation App::getInstance();
+class App
+{
+	private static $_instance;
 	
-	private static $_instance = null;
+	private $_controllerName;
 	
-	private function __construct(){
-			
-		
-			
-	}
+	private $_actionName;
 	
-	public function run()
+	private function __construct()
 	{
-		include_once ('Controllers/ControllerFactory.php');
-		include_once ('Models/Template.php');
-		$createController = ControllerFactory::createController();
-		$action = App::getInstance()->getAction($createController);
+		$this->_actionName = 'indexAction';
 	}
 	
-	public function getAction($createController){
-		//Verif du 2eme parmaètre
-			
-			if (isset($_GET['a'])) {
-				
-				$a = $_GET['a'].'Action';
-			}else{
-				
-				$a = 'indexAction';
-			}
-			
-			//Verif l'existence de la method
-			if (!method_exists($createController, $a)) {
-				$a = 'indexAction';
-			}
-			
-			//Appel de la method
-			$createController->$a();
+	// Fonction pour récupérer une seule et unique instance de App
+	public static function getInstance()
+	{
+		if(!self::$_instance)
+		{
+			self::$_instance = new App();
+		}
+		return self::$_instance;
 	}
 	
-	public static function getModel($type){
-		
-		if (file_exists('Models/'.$type.'.php')) {
-			include_once ('Models/'.$type.'.php');
+	public static function getModel($type)
+	{
+		if(file_exists('./Models/'.$type.'.php'))
+		{
+			include_once('Models/'.$type.'.php');			
 			return new $type();
-		}else{
+		}
+		else
+		{
 			return null;
 		}
-		
 	}
 	
-	public static function getInstance(){
-		if (!self::$_instance) {
-				
-			self::$_instance = new App();
-		
+	public function setActionName()
+	{
+		if(isset($_GET['a']) && $_GET['a'] != null)
+		{
+			$this->_actionName = $_GET['a'].'Action';
 		}
-		
-		return self::$_instance;
-		
+		return $this;
 	}
 	
+	// Fonction appelée par défaut
+	public function run()
+	{
+		// inclusion système de template
+		include_once('Models/Template.php');
+		
+		// Récupère l'action
+		$action = self::getInstance()->setActionName()->_actionName;
+		
+		// Creation du Controller en fonction de $_GET['c']
+		include_once('./Controllers/ControllerFactory.php');
+		$controller = ControllerFactory::createController();
+		if(method_exists($controller,$action))
+		{
+			$controller->$action();
+		}
+		else
+		{
+			header("HTTP/1.0 404 Not Found");
+			die;
+		}
 	
-	
+		//include_once('./Controllers/Database.php');
+		//Database::getInstance()->connect('pgsql')->insert();
+	}	
 }
+
 
 ?>

@@ -1,25 +1,29 @@
 <?php
 
-/**
- * 
- */
 class CompanyController {
-	
+
 	function __construct() {
-		
-		
+
+
 	}
-	
+
 	public function indexAction(){
 		echo "Entreprises";
-		Template::getInstance()->setDatas(array('test' => "testo"));
-		Template::getInstance()->render();
+		App::getModel('TraineeCompany')->load($_GET['id'])->getInternship();
+		
+		Template::getInstance()->setFileName('editcompany')->render();
 	}
-	
+
 	public function editAction(){
+
+		App::getInstance()->getModel('Company')->load($_GET['id']);
 		
-		echo "Entreprises edit";
 		
+		//var_dump(App::getInstance()->getModel('Company')->getFields());
+		
+		//Database::getInstance()->getItems(1);
+		Template::getInstance()->setTemplate('editcompany')->render();
+
 	}
 }
 

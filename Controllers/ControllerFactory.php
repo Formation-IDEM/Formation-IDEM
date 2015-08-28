@@ -1,36 +1,25 @@
 <?php
 
-	/**
-	 * Controller Factory
+
+class ControllerFactory {
+
+
+	/*
+	 * 
 	 */
-	class ControllerFactory {
+	public static function createController() {
+		$controller = 'FrontController';
 		
-		static function createController() {
-			
-			//Verification du premier paramètre dans l'URL
-			if (isset($_GET['c'])) {
-				
-				$c = $_GET['c'].'Controller';
+		if( isset( $_GET['c'] ) ) {
+			if( file_exists( dirname(dirname(__FILE__)) . '/Controllers/' . $_GET['c'] . 'Controller.php' ) ) {
+				$controller = $_GET['c'] . 'Controller';
 			}
-			
-			else{
-				
-				$c = 'FrontController';
-			}
-			
-			//Verif si le fichier existe bien
-			if (!file_exists('Controllers/'.$c.'.php')) {
-	    		$c = 'FrontController';
-			}
-			
-			//Inclusion du controller et classe instanciée			
-			include_once ('Controllers/'.$c.'.php');
-			return $controller = new $c();
-			
-			
-		
 		}
+		include_once ( dirname(dirname(__FILE__)) . '/Controllers/' . $controller . '.php');
+		return new $controller();
 	}
-	
+
+
+}
 
 ?>

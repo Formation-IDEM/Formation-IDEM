@@ -1,11 +1,6 @@
 <?php
 
-include_once ('App.php');
-
-$monApp = App::getInstance();
-
-$monApp->run();
-
-//App::getInstance()->run();
+include_once('App.php');
+App::getInstance()->run();
 
 ?>
