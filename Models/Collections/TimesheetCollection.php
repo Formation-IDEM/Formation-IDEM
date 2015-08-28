@@ -5,8 +5,6 @@ class TimesheetCollection extends Collection{
 	{
 		$this->_table = 'timesheets';
 
-		$this->_field = 'trainer';
-
 		$this->_model_name = 'Timesheet';
 
 	}

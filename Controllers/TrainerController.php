@@ -13,28 +13,33 @@ class TrainerController
 		//$trainer = App::getModel('Trainer')->setData('name','patrick')->save();
 		if(isset($_POST['delete']) && $_POST['delete'])
 		{
-
-			$levels = App::getCollection('Level')->getItems($_POST['trainer']);
-
-			if($levels)
-			{
-				foreach ($levels as $level) {
-					$level->delete();
-				}		
-			}
-
-
-			$timesheets = App::getCollection('Timesheet')->getItems($_POST['trainer']);
-
-			if($timesheets)
-			{
-				foreach ($timesheets as $timesheet) {
-					$timesheet->delete();
-				}				
-			}
+			$levels = App::getModel('Trainer')->load($_POST['trainer'])->getLevels();
+			$timesheets = App::getModel('Trainer')->load($_POST['trainer'])->getTimesheets();
 
 			$trainer = App::getModel('Trainer')->load($_POST['trainer']);
-			$trainer->delete();
+			if($levels || $timesheets)
+			{
+				foreach($levels as $level)
+				{
+					$level
+					->setData('active',false)
+					->save();
+				}
+				foreach($timesheets as $timesheet)
+				{
+					$timesheet
+					->setData('active',false)
+					->save();
+				}
+				$trainer
+				->setData('active', false)
+				->save();
+			}
+			else
+			{
+				$trainer->delete();				
+			}
+
 		}
 
 		$trainers = App::getCollection('Trainer')->getAllItems();
@@ -72,7 +77,7 @@ class TrainerController
 				}
 				else
 				{
-					$levels = App::getCollection('Level')->getItemsFromAssociation($_POST['matters'], $_GET['id']);
+					$levels = App::getCollection('Level')->getDoubleFilteredItems('matter_id', $_POST['matters'], 'trainer_id', $_GET['id']);
 					if(!$levels)
 					{
 						$level = App::getModel('Level');
@@ -87,7 +92,6 @@ class TrainerController
 			Template::getInstance()
 				->setDatas(array(
 						'matters' 	=> App::getCollection('Matter')->getAllItems(),
-						'levels'	=> $trainer->getLevels(),
 						'trainer'	=> $trainer
 						))
 				->setFilename('Trainer/levels')
@@ -117,11 +121,10 @@ class TrainerController
 				}
 			}
 
-				$trainer = 
 			Template::getInstance()
 				->setDatas(array(
 						'formationSessions' 	=> App::getCollection('FormationSession')->getAllItems(),
-						'trainer'				=> App::getModel('Trainer')->load($_GET['id'])
+						'trainer'				=> App::getModel('Trainer')->load($_GET['id']),
 						))
 				->setFilename('Trainer/timesheet')
 				->render();
@@ -142,7 +145,7 @@ class TrainerController
 			Template::getInstance()
 				->setDatas(array(
 						'level' 	=> $level,
-						'trainer'	=>$level->getTrainer()
+						'trainer'	=> $level->getTrainer()
 						))
 				->setFilename('Trainer/edit-level')
 				->render();
@@ -172,7 +175,7 @@ class TrainerController
 					'trainer' 		=> $trainer,
 					'nationalities' => App::getCollection('Nationality')->getAllItems(),
 					'familyStatuss' => App::getCollection('FamilyStatus')->getAllItems(),
-					'studyLevels' => App::getCollection('StudyLevel')->getAllItems()
+					'studyLevels' 	=> App::getCollection('StudyLevel')->getAllItems()
 					))
 			->setFilename('Trainer/add-edit')
 			->render();

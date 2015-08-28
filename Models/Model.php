@@ -102,7 +102,7 @@ abstract class Model
 			// Execution de la requête
 			$db = Database::getInstance();
 			$db->getResults($query);
-			//var_dump($db->getErrors());
+			var_dump($db->getErrors());
 			$errors = $db->getErrors();
 			if($errors[2] == null)
 			{

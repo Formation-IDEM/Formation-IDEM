@@ -30,15 +30,7 @@ class Trainer extends Person
 		$this->_fields['study_levels_id'] = 1;
 		$this->_fields['hourly_rate'] = 1;
 		$this->_fields['trainer_extern'] = false;
-	}
-
-	public function getTrainerExtern()
-	{
-		if(!$this->_trainer_extern)
-		{
-			$this->_trainer_extern = App::getCollection('TrainerExtern')->getItem($this->_fields['id']);
-		}
-		return $this->_trainer_extern;
+		$this->_fields['active'] = 1;
 	}
 	
 	public function getStudyLevel()
@@ -54,7 +46,7 @@ class Trainer extends Person
 	{
 		if(!$this->_levels)
 		{
-			$this->_levels = App::getCollection('Level')->getItems($this->_fields['id']);
+			$this->_levels = App::getCollection('Level')->getFilteredItems('trainer_id', $this->_fields['id']);
 		}
 		return $this->_levels;
 	}
@@ -64,7 +56,7 @@ class Trainer extends Person
 
 		if(!$this->_timesheets)
 		{
-			$this->_timesheets = App::getCollection('Timesheet')->getItems($this->_fields['id']);
+			$this->_timesheets = App::getCollection('Timesheet')->getFilteredItems('trainer_id', $this->_fields['id']);
 		}
 
 		return $this->_timesheets;

@@ -17,6 +17,7 @@ class Timesheet extends Model
 		$this->_fields['total_hours'] = 0;
 		$this->_fields['trainer_id'] = 0;
 		$this->_fields['formation_session_id'] = 0;
+		$this->_fields['active'] = 1;
 	}
 
 	public function getTrainer()

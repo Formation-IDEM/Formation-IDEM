@@ -63,7 +63,7 @@ CREATE TABLE ref_pedagos
 	id SERIAL, 
 	formations_id INT,
 	matters_id INT,  -- code matiere
-	PRIMARY KEY (id, formations_id, matters_id),
+	PRIMARY KEY (formations_id, matters_id),
 	FOREIGN KEY (formations_id) REFERENCES formations(id),
 	FOREIGN KEY (matters_id) REFERENCES matters(id)
 );
@@ -133,12 +133,7 @@ CREATE TABLE companies
 	mobile VARCHAR(15) DEFAULT NULL,
 	fax VARCHAR(15) DEFAULT NULL,
 	manager VARCHAR(60) DEFAULT NULL,
-	create_date TIMESTAMP DEFAULT(NOW()),
-  	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
-	create_uid INT NOT NULL,
-	update_uid INT DEFAULT NULL,
-	visit_date DATE DEFAULT NULL,
-	active BOOLEAN DEFAULT(true)
+	visit_date DATE DEFAULT NULL
 );
 
 /**
@@ -153,11 +148,6 @@ CREATE TABLE internships
 	company_id INT NOT NULL,
 	formation_id INT NOT NULL,
 	referent_id VARCHAR(60) NOT NULL,
-	create_date TIMESTAMP DEFAULT(NOW()),
-	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
-	create_uid INT NOT NULL,
-	update_uid INT NOT NULL,
-	active SMALLINT DEFAULT(0),
 	pay BOOLEAN DEFAULT(false),
 	wage NUMERIC DEFAULT(0)
 );
@@ -168,10 +158,10 @@ Table de liaison entre les entreprises, les stagiaires et les stages
 
 CREATE TABLE company_internship
 (
+	id SERIAL PRIMARY KEY,
 	trainee_id INT NOT NULL,
 	company_id INT NOT NULL,
 	internship_id INT NOT NULL,
-	active BOOLEAN DEFAULT(false),
 	hiring BOOLEAN DEFAULT(false),
 	total_hours INT NOT NULL DEFAULT(0),
 	date_begin TIMESTAMP DEFAULT(NOW()),
@@ -194,18 +184,18 @@ CREATE TABLE trainers
 	address_off_complement VARCHAR NOT NULL,
 	address_off_codpost VARCHAR NOT NULL,
 	address_off_city VARCHAR NOT NULL,
-	address_form_street VARCHAR NOT NULL,
-	address_form_complement VARCHAR NOT NULL,
-	address_form_codpost VARCHAR NOT NULL,
-	address_form_city VARCHAR NOT NULL,
-	phone VARCHAR NOT NULL,
+	address_form_street VARCHAR,
+	address_form_complement VARCHAR,
+	address_form_codpost VARCHAR,
+	address_form_city VARCHAR,
+	phone VARCHAR,
 	mail VARCHAR NOT NULL,
-	cellphone VARCHAR NOT NULL,
-	social_security_number INTEGER NOT NULL,
-	photo VARCHAR NOT NULL,
+	cellphone VARCHAR,
+	social_security_number VARCHAR NOT NULL,
+	photo VARCHAR,
 	family_status_id INTEGER,
 	nationality_id INTEGER,
-	hourly_rate FLOAT NOT NULL,
+	hourly_rate FLOAT,
 	trainer_extern BOOLEAN DEFAULT(false)
 );
 
@@ -237,29 +227,119 @@ ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
 ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 ADD COLUMN create_uid INT,
 ADD COLUMN update_uid INT,
-ADD COLUMN active BOOLEAN;
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
 
 ALTER TABLE timesheets
 ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
 ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 ADD COLUMN create_uid INT,
 ADD COLUMN update_uid INT,
-ADD COLUMN active BOOLEAN;
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
 
 ALTER TABLE formations
 ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
 ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 ADD COLUMN create_uid INT,
 ADD COLUMN update_uid INT,
-ADD COLUMN active BOOLEAN;
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
 
 ALTER TABLE trainees
 ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
 ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 ADD COLUMN create_uid INT,
 ADD COLUMN update_uid INT,
-ADD COLUMN active BOOLEAN;
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
 
+ALTER TABLE matters
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE trainee_status
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE study_levels
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE family_status
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE nationalities
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE remuneration_types
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE formation_sessions
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE ref_pedagos
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE sessions_trainee
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE companies
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE internships
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE company_internship
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE levels
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
 
 -- FOREIGN KEY (qui ne sont pas déjà présentes plus haut) --
 ALTER TABLE internships ADD FOREIGN KEY (company_id) REFERENCES companies(id);
