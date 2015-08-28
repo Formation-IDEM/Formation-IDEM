@@ -1,24 +1,23 @@
 <?php
 
-class StudyLevel {
+include_once('Models/Model.php');
+
+class StudyLevel extends Model
+{
 	
-	private $_id;
-	private $_wording;	
+	// Attributs	
+	protected $_table;
 	
-	public function __construct (
-		$id = 0 ,
-		$wording = "" ) {
+	protected $_fields;
 			
-	}
-				
-	
-	public function getStudyLevel(){
-		return $this -> _wording;
-	}	
-	
-	public function setStudyLevel($wording) {
-		$this -> _wording = $wording;
-		return $this;
+	// Constructeur
+	public function __construct()
+	{
+		parent::__construct();
+		
+		$this->_table = 'study_levels';
+		$this->_fields['id'] = 0;
+		$this->_fields['wording'] = '';
 	}
 }
 

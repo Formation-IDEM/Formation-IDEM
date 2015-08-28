@@ -6,7 +6,8 @@ include_once ('Person.php');
 
 //================================= Class trainee fille de class person =============
 
-class Trainee extends Person {
+class Trainee extends Person 
+{
 
 	CONST TYPE = "student";//une constante qui est liée à la class mais non spécifique à une instance
 
@@ -27,7 +28,7 @@ class Trainee extends Person {
 		$phone = 0 ,
 		$cellphone = 0 ,
 		$mail = "" ,
-		$birthday = "" ,
+		$birthday = "" , 
 		$birthplace = "" ,
 		$gender = "" ,
 		$adress_off_street = "" ,

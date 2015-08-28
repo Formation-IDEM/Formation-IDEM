@@ -1,17 +1,22 @@
 <?php
 
+// Inlus par App.php
 
 class Template
 {
 	private static $_instance;
-	private $_filename = "index";
-	private $_datas = array();
+	
+	private $_filename;
+
+	private $_datas;	
 	
 	public function __construct()
 	{
-		
+		$this->_filename = 'index';
+		$this->_datas = array();
 	}
 	
+	// Fonction pour récupérer une seule et unique instance de Template
 	public static function getInstance()
 	{
 		if(!self::$_instance)
@@ -21,32 +26,30 @@ class Template
 		return self::$_instance;
 	}
 	
-	public function getTemplate()
-	{
-		return $this->$_filename;
-	}
-	
-	public function setTemplate($filename)
+	public function setFilename($filename)
 	{
 		$this->_filename = $filename;
 		return $this;
 	}
 	
-	public function setDatas($donnees)
+	public function setDatas($datas)
 	{
-		$this->_datas = $donnees;
+		$this->_datas = $datas;
 		return $this;
 	}
 	
 	public function render()
 	{
 		extract($this->_datas);
-		if(file_exists(dirname(dirname(__FILE__))."/Views/" .$this->_filename. ".phtml"))
+		if(file_exists('Views/'.$this->_filename.'.phtml'))
 		{
-			include_once(dirname(dirname(__FILE__))."/Views/" .$this->_filename. ".phtml");
-		} else {
-			echo "erreur";
+			include_once('Views/'.$this->_filename.'.phtml');			
+		}
+		else
+		{
+			echo 'template introuvable';	
 		}
 	}
-	
 }
+
+?>

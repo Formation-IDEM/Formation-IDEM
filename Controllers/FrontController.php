@@ -1,21 +1,26 @@
 <?php
 
-include_once(dirname(dirname(__FILE__))."/Models/Model.php");
-
-class FrontController extends Model
+class FrontController
 {
-	
-	
 	function indexAction()
-	{		
-		$internship = App::getModel('Internship');
-		var_dump($internship);
-		$internship->load($_GET['id']);
-		
-		Template::getInstance()->setDatas(array('intern'=> $internship))->setFilename('index')->render(); 
-				
-		Template::getInstance()->setTemplate('Company/AccueilCompany')->setDatas(array('macle' => "Bonjour Jean Luc"))->render();	
-	}	
+	{
+		$trainer = App::getModel('Trainer');
+		$trainer->load($_GET['id']);
+		TEMPLATE::getInstance()
+		->setDatas
+		(
+			array
+			(
+				'trainer5'	=> $trainer
+			)
+		)
+		->setFilename('index')
+		->render(); 
+		//$trainer->save();
+		//echo $trainer->getData('id');
+		//$trainer->load(4)->delete();
+		//var_dump($trainer);
+	}
 }
 
 ?>
