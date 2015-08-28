@@ -72,6 +72,7 @@ CREATE TABLE ref_pedagos
 CREATE TABLE trainees 
 (
 	id SERIAL PRIMARY KEY,
+	civility VARCHAR NOT NULL,
 	name VARCHAR NOT NULL,
 	firstname VARCHAR NOT NULL,
 	birthday DATE NOT NULL,
@@ -81,15 +82,15 @@ CREATE TABLE trainees
 	adress_off_complement VARCHAR NOT NULL,
 	adress_off_codpost VARCHAR NOT NULL,
 	adress_off_city VARCHAR NOT NULL,
-	adress_form_street VARCHAR NOT NULL,
-	adress_form_complement VARCHAR NOT NULL,
-	adress_form_codpost VARCHAR NOT NULL,
-	adress_form_city VARCHAR NOT NULL,
+	adress_form_street VARCHAR,
+	adress_form_complement VARCHAR,
+	adress_form_codpost VARCHAR,
+	adress_form_city VARCHAR,
 	phone VARCHAR NOT NULL,
 	mail VARCHAR NOT NULL,
 	cellphone VARCHAR NOT NULL,
-	social_security_number INTEGER NOT NULL,
-	photo VARCHAR NOT NULL,
+	social_security_number VARCHAR NOT NULL,
+	photo VARCHAR,
 	remuneration_type_id INTEGER NOT NULL,
 	FOREIGN KEY (remuneration_type_id) REFERENCES remuneration_types(id),
 	status_trainee_id INTEGER NOT NULL,
@@ -203,15 +204,9 @@ CREATE TABLE trainers
 	social_security_number INTEGER NOT NULL,
 	photo VARCHAR NOT NULL,
 	family_status_id INTEGER,
-	nationality_id INTEGER
-);
-
-/* Création de la table trainer_extern liée a un formateur */
-CREATE TABLE trainers_externs
-(
-	id SERIAL PRIMARY KEY,
+	nationality_id INTEGER,
 	hourly_rate FLOAT NOT NULL,
-	trainer_id INT NOT NULL
+	trainer_extern BOOLEAN DEFAULT(false)
 );
 
 /* Création de la table d'association entre formateur et matière */
@@ -272,7 +267,6 @@ ALTER TABLE internships ADD FOREIGN KEY (formation_id) REFERENCES formations(id)
 ALTER TABLE company_internship ADD FOREIGN KEY (trainee_id) REFERENCES trainees(id);
 
 -- Mise en place des clées étrangères --
-ALTER TABLE trainers_externs ADD CONSTRAINT fk_trainers_externs FOREIGN KEY (trainer_id) REFERENCES trainers(id);
 ALTER TABLE levels ADD CONSTRAINT fk_matters_levels FOREIGN KEY (matter_id) REFERENCES matters(id);
 ALTER TABLE levels ADD CONSTRAINT fk_trainers_levels FOREIGN KEY (trainer_id) REFERENCES trainers(id);
 ALTER TABLE timesheets ADD CONSTRAINT fk_formations_sessions_timesheets FOREIGN KEY (formation_session_id) REFERENCES formation_sessions(id);

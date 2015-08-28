@@ -1,26 +1,20 @@
 <?php
 
+/**
+ * Class FrontController
+ */
 class FrontController
 {
+	/**
+	 * Tableau de bord
+	 */
 	function indexAction()
 	{
-		$trainer = App::getModel('Trainer');
-		$trainer->load($_GET['id']);
-		TEMPLATE::getInstance()
-		->setDatas
-		(
-			array
-			(
-				'trainer5'	=> $trainer
-			)
-		)
-		->setFilename('index')
-		->render(); 
-		//$trainer->save();
-		//echo $trainer->getData('id');
-		//$trainer->load(4)->delete();
-		//var_dump($trainer);
+		return Template::getInstance()->setFilename('front.index')->setDatas([
+			'title'				=>	'Tableau de bord',
+			'countCompanies'	=>	App::getInstance()->getCollection('company')->count(),
+			'countInternships'	=>	App::getInstance()->getCollection('internship')->count(),
+			'countTrainers'		=>	App::getInstance()->getCollection('trainer')->count(),
+		])->render();
 	}
 }
-
-?>

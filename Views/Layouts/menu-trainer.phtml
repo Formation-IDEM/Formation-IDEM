@@ -1,0 +1,18 @@
+<h3><?php echo $trainer->getData('firstname').' '.$trainer->getData('name'); ?></h3>
+<ul class="nav nav-tabs">
+	<li role="presentation" <?php echo ($_GET['a'] == 'addEdit' ? 'class="active"' : '') ?>>
+		<a href="/index.php?c=Trainer&a=addEdit&id=<?php echo $trainer->getData('id'); ?>">
+			Modifier le formateur
+		</a>
+	</li>
+	<li role="presentation" <?php echo ($_GET['a'] == 'timesheet' ? 'class="active"' : '') ?>>
+		<a href="/index.php?c=Trainer&a=timesheet&id=<?php echo $trainer->getData('id'); ?>">
+			Feuilles de présence & Sessions de formation
+		</a>
+	</li>
+	<li role="presentation" <?php echo ($_GET['a'] == 'addEditMatters' ? 'class="active"' : '') ?>>
+		<a href="/index.php?c=Trainer&a=addEditMatters&id=<?php echo $trainer->getData('id'); ?>">
+			Niveaux & Compétences
+		</a>
+	</li>
+</ul>

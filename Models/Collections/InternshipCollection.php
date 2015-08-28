@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 include_once ('../Collection.php');
 
 /**
@@ -25,3 +26,13 @@ class InternshipCollection extends Collection {
 	}
 }
 ?>
+=======
+/**
+ * Class CompanyCollection
+ */
+class InternshipCollection extends Collection
+{
+    protected $_table = 'internships';
+    protected $_model_name = 'internship';
+}
+>>>>>>> entreprises
