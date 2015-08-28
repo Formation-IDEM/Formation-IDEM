@@ -11,7 +11,7 @@ if( !function_exists('url') )
 {
     function url($url)
     {
-        return 'index.php?url=' . $url;
+        return 'index.php?url=' . htmlentities(trim($url));
     }
 }
 
@@ -123,7 +123,8 @@ if( !function_exists('config') )
 {
     function config($file)
     {
-        return \Core\Config::getInstance($file);
+        $params = explode('.', $file);
+        return \Core\Config::getInstance($params[0])->get($params[1]);
     }
 }
 

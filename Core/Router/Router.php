@@ -162,4 +162,9 @@ class Router
 		}
 		return $this->namedRoutes[$name]->getUrl($params);
 	}
+
+	public static function __callStatic($method, $args)
+	{
+		return call_user_func_array([get_called_class(), $method], $args);
+	}
 }
