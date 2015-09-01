@@ -291,12 +291,6 @@ class Collection
 		return $this->db->getResults($sql);
 	}
 
-	public function asArray()
-	{
-		$this->as_array = true;
-		return $this;
-	}
-
 	public function display()
 	{
 		return $this->items;
