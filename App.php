@@ -34,7 +34,6 @@ class App
 	 */
 	public static function getCollection($type)
 	{
-
 		if(file_exists('./Models/Collections/'.$type.'Collection.php'))
 		{
 			//include_once('./Models/Collection.php');

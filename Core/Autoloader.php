@@ -25,5 +25,9 @@ class Autoloader
         {
             include_once('./Controllers/' . ucfirst($class) . '.php');
         }
+        else if( file_exists('./Models/Collections/' . ucfirst($class) . '.php') )
+        {
+            include_once('./Models/Collections/' . ucfirst($class) . '.php');
+        }
     }
 }
