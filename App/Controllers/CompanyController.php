@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Company;
 use \Core\Controller;
 use Core\Factories\ModelFactory;
 use \Core\Html\Form;

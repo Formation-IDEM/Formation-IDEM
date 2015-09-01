@@ -10,4 +10,8 @@ return [
     'phone'             =>  'téléphone',
     'mobile'            =>  'portable',
     'fax'               =>  'fax',
+    'image'             =>  'image',
+    'picture'           =>  'image',
+    'photo'             =>  'photo'
 ];
+

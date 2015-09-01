@@ -74,6 +74,12 @@ class Validator
                         $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit être un numéro de téléphone valide';
                     }
 
+                    //  Vérification des images
+                    if( $r === 'image' && !in_array(['jpg', 'jpeg', 'png'], pathinfo($_FILES[$key], PATHINFO_EXTENSION)) )
+                    {
+                        $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit être une image de type JPG, JPEG ou PNG.';
+                    }
+
                     //  Règles avec attributs
                     if( strpos(':', $r) )
                     {
@@ -103,6 +109,11 @@ class Validator
                             {
                                 $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit être unique.';
                             }
+                        }
+
+                        if( $params[0] === 'size' )
+                        {
+
                         }
 
                         //  Longueur minimum
