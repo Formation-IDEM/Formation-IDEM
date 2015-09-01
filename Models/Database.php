@@ -111,4 +111,11 @@ class Database
 	{
 		return $this->execute($query)->fetch();
 	}
+
+	public function count($table, $field = '*', $where = '')
+	{
+		$sql  = 'SELECT COUNT(' . $field . ') AS total FROM ' . $table;
+		$result = $this->getResult($sql);
+		return $result['total'];
+	}
 }
