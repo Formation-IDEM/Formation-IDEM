@@ -6,7 +6,7 @@
 class InternshipCollection extends Collection
 {
     protected $_table = 'internships';
-    protected $_model = 'internship';
+    protected $_model_name = 'internship';
 
     public function __construct()
     {

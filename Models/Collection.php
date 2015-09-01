@@ -288,8 +288,21 @@ class Collection
 		}
 		var_dump($sql);
 
+		//	Selon le cas on fait une requête préparée
+		if( $this->check($this->conditions) )
+		{
+			if( !is_null($id) )
+			{
+				return Database::getInstance()->prepare($sql, $attributes, true);
+			}
+			else
+			{
+				return Database::getInstance()->prepare($sql, $attributes, false);
+			}
+		}
+
 		//$this->items[] = $this->db->query($sql);
-		return Database::getInstance()->getResults($sql);
+		return Database::getInstance()->query($sql, false);
 	}
 
 	public function display()
