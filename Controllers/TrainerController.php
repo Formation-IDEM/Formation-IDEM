@@ -8,9 +8,18 @@ class TrainerController
 		echo "Trainers basic page";
 	}
 
+	public function autoCompleteAction()
+	{
+		$trainers = App::getCollection('Trainer')->getAllItems();
+		foreach($trainers as $trainer)
+		{
+			$json[] = $trainer->firstname;
+		}
+		echo $json;
+	}
+
 	public function listAction()
 	{
-		//$trainer = App::getModel('Trainer')->setData('name','patrick')->save();
 		if(isset($_POST['delete']) && $_POST['delete'])
 		{
 			$levels = App::getModel('Trainer')->load($_POST['trainer'])->getLevels();
