@@ -1,10 +1,11 @@
 <?php
+
+/**
+ * Class App
+ */
 class App
 {
 	private static $_instance;
-	
-	private $_controllerName;
-	
 	private $_actionName;
 	
 	private function __construct()
@@ -38,7 +39,7 @@ class App
 		{
 			//include_once('./Models/Collection.php');
 			//include_once('./Models/Collections/'.$type.'Collection.php');
-			$typeCollection = $type.'Collection';
+			$typeCollection = ucfirst($type) . 'Collection';
 			return new $typeCollection;
 		}
 		else
@@ -55,7 +56,7 @@ class App
 	 */
 	public static function getModel($type)
 	{
-		if(file_exists('./Models/'.$type.'.php'))
+		if(file_exists('./Models/' . ucfirst($type) . '.php'))
 		{
 			//include_once('Models/Model.php');
 			//include_once('Models/'.$type.'.php');
