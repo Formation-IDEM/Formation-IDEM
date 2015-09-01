@@ -286,6 +286,7 @@ class Collection
 		{
 			$sql .= ' LIMIT ' . $this->limit;
 		}
+		var_dump($sql);
 
 		//$this->items[] = $this->db->query($sql);
 		return Database::getInstance()->getResults($sql);

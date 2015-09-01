@@ -11,7 +11,7 @@
 			    minChars: 1,
 			    source: function(term, response){
 			        $.getJSON('/index.php?c=trainer&a=autoComplete', { q: term }, function(data)
-			        { 
+			        {
 			        	response(data);
 			        });
 			    }

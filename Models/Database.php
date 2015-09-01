@@ -86,6 +86,7 @@ class Database
 	{
 		$exe = $this->_dbh->prepare($query);
 		$exe->execute();
+		var_dump($exe);
 		return $exe;
 	}
 
