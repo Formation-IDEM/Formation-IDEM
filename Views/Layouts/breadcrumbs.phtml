@@ -1,0 +1,17 @@
+<?php
+
+$breadcrumbs = array();
+$breadcrumbs['editLevel'] = 'addEditMatters';
+$breadcrumbs['addEditMatters'] = 'list';
+$breadcrumbs['timesheet'] = 'list';
+$breadcrumbs['addEdit'] = 'list';
+$breadcrumbs['list'] = null;
+
+$breadcrumb = $_GET['a'];
+for($i = 0; $breadcrumb != null; $i++)
+{
+	echo $breadcrumb.' > ';
+	$breadcrumb = $breadcrumbs[$breadcrumb];
+}
+
+?>

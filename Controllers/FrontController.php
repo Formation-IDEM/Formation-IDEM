@@ -1,18 +1,17 @@
 <?php
 
-
-class FrontController extends Model
+/**
+ * Class FrontController
+ */
+class FrontController
 {
-	/*public function indexAction()
-	{
-		
-	}*/
-	
 	function indexAction()
 	{
-		Template::getInstance()->setTemplate('Company/AccueilCompany')->setDatas(array('macle' => "Bonjour Jean Luc"))->render();
-	}	
+		die('salut');
+	}
 
+	public function aboutAction()
+	{
+
+	}
 }
-
-?>

@@ -1,10 +1,5 @@
 <?php
-
-// Utilisation App::getInstance();
-include_once 'Models/Model.php';
-
-
-class App extends Model
+class App
 {
 	private static $_instance;
 	
@@ -12,12 +7,16 @@ class App extends Model
 	
 	private $_actionName;
 	
-	public function __construct()
+	private function __construct()
 	{
 		$this->_actionName = 'indexAction';
 	}
-	
-	// Fonction pour récupérer une seule et unique instance de App
+
+	/**
+	 * Singleton
+	 *
+	 * @return App
+	 */
 	public static function getInstance()
 	{
 		if(!self::$_instance)
@@ -26,7 +25,54 @@ class App extends Model
 		}
 		return self::$_instance;
 	}
-	
+
+	/**
+	 * Charge une collection
+	 *
+	 * @param $type
+	 * @return null
+	 */
+	public static function getCollection($type)
+	{
+
+		if(file_exists('./Models/Collections/'.$type.'Collection.php'))
+		{
+			include_once('./Models/Collection.php');
+			include_once('./Models/Collections/'.$type.'Collection.php');
+			$typeCollection = $type.'Collection';
+			return new $typeCollection;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * Charge un modèle
+	 *
+	 * @param $type
+	 * @return null
+	 */
+	public static function getModel($type)
+	{
+		if(file_exists('./Models/'.$type.'.php'))
+		{
+			include_once('Models/Model.php');			
+			include_once('Models/'.$type.'.php');			
+			return new $type();
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * Définit le nom d'une action
+	 *
+	 * @return $this
+	 */
 	public function setActionName()
 	{
 		if(isset($_GET['a']) && $_GET['a'] != null)
@@ -35,13 +81,19 @@ class App extends Model
 		}
 		return $this;
 	}
-	
-	// Fonction appelée par défaut
+
+	/**
+	 * Charge l'application
+	 */
 	public function run()
 	{
-		include_once 'Models/Template.php';
-		// Récupère l'action
+		// inclusion système de template
+		include_once('Models/Template.php');
+
+		// inclusion système de db
+		include_once('Models/Database.php');
 		
+		// Récupère l'action
 		$action = self::getInstance()->setActionName()->_actionName;
 		
 		// Creation du Controller en fonction de $_GET['c']
@@ -59,21 +111,5 @@ class App extends Model
 	
 		//include_once('./Controllers/Database.php');
 		//Database::getInstance()->connect('pgsql')->insert();
-	}
-	
-	public static function getModel($type)
-	{
-		if(file_exists($type))
-		{
-			include_once("Models/".$type.".php");
-			return new $type();
-		}else
-			{
-				return null;
-			}
-		
 	}	
 }
-
-
-?>

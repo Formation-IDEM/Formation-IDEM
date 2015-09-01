@@ -1,22 +1,28 @@
 <?php
 
-
-class ControllerFactory
+/**
+ * Class ControllerFactory
+ */
+class ControllerFactory 
 {
-
-	public static function createController() 
+	/**
+	 * Permet de charger le controller avec les paramètres passés en URL
+	 *
+	 * @return mixed
+	 */
+	public static function createController()
 	{
-	$controller = 'FrontController';
-	if( isset( $_GET['c'] ) )
-	{
-		if( file_exists( dirname(dirname(__FILE__)) . '/Controllers/' . $_GET['c'] . 'Controller.php' ) )
+		$controller = 'FrontController';
+		if( isset( $_GET['c'] ) )
 		{
-		$controller = $_GET['c'] . 'Controller';
+			if( file_exists( dirname(dirname(__FILE__)) . '/Controllers/' . $_GET['c'] . 'Controller.php' ) )
+			{
+				$controller = $_GET['c'] . 'Controller';
+			}
 		}
-	}
-		include_once ( dirname(dirname(__FILE__)) . '/Controllers/' . $controller . '.php');
+		include_once( dirname(dirname(__FILE__)) . '/Controllers/' . $controller . '.php' );
 		return new $controller();
-	}		
-}
+	}
 
-?>
+
+}
