@@ -37,8 +37,8 @@ class App
 
 		if(file_exists('./Models/Collections/'.$type.'Collection.php'))
 		{
-			include_once('./Models/Collection.php');
-			include_once('./Models/Collections/'.$type.'Collection.php');
+			//include_once('./Models/Collection.php');
+			//include_once('./Models/Collections/'.$type.'Collection.php');
 			$typeCollection = $type.'Collection';
 			return new $typeCollection;
 		}
@@ -58,8 +58,8 @@ class App
 	{
 		if(file_exists('./Models/'.$type.'.php'))
 		{
-			include_once('Models/Model.php');			
-			include_once('Models/'.$type.'.php');			
+			//include_once('Models/Model.php');
+			//include_once('Models/'.$type.'.php');
 			return new $type();
 		}
 		else
@@ -91,16 +91,16 @@ class App
 		Autoloader::register();
 
 		// inclusion système de template
-		include_once('Models/Template.php');
+		//include_once('Models/Template.php');
 
 		// inclusion système de db
-		include_once('Models/Database.php');
+		//include_once('Models/Database.php');
 		
 		// Récupère l'action
 		$action = self::getInstance()->setActionName()->_actionName;
 		
 		// Creation du Controller en fonction de $_GET['c']
-		include_once('./Controllers/ControllerFactory.php');
+		//include_once('./Controllers/ControllerFactory.php');
 		$controller = ControllerFactory::createController();
 		if(method_exists($controller,$action))
 		{
