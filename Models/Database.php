@@ -124,7 +124,7 @@ class Database
 	{
 		$query =  $this->getConnection()->prepare($statement);
 		$query->execute($attributes);
-		$query->setFetchMode(PDO::FETCH_OBJ);
+		$query->setFetchMode(PDO::FETCH_ASSOC);
 
 		$data = $one ? $query->fetch() : $query->fetchAll();
 		return $data;

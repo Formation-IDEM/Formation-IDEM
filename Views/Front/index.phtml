@@ -101,7 +101,7 @@
                 <?php foreach( $stats['internships'] as $internship ): ?>
                     <tr>
                         <td class="text-center"><?= $internship->title; ?></td>
-                        <td class="text-center"><?= App::getCollection('company')->getCompany('name', $internship->company_id); ?></td>
+                        <td class="text-center"><?= App::getCollection('company')->getCompany($internship->id); ?></td>
                         <td class="text-center"><?= Date::ago($internship->create_date); ?></td>
                         <td class="text-center"><?= $internship->active ? 'Oui' : 'Non'; ?></td>
                     </tr>

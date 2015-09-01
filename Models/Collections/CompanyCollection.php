@@ -12,12 +12,12 @@ class CompanyCollection extends Collection
      * Retourne une entreprise en fonction de son ID
      *
      * @param int       $id
-     * @param string    $field
      * @return mixed
      */
-    public function getCompany($field = 'name', $id)
+    public function getCompany($id)
     {
-        $result = $this->select($field)->from($this->_table)->limit(1)->get($id);
-        return $result[$field];
+        $result = $this->select('id', 'name')->from($this->_table)->limit(1)->get($id);
+        var_dump($result);
+        return $result;
     }
 }
