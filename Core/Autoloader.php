@@ -17,5 +17,13 @@ class Autoloader
         {
             include_once('Core/' . ucfirst($class) . '.php');
         }
+        else if( file_exists('./Models/' . ucfirst($class) . '.php') )
+        {
+            include_once('./Models/' . ucfirst($class) . '.php');
+        }
+        else if( file_exists('./Controllers/' . ucfirst($class) . '.php') )
+        {
+            include_once('./Controllers/' . ucfirst($class) . '.php');
+        }
     }
 }
