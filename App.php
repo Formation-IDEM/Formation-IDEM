@@ -87,6 +87,9 @@ class App
 	 */
 	public function run()
 	{
+		include_once('./Core/Autoloader.php');
+		Autoloader::register();
+
 		// inclusion système de template
 		include_once('Models/Template.php');
 
