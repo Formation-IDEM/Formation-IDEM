@@ -21,7 +21,7 @@ if( !function_exists('nav') )
     function nav($array)
     {
         $url = '<ol class="breadcrumb">';
-        $url .= '<li><a href="index.php">Accueil</a></li>';
+        $url .= '<li><i class="fa fa-dashboard"></i> <a href="index.php">Accueil</a></li>';
 
         $count = 0;
         foreach( $array as $key => $value )

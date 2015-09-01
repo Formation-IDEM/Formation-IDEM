@@ -35,12 +35,12 @@ class App
 	 */
 	public static function getCollection($type)
 	{
-		if(file_exists('./Models/Collections/'.$type.'Collection.php'))
+		if(file_exists('./Models/Collections/'. ucfirst($type) . 'Collection.php'))
 		{
-			//include_once('./Models/Collection.php');
-			//include_once('./Models/Collections/'.$type.'Collection.php');
+			include_once('./Models/Collection.php');
+			include_once('./Models/Collections/'. ucfirst($type). 'Collection.php');
 			$typeCollection = ucfirst($type) . 'Collection';
-			return new $typeCollection;
+			return new $typeCollection();
 		}
 		else
 		{
@@ -58,8 +58,8 @@ class App
 	{
 		if(file_exists('./Models/' . ucfirst($type) . '.php'))
 		{
-			//include_once('Models/Model.php');
-			//include_once('Models/'.$type.'.php');
+			include_once('Models/Model.php');
+			include_once('Models/'.ucfirst($type).'.php');
 			return new $type();
 		}
 		else

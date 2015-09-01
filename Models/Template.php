@@ -28,7 +28,7 @@ class Template
 	
 	public function setFilename($filename)
 	{
-		$this->_filename = $filename;
+		$this->_filename = ucfirst($filename);
 		return $this;
 	}
 	
@@ -41,10 +41,10 @@ class Template
 	public function render()
 	{
 		extract($this->_datas);
-		if(file_exists('Views/'.$this->_filename.'.phtml'))
+		if(file_exists('Views/'. $this->_filename . '.phtml'))
 		{
 			include_once('Views/Layouts/header.phtml');			
-			include_once('Views/'.$this->_filename.'.phtml');			
+			include_once('Views/' . $this->_filename . '.phtml');
 			include_once('Views/Layouts/footer.phtml');			
 		}
 		else
@@ -53,5 +53,3 @@ class Template
 		}
 	}
 }
-
-?>

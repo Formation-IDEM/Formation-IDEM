@@ -22,7 +22,7 @@ class Collection
 
 	public function __construct()
 	{
-		$this->db = Database::getInstance();
+		$this->db = Database::getInstance()->getConnection();
 	}
 
 	/**
@@ -104,7 +104,7 @@ class Collection
 	 */
 	public function count($field = '*', $where = '')
 	{
-		return $this->db->count($this->_table, $field, $where);
+		return Database::getInstance()->count($this->_table, $field, $where);
 	}
 
 	/**
@@ -288,12 +288,12 @@ class Collection
 		}
 
 		//$this->items[] = $this->db->query($sql);
-		return $this->db->getResults($sql);
+		return Database::getInstance()->getResults($sql);
 	}
 
 	public function display()
 	{
-		return $this->items;
+		return $this->_items;
 	}
 
 	/**
@@ -303,23 +303,16 @@ class Collection
 	 */
 	public function all()
 	{
-		if( !$this->items )
+		if( !$this->_items )
 		{
 			$results = $this->select()->from($this->_table)->latest()->get();
 			foreach( $results as $result)
 			{
-				if( $this->as_array )
-				{
-					$this->items[] = App::getModel($this->_model)->load($result['id']);
-				}
-				else
-				{
-					$this->items[] = App::getModel($this->_model)->load($result->id);
-				}
+				$this->_items[] = App::getModel($this->_model_name)->load($result['id']);
 			}
 		}
 
-		return $this->items;
+		return $this->_items;
 	}
 
 	/**
