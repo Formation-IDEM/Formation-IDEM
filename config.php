@@ -1,5 +1,5 @@
 <?php
-$db_user = 'postgres';
-$db_pass = 'postgres';
-$db_database = 'idem';
+$db_user = 'homestead';
+$db_pass = 'secret';
+$db_database = 'gestForm';
 $db_host = 'localhost';
