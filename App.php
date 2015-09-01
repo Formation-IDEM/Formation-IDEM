@@ -89,6 +89,7 @@ class App
 	{
 		include_once('./Core/Autoloader.php');
 		Autoloader::register();
+		include_once('./Core/Helpers.php');
 
 		// inclusion système de template
 		//include_once('Models/Template.php');
