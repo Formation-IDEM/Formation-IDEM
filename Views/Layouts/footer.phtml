@@ -1,11 +1,38 @@
 		</div>
 		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    	<script src="/Design/js/jquery.autocomplete.js"></script>
     	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    	<script src="/Design/js/jquery.auto-complete.min.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
+		<script>
+			$('input[name="q"]').autoComplete({
+			    minChars: 1,
+			    source: function(term, response){
+			        $.getJSON('/index.php?c=trainer&a=autoComplete', { q: term }, function(data)
+			        { 
+			        	response(data);
+			        });
+			    }
+			});
+		</script>
+		<!--<script>
+			$('input[name="q"]').autoComplete({
+			    minChars: 1,
+			    source: function(term, response){
+			        var matches = ["0","lol","1","mdr"];
+			        // for(i=0; i < choices.length; i++)
+			        // {
+			        //     if(~choices[i].toLowerCase().indexOf(term))
+			        //     {
+			        //     	matches.push(choices[i]);
+			        //     } 
+			        // }
+			        response(matches);
+			    }
+			});
+		</script>-->œ
 		<script>
 			// Initiate form validation
 	    	$.validate();
@@ -15,18 +42,18 @@
 			 $('#genders').buttonset('refresh');
 	    </script>
 	    <script>
-	$( document ).ready(function() {
-	$( "#slider-range-max" ).slider({
-	  range: "max",
-	  min: 1,
-	  max: 10,
-	  value: $('#note').attr('note'),
-	  slide: function( event, ui ) {
-	    $( "#note" ).val( ui.value );
-	  }
-	});
-	$( "#note" ).val( $( "#slider-range-max" ).slider( "value" ) );
-	});
-</script>
+			$( document ).ready(function() {
+			$( "#slider-range-max" ).slider({
+			  range: "max",
+			  min: 1,
+			  max: 10,
+			  value: $('#note').attr('note'),
+			  slide: function( event, ui ) {
+			    $( "#note" ).val( ui.value );
+			  }
+			});
+			$( "#note" ).val( $( "#slider-range-max" ).slider( "value" ) );
+			});
+		</script>
 	</body>
 </html>

@@ -15,9 +15,9 @@ class ControllerFactory
 		$controller = 'FrontController';
 		if( isset( $_GET['c'] ) )
 		{
-			if( file_exists( dirname(dirname(__FILE__)) . '/Controllers/' . $_GET['c'] . 'Controller.php' ) )
+			if( file_exists( dirname(dirname(__FILE__)) . '/Controllers/' . ucfirst($_GET['c']) . 'Controller.php' ) )
 			{
-				$controller = $_GET['c'] . 'Controller';
+				$controller = ucfirst($_GET['c']) . 'Controller';
 			}
 		}
 		include_once( dirname(dirname(__FILE__)) . '/Controllers/' . $controller . '.php' );
