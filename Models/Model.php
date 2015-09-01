@@ -1,19 +1,25 @@
 <?php
 
-include_once('Models/Database.php');
-
-abstract class Model
+/**
+ * Class Model
+ */
+class Model
 {
 	protected $_table = '';
-	
 	protected $_fields = array();
 
 	public function __construct()
 	{
 
 	}
-	
-	public function load($id = null) // charge un objet depuis la bdd
+
+	/**
+	 * Permet de charger les champs de l'objet
+	 *
+	 * @param null $id
+	 * @return $this
+	 */
+	public function load($id = null)
 	{
 		if($id != null)
 		{
@@ -32,8 +38,14 @@ abstract class Model
 		}
 		return $this;
 	}
-	
-	public function store($array) // associe un retour de form (post) sur un objet
+
+	/**
+	 * Associe un retour de formulaire à l'objet
+	 *
+	 * @param $array
+	 * @return $this
+	 */
+	public function store($array)
 	{
 		foreach($array as $field => $value)
 		{
@@ -44,10 +56,15 @@ abstract class Model
 		}
 		return $this;
 	}
-	
-	public function save() // enregistre l'objet en bdd
+
+	/**
+	 * Permet d'enregistrer l'objet en base de donnée
+	 *
+	 * @return $this
+	 */
+	public function save()
 	{
-		if($this->_fields['id'] != null || $this->_fields['id'] != 0) // -> UPDATE (déjà stocké)
+		if( $this->_fields['id'] != null || $this->_fields['id'] != 0 ) // -> UPDATE (déjà stocké)
 		{
 			$set = null;
 			foreach($this->_fields as $field => $value)
@@ -114,7 +131,12 @@ abstract class Model
 		}
 		return $this;
 	}
-	
+
+	/**
+	 * Permet de supprimer un objet en base de donnée
+	 *
+	 * @return array
+	 */
 	public function delete() // supprime un objet en bdd
 	{
 		$query = 'DELETE FROM '.$this->_table.' WHERE id = '.$this->_fields['id'];
@@ -123,9 +145,14 @@ abstract class Model
 		$db = Database::getInstance();
 		return $db->getResults($query);
 	}
-	
-	
-	// Getter pour tous les objets
+
+
+	/**
+	 * Permet de récupérer l'élément de l'objet
+	 *
+	 * @param $field
+	 * @return string
+	 */
 	public function getData($field)
 	{
 		if(array_key_exists($field, $this->_fields))
@@ -137,8 +164,14 @@ abstract class Model
 			return '';
 		}
 	}
-	
-	// Setter pour tous les objets
+
+	/**
+	 * Permet de setter un élément dans les champs
+	 *
+	 * @param $field
+	 * @param $data
+	 * @return $this
+	 */
 	public function setData($field, $data)
 	{
 		if(array_key_exists($field, $this->_fields))
@@ -148,6 +181,26 @@ abstract class Model
 		return $this;
 	}
 
-}
+	/**
+	 * Setter
+	 *
+	 * @param $key
+	 * @param $value
+	 * @return $this
+	 */
+	public function __set($key, $value)
+	{
+		return $this->setData($key, $value);
+	}
 
-?>
+	/**
+	 * Getter
+	 *
+	 * @param $key
+	 * @return mixed
+	 */
+	public function __get($key)
+	{
+		return $this->getData($key);
+	}
+}

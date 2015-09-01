@@ -14,4 +14,16 @@ for($i = 0; $breadcrumb != null; $i++)
 	$breadcrumb = $breadcrumbs[$breadcrumb];
 }
 
-?>
+breadcrumbs(['home' => 'index.php', 'formateurs' => 'formateurs.php', 'liste' => 'liste.php']);
+
+function addBreadcrumbs($array)
+{
+	$url = 'Accueil -> ';
+	foreach( $array as $key => $value )
+	{
+		$url .= '<a href="' . $value . '">' . $key  . ' -> ';
+	}
+	return $url;
+} ?>
+
+<?= breadcrumbs(['users' => 'index.php?c=users&a=list']); ?>
