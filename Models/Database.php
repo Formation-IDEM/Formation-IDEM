@@ -64,6 +64,7 @@ class Database
 	public function initialConnection($dbtype = 'pgsql')
 	{
 		return new PDO($dbtype.':dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
+		var_dump('connexion');
 	}
 
 	/**
@@ -97,7 +98,6 @@ class Database
 	 */
 	public function getResults($query)
 	{
-		// Execution de $query et retour résultat en tableau
 		return $this->execute($query)->fetchAll();
 	}
 
@@ -112,6 +112,49 @@ class Database
 		return $this->execute($query)->fetch();
 	}
 
+	/**
+	 * Permet d'éxécuter une requête préparée
+	 *
+	 * @param $statement
+	 * @param $attributes
+	 * @param bool|false $one
+	 * @return array|mixed
+	 */
+	public function prepare($statement, $attributes, $one = false)
+	{
+		$query =  $this->getConnection()->prepare($statement);
+		$query->execute($attributes);
+		$query->setFetchMode(PDO::FETCH_OBJ);
+
+		$data = $one ? $query->fetch() : $query->fetchAll();
+		return $data;
+	}
+
+	/**
+	 * Exécute une requête et retourne un résultat ou un tableau
+	 * content des résultats
+	 *
+	 * @param      $statement
+	 * @param bool $one
+	 * @return array|mixed
+	 */
+	public function query($statement, $one = false)
+	{
+		$sql = $this->getConnection()->query($statement);
+		$sql->setFetchMode(PDO::FETCH_ASSOC);
+
+		$data = $one ? $sql->fetch() : $sql->fetchAll();
+		return $data;
+	}
+
+	/**
+	 * Compte le nombre d'éléménts
+	 *
+	 * @param $table
+	 * @param string $field
+	 * @param string $where
+	 * @return mixed
+	 */
 	public function count($table, $field = '*', $where = '')
 	{
 		$sql  = 'SELECT COUNT(' . $field . ') AS total FROM ' . $table;
