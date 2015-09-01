@@ -87,7 +87,7 @@ class Database
 	{
 		$exe = $this->_dbh->prepare($query);
 		$exe->execute();
-		var_dump($exe);
+		//var_dump($exe);
 		return $exe;
 	}
 
@@ -125,7 +125,7 @@ class Database
 	{
 		$query =  $this->getConnection()->prepare($statement);
 		$query->execute($attributes);
-		$query->setFetchMode(PDO::FETCH_OBJ);
+		$query->setFetchMode(PDO::FETCH_ASSOC);
 
 		$data = $one ? $query->fetch() : $query->fetchAll();
 		return $data;

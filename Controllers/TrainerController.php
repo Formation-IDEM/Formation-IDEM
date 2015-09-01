@@ -10,8 +10,8 @@ class TrainerController
 
 	public function autoCompleteAction()
 	{
-		$trainers = App::getCollection('Trainer')->select('firstname')->where('firstname','LIKE','"%'.$_GET['q'].'%"')->all();
-		var_dump($trainers);
+		$trainers = App::getCollection('Trainer')->select('firstname')->where('firstname','LIKE',$_GET['q'])->all();
+		//var_dump($trainers);
 		foreach($trainers as $trainer)
 		{
 			$json[] = $trainer->firstname;
