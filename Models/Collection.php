@@ -267,10 +267,20 @@ class Collection
 					$sql .= ' AND ';
 				}
 
-				//	On définit des attributs pour la requête préparée
-				$attributes = array_merge($attributes, [
-					':' . $q['key'] => $q['value'],
-				]);
+				if($q['cond'] == 'LIKE')
+				{
+					//	On définit des attributs pour la requête préparée
+					$attributes = array_merge($attributes, [
+						':' . $q['key'] => '%'.$q['value'].'%',
+						]);
+				}
+				else
+				{
+					//	On définit des attributs pour la requête préparée
+					$attributes = array_merge($attributes, [
+						':' . $q['key'] => $q['value'],
+					]);					
+				}
 				$count++;
 			}
 		}
@@ -286,6 +296,7 @@ class Collection
 		{
 			$sql .= ' LIMIT ' . $this->limit;
 		}
+		//var_dump($sql);
 
 		//	Selon le cas on fait une requête préparée
 		if( $this->check($this->conditions) )
