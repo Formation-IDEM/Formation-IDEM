@@ -16,8 +16,7 @@ class CompanyCollection extends Collection
      */
     public function getCompany($id)
     {
-        $result = $this->select('id', 'name')->from($this->_table)->limit(1)->get($id);
-        var_dump($result);
-        return $result;
+        $result = $this->select('id', 'name')->from($this->_table)->where('id', '=', $id)->limit(1)->get();
+        return $result->name;
     }
 }

@@ -292,16 +292,35 @@ class Collection
 		{
 			if( !is_null($id) )
 			{
-				return Database::getInstance()->prepare($sql, $attributes, true);
+				$result = Database::getInstance()->prepare($sql, $attributes, true);
+				return App::getModel($this->_model_name)->load($result['id']);
 			}
 			else
 			{
-				return Database::getInstance()->prepare($sql, $attributes, false);
+				if( !$this->_items )
+				{
+					$results =  Database::getInstance()->prepare($sql, $attributes, false);
+					foreach( $results as $result)
+					{
+						$this->_items[] = App::getModel($this->_model_name)->load($result['id']);
+					}
+				}
+			}
+		}
+		else
+		{
+			if( !$this->_items )
+			{
+				$results =  Database::getInstance()->query($sql, false);
+				foreach( $results as $result)
+				{
+					$this->_items[] = App::getModel($this->_model_name)->load($result['id']);
+				}
 			}
 		}
 
 		//$this->items[] = $this->db->query($sql);
-		return Database::getInstance()->query($sql, false);
+		return $this->_items;
 	}
 
 	public function display()
@@ -321,7 +340,7 @@ class Collection
 			$results = $this->select()->from($this->_table)->latest()->get();
 			foreach( $results as $result)
 			{
-				$this->_items[] = App::getModel($this->_model_name)->load($result['id']);
+				$this->_items[] = App::getModel($this->_model_name)->load($result->id);
 			}
 		}
 
