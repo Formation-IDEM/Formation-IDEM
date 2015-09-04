@@ -27,7 +27,7 @@ class InternshipController extends Controller
 	 */
 	public function indexAction()
 	{
-		$items = collection('internship')->all();
+		$items = collection('internship')->where('active', '=', 1)->all();
 		return view('internships/index', compact('items'));
 	}
 

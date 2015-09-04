@@ -1,0 +1,152 @@
+<div class="page-header">
+    <h1><i class="fa fa-tachometer"></i> Configuration générale <small><i class="fa fa-angle-double-right"></i> Champs configurables</small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="index.phh">Panneau de Contrôle</a></li>
+    <li class="active"><i class="fa fa-business"></i> Configuration</li>
+</ol>
+<?php viewFile('partials/flash'); ?>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="well">
+            <div class="pull-right">
+                <a href="<?= url('config/family/create'); ?>" class="btn btn-success load" data-title="Créer un nouveau statut familial"><i class="fa fa-plus"></i> Ajouter un status</a>
+            </div>
+            <h2>Status familiaux</h2>
+            <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach( $familyStatus as $status ): ?>
+                <tr>
+                    <td class="text-center"><?= $status->id; ?></td>
+                    <td class="text-center"><?= $status->title; ?></td>
+                    <td class="text-center">
+                        <a href="<?= url('config/family/' . $status->id . '/edit') ?>" class="btn btn-sm btn-primary load" data-title="Modifier un statut familial"><i class="fa fa-pencil"></i> Modifier</a>
+                        <a href="<?= url('config/family/' . $status->id . '/delete') ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+                <?php if( empty($familyStatus) ): ?>
+                <tr>
+                    <td class="text-center" colspan="2">Aucun status</td>
+                </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="well">
+            <div class="pull-right">
+                <a href="<?= url('config/status/create'); ?>" class="btn btn-success load" data-title="Créer un nouveau status étudiant"><i class="fa fa-plus"></i> Ajouter un status</a>
+            </div>
+            <h2>Status des étudiants</h2>
+            <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach( $traineeStatus as $status ): ?>
+                    <tr>
+                        <td class="text-center"><?= $status->id; ?></td>
+                        <td class="text-center"><?= $status->title; ?></td>
+                        <td class="text-center">
+                            <a href="<?= url('config/status/' . $status->id . '/edit') ?>" class="btn btn-sm btn-primary load" data-title="Modifier un status étudiant"><i class="fa fa-pencil"></i> Modifier</a>
+                            <a href="<?= url('config/status/' . $status->id . '/delete') ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if( empty($traineeStatus) ): ?>
+                    <tr>
+                        <td class="text-center" colspan="2">Aucun status</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="well">
+            <div class="pull-right">
+                <a href="<?= url('config/remuneration/create'); ?>" id="create-remuneration" data-create="remuneration" class="btn btn-success load" data-title="Ajouter un type de rémunération"><i class="fa fa-plus"></i> Ajouter une rémunération</a>
+            </div>
+            <h2>Rémunérations</h2>
+            <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Rémunération</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach( $remunerations as $status ): ?>
+                    <tr>
+                        <td class="text-center"><?= $status->id; ?></td>
+                        <td class="text-center"><?= $status->title; ?></td>
+                        <td class="text-center">
+                            <a href="<?= url('config/remuneration/' . $status->id . '/edit') ?>" class="btn btn-sm btn-primary load" data-title="Modifier un type de rémunération"><i class="fa fa-pencil"></i> Modifier</a>
+                            <a href="<?= url('config/remuneration/' . $status->id . '/delete') ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if( empty($remunerations) ): ?>
+                    <tr>
+                        <td class="text-center" colspan="3">Aucun type de rémunération</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="well">
+            <div class="pull-right">
+                <a href="<?= url('config/nationality/create'); ?>" data-title="Ajouter une nationalité" class="btn btn-success load"><i class="fa fa-plus"></i> Ajouter une nationalité</a>
+            </div>
+            <h2>Nationalités</h2>
+            <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach( $nationalities as $status ): ?>
+                    <tr>
+                        <td class="text-center"><?= $status->id; ?></td>
+                        <td class="text-center"><?= $status->title; ?></td>
+                        <td class="text-center">
+                            <a href="<?= url('config/nationality/' . $status->id . '/edit') ?>" class="btn btn-sm btn-primary load" data-title="Modifier une nationalité"><i class="fa fa-pencil"></i> Modifier</a>
+                            <a href="<?= url('config/nationality/' . $status->id . '/delete') ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if( empty($nationalities) ): ?>
+                    <tr>
+                        <td class="text-center" colspan="3">Aucune Nationalité</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

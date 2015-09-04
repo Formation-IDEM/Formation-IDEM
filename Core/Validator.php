@@ -222,7 +222,7 @@ class Validator
      */
     public function getError($key)
     {
-        if( array_key_exists($this->errors[$key]) )
+        if( isset($this->errors[$key]) )
         {
             return $this->errors[$key];
         }

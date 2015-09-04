@@ -151,3 +151,11 @@ if( !function_exists('collection') )
         return \Core\Factories\CollectionFactory::loadCollection($collection);
     }
 }
+
+if( !function_exists('model') )
+{
+    function model($model)
+    {
+        return \Core\Factories\ModelFactory::loadModel($model);
+    }
+}

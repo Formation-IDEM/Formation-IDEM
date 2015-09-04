@@ -67,4 +67,20 @@ class Template
 		$content = $this->getFile($file, $data);
 		require_once(ROOT . $this->path . '/layouts/layout.phtml');
 	}
+
+	/**
+	 * Retourne un fichier html sans le layout
+	 *
+	 * @param $file
+	 * @param $data
+	 * @throws LayoutException
+	 */
+	public function only($file, $data)
+	{
+		if( is_file(ROOT . $this->path . '/' . $file . '.phtml') )
+		{
+			extract($data);
+			require_once(ROOT . $this->path . '/' . $file . '.phtml');
+		}
+	}
 }

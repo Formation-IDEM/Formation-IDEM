@@ -93,6 +93,21 @@ class Model
 	}
 
 	/**
+	 * Permet de checker si un champ existe
+	 *
+	 * @param $key
+	 * @return bool
+	 */
+	public function has($key)
+	{
+		if( array_key_exists($key, $this->_fields) )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Renseigne les champs
 	 * @param $data
 	 * @return $this
@@ -120,13 +135,13 @@ class Model
 		if( $this->getData('id') == 0 )
 		{
 			//	Date de création
-			if( empty($this->_fields['create_date']) )
+			if( $this->has('create_date') && empty($this->_fields['create_date']) )
 			{
 				$this->_fields['create_date'] = date("Y-m-d H:i:s");
 			}
 
 			//	Date de modification
-			if( empty($this->_fields['update_date']) )
+			if( $this->has('create_date') && empty($this->_fields['update_date']) )
 			{
 				$this->_fields['update_date'] = date("Y-m-d H:i:s");
 			}
@@ -137,7 +152,10 @@ class Model
 		else
 		{
 			//	On change la date de modification
-			$this->_fields['update_date'] = date("Y-m-d H:i:s");
+			if( $this->has('update_date') )
+			{
+				$this->_fields['update_date'] = date("Y-m-d H:i:s");
+			}
 			$this->update($this->_fields, $this->_fields['id']);
 		}
 
@@ -315,10 +333,5 @@ class Model
 	public function getTable()
 	{
 		return $this->_table;
-	}
-
-	public static function __callStatic($method, $args)
-	{
-		return call_user_func_array([get_called_class(), $method], $args);
 	}
 }

@@ -27,7 +27,6 @@ class Collection
 
 	//	Tableau de résultats
 	protected $items = [];
-	protected $as_array = false;
 
 	/**
 	 * Constructeur
@@ -132,6 +131,26 @@ class Collection
 	}
 
 	/**
+	 * Limite d'affichage
+	 *
+	 * @param      $begin
+	 * @param null $end
+	 * @return $this
+	 */
+	public function limit($begin, $end = null)
+	{
+		if( is_null($end) )
+		{
+			$this->limit = $begin;
+		}
+		else
+		{
+			$this->limit = $begin . ', ' . $end;
+		}
+		return $this;
+	}
+
+	/**
 	 * Allias par rapport à la date
 	 *
 	 * @param string $field
@@ -156,22 +175,24 @@ class Collection
 	}
 
 	/**
-	 * Limite d'affichage
+	 * Allias par rapport à l'activation de l'item
 	 *
-	 * @param      $begin
-	 * @param null $end
 	 * @return $this
 	 */
-	public function limit($begin, $end = null)
+	public function active()
 	{
-		if( is_null($end) )
-		{
-			$this->limit = $begin;
-		}
-		else
-		{
-			$this->limit = $begin . ', ' . $end;
-		}
+		$this->where('active', '=', true);
+		return $this;
+	}
+
+	/**
+	 * Récupère la première entitée
+	 *
+	 * @return $this|Collection
+	 */
+	public function first()
+	{
+		return $this->limit(1);
 		return $this;
 	}
 
@@ -264,27 +285,18 @@ class Collection
 		{
 			if( !is_null($id) )
 			{
-				return $this->db->prepare($sql, $attributes, true, $this->as_array);
+				$this->items = $this->db->prepare($sql, $attributes, true);
+				return $this->items;
 			}
 			else
 			{
-				return $this->db->prepare($sql, $attributes, false, $this->as_array);
+				$this->items = $this->db->prepare($sql, $attributes, false);
+				return $this->items;
 			}
 		}
 
-		$this->items = $this->db->query($sql, false, $this->as_array);
+		$this->items = $this->db->query($sql, false);
 		return $this->items;
-	}
-
-	/**
-	 * Définit le mode récupération comme un array
-	 *
-	 * @return $this
-	 */
-	public function asArray()
-	{
-		$this->as_array = true;
-		return $this;
 	}
 
 	/**
@@ -321,7 +333,7 @@ class Collection
 	{
 		if( !$this->items )
 		{
-			$results = $this->select()->from($this->_table)->latest()->get();
+			$results = $this->select()->from($this->_table)->get();
 			$count = 0;
 			foreach( $results as $result)
 			{

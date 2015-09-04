@@ -1,0 +1,5 @@
+<form class="form-vertical" method="POST" action="<?= $url; ?>">
+    <?= $form->text('title', $field); ?>
+    <?= $form->hidden('id', $item->id); ?>
+    <?= $form->submit('Soumettre le formulaire', ['class' => 'btn btn-success btn-block']); ?>
+</form>

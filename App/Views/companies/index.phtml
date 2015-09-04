@@ -1,7 +1,6 @@
 <div class="page-header">
     <p class="pull-right">
         <a href="<?= url('companies/create'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter une entreprise</a>
-        <a href="#" id="load-toggle" class="btn btn-success"><i class="fa fa-laptot"></i> Charger les entreprises</a>
     </p>
     <h1><i class="fa fa-building-o"></i> Gestion des entreprises <small><i class="fa fa-angle-double-right"></i> Liste des entreprises</small></h1>
 </div>
@@ -11,7 +10,43 @@
 </ol>
 <?php viewFile('partials/flash'); ?>
 
-<div id="results">
-
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Nom</th>
+                <th class="text-center">Ville</th>
+                <th class="text-center">Pays</th>
+                <th class="text-center">Rajout</th>
+                <th class="text-center">Stages</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach( $items as $item ): ?>
+                <tr>
+                    <td class="text-center"><?= $item->id; ?></td>
+                    <td class="text-center"><a href="<?= url('companies/' . $item->id); ?>"><?= $item->name; ?></a></td>
+                    <td class="text-center"><?= $item->city; ?></td>
+                    <td class="text-center"><?= $item->country; ?></td>
+                    <td class="text-center"><?= \Core\Helpers\Date::ago($item->create_date); ?></td>
+                    <td class="text-center">
+                        <a href="<?= url('ajax/internships/' . $item->id); ?>" data-title="Stages de l'entreprise <?= $item->name; ?>" class="load"><?= \Core\Helpers\String::strPlural('stage', $item->countInternships($item->id)); ?></a>
+                    </td>
+                    <td class="text-center">
+                        <a href="<?= url('companies/' . $item->id . '/edit') ?>" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Modifier</a>
+                        <a href="<?= url('companies/' . $item->id . '/delete') ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Supprimer</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            <?php if( empty($items) ): ?>
+            <tr>
+                <td class="text-center" colspan="7">Aucune entreprise pour le moment</td>
+            </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
-

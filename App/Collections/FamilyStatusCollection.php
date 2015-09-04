@@ -9,7 +9,8 @@ use \Core\Collection;
  */
 class FamilyStatusCollection extends Collection
 {
-    protected $collection = 'family_status';
+    protected $_model = 'familyStatus';
+    protected $_table = 'family_status';
 
     public function __construct()
     {

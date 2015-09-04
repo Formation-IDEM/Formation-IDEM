@@ -9,7 +9,8 @@ use Core\Collection;
  */
 class NationalityCollection extends Collection
 {
-    protected $collection = 'nationalities';
+    protected $_model = 'nationality';
+    protected $_table = 'nationalities';
 
     public function __construct()
     {

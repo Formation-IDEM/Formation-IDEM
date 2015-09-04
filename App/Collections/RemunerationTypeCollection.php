@@ -9,7 +9,8 @@ use Core\Collection;
  */
 class RemunerationTypeCollection extends Collection
 {
-    protected $collection = 'remuneration_types';
+    protected $_table = 'remuneration_types';
+    protected $_model = 'RemunerationType';
 
     public function __construct()
     {
