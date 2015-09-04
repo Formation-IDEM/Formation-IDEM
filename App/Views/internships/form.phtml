@@ -16,30 +16,49 @@
     <div class="row">
         <div class="col-md-6">
             <?= $form->text('title', 'Intitulé du stage'); ?>
+            <?= $form->hidden('id', $internship->id); ?>
         </div>
         <div class="col-md-3">
-            <div class="form-group">
-                <?= $form->select('company_id', 'Entreprise proposant le stage', $internship->company_id, $companies); ?>
-            </div>
+            <?= $form->select('company_id', 'Entreprise proposant le stage', $internship->company_id, $companies); ?>
         </div>
         <div class="col-md-3">
-            <div class="form-group">
-                <?= $form->select('formation_id', 'Formation en rapport avec le stage', $internship->formation_id, $formations, 'title'); ?>
-            </div>
+            <?= $form->select('formation_id', 'Formation en rapport avec le stage', $internship->formation_id, $formations, 'title'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <div class="form-group">
-                <?= $form->text('student', 'Etudiant concerné'); ?>
+            <?= $form->text('student', 'Etudiant concerné'); ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->text('referent', 'Nom du tuteur de stage'); ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->number('wage', 'Rémunération du stagiaire'); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="checkbox">
+                <label>
+                    <input name="pay" type="checkbox" value="1"<?= $form->getChecked('pay'); ?>>
+                    Stage rémunéré ?
+                </label>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="form-group">
-                <?= $form->text('referent', 'Nom du tuteur de stage'); ?>
+            <div class="checkbox">
+                <label>
+                    <input name="active" type="checkbox" value="1"<?= $form->getChecked('active'); ?>>
+                    Stage actif ?
+                </label>
             </div>
         </div>
     </div>
-    <?= $form->textarea('explain', 'Description du stage', ['rows' => '5']); ?>
+    <div class="row">
+        <div class="col-md-12">
+            <?= $form->textarea('explain', 'Description du stage', ['rows' => '5']); ?>
+        </div>
+    </div>
+    <?= $form->submit($title, ['class' => 'btn btn-success btn-block']); ?>
 
 </form>

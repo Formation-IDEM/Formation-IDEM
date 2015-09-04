@@ -48,16 +48,20 @@ class PostgreSQLDatabase extends Database
 	public function query($statement, $one = false, $asArray = false)
 	{
 		$sql = $this->getPDO()->query($statement);
-		if( $asArray )
-		{
-			$sql->setFetchMode(PDO::FETCH_ASSOC);
-		}
-		else
-		{
-			$sql->setFetchMode(PDO::FETCH_OBJ);
-		}
+		$sql->setFetchMode(PDO::FETCH_OBJ);
 
 		$data = $one ? $sql->fetch() : $sql->fetchAll();
+
+		if( $asArray )
+		{
+			$items = [];
+			foreach( $data as $value )
+			{
+				$items[] = $value;
+			}
+			return $items;
+		}
+
 		return $data;
 	}
 
@@ -75,16 +79,20 @@ class PostgreSQLDatabase extends Database
 	{
 		$query =  $this->getPDO()->prepare($statement);
 		$query->execute($attributes);
-		if( $asArray )
-		{
-			$query->setFetchMode(PDO::FETCH_ASSOC);
-		}
-		else
-		{
-			$query->setFetchMode(PDO::FETCH_OBJ);
-		}
+		$query->setFetchMode(PDO::FETCH_OBJ);
 
 		$data = $one ? $query->fetch() : $query->fetchAll();
+
+		if( $asArray )
+		{
+			$items = [];
+			foreach( $data as $value )
+			{
+				$items[] = $value;
+			}
+			return $items;
+		}
+
 		return $data;
 	}
 

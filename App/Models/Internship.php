@@ -3,7 +3,6 @@ namespace App\Models;
 
 use \Core\Model;
 use \Core\Factories\ModelFactory;
-use \Core\Factories\CollectionFactory;
 /**
  * Class InternshipModel
  * @package App\Models

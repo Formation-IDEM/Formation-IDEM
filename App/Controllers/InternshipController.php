@@ -5,6 +5,7 @@ use Core\Controller;
 
 use Core\Html\Form;
 use Core\Factories\ModelFactory;
+use Core\Validator;
 
 /**
  * Class InternshipController
@@ -16,7 +17,7 @@ class InternshipController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->loadModel('Internship');
+		$this->loadModel('internship');
 	}
 
 	/**
@@ -82,11 +83,22 @@ class InternshipController extends Controller
 
 	public function saveAction()
 	{
-
+		$validator = new Validator($this->internship->_rules);
+		if( $validator->run() )
+		{
+			$request = request()->all('POST');
+			$request['pay'] = (int) $request['pay'];
+			$request['active'] = (int) $request['active'];
+			$this->internship->store($request)->save();
+			return redirect(url('internships'))->flash('success', 'Le stage a correctement été sauvegardée.');
+		}
+		response()->posts()->errors($validator->getErrors());
+		return $this->createAction();
 	}
 
 	public function deleteAction($id)
 	{
-
+		$this->internship->loadOrFail($id)->delete();
+		return redirect(url('internships'))->flash('success', 'Le stage a correctement été supprimée');
 	}
 }

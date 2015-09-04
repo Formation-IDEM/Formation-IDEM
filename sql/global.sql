@@ -151,7 +151,7 @@ CREATE TABLE internships
 	explain TEXT DEFAULT NULL,
 	company_id INT NOT NULL,
 	formation_id INT NOT NULL,
-	referent_id VARCHAR(60) NOT NULL,
+	referent VARCHAR(60) NOT NULL,
 	create_date TIMESTAMP DEFAULT(NOW()),
 	update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 	create_uid INT NOT NULL,

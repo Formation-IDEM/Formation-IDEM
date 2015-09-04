@@ -104,6 +104,19 @@ class Form
 	}
 
 	/**
+	 * Retourne un input de type number
+	 *
+	 * @param string $name
+	 * @param string $label
+	 * @param array  $options
+	 * @return string
+	 */
+	public function number($name = '', $label = '', $options = [])
+	{
+		return $this->input($name, $label, $options, 'number');
+	}
+
+	/**
 	 * Retourne un input de type hidden
 	 *
 	 * @param string $name
@@ -212,13 +225,13 @@ class Form
 		$input = '<div class="checkbox">';
 		if( is_array($name) )
 		{
+			$input .= '<label>';
 			foreach( $name as $key => $value )
 			{
-				$input .= '<label>';
 				$input .= '<input name="' . $key . '" type="checkbox" value="' . $this->getValue($key) . '"> ';
-				$input .= $value;
-				$input .= '</label>';
 			}
+			$input .= $label;
+			$input .= '</label>';
 		}
 		else
 		{
@@ -227,8 +240,9 @@ class Form
 			$input .= $label;
 			$input .= '</label>';
 		}
+		$input .= '</div>';
 
-		return $this->formGroup($input);
+		return $input;
 	}
 
 	/**
@@ -243,13 +257,13 @@ class Form
 		$input = '<div class="radio">';
 		if( is_array($name) )
 		{
+			$input .= '<label>';
 			foreach( $name as $key => $value )
 			{
-				$input .= '<label>';
 				$input .= '<input name="' . $key . '" type="radio" value="' . $this->getValue($key) . '"> ';
-				$input .= $value;
-				$input .= '</label>';
 			}
+			$input .= $label;
+			$input .= '</label>';
 		}
 		else
 		{
@@ -258,8 +272,9 @@ class Form
 			$input .= $label;
 			$input .= '</label>';
 		}
+		$input . '</div>';
 
-		return $this->formGroup($input);
+		return $input;
 	}
 
 	/**
@@ -305,7 +320,7 @@ class Form
 	 * @param $name
 	 * @return null|string
 	 */
-	private function getValue($name)
+	public function getValue($name)
 	{
 		if( request()->postExists($name) )
 		{
@@ -324,6 +339,38 @@ class Form
 					return $this->data[$name];
 				}
 				return null;
+			}
+		}
+	}
+
+	/**
+	 * Retourne checked si le champ est de type boolean true ou integer 1
+	 *
+	 * @param $name
+	 * @return string
+	 */
+	public function getChecked($name)
+	{
+		if( request()->postExists($name) )
+		{
+			return ' checked';
+		}
+		else
+		{
+			if( is_object($this->data) )
+			{
+				if( ($this->data->$name === true || $this->data->$name === 1) )
+				{
+					return ' checked';
+				}
+			}
+			else
+			{
+				if( ($this->data[$name] === true || $this->data[$name] === 1) )
+				{
+					return ' checked';
+				}
+				return '';
 			}
 		}
 	}

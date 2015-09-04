@@ -10,6 +10,18 @@ class AjaxController extends Controller
         parent::__construct();
     }
 
+    public function traineesAction($query)
+    {
+        $students = collection('trainees')->select('id', 'name')->where('name', 'like', $query)->get();
+        $trainees = [];
+        foreach( $students as $student )
+        {
+            $trainees[] = $student->getFields();
+        }
+
+        echo json_encode($trainees);
+    }
+
     public function companiesAction()
     {
         $items = collection('company')->all();

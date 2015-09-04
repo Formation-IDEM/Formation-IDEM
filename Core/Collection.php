@@ -29,6 +29,9 @@ class Collection
 	protected $items = [];
 	protected $as_array = false;
 
+	/**
+	 * Constructeur
+	 */
 	public function __construct()
 	{
 		$this->db = DatabaseFactory::db();
@@ -70,11 +73,19 @@ class Collection
 		return $this;
 	}
 
+	/**
+	 * Permet de faire une jointure sur une table
+	 *
+	 * @param $table
+	 * @param $compare
+	 * @param string $method
+	 * @return $this
+	 */
 	public function join($table, $compare, $method = 'INNER')
 	{
 		$this->join[] = [
-			'table'		=>	$table,
-			'compare'	=>	$compare,
+			'table'			=>	$table,
+			'compare'		=>	$compare,
 			'method'		=>	$method
 		];
 		return $this;
@@ -261,17 +272,42 @@ class Collection
 			}
 		}
 
-		//$this->items[] = $this->db->query($sql);
-		return $this->db->query($sql, false, $this->as_array);
+		$this->items = $this->db->query($sql, false, $this->as_array);
+		return $this->items;
 	}
 
+	/**
+	 * Définit le mode récupération comme un array
+	 *
+	 * @return $this
+	 */
 	public function asArray()
 	{
 		$this->as_array = true;
 		return $this;
 	}
 
-	public function display()
+	/**
+	 * Convertit les items sélectionnés en tableau associatif
+	 *
+	 * @return array
+	 */
+	public function toArray()
+	{
+		$array = [];
+		foreach( $this->items as $item )
+		{
+			$array[] = $item->getFields();
+		}
+		return $array;
+	}
+
+	/**
+	 * Retourne la liste des items
+	 *
+	 * @return array
+	 */
+	public function getItems()
 	{
 		return $this->items;
 	}
@@ -286,16 +322,11 @@ class Collection
 		if( !$this->items )
 		{
 			$results = $this->select()->from($this->_table)->latest()->get();
+			$count = 0;
 			foreach( $results as $result)
 			{
-				if( $this->as_array )
-				{
-					$this->items[] = ModelFactory::loadModel($this->_model)->load($result['id']);
-				}
-				else
-				{
-					$this->items[] = ModelFactory::loadModel($this->_model)->load($result->id);
-				}
+				$this->items[$count] = ModelFactory::loadModel($this->_model)->load($result->id);
+				$count++;
 			}
 		}
 

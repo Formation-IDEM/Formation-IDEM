@@ -1,5 +1,6 @@
 <?php
 return [
+    'title'             =>  'titre',
     'name'              =>  'nom',
     'status'            =>  'status',
     'manager'           =>  'manager',
@@ -12,6 +13,6 @@ return [
     'fax'               =>  'fax',
     'image'             =>  'image',
     'picture'           =>  'image',
-    'photo'             =>  'photo'
+    'photo'             =>  'photo',
 ];
 
