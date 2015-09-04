@@ -29,6 +29,17 @@ Vous pouvez maintenant commencer à utiliser le framework ;)
 
 ## Méthodes clés du framework
 
+### Utiliser le routing
+
+    //  Récupère une URL simple
+    Route::get('url', 'NomController@NomMethode')
+    
+    //  Récupère une URL avec paramètre
+    Route::get('url/:id', 'NomController@NomMethode')->with(':id', '[0-9]+);
+    
+    //  Crée toutes les méthodes crud pour un controller
+    Route::crud('url', 'NomController');
+
 ### Charger un modèle
 
     model('nomDuModele');
@@ -67,4 +78,22 @@ Vous pouvez maintenant commencer à utiliser le framework ;)
     
     //  Récupère un message flash
     session()->getFlash(session->getFlashType());
+    
+### Utiliser la base de donnée
+
+    //  Connecte la base de donnée
+    DatabaseFactory::initDB();
+    
+    //  Récupère la connexion
+    $db = DatabaseFactory::db();
+    
+    //  Retourne un résultat non préparé (différent si one = true ou false / une seule ou plusieurs lignes)
+    $result = $db->query('requete sql', $one = true);
+    
+    //  Retourne le résultat d'une requête préparée avec des attributs passés en paramètres
+    $result = $db->prepare('requete sql', $attributes = [':attribut' => $attribut], $one = false);
+    
+    //  Exécute une requête, sans retourner de résultat, préparée ou non en fonction des attributs
+    $db->execute('sql', $attributs = []);
+
    
