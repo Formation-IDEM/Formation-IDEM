@@ -1,10 +1,12 @@
 <?php
-	class App{
+
+class App{
 	private static $_instance = null;
 	private function __construct(){
 	}
 	
 	public static function getModel($type){
+        include_once ('Models/Model.php');
 		if( file_exists('Models/'.$type.'.php') ){
 			include_once ('Models/'.$type.'.php');
 			return new $type();
@@ -12,7 +14,18 @@
 			return null;
 		}
 	}
-	
+    
+    public static function getCollection($type){
+        include_once ('Models/Collection.php');
+        $type = $type . "Collection";
+        if( file_exists('Models/Collections/'.$type.'.php') ){            
+            include_once ('Models/Collections/'.$type.'.php');
+            return new $type();
+        }else{
+            return null;
+        }
+    }	
+    
 	public static function getInstance(){
 		// !!!!!!!!!!!!! l'instance d'App est un singleton
 		//Il est donc unique !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -39,8 +52,6 @@
 	public function run(){
 		//Nécessaire pour l'affichage de la vue
 		include_once ('Models/Template.php');
-		include_once ('Models/Model.php');
-		include_once ('functions.php');
 		//Création de controlleur----------------------------
 		include_once ('Controllers/ControllerFactory.php');
 		$controller = ControllerFactory::createController();

@@ -8,9 +8,7 @@ class FormationController{
 	public function indexAction(){
 		
 		//appel la méthode getItems de la class Collection avec la parametre qui va bien
-		$collection = App::getModel('Collection');			
-		//on initialise les attributs de la collection
-		$collection->setAttribut('formations','Formation');	
+		$collection = App::getCollection('Formation');
         
         //On crée la requete via les méthode de création de requete
         $collection->select();	
@@ -31,8 +29,7 @@ class FormationController{
 		$maFormation = App::getModel('Formation');
 		
         //crée la liste des matières via une collection
-        $collection = App::getModel('Collection');
-        $collection->setAttribut('matters','Matter');
+        $collection = App::getCollection('Matter');
         $collection->select();
         $coll_matter = $collection->getItems();        
         
@@ -64,8 +61,6 @@ class FormationController{
 						'deal_begin_date' 				=> $_POST['deal_begin_date'],
 						'deal_ending_date' 				=> $_POST['deal_ending_date']							
 			));
-	
-			
 
 			//on appelle la méthode qui stock les infos dans l'objet crée
 			$maFormation->save();
@@ -112,3 +107,4 @@ class FormationController{
 	}
 
 }
+?>

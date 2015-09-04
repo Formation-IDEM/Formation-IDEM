@@ -9,9 +9,7 @@
         public function indexAction(){
                 
             //appel la méthode getItems de la class Collection avec la parametre qui va bien
-            $collection = App::getModel('Collection');          
-            //on initialise les attributs de la collection
-            $collection->setAttribut('matters','Matter');
+            $collection = App::getModel('Matter');
             
             //On récupere le tableau d'object via la méthode pour récuperé une collection
             $coll_matters = $collection->getItems();

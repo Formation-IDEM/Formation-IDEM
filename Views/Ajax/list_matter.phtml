@@ -1,0 +1,16 @@
+<div class ="col-md-3">
+    <form method="post" action="" class="post-add-matter">
+        <input type="hidden" name="formation" value="">
+        <select name="matter" class="form-control">
+            <option value=""></option>
+<?php
+    for ($i=0; $i < count($coll_matter); $i++):              
+?>
+            <option value="<?= $coll_matter[$i]->getData('id'); ?>"><?= $coll_matter[$i]->getData('title'); ?></option>
+<?php   
+    endfor;
+?>
+        </select>
+        <button name="submit">Ajouter</button>
+    </form>
+</div>

@@ -8,21 +8,25 @@
 	</ul>
 </nav>
 
-<div class="col-md-12">
+<div class="col-md-12 list-formation">
 		<?php
-            //var_dump($coll_ref);
 			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
 			for ($i=0; $i < count($coll_for); $i++):				
 		?>						
 				<div class="col-md-4">
 				    <?php  echo $coll_for[$i]->getData('title'); ?>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-2">
                     <a href="index.php?c=Formation&a=edit&id=<?= $coll_for[$i]->getData('id'); ?>">Modifer</a>
 				</div>
-				<div class="col-md-4">					
+				<div class="col-md-2">					
 					<a href="index.php?c=Formation&a=delete&id=<?= $coll_for[$i]->getData('id'); ?>">Supprimer</a>
-				</div>				
+				</div>
+				<div class="col-md-4">                  
+                    <a class="listRefpedago" formation="<?= $coll_for[$i]->getData('id'); ?>" href="#">Gèrer les matières</a>
+                </div>
+                <div class="ajax-listRefpedago-<?= $coll_for[$i]->getData('id'); ?>"></div>
+                			
 		<?php	
 			endfor;
 		?>
