@@ -33,6 +33,7 @@ class FormationController{
         //crée la liste des matières via une collection
         $collection = App::getModel('Collection');
         $collection->setAttribut('matters','Matter');
+        $collection->select();
         $coll_matter = $collection->getItems();        
         
 		if( isset($_GET['id']) ){
