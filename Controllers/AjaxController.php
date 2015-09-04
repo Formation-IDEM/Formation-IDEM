@@ -7,14 +7,16 @@ class AjaxController{
         //récupere la collection des matières            
         $collection = App::getCollection('Matter');
         
-        //On récupere les matières lié a l'id de la formation passé dans l'URL
-        $collection->select();            
-        $coll_matter = $collection->getItems();   
+        $collection->select();
+                   
+        $coll_matter = $collection->getItems();
         
+        $id_formation = $_GET['id'];       
    
         Template::getInstance()->setFileName("Ajax/list_matter")->setDatas(
             array(
-                'coll_matter'      =>  $coll_matter 
+                'coll_matter'       =>  $coll_matter,
+                'id_formation'      =>  $id_formation
             )
         )->render("ajax");
         
@@ -23,15 +25,15 @@ class AjaxController{
     public function listRefpedagoAction(){
         //récupere la collection des matières            
         $collection = App::getCollection('RefPedago');
-        
-        //On récupere les matières lié a l'id de la formation passé dans l'URL
         $collection->select()->where()->condition("formations_id","=",$_GET['id']);            
-        $coll_refpedago = $collection->getItems();   
+        $coll_refpedago = $collection->getItems();
         
+        $id_formation = $_GET['id'];        
    
         Template::getInstance()->setFileName("Ajax/list_refpedago")->setDatas(
             array(
-                'coll_refpedago'      =>  $coll_refpedago 
+                'coll_refpedago'      =>  $coll_refpedago,
+                'id_formation'        => $id_formation 
             )
         )->render("ajax");
         
@@ -39,7 +41,35 @@ class AjaxController{
     
     public function addRefPedagoAction(){
 
+        if($_POST){
+            
+            $refpedago = App::getModel("RefPedago");        
+            $refpedago->store( array(
+                    'formations_id' =>  $_POST['formation'],
+                    'matters_id'    =>  $_POST['matter']
+            ));
+            $refpedago->save();
+            
+            Template::getInstance()->setFileName("Ajax/add_single_refpedago")->setDatas(
+            array(
+                'refpedago'      =>  $refpedago
+                )
+            )->render("ajax");
+                    
+        }
         
+    }
+    
+    public function deleteRefPedagoAction(){
+        
+        $refpedago = App::getModel("RefPedago");
+        
+        if( isset($_GET['id']) ){
+        
+            $refpedago->load($_GET['id']);
+            $refpedago->delete();
+            
+        }
         
     }
 }

@@ -1,8 +1,7 @@
 <div class ="col-md-3">
-    <form method="post" action="" class="post-add-matter">
-        <input type="hidden" name="formation" value="">
+    <form method="post" action="#" class="post-add-matter">
+        <input type="hidden" name="formation" value="<?= $id_formation; ?>">
         <select name="matter" class="form-control">
-            <option value=""></option>
 <?php
     for ($i=0; $i < count($coll_matter); $i++):              
 ?>
@@ -11,6 +10,6 @@
     endfor;
 ?>
         </select>
-        <button name="submit">Ajouter</button>
+        <button name="submit">Ajouter cette matière</button>
     </form>
 </div>

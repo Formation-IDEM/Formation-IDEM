@@ -117,7 +117,7 @@ class Model {
                 $i++;
             }
             $request .= "(" . $columns . ") VALUES (" . $values . ")";
-            var_dump($request);
+            
             if( Database::getInstance()->getResultats( $request ) ) {
                 $this->_fields['id'] = Database::getInstance()->getLastInsertId();          
                 return $this;
