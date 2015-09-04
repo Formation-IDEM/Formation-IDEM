@@ -1,0 +1,69 @@
+<table class="table table-striped table-bordered">
+	<tr>
+		<td>ID</td>
+		<td>Prénom</td>
+		<td>Nom</td>
+		<td>Portable</td>
+		<td>Email</td>
+		<td>Sexe</td>
+		<td>Niveau d'étude</td>
+		<td>Externe</td>
+		<td>Taux horaire</td>
+		<td>Informations Complémentaires</td>
+	</tr>
+	<?php
+		if($trainers)
+		{
+			foreach($trainers as $trainer)
+			{
+				?>
+					<tr>
+						<td>
+							<?php echo $trainer->getData('id'); ?>		
+						</td>
+						<td>
+							<?php echo $trainer->getData('firstname'); ?>
+						</td>
+						<td>
+							<?php echo $trainer->getData('name'); ?>
+						</td>
+						<td>
+							<?php echo $trainer->getData('cellphone'); ?>
+						</td>
+						<td>
+							<?php echo $trainer->getData('mail'); ?>
+						</td>
+						<td>
+							<?php echo $trainer->getData('gender'); ?>
+						</td>
+						<td>
+							<?php echo $trainer->getData('study_levels_id'); ?>
+						</td>
+						<td>
+							<?php echo $trainer->getData('trainer_extern'); ?>
+						</td>
+						<td>
+							<?php echo $trainer->getData('hourly_rate'); ?>
+						</td>
+						<td>
+							<?php echo $trainer->getData('further_informations'); ?>
+						</td>
+						<td>
+							<a href="/index.php?c=Trainer&a=show&id=<?php echo $trainer->getData('id'); ?>" class="btn btn-primary">Afficher</a>
+						</td>
+						<td>
+							<a href="/index.php?c=Trainer&a=addEdit&id=<?php echo $trainer->getData('id'); ?>" class="btn btn-primary">Modifier</a>
+						</td>
+						<td>
+							<form method="post">
+								<input type="hidden" name="trainer" value="<?php echo $trainer->getData('id'); ?>">
+								<input type="hidden" name="delete" value="1">
+								<input type="submit" class="btn btn-danger" value="Supprimer">
+							</form>
+						</td>
+					</tr>
+				<?php
+			}
+		}
+	?>
+</table>

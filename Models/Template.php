@@ -8,7 +8,9 @@ class Template
 	
 	private $_filename = 'index';
 
-	private $_datas;	
+	private $_datas;
+
+	private $_ajax = false;	
 	
 	public function __construct()
 	{
@@ -37,15 +39,29 @@ class Template
 		$this->_datas = $datas;
 		return $this;
 	}
+
+	public function isAjax()
+	{
+		$this->_ajax = true;
+		return $this;
+	}
 	
 	public function render()
 	{
 		extract($this->_datas);
 		if(file_exists('Views/'.ucfirst($this->_filename).'.phtml'))
 		{
-			include_once('Views/Layouts/header.phtml');			
+			if(!$this->_ajax)
+			{	
+				include_once('Views/Layouts/header.phtml');			
+			}
+
 			include_once('Views/' . $this->_filename . '.phtml');
-			include_once('Views/Layouts/footer.phtml');			
+
+			if(!$this->_ajax)
+			{	
+				include_once('Views/Layouts/footer.phtml');			
+			}
 		}
 		else
 		{

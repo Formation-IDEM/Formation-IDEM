@@ -137,13 +137,24 @@ class Collection
 	 * @param $value
 	 * @return $this
 	 */
-	public function where($key, $cond, $value)
+	public function where($key, $cond, $value = null)
 	{
-		$this->conditions[] = [
-			'key'	=>	$key,
-			'cond'	=>	$cond,
-			'value'	=>	$value
-		];
+		if($value == null)
+		{
+			$this->conditions[] = [
+				'key'	=>	$key,
+				'cond'	=>	'=',
+				'value'	=>	$cond
+			];
+		}
+		else
+		{
+			$this->conditions[] = [
+				'key'	=>	$key,
+				'cond'	=>	$cond,
+				'value'	=>	$value
+			];
+		}
 		return $this;
 	}
 
