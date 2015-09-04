@@ -218,10 +218,20 @@ class Collection
 					$sql .= ' AND ';
 				}
 
-				//	On définit des attributs pour la requête préparée
-				$attributes = array_merge($attributes, [
-					':' . $q['key'] => $q['value'],
-				]);
+				if($q['cond'] == 'LIKE')
+				{
+					//	Condition particulière pour les requête de type like
+					$attributes = array_merge($attributes, [
+						':' . $q['key'] => '%' . $q['value'] . '%',
+					]);
+				}
+				else
+				{
+					//	On définit des attributs pour la requête préparée
+					$attributes = array_merge($attributes, [
+						':' . $q['key'] => $q['value'],
+					]);
+				}
 				$count++;
 			}
 		}

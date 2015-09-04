@@ -1,0 +1,31 @@
+<?php if( !empty($items) ): ?>
+<div class="col-md-12">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th class="text-center">Titre de stage</th>
+            <th class="text-center">Entreprise</th>
+            <th class="text-center">Création</th>
+            <th class="text-center">Mise à jour</th>
+            <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($items as $item): ?>
+            <tr>
+                <td class="text-center"><a href="<?= url('internships/' . $item->id); ?>"><?= $item->title; ?></a></td>
+                <td class="text-center"><a href="<?= url('companies/' . $item->company_id); ?>"><?= collection('company')->getCompany($item->company_id) ?></a></td>
+                <td class="text-center"><?= \Core\Helpers\Date::datetime($item->create_date); ?></td>
+                <td class="text-center"><?= \Core\Helpers\Date::ago($item->update_date); ?></td>
+                <td class="text-center">
+                    <a href="<?= url('internships/' . $item->id . '/edit') ?>" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Modifier</a>
+                    <a href="<?= url('internships/' . $item->id . '/delete') ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<?php else: ?>
+<div class="alert alert-danger text-center">Aucun stage trouvé</div>
+<?php endif; ?>

@@ -49,15 +49,15 @@ INSERT INTO trainee_status(title) VALUES ('Statut 3');
 INSERT INTO trainee_status(title) VALUES ('Statut 4');
 
 -- insertion pour les niveau d'études
-INSERT INTO study_levels(title) VALUES ('Niveau 0');
+INSERT INTO study_levels(wording) VALUES ('Niveau 0');
 
-INSERT INTO study_levels(title) VALUES ('Niveau 1');
+INSERT INTO study_levels(wording) VALUES ('Niveau 1');
 
-INSERT INTO study_levels(title) VALUES ('Niveau 2');
+INSERT INTO study_levels(wording) VALUES ('Niveau 2');
 
-INSERT INTO study_levels(title) VALUES ('Niveau 3');
+INSERT INTO study_levels(wording) VALUES ('Niveau 3');
 
-INSERT INTO study_levels(title) VALUES ('Niveau 4');
+INSERT INTO study_levels(wording) VALUES ('Niveau 4');
 
 -- insertion pour les status des familles
 INSERT INTO family_status(title) VALUES ('Status n°0');
@@ -115,15 +115,15 @@ INSERT INTO ref_pedagos(formations_id, matters_id) VALUES ('1', '4');
 INSERT INTO ref_pedagos(formations_id, matters_id) VALUES ('1', '5');
 
 -- insertion pour les stages
-INSERT INTO internships(title, explain, company_id, formation_id, referent_id, create_uid, update_uid, active) VALUES ('Stage n°1', 'Présentation du stage n° 0', '1', '1', '1', '1', '0', '1');
+INSERT INTO internships(title, explain, company_id, formation_id, referent_id, create_uid, update_uid, active) VALUES ('Stage n°1', 'Présentation du stage n° 0', '6', '6', '6', '6', '0', '1');
 
-INSERT INTO internships(title, explain, company_id, formation_id, referent_id, create_uid, update_uid, active) VALUES ('Stage n°2', 'Présentation du stage n° 1', '2', '2', '2', '1', '0', '1');
+INSERT INTO internships(title, explain, company_id, formation_id, referent, create_uid, update_uid, active) VALUES ('Stage n°2', 'Présentation du stage n° 1', '7', '7', '7', '6', '0', '1');
 
-INSERT INTO internships(title, explain, company_id, formation_id, referent_id, create_uid, update_uid, active) VALUES ('Stage n°3', 'Présentation du stage n° 2', '3', '3', '3', '1', '0', '1');
+INSERT INTO internships(title, explain, company_id, formation_id, referent, create_uid, update_uid, active) VALUES ('Stage n°3', 'Présentation du stage n° 2', '8', '8', '8', '6', '0', '1');
 
-INSERT INTO internships(title, explain, company_id, formation_id, referent_id, create_uid, update_uid, active) VALUES ('Stage n°4', 'Présentation du stage n° 3', '4', '4', '4', '1', '0', '1');
+INSERT INTO internships(title, explain, company_id, formation_id, referent_id, create_uid, update_uid, active) VALUES ('Stage n°4', 'Présentation du stage n° 3', '8', '8', '8', '6', '0', '1');
 
-INSERT INTO internships(title, explain, company_id, formation_id, referent_id, create_uid, update_uid, active) VALUES ('Stage n°5', 'Présentation du stage n° 4', '5', '5', '5', '1', '0', '1');
+INSERT INTO internships(title, explain, company_id, formation_id, referent_id, create_uid, update_uid, active) VALUES ('Stage n°5', 'Présentation du stage n° 4', '10', '10', '10', '6', '0', '1');
 
 -- insertion pour les étudiants
 ALTER TABLE trainees DROP COLUMN social_security_number;

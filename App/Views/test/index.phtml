@@ -1,0 +1,18 @@
+<div class="page-header">
+    <h1>Trouver les stages de chaque entreprise</h1>
+</div>
+
+<form method="post" action="#" class="form-vertical">
+    <div class="form-group">
+        <select name="companies" id="ajax-companies" class="form-control">
+            <option value="0">--</option>
+            <?php foreach( $items as $item ): ?>
+            <option value="<?= $item->id; ?>"><?= $item->name; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</form>
+
+<div class="row">
+
+</div>
