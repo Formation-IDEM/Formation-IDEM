@@ -7,45 +7,21 @@ class FormationController{
 	
 	public function indexAction(){
 		
-        //Filtrage
-        
-        //crée la liste des matières pour le filtre
-        $collection_f_m = App::getModel('Collection');
-        $collection_f_m->setAttribut('matters','Matter');   
-        $coll_matter = $collection_f_m->getItems();        
-        
-        //Si un filtrage a été mis en place
-        if( isset($_POST['submit']) ) {
-            $active = $_POST['matters'];      
-        }
-        	
 		//appel la méthode getItems de la class Collection avec la parametre qui va bien
 		$collection = App::getModel('Collection');			
 		//on initialise les attributs de la collection
-		$collection->setAttribut('formations','Formation');
-		
-		
-        if( isset($_POST['submit']) ) {
-            
-    		//On récupere le tableau d'object via la méthode pour récuperé une collection
-    		$coll_ref = $collection->getItems();
-            //On transmet via setDatas() la collection de formation dans un tableau associatif
-            Template::getInstance()->setFileName("Formation/list_formations")->setDatas(array(
-                'coll_ref'      =>  $coll_ref,
-                'coll_matter'   =>  $coll_matter,
-                'active'        =>  $active
-            ))->render();
-            
-        }else{
-            $coll_ref = $collection->getItems();
-    		//On transmet via setDatas() la collection de formation dans un tableau associatif
-    		Template::getInstance()->setFileName("Formation/list_formations")->setDatas(array(
-    			'coll_ref' => $coll_ref,
-    			'coll_matter'    => $coll_matter
-    		))->render();
-            
-        }
+		$collection->setAttribut('formations','Formation');	
         
+        //On crée la requete via les méthode de création de requete
+        $collection->select();	
+		
+        //requete construite, on recupe le resultat
+    	$coll_for = $collection->getItems();
+
+		//On transmet via setDatas() la collection de formation dans un tableau associatif
+		Template::getInstance()->setFileName("Formation/list_formations")->setDatas(array(
+			'coll_for' => $coll_for
+		))->render();
 	
 	}
 	
@@ -119,6 +95,7 @@ class FormationController{
 		
 	}
 	
+    //Trop dangereux pour l'projet, ne pas utilisé
 	public function deleteAction(){
 		
 		$maFormation = App::getModel("Formation");

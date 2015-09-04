@@ -9,12 +9,26 @@
 		private function __construct(){
 		}
 		
-		public function render(){
-			extract($this -> _datas);
-			if( file_exists( dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml" ) ){
-				include_once dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml";
-			}
-		}
+        public function render($option = "vue"){
+            
+            extract($this -> _datas);
+            
+            if($option == "vue"){    
+                if( file_exists( dirname(dirname('_FILE_'))."/Views/header.phtml" ) ){
+                    include_once dirname(dirname('_FILE_'))."/Views/header.phtml";
+                }
+            }
+            
+            if( file_exists( dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml" ) ){
+                include_once dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml";
+            }
+            
+            if($option == "vue"){  
+                if( file_exists( dirname(dirname('_FILE_'))."/Views/footer.phtml" ) ){
+                    include_once dirname(dirname('_FILE_'))."/Views/footer.phtml";
+                }
+            }    
+        }
 		
 		//singleton
 		public static function getInstance(){
