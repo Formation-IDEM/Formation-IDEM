@@ -8,6 +8,8 @@ use \Core\Model;
  */
 class StudyLevel extends Model
 {
+    protected $_table = 'study_levels';
+
     protected $_fields = [
         'id'    =>  0,
         'title' =>  ''

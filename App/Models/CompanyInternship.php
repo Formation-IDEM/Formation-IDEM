@@ -15,8 +15,8 @@ class CompanyInternship extends Model
         'trainee_id'        =>  0,
         'company_id'        =>  0,
         'internship_id'     =>  0,
-        'active'            =>  false,
-        'hiring'            =>  false,
+        'active'            =>  1,
+        'hiring'            =>  0,
         'total_hours'       =>  0,
         'date_begin'        =>  null,
         'date_end'          =>  null

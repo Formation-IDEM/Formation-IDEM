@@ -31,7 +31,7 @@
             <?= $form->text('mobile', 'Mobile de contact', ['icon' => 'mobile']); ?>
         </div>
     </div>
-    <?= $form->text('address', 'Adresse de l\'entreprise', ['icon' => 'map']); ?>
+    <?= $form->text('address', 'Adresse de l\'entreprise', ['icon' => 'map', 'data-validation' => 'required']); ?>
     <div class="row">
         <div class="col-md-4">
             <?= $form->text('city', 'Ville de l\'entreprise', ['icon' => 'map-signs', 'data-validation' => 'required']); ?>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-md-4">
-            <?= $form->text('country', 'Pays de l\'entreprise', ['icon' => 'compass', 'data-validation' => 'country', 'autocomplete' => 'off']); ?>
+            <?= $form->text('country', 'Pays de l\'entreprise', ['icon' => 'compass', 'autocomplete' => 'off', 'data-validation' => 'required']); ?>
         </div>
     </div>
     <div class="row">
@@ -52,6 +52,16 @@
 
         <div class="col-md-6">
             <?= $form->text('fax', 'Fax de l\'entreprise', ['icon' => 'fax']); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="checkbox">
+                <label>
+                    <input name="active" type="checkbox" value="1"<?= $form->getChecked('active'); ?>>
+                    Stage actif ?
+                </label>
+            </div>
         </div>
     </div>
     <?= $form->submit('Soumettre le formulaire', ['class' => 'btn btn-block btn-success']); ?>

@@ -49,7 +49,7 @@ class Request extends Http
 	 */
 	public function getData($url)
 	{
-		return isset($_GET[$url]) ? htmlspecialchars($_GET['url']) : null;
+		return isset($_GET[$url]) ? htmlspecialchars($_GET[$url]) : null;
 	}
 
 	/**

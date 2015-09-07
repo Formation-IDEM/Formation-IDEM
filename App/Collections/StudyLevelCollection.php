@@ -9,7 +9,8 @@ use Core\Collection;
  */
 class StudyLevelCollection extends Collection
 {
-    protected $collection = 'study_levels';
+    protected $_model = 'studyLevel';
+    protected $_table = 'study_levels';
 
     public function __construct()
     {

@@ -9,35 +9,36 @@ use Core\Model;
  */
 class Timesheet extends Model
 {
-    protected $_fields = [
-        'id'            =>  0,
-        'month'         =>  0,
-        'year'          =>  0,
-        'total_hours'   =>  0,
-        'trainer_id'    =>  0,
-        'formation_session_id'  =>  0
-    ];
-
-    /**
-     * Récupère le formateur
-     *
-     * @return mixed
-     */
-    public function getTrainer()
+    protected $_trainer;
+    protected $_formation_session;
+    public function __construct()
     {
-        $trainer = ModelFactory::loadModel('trainer');
-        $trainer->load($this->_fields['trainer_id']);
-        return $trainer;
+        parent::__construct();
+        $this->_table = 'timesheets';
+        $this->_fields['id'] = 0;
+        $this->_fields['month'] = 0;
+        $this->_fields['year'] = 0;
+        $this->_fields['total_hours'] = 0;
+        $this->_fields['trainer_id'] = 0;
+        $this->_fields['formation_session_id'] = 0;
+        $this->_fields['active'] = 1;
     }
 
-    /**
-     * Récupère la session de formation
-     * @return mixed
-     */
+    public function getTrainer()
+    {
+        if(!$this->_trainer)
+        {
+            $this->_trainer = App::getModel('Trainer')->load($this->getData('trainer_id'));
+        }
+        return $this->_trainer;
+    }
+
     public function getFormationSession()
     {
-        $formationSession = ModelFactory::loadModel('formationSession');
-        $formationSession->load($this->_fields['formation_session_id']);
-        return $formationSession;
+        if(!$this->_formation_session)
+        {
+            $this->_formation_session = App::getModel('FormationSession')->load($this->getData('formation_session_id'));
+        }
+        return $this->_formation_session;
     }
 }

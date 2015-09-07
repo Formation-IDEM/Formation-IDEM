@@ -15,6 +15,29 @@ if( !function_exists('url') )
     }
 }
 
+if( !function_exists('method') )
+{
+    function method($position = '')
+    {
+        if( empty($position) )
+        {
+            return $_SERVER['REQUEST_URI'];
+        }
+        else
+        {
+            $params = explode('/', $_SERVER['REQUEST_URI']);
+            if( $position === 'last' )
+            {
+                return end($params);
+            }
+
+            var_dump($params);
+
+            return $params[$position];
+        }
+    }
+}
+
 /**
  * Méthode de redirection
  */

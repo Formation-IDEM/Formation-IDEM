@@ -40,5 +40,14 @@ $(document).ready(function(){
     $('.list').click(function(event) {
         event.preventDefault();
         loadContent($(this).attr('data-title'), $(this).attr('href'));
-    })
+    });
+
+    $('input[name="country"]').autoComplete({
+        minChars: 1,
+        source: function(term, response){
+            $.getJSON('index.php?url=ajax/nationalities', { country: term }, function(data) {
+                response(data);
+            });
+        }
+    });
 });

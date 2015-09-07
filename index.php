@@ -27,11 +27,13 @@ Route::get('config/:config/:id/delete', 'Config@delete')->with(':config', '[a-z]
 Route::crud('users', 'User');
 Route::crud('companies', 'Company');
 Route::crud('internships', 'Internship');
+Route::crud('trainers', 'Trainer');
 
 /**
  * Ajax
  */
 Route::get('ajax/internships/:id', 'Ajax@internships');
+Route::get('ajax/nationalities', 'Ajax@nationalities');
 
 //  Démarrage des routes
 Route::run();

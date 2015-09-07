@@ -123,7 +123,7 @@ CREATE TABLE companies
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(120) UNIQUE NOT NULL,        -- nom de l'entreprise
 	status VARCHAR(120) NOT NULL,             -- raison sociale
-	company_name VARCHAR(120) DEFAULT NULL,   -- nom commercial
+	email VARCHAR(120) DEFAULT NULL,   -- nom commercial
 	address VARCHAR(250) NOT NULL,
 	postal_code VARCHAR(6) DEFAULT NULL,
 	city VARCHAR(60) NOT NULL,
@@ -137,6 +137,7 @@ CREATE TABLE companies
 	create_uid INT NOT NULL,
 	update_uid INT DEFAULT NULL,
 	visit_date DATE DEFAULT NULL,
+	reserved BOOLEAN DEFAULT(false),
 	active BOOLEAN DEFAULT(true)
 );
 

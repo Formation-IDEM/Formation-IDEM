@@ -20,9 +20,10 @@ class Internship extends Model
         'update_date'   =>  null,
         'create_uid'    =>  0,
         'update_uid'    =>  0,
-        'active'        =>  0,
+        'active'        =>  1,
         'pay'           =>  0,
-        'wage'          =>  0
+        'wage'          =>  0,
+        'reserved'      =>  0
     ];
 
     public $_rules = [

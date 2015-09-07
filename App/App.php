@@ -1,8 +1,8 @@
 <?php
 namespace App;
 
-use Core\Factories\CollectionFactory;
-use Core\Factories\ModelFactory;
+use \Core\Factories\CollectionFactory;
+use \Core\Factories\ModelFactory;
 use \Core\Router\Router;
 use \Core\Factories\DatabaseFactory;
 

@@ -12,32 +12,6 @@
 
 <?= viewFile('partials/flash'); ?>
 
-<?php if( !empty($session) && $session->active ): ?>
-<div class="alert alert-success alert-dismissible text-center" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <i class="fa fa-exclamation-triangle"></i> Ce stage est disponible
-</div>
-
-<form class="form-vertical" method="POST" action="#">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nom de l'étudiant">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-graduation-cap"></i> Inscrire au stage</button>
-        </div>
-    </div>
-</form>
-<?php else: ?>
-    <div class="alert alert-danger alert-dismissible text-center" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <i class="fa fa-exclamation-triangle"></i> Ce stage n'est plus disponible
-    </div>
-<?php endif; ?>
-
-
 <div class="row">
     <div class="col-md-8">
 
@@ -57,9 +31,11 @@
     </div>
     <div class="col-md-4">
         <div class="well well">
-            <h2>L'entreprise</h2>
+            <h2><?= $company->name; ?></h2>
             <ul>
-                <li><?= $internship->getCompany()->name; ?></li>
+                <li><?= $company->status; ?></li>
+                <li><?= $company->address; ?></li>
+                <li><?= $company->country; ?></li>
             </ul>
         </div>
     </div>

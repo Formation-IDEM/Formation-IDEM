@@ -1,0 +1,17 @@
+<ul class="nav nav-tabs">
+    <li role="presentation" <?php (method('last') == 'edit' ? 'class="active"' : '') ?>>
+        <a href="<?= url('trainers/' . $trainer->id .  '/edit'); ?>">
+            Modifier le formateur
+        </a>
+    </li>
+    <li role="presentation" <?php (method('last') == 'timesheet' ? 'class="active"' : '') ?>>
+        <a href="<?= url('trainers/' . $trainer->id .  '/timesheet'); ?>">
+            Feuilles de présence & Sessions de formation
+        </a>
+    </li>
+    <li role="presentation" <?php ((method('last') == 'matters' || method('last') == 'level') ? 'class="active"' : '') ?>>
+        <a href="<?= url('trainers/' . $trainer->id .  '/matters'); ?>">
+            Niveaux & Compétences
+        </a>
+    </li>
+</ul>

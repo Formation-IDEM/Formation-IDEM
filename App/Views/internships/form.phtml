@@ -15,7 +15,7 @@
 <form class="form-vertical" action="<?= $url; ?>" method="POST">
     <div class="row">
         <div class="col-md-6">
-            <?= $form->text('title', 'Intitulé du stage'); ?>
+            <?= $form->text('title', 'Intitulé du stage', ['data-validation' => 'required']); ?>
             <?= $form->hidden('id', $internship->id); ?>
         </div>
         <div class="col-md-3">
@@ -56,7 +56,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <?= $form->textarea('explain', 'Description du stage', ['rows' => '5']); ?>
+            <?= $form->textarea('explain', 'Description du stage', ['rows' => '5', 'data-validation' => 'required']); ?>
         </div>
     </div>
     <?= $form->submit($title, ['class' => 'btn btn-success btn-block']); ?>

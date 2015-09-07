@@ -1,0 +1,112 @@
+<div class="pull-right">
+    <a class="btn btn-success" href="<?= url('trainers/create'); ?>"><i class="fa fa-plus"></i> Ajouter un formateur</a>
+</div>
+<h2>Liste des formateurs</h2>
+<div class="form-group">
+    <input id="autocomplete" autofocus type="text" name="q" placeholder="Nom d'un formateur ..." style="width:100%;max-width:600px;outline:0" class="form-control" id="trainer-selected">
+</div>
+<div id="ajax-results">
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">Prénom</th>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Portable</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Sexe</th>
+            <th class="text-center">Niveau d'étude</th>
+            <th class="text-center">Externe</th>
+            <th class="text-center">Taux horaire</th>
+            <th class="text-center">Informations Complémentaires</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if($trainers): ?>
+            <?php foreach($trainers as $trainer): ?>
+                <tr>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('id'); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('firstname'); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('name'); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('cellphone'); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('mail'); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('gender'); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('study_levels_id'); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('trainer_extern'); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('hourly_rate'); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $trainer->getData('further_informations'); ?>
+                    </td>
+                    <td class="text-center">
+                        <a href="<?= url('trainers/' .  $trainer->getData('id')); ?>" class="btn btn-primary">Afficher</a>
+                    </td>
+                    <td class="text-center">
+                        <a href="<?= url('trainers/' . $trainer->getData('id') . '/edit'); ?>" class="btn btn-primary">Modifier</a>
+                    </td>
+                    <td class="text-center">
+                        <form method="post">
+                            <input type="hidden" name="trainer" value="<?php echo $trainer->getData('id'); ?>">
+                            <input type="hidden" name="delete" value="1">
+                            <input type="submit" class="btn btn-danger" value="Supprimer">
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="text-center" colspan="10">Aucun formateur</td>
+        </tr>
+        <?php endif; ?>
+    </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(document).on('input change','input[name="q"]', function(){
+            $.ajax({
+                method: 'POST',
+                url: 'index.php?c=Ajax&a=listTrainer',
+                data : { firstname : $(this).val() }
+            }).done(function(html){
+                $('#ajax-results').html(html);
+            });
+        });
+        $('input[name="q"]').autoComplete({
+            minChars: 3,
+            source: function(term, response){
+                $.getJSON('/index.php?c=ajax&a=autoComplete', { q: term }, function(data)
+                {
+                    response(data);
+                });
+            },
+            onSelect: function(e, term, item){
+                $.ajax({
+                    method: 'POST',
+                    url: 'index.php?c=ajax&a=listTrainer',
+                    data : { firstname : term }
+                }).done(function(html){
+                    $('#ajax-results').html(html);
+                });
+            }
+        });
+    });
+</script>

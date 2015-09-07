@@ -18,14 +18,22 @@
         <div class="panel panel-default">
             <div class="panel-heading text-center">Informations</div>
             <ul class="list-group">
+                <?php if( !empty($company->status) ): ?>
                 <li class="list-group-item"><i class="fa fa-building"></i> <?= $company->status; ?></li>
+                <?php endif; ?>
+                <?php if( !empty($company->manager) ): ?>
                 <li class="list-group-item"><i class="fa fa-male"></i> <?= $company->manager; ?></li>
+                <?php endif; ?>
                 <li class="list-group-item"><i class="fa fa-map-marker"></i> <?= $company->address; ?></li>
                 <li class="list-group-item"><i class="fa fa-map-signs"></i> <?= $company->city; ?></li>
-                <li class="list-group-item"><i class="fa fa-map"></i> <?= $company->postal_code . ', ' . $company->country; ?></li>
+                <li class="list-group-item"><i class="fa fa-map"></i> <?= (!empty($company->postal_code) ? $company->postal_code . ', ' . $company->country : '' . $company->country); ?></li>
                 <li class="list-group-item"><i class="fa fa-phone"></i> <?= $company->phone; ?></li>
+                <?php if( !empty($company->mobile)): ?>
                 <li class="list-group-item"><i class="fa fa-mobile"></i> <?= $company->mobile; ?></li>
+                <?php endif; ?>
+                <?php if( !empty($company->fax)): ?>
                 <li class="list-group-item"><i class="fa fa-fax"></i> <?= $company->fax; ?></li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

@@ -31,7 +31,7 @@ class Company extends Model
 		'create_uid'			=>	0,
 		'update_uid'			=>	0,
 		'visit_date'			=>	null,
-		'active'				=>	0,
+		'active'				=>	1,
 	];
 
 	public $_rules = [
@@ -42,15 +42,6 @@ class Company extends Model
 		'country'	=>	'required',
 		'phone'		=>	'required|phone'
     ];
-
-    /**
-     * Retourne toutes les entreprises
-     * @return mixed
-     */
-    public function all()
-    {
-        return CollectionFactory::loadCollection('company')->getAll();
-    }
 
     /**
      * Retourne les stages d'une entreprise

@@ -1,13 +1,11 @@
 <?php
 namespace App\Models;
 
-use Core\Model;
-
 /**
  * Class TraineeModel
  * @package App\Models
  */
-class Trainee extends Model
+class Trainee extends Person
 {
     protected $_fields = [
         'id'                    =>  0,

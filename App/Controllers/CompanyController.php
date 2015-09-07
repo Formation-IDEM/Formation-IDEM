@@ -19,7 +19,7 @@ class CompanyController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->loadModel('Company');
+		$this->loadModel('company');
 	}
 
 	/**
@@ -41,6 +41,8 @@ class CompanyController extends Controller
 	 */
 	public function showAction($id)
 	{
+		var_dump(method('last'));
+		exit;
 		$company = $this->company->loadOrFail($id);
 		return view('companies/show', compact('company'));
 	}
@@ -52,6 +54,7 @@ class CompanyController extends Controller
 	 */
 	public function createAction()
 	{
+		$_POST['active'] = 1;
 		return view('companies/form', [
 			'url'		=>	url('companies/create'),
 			'title'		=>	'Ajouter une nouvelle entreprise',

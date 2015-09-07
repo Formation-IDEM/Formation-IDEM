@@ -41,12 +41,7 @@ class InternshipController extends Controller
 	{
 		$internship = $this->internship->loadOrFail($id);
 		$company = model('company')->loadOrFail($internship->company_id);
-		$session = collection('companyInternship')
-			->where('internship_id', '=', $internship->id)
-			->where('company_id', '=', $company->id)
-			->limit(1)
-			->all();
-		return view('internships/show', compact('internship', 'company', 'session'));
+		return view('internships/show', compact('internship', 'company'));
 	}
 
 	/**
