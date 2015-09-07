@@ -348,6 +348,16 @@ class Collection
 	}
 
 	/**
+	 * Compatibilité autres versions
+	 *
+	 * @return array
+	 */
+	public function getAllItems()
+	{
+		return $this->all();
+	}
+
+	/**
 	 * Permet de checker
 	 *
 	 * @param $condition

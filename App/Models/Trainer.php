@@ -1,5 +1,6 @@
 <?php
 namespace App\Models;
+use Core\Factories\DatabaseFactory;
 
 /**
  * Class TrainerModel
@@ -19,12 +20,14 @@ class Trainer extends Person
 
     public function __construct()
     {
-        $this->_fields['id'] = 0;
-		$this->_fields['further_informations'] = '';
-		$this->_fields['study_levels_id'] = 1;
-		$this->_fields['hourly_rate'] = 1;
-		$this->_fields['trainer_extern'] = false;
-		$this->_fields['active'] = 1;
+        parent::__construct(DatabaseFactory::db());
+        $this->_fields = array_merge($this->_fields, [
+            'further_informations'  =>  '',
+            'study_levels_id'       =>  0,
+            'hourly_rate'           =>  0,
+            'trainer_extern'        =>  0,
+            'active'                =>  1
+        ]);
     }
 
     public function getFullName()
@@ -49,6 +52,7 @@ class Trainer extends Person
         }
         return $this->_levels;
     }
+
     public function getTimesheets()
     {
         if(!$this->_timesheets)
@@ -57,6 +61,7 @@ class Trainer extends Person
         }
         return $this->_timesheets;
     }
+
     public function getMatters()
     {
         if(!$this->_matters)
@@ -69,6 +74,7 @@ class Trainer extends Person
         }
         return $this->_matters;
     }
+
     public function getFormationSessions()
     {
         if(!$this->_formation_sessions)

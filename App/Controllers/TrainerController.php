@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use \Core\Controller;
+use Core\Validator;
 
 /**
  * Class CompanyController
@@ -60,26 +61,44 @@ class TrainerController extends Controller
 
     public function formAction($id = '')
     {
-        if( !empty($id) )
+        if( !empty($id) && $id != 0 )
         {
+            $title = 'Modifier un formateur';
             $trainer = model('trainer')->load(intval($id));
+            $url = url('trainers/' . $trainer->id . '/edit');
         }
         else
         {
+            $title = 'Ajouter un formateur';
             $trainer = model('trainer');
-        }
-
-        // Si retour de formulaire
-        if(isset($_POST) && $_POST != null)
-        {
-            $trainer->store($_POST)->save();
+            $url = url('trainers/create');
         }
 
         return view('trainers/form', array(
-            'trainer' 		=> $trainer,
-            'nationalities' => collection('nationality')->all(),
-            'familyStatuss' => collection('familyStatus')->all(),
-            'studyLevels' 	=> collection('studyLevel')->all()
+            'title'         =>  $title,
+            'url'           =>  $url,
+            'trainer' 		=>  $trainer,
+            'id'            =>  $trainer->id,
+            'nationalities' =>  collection('nationality')->all(),
+            'familyStatuss' =>  collection('familyStatus')->all(),
+            'studyLevels' 	=>  collection('studyLevel')->all()
         ));
+    }
+
+    public function saveAction()
+    {
+        $validator = new Validator([
+            'name'  =>  'required'
+        ]);
+        if( $validator->run() )
+        {
+            $this->trainer->store(request()->all('POST'));
+            var_dump(request()->all('POST'));
+            var_dump($this->trainer->save());
+            exit;
+            //return redirect(url('trainers'))->flash('success', 'Le formateur a correctement été ajouté.');
+        }
+        response()->posts()->getErrors($validator->getErrors());
+        $this->formAction(request()->getPost('id'));
     }
 }

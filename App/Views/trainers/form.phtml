@@ -1,10 +1,10 @@
 <div class="page-header">
-    <h1><i class="fa fa-building-o"></i> Gestion des formateurs <small><i class="fa fa-angle-double-right"></i>  Ajouter / Modifier un formateur</small></h1>
+    <h1><i class="fa fa-male"></i> Gestion des formateurs <small><i class="fa fa-angle-double-right"></i>  <?= $title; ?></small></h1>
 </div>
 <ol class="breadcrumb">
     <li><i class="fa fa-dashboard"></i> <a href="<?=url('/'); ?>">Panneau de Contrôle</a></li>
     <li><i class="fa fa-male"></i> <a href="<?= url('trainers'); ?>">Formateurs</a></li>
-    <li class="active"> Ajouter / Modifier un formateur</li>
+    <li class="active"> <?= $title; ?></li>
 </ol>
 
 <?php viewFile('partials.errors'); ?>
@@ -13,7 +13,7 @@
 <?php include_once('App/Views/partials/menu-trainer.phtml') ?>
 <?php endif; ?>
 
-<form class="form-vertical" method="POST" action="#" enctype="multipart/form-data">
+<form class="form-vertical" method="POST" action="<?= $url; ?>" enctype="multipart/form-data">
     <h3><strong>Civilité</h3></strong>
     <div class="row">
         <div class="col-md-3">
@@ -223,14 +223,7 @@
         </div>
     </div>
     <div class="row">
-        <?php
-        if($trainer->getData('id') != 0)
-        {
-            ?>
-            <input type="hidden" name="id" value="<?php echo $trainer->getData('id'); ?>" id="id">
-            <?php
-        }
-        ?>
+        <input type="hidden" name="id" value="<?= $id; ?>" id="id">
         <div class="col-md-3"></div>
         <div class="col-md-3">
             <input class="form-control btn-success" type="submit" value="Enregistrer" id="submit">

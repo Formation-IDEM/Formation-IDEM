@@ -41,6 +41,73 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="well">
+            <div class="pull-right">
+                <a href="<?= url('config/remuneration/create'); ?>" id="create-remuneration" data-create="remuneration" class="btn btn-success load" data-title="Ajouter un type de rémunération"><i class="fa fa-plus"></i> Ajouter une rémunération</a>
+            </div>
+            <h2>Rémunérations</h2>
+            <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Rémunération</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach( $remunerations as $status ): ?>
+                    <tr>
+                        <td class="text-center"><?= $status->id; ?></td>
+                        <td class="text-center"><?= $status->title; ?></td>
+                        <td class="text-center">
+                            <a href="<?= url('config/remuneration/' . $status->id . '/edit') ?>" class="btn btn-sm btn-primary load" data-title="Modifier un type de rémunération"><i class="fa fa-pencil"></i> Modifier</a>
+                            <a href="<?= url('config/remuneration/' . $status->id . '/delete') ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if( empty($remunerations) ): ?>
+                    <tr>
+                        <td class="text-center" colspan="3">Aucun type de rémunération</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="well">
+            <div class="pull-right">
+                <a href="<?= url('config/level/create'); ?>" id="create-remuneration" data-create="level" class="btn btn-success load" data-title="Ajouter un niveau d'étude"><i class="fa fa-plus"></i> Ajouter un niveau d'étude</a>
+            </div>
+            <h2>Niveaux d'études</h2>
+            <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Niveau</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach( $levels as $status ): ?>
+                    <tr>
+                        <td class="text-center"><?= $status->id; ?></td>
+                        <td class="text-center"><?= $status->title; ?></td>
+                        <td class="text-center">
+                            <a href="<?= url('config/level/' . $status->id . '/edit') ?>" class="btn btn-sm btn-primary load" data-title="Modifier un niveau d'étude"><i class="fa fa-pencil"></i> Modifier</a>
+                            <a href="<?= url('config/level/' . $status->id . '/delete') ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if( empty($levels) ): ?>
+                    <tr>
+                        <td class="text-center" colspan="3">Aucun niveau d'étude</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
     <div class="col-md-6">
@@ -76,46 +143,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="well">
-            <div class="pull-right">
-                <a href="<?= url('config/remuneration/create'); ?>" id="create-remuneration" data-create="remuneration" class="btn btn-success load" data-title="Ajouter un type de rémunération"><i class="fa fa-plus"></i> Ajouter une rémunération</a>
-            </div>
-            <h2>Rémunérations</h2>
-            <table class="table table-stripped">
-                <thead>
-                <tr>
-                    <th class="text-center">#</th>
-                    <th class="text-center">Rémunération</th>
-                    <th class="text-center">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach( $remunerations as $status ): ?>
-                    <tr>
-                        <td class="text-center"><?= $status->id; ?></td>
-                        <td class="text-center"><?= $status->title; ?></td>
-                        <td class="text-center">
-                            <a href="<?= url('config/remuneration/' . $status->id . '/edit') ?>" class="btn btn-sm btn-primary load" data-title="Modifier un type de rémunération"><i class="fa fa-pencil"></i> Modifier</a>
-                            <a href="<?= url('config/remuneration/' . $status->id . '/delete') ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-                <?php if( empty($remunerations) ): ?>
-                    <tr>
-                        <td class="text-center" colspan="3">Aucun type de rémunération</td>
-                    </tr>
-                <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="col-md-6">
         <div class="well">
             <div class="pull-right">
                 <a href="<?= url('config/nationality/create'); ?>" data-title="Ajouter une nationalité" class="btn btn-success load"><i class="fa fa-plus"></i> Ajouter une nationalité</a>
@@ -148,5 +176,6 @@
                 </tbody>
             </table>
         </div>
+
     </div>
 </div>

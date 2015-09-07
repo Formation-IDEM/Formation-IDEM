@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\App;
 use \Core\Controller;
 use Core\Factories\ModelFactory;
 use \Core\Html\Form;
@@ -29,7 +30,7 @@ class CompanyController extends Controller
 	 */
 	public function indexAction()
 	{
-		$items = collection('company')->active()->all();
+		$items = App::getCollection('company')->active()->all();
 		return view('companies/index', compact('items'));
 	}
 
@@ -41,9 +42,7 @@ class CompanyController extends Controller
 	 */
 	public function showAction($id)
 	{
-		var_dump(method('last'));
-		exit;
-		$company = $this->company->loadOrFail($id);
+		$company = App::getModel('company')->loadOrFail($id);
 		return view('companies/show', compact('company'));
 	}
 
@@ -59,7 +58,7 @@ class CompanyController extends Controller
 			'url'		=>	url('companies/create'),
 			'title'		=>	'Ajouter une nouvelle entreprise',
 			'form'		=>	new Form($_POST),
-			'company'	=>	ModelFactory::loadModel('company'),
+			'company'	=>	App::getModel('company'),
 		]);
 	}
 
@@ -71,7 +70,7 @@ class CompanyController extends Controller
 	 */
 	public function editAction($id)
 	{
-		$company = $this->company->loadOrFail($id);
+		$company = app::getModel('company')->loadOrFail($id);
 		return view('companies/form', [
 			'url'		=>	url('companies/' . $company->id . '/edit'),
 			'title'		=>	'Mettre à jour l\'entreprise "' . $company->name . '"',
@@ -90,8 +89,7 @@ class CompanyController extends Controller
 		$validator = new Validator($this->company->_rules);
 		if( $validator->run() )
 		{
-			$this->company->store(request()->all());
-			$this->company->save();
+			App::getModel('company')->store(request()->all())->save();
 			return redirect(url('companies'))->flash('success', 'L\'entreprise a correctement été sauvegardée.');
 		}
 		response()->posts()->errors($validator->getErrors());
@@ -106,7 +104,7 @@ class CompanyController extends Controller
 	 */
 	public function deleteAction($id)
 	{
-		$company = $this->company->loadOrFail($id);
+		$company = App::getModel('company')->loadOrFail($id);
 		$company->store(['active' => 0])->save();
 
 		return redirect(url('companies'))->flash('success', 'L\'entreprise a correctement été supprimée');

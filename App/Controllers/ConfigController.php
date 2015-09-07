@@ -13,7 +13,8 @@ class ConfigController extends Controller
         'remuneration'  =>  'remunerationType',
         'family'        =>  'familyStatus',
         'nationality'   =>  'nationality',
-        'status'        =>  'traineeStatus'
+        'status'        =>  'traineeStatus',
+        'level'         =>  'studyLevel'
     ];
 
     public function __construct()
@@ -32,8 +33,9 @@ class ConfigController extends Controller
         $familyStatus = collection('familyStatus')->all();
         $nationalities = collection('nationality')->all();
         $traineeStatus = collection('traineeStatus')->all();
+        $levels = collection('studyLevel')->all();
 
-        return view('config/index', compact('remunerations', 'familyStatus', 'nationalities', 'traineeStatus'));
+        return view('config/index', compact('remunerations', 'familyStatus', 'nationalities', 'traineeStatus', 'levels'));
     }
 
     /**
