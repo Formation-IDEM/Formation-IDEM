@@ -15,11 +15,9 @@ class Collection {
     public function __construct() {
     }
     
-    public function setAttribut($table,$model){
-        $this->_table = $table;
-        $this->_model_name = $model;
+    public function showReq(){
+        return $this->_requete;
     }
-    
     
     public function getItems(){
         
@@ -78,6 +76,13 @@ class Collection {
         
         $this->_requete .= ' WHERE ';
         return $this; 
+        
+    }
+    
+    public function innerJoin($table){
+        
+        $this->_requete .= ' INNER JOIN '.$table.' ON ';
+        return $this;
         
     }
     

@@ -3,10 +3,25 @@
         <input type="hidden" name="formation" value="<?= $id_formation; ?>">
         <select name="matter" class="form-control">
 <?php
-    for ($i=0; $i < count($coll_matter); $i++):              
+    for ($i=0; $i < count($coll_matter); $i++):
+        
+        $notRefpedago = true;
+        
+        for ($j=0; $j < count($coll_refpedago); $j++) {
+            
+            if( $coll_refpedago[$j]->getData('matters_id') == $coll_matter[$i]->getData('id') ){
+                
+                $notRefpedago = false;
+                
+            }
+            
+        }
+        
+        if( $notRefpedago ):          
 ?>
             <option value="<?= $coll_matter[$i]->getData('id'); ?>"><?= $coll_matter[$i]->getData('title'); ?></option>
 <?php   
+        endif;
     endfor;
 ?>
         </select>

@@ -39,7 +39,7 @@ $(document).on('click','.select-matter',function(event){
 		
 	}).done(function (data){
 
-		$('.selected-matter').html(data);
+		$('.selected-matter-'+id_formation).html(data);
 			
 	});
 	

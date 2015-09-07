@@ -20,7 +20,8 @@
 		);
         
         public function __construct(){
-            
+            $this->_fields['deal_begin_date'] = date('d/m/Y',time());
+            $this->_fields['deal_ending_date'] = date('d/m/Y',time());;
         }
 		
 		public function getTable(){

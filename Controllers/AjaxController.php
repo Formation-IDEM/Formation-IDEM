@@ -5,18 +5,23 @@ class AjaxController{
     public function listMatterAction(){
 
         //récupere la collection des matières            
-        $collection = App::getCollection('Matter');
-        
-        $collection->select();
-                   
+        $collection = App::getCollection('Matter');        
+        $collection->select();        
         $coll_matter = $collection->getItems();
         
+        //récupere la collection des refPedago lié a la formation 
+        $collection = App::getCollection('RefPedago');        
+        $collection->select()->where()->condition("formations_id","=",$_GET['id']);     
+        $coll_refpedago = $collection->getItems();
+        
+        //On récupere l'ID de la formation        
         $id_formation = $_GET['id'];       
    
         Template::getInstance()->setFileName("Ajax/list_matter")->setDatas(
             array(
                 'coll_matter'       =>  $coll_matter,
-                'id_formation'      =>  $id_formation
+                'id_formation'      =>  $id_formation,
+                'coll_refpedago'    =>  $coll_refpedago
             )
         )->render("ajax");
         
@@ -25,7 +30,9 @@ class AjaxController{
     public function listRefpedagoAction(){
         //récupere la collection des matières            
         $collection = App::getCollection('RefPedago');
-        $collection->select()->where()->condition("formations_id","=",$_GET['id']);            
+        
+        $collection->select()->where()->condition("formations_id","=",$_GET['id']);
+              
         $coll_refpedago = $collection->getItems();
         
         $id_formation = $_GET['id'];        
