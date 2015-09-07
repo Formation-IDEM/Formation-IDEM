@@ -33,8 +33,7 @@ class App
 	 * @param $type
 	 * @return null
 	 */
-	public static function getCollection($type)
-	{
+	public static function getCollection($type){
 		if(file_exists('./Models/Collections/' . ucfirst($type) . 'Collection.php'))
 		{
 			include_once('./Models/Collection.php');
@@ -52,8 +51,7 @@ class App
 	 * @param $type
 	 * @return null
 	 */
-	public static function getModel($type)
-	{
+	public static function getModel($type){
 		if( file_exists('./Models/'.ucfirst($type).'.php') )
 		{
 			include_once('Models/Model.php');			

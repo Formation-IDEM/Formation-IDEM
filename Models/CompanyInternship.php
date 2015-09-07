@@ -5,19 +5,21 @@ include_once ('Model.php');
 /**
  * Relation Satigiaire Entreprise
  */
-class TraineeCompany extends Model {
+class CompanyInternship extends Model {
+
+	protected $_table = 'company_internship';
+    protected $_fields = [
+        'trainee_id'        =>  0,
+        'company_id'        =>  0,
+        'internship_id'     =>  0,
+        'date_begin'    	=> 	'0000-00-00 00:00:00',
+        'date_end'  		=>  '0000-00-00 00:00:00'
+    ];
 	
-	private $_attribute;
-	private $_evaluation;
-	private $_begin;
-	private $_end;
-	private $_job;
 	
 	function __construct() {
 		
 		parent::__construct();
-		
-		$this->_table = 'company_internship';
 		
 	}
 	

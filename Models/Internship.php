@@ -1,5 +1,5 @@
 <?php
-<<<<<<< HEAD
+
 
 include_once ('Model.php');
 
@@ -9,26 +9,8 @@ include_once ('Model.php');
 class Internship extends Model {
 
 	protected $_company = null;
-
-	function __construct() {
-
-		parent::__construct();
-
-	}
-
-/*	public function getCompany(){
-
-		if (!$this->_company) {
-			$this->_company=App::getModel('Company')->load($this->getData('company_id'));
-		}
-
-		return $this->_company;
-	}*/
-
-}
-=======
-class Internship extends Model
-{
+	protected $_company_internship = null;
+	protected $_table = 'internships';
     protected $_fields = [
         'id'            =>  0,
         'title'         =>  '',
@@ -44,5 +26,30 @@ class Internship extends Model
         'pay'           =>  0,
         'wage'          =>  0
     ];
+
+	function __construct() {
+
+		parent::__construct();
+
+	}
+
+	public function getCompany(){
+
+		if (!$this->_company) {
+			$this->_company = App::getModel('Company')->load($this->getData('company_id'));
+		}
+
+		return $this->_company;
+	}
+	
+	public function getCompanyInternship(){
+
+		if (!$this->_company_internship) {
+			$this->_company_internship = App::getCollection('CompanyInternship');
+		}
+
+		return $this->_company_internship;
+
+	}
+	
 }
->>>>>>> entreprises
