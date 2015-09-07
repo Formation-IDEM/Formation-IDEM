@@ -28,6 +28,9 @@ Route::crud('users', 'User');
 Route::crud('companies', 'Company');
 Route::crud('internships', 'Internship');
 Route::crud('trainers', 'Trainer');
+Route::get('trainers/:id/matters', 'Trainer@matters')->with(':id', '[0-9]+');
+Route::post('trainers/:id/matters', 'Trainer@saveMatter')->with(':id', '[0-9]+');
+Route::get('trainers/:id/deletematter', 'Trainer@deleteMatter')->with(':id', '[0-9]+');
 
 /**
  * Ajax

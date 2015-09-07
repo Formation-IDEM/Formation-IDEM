@@ -50,4 +50,33 @@ $(document).ready(function(){
             });
         }
     });
+
+    $(document).on('click', '#add-level', function(){
+        $('#add-level-form').toggle();
+    });
+
+    $(document).on('click', '.edit-level', function(e){
+        e.preventDefault();
+        $.ajax({
+            method: "POST",
+            //url: "index.php?c=ajax&a=editLevelForm",
+            url: 'index.php?url=ajax/editLevelForm',
+            data: { id: $(this).attr('data-id') }
+        }).done(function( html ) {
+            $('#form-ajax').html(html);
+        });
+    });
+
+    $(document).on('submit', '#edit-level-form', function(e){
+        e.preventDefault();
+        $.ajax({
+            method: "POST",
+            //url: "index.php?c=ajax&a=editLevel",
+            url: 'index.php?url=ajax/editLevel',
+            data: $(this).serialize()
+        }).done(function( html ) {
+            $('#results-ajax').html(html);
+            $('#form-ajax').empty();
+        });
+    });
 });

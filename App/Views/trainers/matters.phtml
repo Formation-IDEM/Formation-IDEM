@@ -1,0 +1,84 @@
+<div class="page-header">
+    <h1><i class="fa fa-male"></i> Gestion des formateurs <small><i class="fa fa-angle-double-right"></i>  Ajouter une matière</small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="<?=url('/'); ?>">Panneau de Contrôle</a></li>
+    <li><i class="fa fa-male"></i> <a href="<?= url('trainers'); ?>">Formateurs</a></li>
+    <li class="active"> Ajouter une matière</li>
+</ol>
+
+<?php viewFile('partials.errors'); ?>
+
+<?php if( $trainer->id != 0 ): ?>
+    <?php include_once('App/Views/partials/menu-trainer.phtml') ?>
+<?php endif; ?>
+
+<div id="form-ajax"></div>
+<div id="results-ajax">
+<?php if($trainer->getLevels()): ?>
+    <table class="table table-striped" id="matters-levels">
+    <tr>
+        <th class="text-center">Matière</th>
+        <th class="text-center">Note</th>
+        <th class="text-center">Appréciation</th>
+        <th class="text-center">Actions</th>
+    </tr>
+    <?php foreach($trainer->getLevels() as $level): ?>
+        ?>
+        <tr>
+            <td class="text-center"><?php echo $level->getMatter()->getData('title'); ?></td>
+            <td class="text-center"><?php echo $level->getData('note'); ?></td>
+            <td class="text-center"><?php echo $level->getData('appreciation'); ?></td>
+            <td class="text-center">
+                <a class="btn btn-primary edit-level" data-id="<?php echo $level->id; ?>" href="#">Editer</a>
+            </td>
+            <td class="text-center">
+                <form method="post">
+                    <input type="hidden" name="level" value="<?php echo $level->getData('id'); ?>">
+                    <input type="hidden" name="delete" value="1">
+                    <input type="submit" class="btn btn-danger" value="Supprimer">
+                </form>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else: ?>
+<p>
+    <div class="well text-center">Aucune matière</div>
+</p>
+<?php endif; ?>
+</div>
+<div class="form-group">
+    <button class="btn btn-primary btn-block" id="add-level">Ajouter une matière</button>
+</div>
+
+<form style="display:none;" method="post" action="<?= url('trainers/' . $trainer->id . '/save'); ?>" enctype="multipart/form-data" id="add-level-form">
+    <div class="form-group">
+        <label for="matter_id">Matière</label>
+        <select class="form-control" name="matter_id" id="matter_id">
+            <?php
+            foreach ($matters as $matter)
+            {
+                ?>
+                <option value="<?php echo $matter->getData('id') ?>">
+                    <?php
+                    echo $matter->getData('title');
+                    ?>
+                </option>
+                <?php
+            }
+            ?>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-success form-control" value="Ajouter">
+    </div>
+</form>
+
+
+<script>
+    $(document).ready(function(){
+
+    });
+</script>

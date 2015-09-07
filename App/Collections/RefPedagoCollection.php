@@ -9,7 +9,8 @@ use Core\Collection;
  */
 class RefPedagoCollection extends Collection
 {
-    protected $collection = 'ref_pedagos';
+    protected $_model = 'refPedago';
+    protected $_table = 'ref_pedagos';
 
     public function __construct()
     {

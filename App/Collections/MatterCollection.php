@@ -9,7 +9,8 @@ use Core\Collection;
  */
 class MatterCollection extends Collection
 {
-    protected $collection = 'matters';
+    protected $_model = 'matter';
+    protected $_table = 'matters';
 
     public function __construct()
     {

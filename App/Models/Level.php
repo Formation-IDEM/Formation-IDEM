@@ -12,18 +12,20 @@ class Level extends Model
     protected $_trainer = null;
     protected $_matter = null;
 
-    // Constructeur
-    public function __construct()
-    {
-        parent::__construct();
+    protected $_table = 'levels';
 
-        $this->_table = 'levels';
-        $this->_fields['id'] = 0;
-        $this->_fields['note'] = 1;
-        $this->_fields['appreciation'] = '';
-        $this->_fields['trainer_id'] = 0;
-        $this->_fields['matter_id'] = 0;
-    }
+    protected $_fields = [
+        'id'                =>  0,
+        'note'              =>  0,
+        'appreciation'      =>  '',
+        'trainer_id'        =>  0,
+        'matter_id'         =>  0,
+        'create_date'       =>  null,
+        'update_date'       =>  null,
+        'create_uid'        =>  0,
+        'update_uid'        =>  0,
+        'active'            =>  1
+    ];
 
     public function getTrainer()
     {

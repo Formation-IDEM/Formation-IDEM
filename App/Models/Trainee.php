@@ -1,5 +1,6 @@
 <?php
 namespace App\Models;
+use Core\Factories\DatabaseFactory;
 
 /**
  * Class TraineeModel
@@ -32,6 +33,11 @@ class Trainee extends Person
         'family_status_id'      =>  0,
         'nationality_id'        =>  0
     ];
+
+    public function __construct()
+    {
+        parent::__construct(DatabaseFactory::db());
+    }
 
     /**
      * Charge la rémunération

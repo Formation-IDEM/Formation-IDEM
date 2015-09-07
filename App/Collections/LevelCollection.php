@@ -9,7 +9,8 @@ use Core\Collection;
  */
 class LevelCollection extends Collection
 {
-    protected $collection = 'levels';
+    protected $_table = 'levels';
+    protected $_model = 'level';
 
     public function __construct()
     {

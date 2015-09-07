@@ -189,7 +189,7 @@
                     foreach ($studyLevels as $studyLevel) {
                         ?>
                         <option value="<?php echo $studyLevel->getData('id') ?>" <?php echo $studyLevel->getData('id') == $trainer->getData('study_levels_id') ? 'selected' : ''; ?>>
-                            <?php echo $studyLevel->getData('wording'); ?>
+                            <?php echo $studyLevel->getData('title'); ?>
                         </option>
 
                         <?php

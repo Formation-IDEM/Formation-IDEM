@@ -2,8 +2,11 @@
     <a class="btn btn-success" href="<?= url('trainers/create'); ?>"><i class="fa fa-plus"></i> Ajouter un formateur</a>
 </div>
 <h2>Liste des formateurs</h2>
+
+<?php viewFile('partials/flash'); ?>
+
 <div class="form-group">
-    <input id="autocomplete" autofocus type="text" name="q" placeholder="Nom d'un formateur ..." style="width:100%;max-width:600px;outline:0" class="form-control" id="trainer-selected">
+    <input id="autocomplete" autofocus type="text" name="q" placeholder="Nom d'un formateur ..." style="outline:0" class="form-control" id="trainer-selected">
 </div>
 <div id="ajax-results">
     <table class="table table-striped">
@@ -15,10 +18,11 @@
             <th class="text-center">Portable</th>
             <th class="text-center">Email</th>
             <th class="text-center">Sexe</th>
-            <th class="text-center">Niveau d'étude</th>
+            <th class="text-center">Etudes</th>
             <th class="text-center">Externe</th>
-            <th class="text-center">Taux horaire</th>
-            <th class="text-center">Informations Complémentaires</th>
+            <th class="text-center">Tx horaire</th>
+            <th class="text-center">Informations</th>
+            <th class="text-center" colspan="3">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -56,17 +60,13 @@
                         <?php echo $trainer->getData('further_informations'); ?>
                     </td>
                     <td class="text-center">
-                        <a href="<?= url('trainers/' .  $trainer->getData('id')); ?>" class="btn btn-primary">Afficher</a>
+                        <a href="<?= url('trainers/' .  $trainer->getData('id')); ?>" class="btn btn-warning"><i class="fa fa-eye"></i> Afficher</a>
                     </td>
                     <td class="text-center">
-                        <a href="<?= url('trainers/' . $trainer->getData('id') . '/edit'); ?>" class="btn btn-primary">Modifier</a>
+                        <a href="<?= url('trainers/' . $trainer->getData('id') . '/edit'); ?>" class="btn btn-primary"><i class="fa fa-pencil"></i> Modifier</a>
                     </td>
                     <td class="text-center">
-                        <form method="post">
-                            <input type="hidden" name="trainer" value="<?php echo $trainer->getData('id'); ?>">
-                            <input type="hidden" name="delete" value="1">
-                            <input type="submit" class="btn btn-danger" value="Supprimer">
-                        </form>
+                        <a href="<?= url('trainers/' . $trainer->getData('id') . '/delete'); ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -84,7 +84,8 @@
         $(document).on('input change','input[name="q"]', function(){
             $.ajax({
                 method: 'POST',
-                url: 'index.php?c=Ajax&a=listTrainer',
+                url: 'index.php?url=ajax/listTrainer',
+                //url: 'index.php?c=Ajax&a=listTrainer',
                 data : { firstname : $(this).val() }
             }).done(function(html){
                 $('#ajax-results').html(html);
@@ -93,7 +94,8 @@
         $('input[name="q"]').autoComplete({
             minChars: 3,
             source: function(term, response){
-                $.getJSON('/index.php?c=ajax&a=autoComplete', { q: term }, function(data)
+                // $.getJSON('/index.php?c=ajax&a=autoComplete', { q: term }, function(data)
+                $.getJSON('/index.php?url=ajax/autoComplete', { q: term }, function(data)
                 {
                     response(data);
                 });
@@ -101,7 +103,8 @@
             onSelect: function(e, term, item){
                 $.ajax({
                     method: 'POST',
-                    url: 'index.php?c=ajax&a=listTrainer',
+                    //url: 'index.php?c=ajax&a=listTrainer',
+                    url: 'index.php?url=ajax/listTrainer',
                     data : { firstname : term }
                 }).done(function(html){
                     $('#ajax-results').html(html);

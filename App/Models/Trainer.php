@@ -32,14 +32,14 @@ class Trainer extends Person
 
     public function getFullName()
     {
-        return $this->getData('firstname').' '.$this->getData('name');
+        return $this->getData('firstname') . ' ' . $this->getData('name');
     }
 
     public function getStudyLevel()
     {
         if(!$this->_study_level)
         {
-            $this->_study_level = App::getModel('StudyLevel')->load($this->getData('study_levels_id'));
+            $this->_study_level = App::getModel('studyLevel')->load($this->getData('study_levels_id'));
         }
         return $this->_study_level;
     }
@@ -48,7 +48,7 @@ class Trainer extends Person
     {
         if(!$this->_levels)
         {
-            $this->_levels = collection('Level')->where('trainer_id', '=', $this->_fields['id'])->all();
+            $this->_levels = collection('level')->where('trainer_id', '=', $this->_fields['id'])->all();
         }
         return $this->_levels;
     }
@@ -57,7 +57,7 @@ class Trainer extends Person
     {
         if(!$this->_timesheets)
         {
-            $this->_timesheets = collection('Timesheet')->where('trainer_id', '=', $this->_fields['id'])->all();
+            $this->_timesheets = collection('timesheet')->where('trainer_id', '=', $this->_fields['id'])->all();
         }
         return $this->_timesheets;
     }

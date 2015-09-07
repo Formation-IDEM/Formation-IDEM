@@ -9,7 +9,8 @@ use Core\Collection;
  */
 class TimesheetCollection extends Collection
 {
-    protected $collection = 'timesheets';
+    protected $_model = 'timesheet';
+    protected $_table = 'timesheets';
 
     public function __construct()
     {
