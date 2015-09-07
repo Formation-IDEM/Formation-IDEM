@@ -1,16 +1,18 @@
-<div class ="col-md-3">
-    <form method="post" action="#" class="post-add-matter">
-        <input type="hidden" name="formation" value="<?= $id_formation; ?>">
-        <select name="matter" class="form-control">
-<?php
-    foreach($coll_matter as $matter)
-    {
-    	?>
-            <option value="<?= $matter->getData('id'); ?>"><?= $matter->getData('title'); ?></option>
-    	<?php
-    }
-?>
-        </select>
-        <button name="submit">Ajouter cette matière</button>
-    </form>
-</div>
+<form method="post" action="#" class="post-add-matter">
+	<div class="col-md-3">
+	    <input type="hidden" name="formation" value="<?= $id_formation; ?>">
+	    <select name="matter" class="form-control">
+		<?php
+		    foreach($coll_matter as $matter)
+		    {
+		    	?>
+		            <option class="matter-<?= $matter->getData('id'); ?>" value="<?= $matter->getData('id'); ?>"><?= $matter->getData('title'); ?></option>
+		    	<?php
+		    }
+		?>
+	    </select>
+	</div>
+	<div class="col-md-3">
+	    <button name="submit" class="btn btn-success">Ajouter cette matière</button>
+	</div>
+</form>

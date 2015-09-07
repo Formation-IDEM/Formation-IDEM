@@ -1,7 +1,8 @@
+<h1><i class="fa fa-male"></i> Gestion des formateurs <small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
 <ul class="nav nav-tabs">
 	<li role="presentation" <?php echo ($_GET['a'] == 'addEdit' ? 'class="active"' : '') ?>>
 		<a href="/index.php?c=Trainer&a=addEdit&id=<?php echo $trainer->getData('id'); ?>">
-			Modifier le formateur
+			Ajouter / Modifier le formateur
 		</a>
 	</li>
 	<li role="presentation" <?php echo ($_GET['a'] == 'timesheet' ? 'class="active"' : '') ?>>

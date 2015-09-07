@@ -4,6 +4,8 @@
  */
 class Internship extends Model
 {
+
+    protected $_table = 'internships';
     protected $_fields = [
         'id'            =>  0,
         'title'         =>  '',
@@ -20,12 +22,7 @@ class Internship extends Model
         'wage'          =>  0
     ];
 
-    public $_rules = [
-        'title'     =>  'required|min:6|trim|entities',
-        'explain'   =>  'trim|entities'
-    ];
-
-    protected $_company;
+    protected $_company = null;
     protected $_formation;
     protected $_referent;
 
@@ -38,8 +35,7 @@ class Internship extends Model
     {
         if( !$this->_company )
         {
-            $this->_company = App::getModel('company');
-            $this->_company->load($this->getData('company_id'));
+            $this->_company = App::getModel('company')->load($this->getData('company_id'));
         }
 
         return $this->_company;

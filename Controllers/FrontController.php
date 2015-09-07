@@ -5,7 +5,31 @@
  */
 class FrontController
 {
-	function indexAction()
+	public function logoutAction()
+	{
+		session_destroy();
+		header('Location: /');
+	}
+
+	public function loginAction()
+	{
+		if(isset($_POST) && $_POST != null)
+		{
+			$profile = App::getModel('Profile')->load($_POST['email'], 'email');
+			echo $profile->encryptPassword($_POST['password']);
+			if($profile->getData('password') == $profile->encryptPassword($_POST['password']))
+			{
+				$_SESSION['login'] = true;
+				$_SESSION['profile_id'] = $profile->getData('id');
+				header('Location: /');
+			}
+		}
+		Template::getInstance()
+				->setFilename('Front/login')
+				->render();
+	}
+
+	public function indexAction()
 	{
 		$stats = [
 			'trainers'		=>	App::getCollection('trainer')->count(),
@@ -22,5 +46,10 @@ class FrontController
 	public function aboutAction()
 	{
 
+	}
+
+	public function noPermission()
+	{
+		echo 'pas la permission';
 	}
 }

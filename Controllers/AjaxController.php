@@ -25,18 +25,16 @@ class AjaxController
 
     public function listRefpedagoAction(){
         //récupere la collection des matières            
-        $collection = App::getCollection('RefPedago');
-        $collection->where('formations_id',$_GET['id'])->all();
-        $coll_refpedago = $collection->getAllItems();
-        
-        $id_formation = $_GET['id'];        
-   
-        Template::getInstance()->setFileName("Ajax/list_refpedago")->setDatas(
-            array(
+        $coll_refpedago = App::getCollection('RefPedago')
+				        ->where('formations_id',$_GET['id'])
+				        ->all();
+        Template::getInstance()
+        ->setFileName("Ajax/list_refpedago")
+        ->setDatas(array(
                 'coll_refpedago'      =>  $coll_refpedago,
-                'id_formation'        => $id_formation 
-            )
-        )
+                'id_formation'        => $_GET['id'],
+                'formation'        => App::getModel('Formation')->load($_GET['id'])
+		        ))
         ->isAjax()
         ->render();
         
@@ -132,4 +130,34 @@ class AjaxController
 			->setFilename('Ajax/levels')
 			->render();
 	}
+
+	/**
+     * Retourne la liste des pays pour l'autocompletion
+     */
+    public function nationalitiesAction()
+    {
+        $countries = collection('nationality')
+            ->select('title')
+            ->where('title', 'LIKE', ucfirst(request()->getData('country')))
+            ->all();
+
+        $json = [];
+        foreach( $countries as $country )
+        {
+            $json[] = $country->title;
+        }
+        echo json_encode($json);
+    }
+
+    /**
+     * Retourne la liste des stages pour une entreprise
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function internshipsAction($id)
+    {
+        $items = collection('internship')->where('company_id', '=', $id)->all();
+        return Template::only('ajax/internships', compact('items'));
+    }
 }

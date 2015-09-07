@@ -10,10 +10,10 @@ class ControllerFactory
 	 *
 	 * @return mixed
 	 */
-	public static function createController()
+	public static function createController($noPermission = null)
 	{
 		$controller = 'FrontController';
-		if( isset( $_GET['c'] ) )
+		if( isset( $_GET['c'] ) && !$noPermission)
 		{
 			if( file_exists( dirname(dirname(__FILE__)) . '/Controllers/' . ucfirst($_GET['c']) . 'Controller.php' ) )
 			{

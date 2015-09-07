@@ -1,8 +1,8 @@
-<div class="refPedago-<?= $refpedago->getData('id'); ?>">
-    <div class="col-md-6">
+<tr class="refPedago-<?= $refpedago->getData('id'); ?> matter-<?= $refpedago->getMatter()->id ?>">
+    <td>
         <?= $refpedago->getMatter()->getData('title'); ?>
-    </div>
-    <div class="col-md-6">                  
-        <a class="deleteRefPedago" href="#" refpedago="<?= $refpedago->getData('id'); ?>">Supprimer cette réfèrence pedagogique</a>
-    </div>        
-</div>
+    </td>
+    <td class="deleteRefPedago" refpedago="<?= $refpedago->getData('id'); ?>">                  
+        <a class="btn btn-danger" href="#">Supprimer cette réfèrence pedagogique</a>
+    </td>        
+</tr>

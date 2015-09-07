@@ -13,6 +13,50 @@ class App
 		$this->_actionName = 'indexAction';
 	}
 
+	public function url($url)
+	{
+		if( strpos($url, '/')) 
+		{
+			$params = explode('/', $url);
+			$count = count($params);
+
+			if( $count === 1 )
+			{
+				return '/index.php?c=' . $params[0]; 
+			} 
+			else if ( $count === 2 )
+			{
+				return '/index.php?c=' . $params[0] . '&a=' . $params[1]; 
+			} 
+
+			else if( $count === 3 )
+			{
+				if( is_numeric($params[1])) 
+				{
+					return '/index.php?c=' . $params[0] . '&a=' . $params[2] . '&id=' . $params[1];
+				}
+				else
+				{
+					return '/index.php?c=' . $params[0] . '&a=' . $params[1] . '&id=' . $params[2];
+				}
+				
+			}
+			
+		}
+
+		return $url;
+	}
+
+	public function logged()
+	{
+		return App::getModel('Profile')->logged();
+	}
+
+	public function profile()
+	{
+		return App::getModel('Profile')->profile();
+	}
+
 	/**
 	 * Singleton
 	 *
@@ -105,7 +149,15 @@ class App
 		$controller = ControllerFactory::createController();
 		if(method_exists($controller,$action))
 		{
-			$controller->$action();
+			if(Auth::getInstance()->hasPermission())
+			{
+				$controller->$action();				
+			}
+			else
+			{
+				$controller = ControllerFactory::createController('noPermission');
+				$controller->noPermission();
+			}
 		}
 		else
 		{

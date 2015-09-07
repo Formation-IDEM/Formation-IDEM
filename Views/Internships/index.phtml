@@ -1,0 +1,39 @@
+<div class="page-header">
+    <p class="pull-right">
+        <a href="/index.php?c=internships&a=create'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter un stage</a>
+    </p>
+    <h1><i class="fa fa-laptot"></i> Gestion des stages <small><i class="fa fa-angle-double-right"></i> Liste des stages</small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="index.php">Panneau de Contrôle</a></li>
+    <li class="active"><i class="fa fa-laptop"></i> Stages</li>
+</ol>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th class="text-center">Titre de stage</th>
+        <th class="text-center">Entreprise</th>
+        <th class="text-center">Création</th>
+        <th class="text-center">Mise à jour</th>
+        <th class="text-center">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($items as $item): ?>
+    <tr>
+        <td class="text-center"><a href="/index.php?c=internships&id=<?php echo $item->id; ?>"><?= $item->title; ?></a></td>
+        <td class="text-center">
+            <a href="/index.php?c=company&a=show&id=<?php echo $item->company_id; ?>"><?= $item->getCompany()->name ?>
+            </a>
+        </td>
+        <td class="text-center"><?= $item->create_date ?></td>
+        <td class="text-center"><?= $item->update_date ?></td>
+        <td class="text-center">
+            <a href="/index.php?c=internships&a=edit&id='<?php echo $item->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Modifier</a>
+            <a href="/index.php?c=internships&a=delete&id=<?php echo $item->id; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

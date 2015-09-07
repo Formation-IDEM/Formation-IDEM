@@ -1,0 +1,64 @@
+<div class="page-header">
+    <p class="pull-right">
+        <a href="<?= App::url('companies/create'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Enregistrer une entreprise</a>
+    </p>
+    <h1><i class="fa fa-laptop"></i> Gestion des stages <small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="index.php">Panneau de Contrôle</a></li>
+    <li><i class="fa fa-laptop"></i> <a href="<?= App::url('internships'); ?>">Stages</a></li>
+    <li class="active"> <?= $title; ?></li>
+</ol>
+
+<?php viewFile('partials.errors'); ?>
+
+<form class="form-vertical" action="<?= $url; ?>" method="POST">
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->text('title', 'Intitulé du stage', ['data-validation' => 'required']); ?>
+            <?= $form->hidden('id', $internship->id); ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->select('company_id', 'Entreprise proposant le stage', $internship->company_id, $companies); ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->select('formation_id', 'Formation en rapport avec le stage', $internship->formation_id, $formations, 'title'); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->text('student', 'Etudiant concerné'); ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->text('referent', 'Nom du tuteur de stage'); ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->number('wage', 'Rémunération du stagiaire'); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="checkbox">
+                <label>
+                    <input name="pay" type="checkbox" value="1"<?= $form->getChecked('pay'); ?>>
+                    Stage rémunéré ?
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="checkbox">
+                <label>
+                    <input name="active" type="checkbox" value="1"<?= $form->getChecked('active'); ?>>
+                    Stage actif ?
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <?= $form->textarea('explain', 'Description du stage', ['rows' => '5', 'data-validation' => 'required']); ?>
+        </div>
+    </div>
+    <?= $form->submit($title, ['class' => 'btn btn-success btn-block']); ?>
+
+</form>

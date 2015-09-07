@@ -1,22 +1,33 @@
-<div  class="col-md-12 list-matter">
-    <div  class="col-md-12">
-        <a class="select-matter" formation="<?= $id_formation; ?>" href="#"><h3>Ajouter une réfèrence pédagogique</h3></a>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <?php echo $formation->title; ?> Gestion des matières
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped list-matter">
+            <tr>
+                <td>Nom matière</td>
+                <td></td>
+            </tr>
+            <?php
+                //faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
+                foreach($coll_refpedago as $refpedago)
+                {
+                    ?>
+                    <tr class="refPedago-<?= $refpedago->getData('id'); ?> matter-<?= $refpedago->getMatter()->id ?>">
+                        <td>
+                            <?php  echo $refpedago->getMatter()->getData('title'); ?>
+                        </td>
+                        <td class="deleteRefPedago" refpedago="<?= $refpedago->getData('id'); ?>">
+                            <a class="btn btn-danger" href="#">Supprimer cette matière de la formation</a>
+                        </td>
+                    </tr>
+                  <?php
+                }
+            ?>
+        </table>
         <div class="selected-matter"></div>
+        <a class="select-matter btn btn-success" formation="<?= $id_formation; ?>" href="#">
+            Ajouter une matière à la formation
+        </a>
     </div>
-    
-    <?php
-        //faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
-        for ($i=0; $i < count($coll_refpedago); $i++):                
-    ?>                      
-    <div class="refPedago-<?= $coll_refpedago[$i]->getData('id'); ?>">
-        <div class="col-md-6">
-            <?php  echo $coll_refpedago[$i]->getMatter()->getData('title'); ?>
-        </div>
-        <div class="col-md-6">                  
-            <a class="deleteRefPedago" href="#" refpedago="<?= $coll_refpedago[$i]->getData('id'); ?>">Supprimer cette réfèrence pedagogique</a>
-        </div>        
-    </div>
-    <?php   
-        endfor;
-    ?>
 </div>

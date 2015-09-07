@@ -44,7 +44,8 @@ class TrainerController
 		$trainers = App::getCollection('Trainer')->getAllItems();
 		Template::getInstance()
 			->setDatas(array(
-					'trainers' => $trainers
+					'trainers' => $trainers,
+					'title'		=> 'Liste des formateurs'
 							))
 			->setFilename('Trainer/list')
 			->render();
@@ -91,7 +92,8 @@ class TrainerController
 			Template::getInstance()
 				->setDatas(array(
 						'matters' 	=> App::getCollection('Matter')->getAllItems(),
-						'trainer'	=> $trainer
+						'trainer'	=> $trainer,
+						'title'		=> 'Gestion des compétences'
 						))
 				->setFilename('Trainer/levels')
 				->render();
@@ -124,6 +126,7 @@ class TrainerController
 				->setDatas(array(
 						'formationSessions' 	=> App::getCollection('FormationSession')->getAllItems(),
 						'trainer'				=> App::getModel('Trainer')->load($_GET['id']),
+						'title'					=> 'Feuilles de présences'
 						))
 				->setFilename('Trainer/timesheet')
 				->render();
@@ -153,7 +156,8 @@ class TrainerController
 					'trainer' 		=> $trainer,
 					'nationalities' => App::getCollection('Nationality')->getAllItems(),
 					'familyStatuss' => App::getCollection('FamilyStatus')->getAllItems(),
-					'studyLevels' 	=> App::getCollection('StudyLevel')->getAllItems()
+					'studyLevels' 	=> App::getCollection('StudyLevel')->getAllItems(),
+					'title'		=> 'Ajouter / Modifier un formateur'
 					))
 			->setFilename('Trainer/add-edit')
 			->render();

@@ -2,11 +2,10 @@
 
 class FormationController{
 	
-	public function __contruct(){
-	}
+	public function __contruct(){}
 	
-	public function indexAction(){
-		
+	public function indexAction()
+	{
 		//appel la méthode getItems de la class Collection avec la parametre qui va bien
 		$collection = App::getCollection('Formation');
 		
@@ -14,40 +13,41 @@ class FormationController{
     	$coll_for = $collection->getAllItems();
 
 		//On transmet via setDatas() la collection de formation dans un tableau associatif
-		Template::getInstance()->setFileName("Formation/list_formations")->setDatas(array(
-			'coll_for' => $coll_for
-		))->render();
+		Template::getInstance()
+		->setFileName("Formation/list_formations")
+		->setDatas(array(
+			'coll_for' => $coll_for,
+			'title'			=> 'Liste',
+		))
+		->render();
 	
 	}
 	
-	public function editAction(){
-		
+	public function editAction()
+	{
 		//on charge le model de formation
 		$maFormation = App::getModel('Formation');
-		
+		$title = 'Ajouter une formation';
         //crée la liste des matières via une collection
-        $collection = App::getCollection('Matter');
-        $coll_matter = $collection->getAllItems();
+        $coll_matter = App::getCollection('Matter')->getAllItems();
         
-		if( isset($_GET['id']) ){
-			
+		if(isset($_GET['id']))
+		{
 			$maFormation->load($_GET['id']);
-			
+			$title = 'Modifier '.$maFormation->title;
 		}
-		
-		if( isset($_POST['submit']) ) {
+		if( isset($_POST['submit'])) 
+		{
 			//Si id existe et n'est pas vide, on modifie
-			if( isset($_POST['id']) && !empty($_POST['id']) ){
-				
-				$maFormation->store( array(	'id'=> $_POST['id']	));
-				
-			}else{//sinon c'est une création
-				
-				$maFormation->store( array(	'id'=> 0 ));			
-				
+			if( isset($_POST['id']) && !empty($_POST['id']) )
+			{
+				$maFormation->store(array('id' => $_POST['id']));
 			}
-			
-			$maFormation->store( array(
+			else
+			{//sinon c'est une création
+				$maFormation->store(array('id' => 0));			
+			}
+			$maFormation->store(array(
 						'title' 						=> $_POST['title'],
 						'average_effective' 			=> $_POST['average_effective'],
 						'convention_hour_center'		=> $_POST['convention_hour_center'],
@@ -60,10 +60,9 @@ class FormationController{
 
 			//on appelle la méthode qui stock les infos dans l'objet crée
 			$maFormation->save();
-            
             //On prépare la sauvegardes des references pedagogique lié a la formation
-            for( $i=0;$i<count($_POST['matters']);$i++){
-                
+            for( $i=0;$i<count($_POST['matters']);$i++)
+            {
                 //on crée un model de refpedago
                 $ref = App::getModel('RefPedago');
                 //on store l'ID de la formation qui vien d'être crée et l'ID de la matière courante
@@ -75,32 +74,31 @@ class FormationController{
                 $ref->save();
                 
             }
-			
             //Formation et les réf pedago lié sont crée, on retoure au listing
-			header("Location: index.php?c=Formation");
+			header("Location: index.php?c=formation");
 		}	
-			//On transmet via setDatas() la collection de formation dans un tableau associatif
-			Template::getInstance()->setFileName("Formation/edit_formations")->setDatas(array(
-				'maFormation'   => $maFormation,
-				'coll_matter'   => $coll_matter
-			))->render();
+		//On transmet via setDatas() la collection de formation dans un tableau associatif
+		Template::getInstance()
+		->setFileName("Formation/edit_formations")
+		->setDatas(array(
+			'maFormation'   => $maFormation,
+			'coll_matter'   => $coll_matter,
+			'title'			=> $title,
+		))
+		->render();
 		
 	}
 	
     //Trop dangereux pour l'projet, ne pas utilisé
-	public function deleteAction(){
-		
+	public function deleteAction()
+	{
 		$maFormation = App::getModel("Formation");
-		
-		if( isset($_GET['id']) ){
-		
+		if(isset($_GET['id']))
+		{
 			$maFormation->load($_GET['id']);
 			$maFormation->delete();
-			header("Location: index.php?c=Formation");
-			
+			header("Location: index.php?c=formation");
 		}
-		
 	}
-
 }
 ?>

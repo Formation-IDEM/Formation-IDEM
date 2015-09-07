@@ -1,8 +1,9 @@
 <?php
     class Formation extends Model{
     	
-		protected $_ref_pedago = null;
+		protected $_refPedago = null;
 		protected $_formation_session = null;
+		protected $_matters = array();
 		
 		protected $_table = "formations";
 		protected $_fields = array(
@@ -28,14 +29,27 @@
 		}
 		
 		//permet de récuperé la collection des reférence pédagogique
-		public function getRefPedago(){
-			
-			if($this->_ref_pedago){
-				
-				return $this -> _ref_pedago;
+		public function getRefPedago()
+		{
+			if(!$this->_refPedago)
+			{
+				$this->_refPedago = App::getCollection('refPedago')->where('formations_id', $this->getData('id'))->all();
 			}
-			
+			return $this->_refPedago;
 		}
+
+		public function getMatters()
+		{
+			if(!$this->_matters)
+			{
+				foreach($this->getRefPedago() as $refPedago)
+				{
+					$this->_matters[] = $refPedago->getMatter();
+				}
+			}
+			return $this->_matters;
+		}
+
 		public function setRefPedago($a){
 			
 			$this -> _ref_pedago = $a;

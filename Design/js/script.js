@@ -18,7 +18,7 @@ $(".list-formation").on('click','.listRefpedago',function(event){
 		
 	}).done(function (data){
 
-		$('.ajax-listRefpedago-'+id_formation).html(data);
+		$('.ajax-listRefpedago').html(data);
 			
 	});
 	
@@ -39,6 +39,7 @@ $(document).on('click','.select-matter',function(event){
 		
 	}).done(function (data){
 
+		$('.select-matter').remove();
 		$('.selected-matter').html(data);
 			
 	});
@@ -51,16 +52,21 @@ $(document).on('click','.select-matter',function(event){
 $(document).on('submit','.post-add-matter',function(event){
 
 	event.preventDefault();
-	
+	var dataForm = $(this).serialize();
+	var that = this;
 	$.ajax({
-		
+
 		url: 'index.php?c=Ajax&a=addRefPedago',
-		data: $(this).serialize(),
+		data: dataForm,
 		type: 'POST'
 		
-	}).done(function (data){
-		
-		$('.list-matter').append(data);		
+	}).done(function (data)
+	{
+		matterId = $(that).find('select[name="matter"]').val();
+		if(!($('.list-matter').find('.matter-'+matterId)).length)
+		{
+			$('.list-matter').append(data);
+		}
 			
 	});
 	
@@ -72,7 +78,7 @@ $(document).on('submit','.post-add-matter',function(event){
 $(document).on('click','.deleteRefPedago',function(event){
 
 	event.preventDefault();
-	
+
 	var id_refpedago = $(this).attr('refpedago');
 	
 	$.ajax({
@@ -80,10 +86,8 @@ $(document).on('click','.deleteRefPedago',function(event){
 		url: 'index.php?c=Ajax&a=deleteRefPedago&id='+id_refpedago
 		
 	}).done(function (data){
-
 		//Une fois la réference pedagogique supprimer, on supprime la ligne qui l'afficher avant
-		$('.refPedago-'+id_refpedago).remove();
-			
+		$('.refPedago-'+id_refpedago).remove();			
 	});
 	
 });

@@ -1,8 +1,4 @@
-<?php include_once 'Views/Layouts/breadcrumbs.phtml'; ?>
-<?= addBreadcrumbs(['Formateurs' => 'index.php?c=trainer&a=list', ($trainer->getFullName() != ' ' ? $trainer->getFullName() : 'Nouveau') => 'index.php?c=trainer&a=list', 'Ajouter - Modifier ' => '']); ?>
 <?php include_once 'Views/Layouts/menu-trainer.phtml'; ?>
-<h2>Ajouter / Modifier un formateur</h2>
-
 <form class="form-vertical" method="post" action="" enctype="multipart/form-data">
 	<div class="row">
 		<h3><strong>Civilité</h3></strong>

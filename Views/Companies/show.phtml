@@ -1,0 +1,47 @@
+<div class="page-header">
+    <p class="pull-right">
+        <a href="/index.php?c=ajax&a=internships&id=<?= $company->id ?>" class="btn btn-success list" data-title="Stages proposés par <?= $company->name; ?>"><i class="fa fa-laptop"></i> Voir les stages</a>
+        <a href="<?= App::url('companies/' . $company->id . '/edit'); ?>" class="btn btn-primary"><i class="fa fa-pencil"></i> Modifier</a>
+        <a href="<?= App::url('companies/' . $company->id . '/delete'); ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
+    </p>
+    <h1><i class="fa fa-building-o"></i> <?= $company->name; ?> <small><i class="fa fa-angle-double-right"></i> Informations</small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="<?= App::url('/'); ?>">Panneau de Contrôle</a></li>
+    <li><i class="fa fa-building"></i> <a href="<?= App::url('companies'); ?>">Entreprises</a></li>
+    <li class="active"><i class="fa fa-building-o"></i> <?= $company->name; ?></li>
+</ol>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Informations</div>
+            <ul class="list-group">
+                <?php if( !empty($company->status) ): ?>
+                <li class="list-group-item"><i class="fa fa-building"></i> <?= $company->status; ?></li>
+                <?php endif; ?>
+                <?php if( !empty($company->manager) ): ?>
+                <li class="list-group-item"><i class="fa fa-male"></i> <?= $company->manager; ?></li>
+                <?php endif; ?>
+                <li class="list-group-item"><i class="fa fa-map-marker"></i> <?= $company->address; ?></li>
+                <li class="list-group-item"><i class="fa fa-map-signs"></i> <?= $company->city; ?></li>
+                <li class="list-group-item"><i class="fa fa-map"></i> <?= (!empty($company->postal_code) ? $company->postal_code . ', ' . $company->country : '' . $company->country); ?></li>
+                <li class="list-group-item"><i class="fa fa-phone"></i> <?= $company->phone; ?></li>
+                <?php if( !empty($company->mobile)): ?>
+                <li class="list-group-item"><i class="fa fa-mobile"></i> <?= $company->mobile; ?></li>
+                <?php endif; ?>
+                <?php if( !empty($company->fax)): ?>
+                <li class="list-group-item"><i class="fa fa-fax"></i> <?= $company->fax; ?></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="well">
+            <h2 id="title" class="text-center"><?= $company->name; ?></h2>
+            <div id="list"></div>
+        </div>
+
+    </div>
+</div>
+
