@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs">
+	<li role="presentation" <?php echo (($_GET['c'] == 'formation' && (!(isset($_GET['a'])) || $_GET['a'] == 'index')) ? 'class="active"' : '') ?>>
+		<a href="/index.php?c=formation&a=index">
+			Formations
+		</a>
+	</li>
+	<li role="presentation" <?php echo (($_GET['c'] == 'formation' && isset($_GET['a']) && $_GET['a'] == 'edit') ? 'class="active"' : '') ?>>
+		<a href="/index.php?c=formation&a=edit">
+			Ajouter - Modifier
+		</a>
+	</li>
+	<li role="presentation" <?php echo (($_GET['c'] == 'formationSession' && (!(isset($_GET['a'])) || $_GET['a'] == 'index')) ? 'class="active"' : '') ?>>
+		<a href="/index.php?c=formationSession&a=index">
+			Sessions de Formation
+		</a>
+	</li>
+	<li role="presentation" <?php echo (($_GET['c'] == 'matter' && (!(isset($_GET['a'])) || $_GET['a'] == 'index')) ? 'class="active"' : '') ?>>
+		<a href="/index.php?c=matter&a=index">
+			Matières
+		</a>
+	</li>
+</ul>

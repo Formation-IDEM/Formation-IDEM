@@ -71,22 +71,21 @@ class Model
 			{
 				if($value != null) // Si l'attribut a une valeur null
 				{
-					$set .= $field.' = \''.$value.'\', ';
-				}
-				else
-				{
-					$set .= $field.' = NULL, ';
+					$set .= $field.' = :'.$field.', ';
+					$attributes[':'.$field] = $value;
 				}
 			}
 			// On retire la virgule et l'espace du dernier field et value
 			$set = substr($set,0,-2);
 			
 			// On crée la query finale
+			$query = 
 			$query = 'UPDATE '.$this->_table.' SET '.$set.' WHERE id = '.$this->_fields['id'].';';
 			
 			// Execution de la requête
 			$db = Database::getInstance();
-			$db->getResults($query);
+			//$db->getResults($query);
+			$db->prepare($query, $attributes);
 			var_dump($db->getErrors());
 			echo $query;
 		}
@@ -97,14 +96,11 @@ class Model
 			{
 				if($field != 'id') // car il est auto-incrémenté
 				{
-					$fields .= $field.', ';
 					if($value != null) // Si l'attribut a une valeur null
 					{
-						$values .= '\''.$value.'\', ';
-					}
-					else
-					{
-						$values .= 'NULL, ';
+						$fields .= $field.', ';
+						$values .= ':'.$field.', ';
+						$attributes[':'.$field] = $value;
 					}
 				}
 			}
@@ -118,7 +114,8 @@ class Model
 			
 			// Execution de la requête
 			$db = Database::getInstance();
-			$db->getResults($query);
+			//$db->getResults($query);
+			$db->prepare($query, $attributes);
 			var_dump($db->getErrors());
 			$errors = $db->getErrors();
 			if($errors[2] == null)
@@ -203,4 +200,14 @@ class Model
 	{
 		return $this->getData($key);
 	}
+
+	public function getDate( $code ) 
+	{
+        if( isset($this->_fields[$code]) )
+        {    
+            $date = strtotime( $this->_fields[$code] );
+            return date("d/m/Y",$date);
+        }
+        return;
+    }
 }

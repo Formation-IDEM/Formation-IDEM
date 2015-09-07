@@ -6,7 +6,7 @@
 class FormationCollection extends Collection
 {
     protected $_table = 'formations';
-    protected $_model_name = 'formation';
+    protected $_model_name = 'Formation';
 
     public function __construct()
     {

@@ -1,29 +1,23 @@
 <?php
 
-$breadcrumbs = array();
-$breadcrumbs['editLevel'] = 'addEditMatters';
-$breadcrumbs['addEditMatters'] = 'list';
-$breadcrumbs['timesheet'] = 'list';
-$breadcrumbs['addEdit'] = 'list';
-$breadcrumbs['list'] = null;
-
-$breadcrumb = $_GET['a'];
-for($i = 0; $breadcrumb != null; $i++)
-{
-	echo $breadcrumb.' > ';
-	$breadcrumb = $breadcrumbs[$breadcrumb];
-}
-
-breadcrumbs(['home' => 'index.php', 'formateurs' => 'formateurs.php', 'liste' => 'liste.php']);
-
 function addBreadcrumbs($array)
 {
-	$url = 'Accueil -> ';
+	$url = '<div class="container-fluid"><ol class="breadcrumb">';
+	$url .= '<li><a href="/">Accueil</a></li>';
+	$count = 1;
 	foreach( $array as $key => $value )
 	{
-		$url .= '<a href="' . $value . '">' . $key  . ' -> ';
+		if($count == sizeof($array)) // si on est au dernier element du tableau
+		{
+			$url .= '<li class="active">'.$key.'</li>';
+		}
+		else
+		{
+			$url .= '<li><a href="' . $value . '">' . $key  . '</a></li>';
+		}
+		$count++;
 	}
+	$url .= '</ol></div>';
 	return $url;
 } ?>
 
-<?= breadcrumbs(['users' => 'index.php?c=users&a=list']); ?>

@@ -32,6 +32,11 @@ class Trainer extends Person
 		$this->_fields['trainer_extern'] = false;
 		$this->_fields['active'] = 1;
 	}
+
+	public function getFullName()
+	{
+		return $this->getData('firstname').' '.$this->getData('name');
+	}
 	
 	public function getStudyLevel()
 	{

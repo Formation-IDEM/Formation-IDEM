@@ -1,3 +1,5 @@
+<?php include_once 'Views/Layouts/breadcrumbs.phtml'; ?>
+<?= addBreadcrumbs(['Formateurs' => 'index.php?c=trainer&a=list', $trainer->getFullName() => 'index.php?c=trainer&a=show&id='.$_GET['id'], 'Feuilles de présence & Sessions de formation' => '']); ?>
 <?php include_once 'Views/Layouts/menu-trainer.phtml'; ?>
 <h2>Feuilles de présence de <?php echo $trainer->getData('firstname').' '.$trainer->getData('name'); ?></h2>
 

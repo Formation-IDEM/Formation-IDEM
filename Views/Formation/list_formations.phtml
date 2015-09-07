@@ -1,0 +1,30 @@
+<?php include_once 'Views/Layouts/menu-formation.phtml'; ?>
+<table class="table table-striped table-bordered list-formation">
+	<tr>
+		<td>Nom</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<?php
+	//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
+	foreach($coll_for as $formation)
+	{
+		?>
+			<tr>
+				<td><?php  echo $formation->getData('title'); ?></td>
+				<td>
+					<a class="btn btn-primary" href="index.php?c=formation&a=edit&id=<?= $formation->getData('id'); ?>">Modifer</a>
+				</td>
+				<td>					
+					<a class="btn btn-danger" href="index.php?c=formation&a=delete&id=<?= $formation->getData('id'); ?>">Supprimer</a>
+				</td>
+				<td >                  
+	                <a class="listRefpedago btn btn-primary" formation="<?= $formation->getData('id'); ?>" href="#">Gèrer les matières</a>
+	            </td>
+	            <div class="ajax-listRefpedago-<?= $formation->getData('id'); ?>"></div>
+	        </tr>
+		<?php
+	}
+	?>
+</table>

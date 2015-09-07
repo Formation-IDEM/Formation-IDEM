@@ -1,0 +1,34 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		Modifier la compétence <?php echo $level->getMatter()->getData('title') ?> de <?php echo $level->getTrainer()->getData('name') ?>
+	</div>
+	<div class="panel-body">
+		<form method="post" action="#" enctype="multipart/form-data" id="edit-level-form" data-id="<?php echo $level->id; ?>" data-model-name="Level">
+			<div class="form-group">
+				<label for="note">Note</label>
+				<input type="text" name="note" id="note" note="<?php echo $level->getData('note'); ?>" readonly value="<?php echo $level->getData('note') ?>" style="border:0; font-weight:bold;">
+				<div id="slider-range-max"></div>
+			</div>
+			<div class="form-group">
+				<label for="appreciation">Appreciation</label>
+				<input id="appreciation" type="text" name="appreciation" value="<?php echo $level->getData('appreciation') ?>">
+			</div>
+			<input type="hidden" name="id" value="<?php echo $level->id; ?>">
+			<input type="submit" value="Enregistrer" class="btn btn-success">
+			<script>
+				$( document ).ready(function() {
+				$( "#slider-range-max" ).slider({
+				  range: "max",
+				  min: 1,
+				  max: 10,
+				  value: $('#note').attr('note'),
+				  slide: function( event, ui ) {
+				    $( "#note" ).val( ui.value );
+				  }
+				});
+				$( "#note" ).val( $( "#slider-range-max" ).slider( "value" ) );
+				});
+			</script>
+		</form>
+	</div>
+</div>

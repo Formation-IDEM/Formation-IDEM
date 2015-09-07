@@ -1,3 +1,5 @@
+<?php include_once 'Views/Layouts/breadcrumbs.phtml'; ?>
+<?= addBreadcrumbs(['Formateurs' => 'index.php?c=trainer&a=list']); ?>
 <h2>Liste des formateurs</h2>
 <div class="form-group">
 	<input id="autocomplete" autofocus type="text" name="q" placeholder="Nom d'un formateur ..." style="width:100%;max-width:600px;outline:0" class="form-control" id="trainer-selected">

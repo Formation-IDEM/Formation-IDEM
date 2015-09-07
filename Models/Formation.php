@@ -12,14 +12,14 @@
 									'convention_hour_center'		=> 0,
 									'convention_hour_company' 		=> 0,
 									'deal_code' 					=> '',
-									'order_giver' 					=> '',
-									'deal_begin_date' 				=> '',
-									'deal_ending_date' 				=> ''
+									'order_giver' 					=> ''
 		
 		);
         
-        public function __construct(){
-            
+        public function __construct()
+        {
+            $this->_fields['deal_begin_date'] = date('Y-m-d', time());
+            $this->_fields['deal_ending_date'] = date('Y-m-d', time());
         }
 		
 		public function getTable(){

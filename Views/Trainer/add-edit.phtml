@@ -1,7 +1,12 @@
+<?php include_once 'Views/Layouts/breadcrumbs.phtml'; ?>
+<?= addBreadcrumbs(['Formateurs' => 'index.php?c=trainer&a=list', ($trainer->getFullName() != ' ' ? $trainer->getFullName() : 'Nouveau') => 'index.php?c=trainer&a=list', 'Ajouter - Modifier ' => '']); ?>
 <?php include_once 'Views/Layouts/menu-trainer.phtml'; ?>
 <h2>Ajouter / Modifier un formateur</h2>
 
 <form class="form-vertical" method="post" action="" enctype="multipart/form-data">
+	<div class="row">
+		<h3><strong>Civilité</h3></strong>
+	</div>
 	<div class="row">
 		<div class="col-md-3">
 			<div class="form-group">
@@ -15,38 +20,8 @@
 				<input data-validation="length" data-validation-length="min2" class="form-control" type="text" name="name" value="<?php echo $trainer->getData('name'); ?>" id="name">
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<label for="phone">Téléphone fixe</label>
-				<input class="form-control" type="tel" name="phone" value="<?php echo $trainer->getData('phone'); ?>" id="phone">
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<label for="cellphone">Téléphone portable</label>
-				<input class="form-control" type="tel" name="cellphone" value="<?php echo $trainer->getData('cellphone'); ?>" id="cellphone">
-			</div>
-		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-3">
-			<div class="form-group">
-				<label for="mail">Email</label>
-				<input data-validation="email" class="form-control" type="email" name="mail" value="<?php echo $trainer->getData('mail'); ?>" id="mail">
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<label for="birthday">Date de naissance</label>
-				<input data-validation="date" data-validation-format="dd/mm/yyyy" class="form-control" type="text" name="birthday" value="<?php echo date('d/m/Y', strtotime($trainer->getData('birthday'))); ?>" id="birthday">
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<label for="birthdayplace">Lieu de naissance</label>
-				<input class="form-control" type="text" name="birthdayplace" value="<?php echo $trainer->getData('birthdayplace'); ?>" id="birthdayplace" data-validation="required">
-			</div>
-		</div>
 		<div class="col-md-3">
 			<div>
 				<label>Genre</label>
@@ -63,6 +38,54 @@
 				</label>
 			</div>
 		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<label for="family_status_id">Statut familial</label>
+				<select class="form-control" name="family_status_id" id="family_status_id">
+				<?php
+					foreach($familyStatuss as $familyStatus)
+					{
+						?>
+							<option value="<?php echo $familyStatus->getData('id'); ?>" <?php echo $familyStatus->getData('id') == $trainer->getData('family_status_id') ? 'selected' : '';?>><?php echo $familyStatus->getData('title'); ?></option> 
+						
+						<?php
+					}
+				?>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="form-group">
+				<label for="birthday">Date de naissance</label>
+				<input data-validation="date" data-validation-format="dd/mm/yyyy" class="form-control datepicker" type="text" name="birthday" value="<?php echo date('d/m/Y', strtotime($trainer->getData('birthday'))); ?>" id="birthday">
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<label for="nationality_id">Nationalité</label>
+				<select class="form-control" name="nationality_id" id="nationality_id">
+					<?php
+						foreach($nationalities as $nationality)
+						{
+							?>
+								<option value="<?php echo $nationality->getData('id'); ?>" <?php echo $trainer->getData('nationality_id') == $nationality->getData('id') ? 'selected': ''; ?>><?php echo $nationality->getData('title'); ?></option>
+							<?php
+						}
+					?>
+				</select>
+			</div>
+		</div>		
+		<div class="col-md-3">
+			<div class="form-group">
+				<label for="birthdayplace">Lieu de naissance</label>
+				<input class="form-control" type="text" name="birthdayplace" value="<?php echo $trainer->getData('birthdayplace'); ?>" id="birthdayplace" data-validation="required">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<h3><strong>Adresse officielle</h3></strong>
 	</div>
 	<div class="row">
 		<div class="col-md-3"> 
@@ -91,6 +114,9 @@
 		</div>
 	</div>
 	<div class="row">
+		<h3><strong>Lieu de vie (optionnel)</h3></strong>
+	</div>
+	<div class="row">
 		<div class="col-md-3">
 			<div class="form-group">
 				<label for="address_form_street">Rue</label>
@@ -117,51 +143,41 @@
 		</div>
 	</div>
 	<div class="row">
+		<h3><strong>Informations supplémentaires</h3></strong>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="form-group">
+				<label for="mail">Email</label>
+				<input data-validation="email" class="form-control" type="email" name="mail" value="<?php echo $trainer->getData('mail'); ?>" id="mail">
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<label for="cellphone">Téléphone portable</label>
+				<input class="form-control" type="tel" name="cellphone" value="<?php echo $trainer->getData('cellphone'); ?>" id="cellphone">
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<label for="phone">Téléphone fixe</label>
+				<input class="form-control" type="tel" name="phone" value="<?php echo $trainer->getData('phone'); ?>" id="phone">
+			</div>
+		</div>
 		<div class="col-md-3">
 			<div class="form-group">
 				<label for="social_security_number">Numéro de sécurité social</label>
 				<input class="form-control" type="number" name="social_security_number" value="<?php echo $trainer->getData('social_security_number'); ?>" id="social_security_number" data-validation="length" data-validation="number" data-validation-length="15">
 			</div>
 		</div>
+	</div>
+	<div class="row">
 		<div class="col-md-3">
 			<div class="form-group">
 				<label for="photo">Photo</label>
 				<input class="form-control" type="file" name="photo" value="<?php echo $trainer->getData('photo'); ?>" id="photo">
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<label for="nationality_id">Nationalité</label>
-				<select class="form-control" name="nationality_id" id="nationality_id">
-					<?php
-						foreach($nationalities as $nationality)
-						{
-							?>
-								<option value="<?php echo $nationality->getData('id'); ?>" <?php echo $trainer->getData('nationality_id') == $nationality->getData('id') ? 'selected': ''; ?>><?php echo $nationality->getData('title'); ?></option>
-							<?php
-						}
-					?>
-				</select>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<label for="family_status_id">Statut familial</label>
-				<select class="form-control" name="family_status_id" id="family_status_id">
-				<?php
-					foreach($familyStatuss as $familyStatus)
-					{
-						?>
-							<option value="<?php echo $familyStatus->getData('id'); ?>" <?php echo $familyStatus->getData('id') == $trainer->getData('family_status_id') ? 'selected' : '';?>><?php echo $familyStatus->getData('title'); ?></option> 
-						
-						<?php
-					}
-				?>
-				</select>
-			</div>
-		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-3">
 			<div class="form-group">
 				<label for="study_levels_id">Niveau d'étude</label>
@@ -195,7 +211,9 @@
 				<input class="form-control" type="text" name="hourly_rate" id="hourly_rate" value="<?php echo $trainer->getData('hourly_rate'); ?>">
 			</div>
 		</div>
-		<div class="col-md-3">
+	</div>
+	<div class="row">
+		<div class="col-md-12">
 			<div class="form-group">
 				<label for="further_informations">Plus d'information</label>
 				<textarea class="form-control" name="further_informations" value="<?php echo $trainer->getData('further_informations'); ?>" id="further_informations"></textarea>
@@ -221,6 +239,3 @@
 		<div class="col-md-3"></div>
 	</div>
 </form>
-	<div class="row">
-
-<a href="/index.php?c=Trainer&a=list">Retour</a>

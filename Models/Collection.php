@@ -91,7 +91,7 @@ class Collection
 	 */
 	public function select($fields = '*')
 	{
-		$this->fields = $fields;
+		$this->fields = $fields.', id';
 		return $this;
 	}
 
@@ -231,7 +231,7 @@ class Collection
 	 * @param null $id
 	 * @return array
 	 */
-	public function get($id = null)
+	public function get($id = null, $notActive = null)
 	{
 		if( !is_null($id) )
 		{
@@ -243,7 +243,7 @@ class Collection
 		}
 
 		//	On onitialise la requête
-		$sql = 'SELECT ' . $this->fields . ' FROM ' . $this->from;
+		$sql = 'SELECT ' . $this->fields . ' FROM ' . $this->_table;
 
 		if( $this->check($this->join) )
 		{
@@ -254,12 +254,20 @@ class Collection
 			}
 		}
 
+
 		//	On vérifie s'il y a des conditions
 		if( $this->check($this->conditions) )
 		{
 			$count = 0;
 			$attributes = [];
-			$sql .= ' WHERE ';
+			if(!$notActive)
+			{
+				$sql .= ' WHERE active = TRUE AND ';
+			}
+			else
+			{
+				$sql .= ' WHERE ';
+			}
 
 			//	On parcourt les conditons pour formater la requête
 			foreach( $this->conditions as $q )
@@ -294,6 +302,10 @@ class Collection
 				}
 				$count++;
 			}
+		}
+		else
+		{
+			$sql .= ' WHERE active = TRUE ';
 		}
 
 		//	On vérifie les ordres de tri
@@ -360,9 +372,11 @@ class Collection
 		if( !$this->_items )
 		{
 			$results = $this->select()->from($this->_table)->latest()->get();
+			$count = 0;
 			foreach( $results as $result)
 			{
-				$this->_items[] = App::getModel($this->_model_name)->load($result->id);
+				$this->items[$count] = App::getModel($this->_model_name)->load($result->id);
+				$count++;
 			}
 		}
 

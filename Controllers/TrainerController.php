@@ -5,7 +5,7 @@ class TrainerController
 	
 	public function indexAction()
 	{
-		echo "Trainers basic page";
+		header('Location: /index.php?c=trainer&a=list');
 	}
 
 	public function listAction()
@@ -76,12 +76,12 @@ class TrainerController
 				}
 				else
 				{
-					$levels = App::getCollection('Level')->getDoubleFilteredItems('matter_id', $_POST['matters'], 'trainer_id', $_GET['id']);
-					if(!$levels)
+					$levels = App::getCollection('Level')->getDoubleFilteredItems('matter_id', $_POST['matter_id'], 'trainer_id', $_GET['id']);
+					if(!$levels) // Prévention doublon matière / formateur
 					{
 						$level = App::getModel('Level');
 						$level
-						->setData('matter_id', $_POST['matters'])
+						->setData('matter_id', $_POST['matter_id'])
 						->setData('trainer_id', $_GET['id'])
 						->save();					
 					}
@@ -126,27 +126,6 @@ class TrainerController
 						'trainer'				=> App::getModel('Trainer')->load($_GET['id']),
 						))
 				->setFilename('Trainer/timesheet')
-				->render();
-		}
-	}
-
-	public function editLevelAction()
-	{
-		if(isset($_GET['id']))
-		{
-			$level = App::getModel('Level')->load($_GET['id']);
-			if(isset($_POST) && $_POST != null)
-			{
-				$level
-				->store($_POST)
-				->save();
-			}
-			Template::getInstance()
-				->setDatas(array(
-						'level' 	=> $level,
-						'trainer'	=> $level->getTrainer()
-						))
-				->setFilename('Trainer/edit-level')
 				->render();
 		}
 	}
