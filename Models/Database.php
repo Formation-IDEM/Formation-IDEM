@@ -18,9 +18,9 @@ class Database
 	private function __construct()
 	{
 		$this->_host = 'localhost';
-		$this->_username = 'homestead';
-		$this->_password = 'secret';
-		$this->_dbname = 'gestForm';
+		$this->_username = 'postgres';
+		$this->_password = 'postgres';
+		$this->_dbname = 'gestform';
 		
 		$this->_dbh = $this->initialConnection(); 
 	}
