@@ -1,5 +1,6 @@
 <div class="page-header">
     <p class="pull-right">
+        <a href="<?= url('ajax/internships/' . $company->id); ?>" class="btn btn-success list" data-title="Stages proposés par <?= $company->name; ?>"><i class="fa fa-laptop"></i> Voir les stages</a>
         <a href="<?= url('companies/' . $company->id . '/edit'); ?>" class="btn btn-primary"><i class="fa fa-pencil"></i> Modifier</a>
         <a href="<?= url('companies/' . $company->id . '/delete'); ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i> Supprimer</a>
     </p>
@@ -7,20 +8,33 @@
 </div>
 <ol class="breadcrumb">
     <li><i class="fa fa-dashboard"></i> <a href="<?= url('/'); ?>">Panneau de Contrôle</a></li>
-    <li><i class="fa building"></i> <a href="<?= url('companies'); ?>">Entreprises</a></li>
+    <li><i class="fa fa-building"></i> <a href="<?= url('companies'); ?>">Entreprises</a></li>
     <li class="active"><i class="fa fa-building-o"></i> <?= $company->name; ?></li>
 </ol>
 <?php viewFile('partials/flash'); ?>
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="well">
-            <h2>Informations</h2>
-            <ul class="list-unstyled">
-                <li><i class="fa fa-building"></i> <?= $company->status; ?></li>
-                <li><i class="fa fa-map-marker"></i> <?= $company->address; ?></li>
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Informations</div>
+            <ul class="list-group">
+                <li class="list-group-item"><i class="fa fa-building"></i> <?= $company->status; ?></li>
+                <li class="list-group-item"><i class="fa fa-male"></i> <?= $company->manager; ?></li>
+                <li class="list-group-item"><i class="fa fa-map-marker"></i> <?= $company->address; ?></li>
+                <li class="list-group-item"><i class="fa fa-map-signs"></i> <?= $company->city; ?></li>
+                <li class="list-group-item"><i class="fa fa-map"></i> <?= $company->postal_code . ', ' . $company->country; ?></li>
+                <li class="list-group-item"><i class="fa fa-phone"></i> <?= $company->phone; ?></li>
+                <li class="list-group-item"><i class="fa fa-mobile"></i> <?= $company->mobile; ?></li>
+                <li class="list-group-item"><i class="fa fa-fax"></i> <?= $company->fax; ?></li>
             </ul>
         </div>
+    </div>
+    <div class="col-md-9">
+        <div class="well">
+            <h2 id="title" class="text-center"><?= $company->name; ?></h2>
+            <div id="list"></div>
+        </div>
+
     </div>
 </div>
 

@@ -1,4 +1,15 @@
-<?php $countries = array (
+<?php
+use Core\Factories\DatabaseFactory;
+
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT', dirname(__FILE__) . DS);
+require_once(ROOT . 'App/common.php');
+
+//  On lance notre application
+$app = \App\App::getInstance();
+$app->run();
+
+$countriesList = array (
     'AF' => 'Afghanistan',
     'ZA' => 'Afrique du Sud',
     'AL' => 'Albanie',
@@ -249,7 +260,46 @@
     'AX' => 'Îles Åland',
 );
 
-foreach( $countries as $key => $value )
+$countries = [];
+foreach( $countriesList as $key => $value )
 {
-    echo '"' . $value . '", ';
+    $countries[] = $value;
+    insert(['title' => $value]);
 }
+
+echo 'Tous les pays ont été insérés en base de donnée';
+
+function insert($countries) {
+    $sql = 'INSERT INTO nationalities (';
+
+    $countFields = 0;
+    $attributes = [];
+    foreach( $countries as $key => $value )
+    {
+        $sql .= $key;
+        if( $countFields < (count($countries) - 1) )
+        {
+            $sql .= ', ';
+        }
+        $attributes = array_merge($attributes, [
+            ':' . $key => $value,
+        ]);
+        $countFields++;
+    }
+
+    $sql .= ') VALUES (';
+    $countValues = 0;
+    foreach( $countries as $key => $value )
+    {
+        $sql .= ':' . $key;
+        if( $countValues < (count($countries) - 1) )
+        {
+            $sql .= ', ';
+        }
+        $countValues++;
+    }
+    $sql .= ')';
+
+    DatabaseFactory::db()->prepare($sql, $attributes);
+}
+

@@ -1,0 +1,66 @@
+<div class="page-header">
+    <p class="pull-right">
+        <a href="<?= url('internships/create'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter un stage</a>
+    </p>
+    <h1><i class="fa fa-laptot"></i> Gestion des stages <small><i class="fa fa-angle-double-right"></i> <?= $internship->title; ?></small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="<?= url('/'); ?>">Panneau de Contrôle</a></li>
+    <li><i class="fa fa-laptop"></i> <a href="<?= url('/'); ?>">Gestion des stages</a></li>
+    <li class="active"><i class="fa fa-laptop"></i> <?= $internship->title; ?></li>
+</ol>
+
+<?= viewFile('partials/flash'); ?>
+
+<?php if( !empty($session) && $session->active ): ?>
+<div class="alert alert-success alert-dismissible text-center" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <i class="fa fa-exclamation-triangle"></i> Ce stage est disponible
+</div>
+
+<form class="form-vertical" method="POST" action="#">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nom de l'étudiant">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-graduation-cap"></i> Inscrire au stage</button>
+        </div>
+    </div>
+</form>
+<?php else: ?>
+    <div class="alert alert-danger alert-dismissible text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <i class="fa fa-exclamation-triangle"></i> Ce stage n'est plus disponible
+    </div>
+<?php endif; ?>
+
+
+<div class="row">
+    <div class="col-md-8">
+
+        <h2>Présentation du stage</h2>
+        <ul class="list-inline small">
+            <li><i class="fa fa-credit-card"></i> <strong>Rémunéré</strong> : <?= $internship->getWage(); ?></li>
+            <?php if( $internship->pay ): ?>
+            <li><i class="fa fa-euro"></i> <strong>Rémunération</strong> : <?= $internship->pay; ?> €</li>
+            <?php endif; ?>
+            <li><i class="fa fa-calendar"></i> <strong>Ajout</strong> : <?= \Core\Helpers\Date::datetime($internship->create_date); ?></li>
+            <li><i class="fa fa-clock-o"></i> <strong>Modification</strong> : <?= \Core\Helpers\Date::ago($internship->update_date); ?></li>
+        </ul>
+        <hr>
+        <p class="text-justify">
+            <?= $internship->explain; ?>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <div class="well well">
+            <h2>L'entreprise</h2>
+            <ul>
+                <li><?= $internship->getCompany()->name; ?></li>
+            </ul>
+        </div>
+    </div>
+</div>

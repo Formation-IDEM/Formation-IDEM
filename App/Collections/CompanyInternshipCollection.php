@@ -8,7 +8,8 @@ use \Core\Collection;
  */
 class CompanyInternshipCollection extends Collection
 {
-    protected $collection = 'company_internship';
+    protected $_model = 'companyInternship';
+    protected $_table = 'company_internship';
 
     public function __construct()
     {

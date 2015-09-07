@@ -177,11 +177,13 @@ class Collection
 	/**
 	 * Allias par rapport à l'activation de l'item
 	 *
+	 * @param bool|true $active
 	 * @return $this
 	 */
-	public function active()
+	public function active($active = true)
 	{
-		$this->where('active', '=', true);
+		$active = (int) $active;
+		$this->where('active', '=', $active);
 		return $this;
 	}
 

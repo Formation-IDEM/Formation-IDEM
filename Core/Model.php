@@ -93,6 +93,22 @@ class Model
 	}
 
 	/**
+	 * Attribut une valeur à une clé
+	 *
+	 * @param $key
+	 * @param $value
+	 * @return $this
+	 */
+	public function setData($key, $value)
+	{
+		if( array_key_exists($key, $this->_fields) )
+		{
+			$this->_fields[$key] = $value;
+		}
+		return $this;
+	}
+
+	/**
 	 * Permet de checker si un champ existe
 	 *
 	 * @param $key
@@ -116,10 +132,7 @@ class Model
 	{
 		foreach( $data as $key => $value )
 		{
-			if( array_key_exists($key, $this->_fields) )
-			{
-				$this->_fields[$key] = $value;
-			}
+			$this->setData($key, $value);
 		}
 
 		return $this;
@@ -289,11 +302,7 @@ class Model
 	 */
 	public function __set($key, $value)
 	{
-		if( isset($this->_fields[$key]) )
-		{
-			$this->_fields[$key] = $value;
-		}
-		return $this;
+		return $this->setData($key, $value);
 	}
 
 	/**

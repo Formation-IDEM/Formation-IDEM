@@ -40,7 +40,13 @@ class InternshipController extends Controller
 	public function showAction($id)
 	{
 		$internship = $this->internship->loadOrFail($id);
-		return view('internships/internship', compact('internship'));
+		$company = model('company')->loadOrFail($internship->company_id);
+		$session = collection('companyInternship')
+			->where('internship_id', '=', $internship->id)
+			->where('company_id', '=', $company->id)
+			->limit(1)
+			->all();
+		return view('internships/show', compact('internship', 'company', 'session'));
 	}
 
 	/**
@@ -50,6 +56,8 @@ class InternshipController extends Controller
 	 */
 	public function createAction()
 	{
+		$_POST['pay'] = 0;
+		$_POST['active'] = 1;
 		return view('internships/form', [
 			'url'			=>	url('internships/create'),
 			'title'			=>	'Enregistrer un nouveau stage',
@@ -81,6 +89,11 @@ class InternshipController extends Controller
 		]);
 	}
 
+	/**
+	 * Sauvegarde un stage
+	 *
+	 * @return mixed
+	 */
 	public function saveAction()
 	{
 		$validator = new Validator($this->internship->_rules);
@@ -90,15 +103,47 @@ class InternshipController extends Controller
 			$request['pay'] = (int) $request['pay'];
 			$request['active'] = (int) $request['active'];
 			$this->internship->store($request)->save();
+
+			$companyInternship = [
+				'trainee_id'	=>	'',
+				'company_id'	=>	$request['company_id'],
+				'formation_id'	=>	$request['formation_id'],
+				'active'		=>	$request['active'],
+				'hiring'		=>	$request['pay'],
+				'total_hours'	=>	0,
+				'date_begin'	=>	$request['date_begin'],
+				'date_end'		=>	$request['date_end']
+			];
+
+			if( $request['id'] === 0 )
+			{
+				model('companyInternship')->store($companyInternship)->save();
+			}
+			else
+			{
+				$model = $session = collection('companyInternship')
+					->where('internship_id', '=', $internship->id)
+					->where('company_id', '=', $company->id)
+					->limit(1)
+					->all();
+			}
+
 			return redirect(url('internships'))->flash('success', 'Le stage a correctement été sauvegardée.');
 		}
 		response()->posts()->errors($validator->getErrors());
 		return $this->createAction();
 	}
 
+	/**
+	 * Supprime (soft) un stage
+	 *
+	 * @param $id
+	 * @return mixed
+	 */
 	public function deleteAction($id)
 	{
-		$this->internship->loadOrFail($id)->delete();
+		$internship = $this->internship->loadOrFail($id);
+		$internship->store(['active' => 0])->save();
 		return redirect(url('internships'))->flash('success', 'Le stage a correctement été supprimée');
 	}
 }

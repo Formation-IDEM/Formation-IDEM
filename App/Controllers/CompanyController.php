@@ -29,7 +29,7 @@ class CompanyController extends Controller
 	 */
 	public function indexAction()
 	{
-		$items = collection('company')->all();
+		$items = collection('company')->active()->all();
 		return view('companies/index', compact('items'));
 	}
 
@@ -103,7 +103,9 @@ class CompanyController extends Controller
 	 */
 	public function deleteAction($id)
 	{
-		$this->company->loadOrFail($id)->delete();
+		$company = $this->company->loadOrFail($id);
+		$company->store(['active' => 0])->save();
+
 		return redirect(url('companies'))->flash('success', 'L\'entreprise a correctement été supprimée');
 	}
 }

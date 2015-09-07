@@ -9,6 +9,8 @@ use \Core\Model;
  */
 class CompanyInternship extends Model
 {
+    protected $_table = 'company_internship';
+
     protected $_fields = [
         'trainee_id'        =>  0,
         'company_id'        =>  0,
@@ -16,8 +18,8 @@ class CompanyInternship extends Model
         'active'            =>  false,
         'hiring'            =>  false,
         'total_hours'       =>  0,
-        'date_begin'        =>  '',
-        'date_end'          =>  ''
+        'date_begin'        =>  null,
+        'date_end'          =>  null
     ];
 
     /**

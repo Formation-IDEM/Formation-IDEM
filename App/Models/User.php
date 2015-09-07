@@ -10,15 +10,22 @@ use \App\Models\Model;
  */
 class User extends Model
 {
-	protected $table = 'users';
+	protected $_table = 'users';
 
 	protected $fields = [
-		'id'					=>	0,
+		'id'				=>	0,
 		'email'				=>	'',
+		'name'				=>	'',
+		'firstname'			=>	'',
 		'password'			=>	'',
 		'auth'				=>	0,
 		'create_date'		=>	'',
 		'update_date'		=>	'',
-		'active'				=>	0,
+		'active'			=>	0,
+	];
+
+	public $_rules = [
+		'email'		=>	'required|email|unique:users',
+		'password'	=>	'required|confirmation',
 	];
 }

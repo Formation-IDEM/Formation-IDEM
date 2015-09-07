@@ -351,7 +351,7 @@ class Form
 	 */
 	public function getChecked($name)
 	{
-		if( request()->postExists($name) )
+		if( request()->postExists($name) && ( request()->getPost($name) === 1 || request()->getPost($name) ===  true) )
 		{
 			return ' checked';
 		}

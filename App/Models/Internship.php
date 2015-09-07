@@ -32,7 +32,7 @@ class Internship extends Model
 
     protected $_company;
     protected $_formation;
-    protected $_referent;
+    protected $_company_internship;
 
     /**
      * Changer l'entreprise
@@ -67,18 +67,16 @@ class Internship extends Model
     }
 
     /**
-     * Charge le référent (formateur)
+     * Le stage est-il rémunéré ? Oui / non
      *
-     * @return mixed
+     * @return string
      */
-    public function getReferent()
+    public function getWage()
     {
-        if( !$this->_referent )
+        if( $this->_fields['wage'] )
         {
-            $this->_referent = ModelFactory::loadModel('trainer');
-            $this->_referent->load($this->_fields['referent_id']);
+            return 'oui';
         }
-
-        return $this->_referent;
+        return 'non';
     }
 }

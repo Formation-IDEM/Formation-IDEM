@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+use Core\Factories\CollectionFactory;
+use Core\Factories\ModelFactory;
 use \Core\Router\Router;
 use \Core\Factories\DatabaseFactory;
 
@@ -55,6 +57,28 @@ class App
 			self::$_router_instance = new Router(request()->getData('url'));
 		}
 		return self::$_router_instance;
+	}
+
+	/**
+	 * Charge un modèle
+	 *
+	 * @param $model
+	 * @return ModelFactory
+	 */
+	public static function getModel($model)
+	{
+		return ModelFactory::loadModel($model);
+	}
+
+	/**
+	 * Charge une collection
+	 *
+	 * @param $collection
+	 * @return CollectionFactory
+	 */
+	public static function getCollection($collection)
+	{
+		return CollectionFactory::loadCollection($collection);
 	}
 
 	/**

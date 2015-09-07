@@ -1,6 +1,7 @@
 <?php
 namespace Core;
 
+use Core\Factories\CollectionFactory;
 use \Core\Factories\ModelFactory;
 use \Core\Factories\MiddlewareFactory;
 
@@ -34,7 +35,16 @@ class Controller
 	 */
 	public function loadModel($model)
 	{
-		$model = strtolower($model);
 		$this->$model = ModelFactory::loadModel($model);
+	}
+
+	/**
+	 * Permet de charger une collection
+	 *
+	 * @param $collection
+	 */
+	public function loadCollection($collection)
+	{
+		$this->{$collection . 'Collection'} = CollectionFactory::loadCollection($collection);
 	}
 }
