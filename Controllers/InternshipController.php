@@ -9,9 +9,7 @@ class InternshipController
     {
 		$Internships = App::getCollection('Internship')->getAllItems();
 
-		return Template::getInstance()->setFilename('Internship/index')->setDatas([
-			'stages'	=>	$Internships
-		])->render();
+		return Template::getInstance()->setFilename('Internship/index')->setDatas(['stages'	=>	$Internships])->render();
 
     }
 

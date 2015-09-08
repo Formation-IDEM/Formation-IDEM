@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * class Internship
+ */
 class Internship extends Model
 {
     protected $_fields = [
