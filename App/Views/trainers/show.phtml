@@ -1,0 +1,38 @@
+<div class="page-header">
+    <p class="pull-right">
+        <a href="<?= url('trainers/' . $trainer->id . '/edit'); ?>" class="btn btn-primary"><i class="fa fa-pencil"></i> Modifier </a>
+    </p>
+    <h1><i class="fa fa-male"></i> Gestion des formateurs <small><i class="fa fa-angle-double-right"></i> <?= $trainer->getFullName(); ?></small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="index.php">Panneau de Contrôle</a></li>
+    <li><i class="fa fa-male"></i> <a href="<?= url('trainers'); ?>">Formateurs</a></li>
+    <li><i class="fa fa-male"></i> <?= $trainer->getFullName(); ?></li>
+</ol>
+
+<?= viewFile('partials/flash'); ?>
+
+<ul>
+    </li><strong>Prénom</strong> : <?php  echo $trainer->getData('firstname'); ?></li>
+    </li><strong>Nom</strong> : <?php  echo $trainer->getData('name'); ?></li>
+    </li><strong>Téléphone fixe</strong>: <?php  echo $trainer->getData('phone'); ?></li>
+    </li><strong>Téléphone portable</strong>: <?php  echo $trainer->getData('cellphone'); ?></li>
+    </li><strong>Date de naissance</strong>: <?php  echo $trainer->getData('birthday'); ?></li>
+    </li><strong>Lieu de naissance</strong>: <?php  echo $trainer->getData('birthplace'); ?></li>
+    </li><strong>Sexe</strong>: <?php  echo $trainer->getData('gender'); ?></li>
+    </li><strong>Rue</strong>: <?php  echo $trainer->getData('address_off_street'); ?></li>
+    </li><strong>Complément</strong>: <?php  echo $trainer->getData('address_off_complement'); ?></li>
+    </li><strong>Code postal</strong>: <?php  echo $trainer->getData('address_off_codpost'); ?></li>
+    </li><strong>Ville</strong>: <?php  echo $trainer->getData('address_off_city'); ?></li>
+    </li><strong>Rue</strong>: <?php  echo $trainer->getData('address_form_street'); ?></li>
+    </li><strong>Complement</strong>: <?php  echo $trainer->getData('address_form_complement'); ?></li>
+    </li><strong>Code postal</strong>: <?php  echo $trainer->getData('address_form_codpost'); ?></li>
+    </li><strong>Ville</strong>: <?php  echo $trainer->getData('address_form_city'); ?></li>
+    </li><strong>Numéro de sécurité social</strong>: <?php  echo $trainer->getData('social_security_number'); ?></li>
+    </li><strong>Nationalité</strong>: <?php  echo $trainer->getData('nationality_id'); ?></li>
+    </li><strong>Statut familial</strong>: <?php  echo $trainer->getData('family_status_id'); ?></li>
+    </li><strong>Niveau d'étude</strong>: <?php  echo $trainer->getData('study_levels_id'); ?></li>
+    </li><strong>Formateur externe ?</strong>: <?php  echo $trainer->getData('trainer_extern'); ?></li>
+    </li><strong>Taux horaire</strong>: <?php  echo $trainer->getData('hourly_rate'); ?></li>
+    </li><strong>Plus d'information</strong>: <?php  echo $trainer->getData('further_informations'); ?></li>
+</ul>

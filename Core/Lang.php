@@ -16,7 +16,6 @@ class Lang
      */
     public function __construct($file)
     {
-        $cfg = Config::getInstance($file);
         $this->lang = require(dirname(__DIR__) . '/App/Languages/fr/' . $file . '.php');
     }
 

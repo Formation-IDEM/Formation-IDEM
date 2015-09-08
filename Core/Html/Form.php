@@ -55,7 +55,13 @@ class Form
 				$input .= '<span class="input-group-addon"><i class="fa fa-' . $options['icon'] . '"></i></span>';
 			}
 
-			$input .= '<input type="' . $type .'" name="' . $name . '" value="' . $this->getValue($name) .'" class="form-control"';
+			$input .= '<input type="' . $type .'" name="' . $name  .'" class="form-control"';
+
+			if( $type !== 'password' && $type !== 'hidden' )
+			{
+				$input .= ' value="' . $this->getValue($name) . '"';
+			}
+
 			foreach( $options as $key => $value )
 			{
 				if( $options[$key] != 'icon' || $options[$key] != 'symbol' )
@@ -69,13 +75,13 @@ class Form
 			{
 				$input .= '</div>';
 			}
-
-			if( response()->hasError($name) )
-			{
-				$input .= '<p class="text-danger">' . response()->error($name) . '</p>';
-			}
 		}
-		
+
+		if( response()->hasError($name) )
+		{
+			$input .= '<p class="text-danger">' . response()->error($name) . '</p>';
+		}
+
 		return $this->formGroup($label . $input);
 	}
 	

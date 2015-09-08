@@ -15,26 +15,20 @@ if( !function_exists('url') )
     }
 }
 
-if( !function_exists('method') )
+/**
+ * Retourne un élément d'url selon le paramètre passé
+ */
+if( !function_exists('uri') )
 {
-    function method($position = '')
+    function uri()
     {
-        if( empty($position) )
+        $url = explode('=', $_SERVER['REQUEST_URI']);
+        if( strpos(end($url), '/') )
         {
-            return $_SERVER['REQUEST_URI'];
+            $urls = explode('/', end($url));
+            return end($urls);
         }
-        else
-        {
-            $params = explode('/', $_SERVER['REQUEST_URI']);
-            if( $position === 'last' )
-            {
-                return end($params);
-            }
-
-            var_dump($params);
-
-            return $params[$position];
-        }
+        return end($url);
     }
 }
 
@@ -100,11 +94,16 @@ if( !function_exists('viewFile') )
  */
 if( !function_exists('view') )
 {
-    function view($file, $data = [])
+    function view($file, $data = [], $ajax = false)
     {
+        if( $ajax )
+        {
+            return \Core\Template::getInstance()->only($file, $data);
+        }
         return \Core\Template::getInstance()->render($file, $data);
     }
 }
+
 
 /**
  * Retourne une instance de notre application
@@ -167,6 +166,9 @@ if( !function_exists('session') )
  *  |-----------------------------------------------
  */
 
+/**
+ * Retourne une collection en fonction du nom passé en paramètre
+ */
 if( !function_exists('collection') )
 {
     function collection($collection)
@@ -175,10 +177,24 @@ if( !function_exists('collection') )
     }
 }
 
+/**
+ * Retourne un modèle en fonction du nom passé en paramètre
+ */
 if( !function_exists('model') )
 {
     function model($model)
     {
         return \Core\Factories\ModelFactory::loadModel($model);
+    }
+}
+
+/**
+ * Session utilisateur
+ */
+if( !function_exists('auth') )
+{
+    function auth()
+    {
+        return Core\Auth\Auth::getInstance();
     }
 }

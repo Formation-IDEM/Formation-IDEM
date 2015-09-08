@@ -14,5 +14,10 @@ return [
     'image'             =>  'image',
     'picture'           =>  'image',
     'photo'             =>  'photo',
+    'content'           =>  'contenu',
+    'username'          =>  'pseudonyme',
+    'email'             =>  'email',
+    'password'          =>  'mot de passe',
+    'firstname'         =>  'prénom',
 ];
 

@@ -62,7 +62,7 @@ class Validator
                     }
 
                     //  Champ confirmé
-                    if( $r === 'confirmed' && empty($request[$key . '_confirmed']) )
+                    if( $r === 'confirmed' && empty($request[$key . '_confirmation']) )
                     {
                         $this->errors[$key] = 'Le champ ' . lang('validation.' . $key) . ' doit être de confirmé.';
                     }
@@ -227,6 +227,17 @@ class Validator
             return $this->errors[$key];
         }
         return null;
+    }
+
+    /**
+     * Permet de définir manuellement une erreur
+     *
+     * @param $key
+     * @param $value
+     */
+    public function setError($key, $value)
+    {
+        $this->errors[$key] = $value;
     }
 
     /**

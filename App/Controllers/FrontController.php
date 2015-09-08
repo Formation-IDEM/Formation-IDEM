@@ -12,6 +12,8 @@ use \Core\Factories\DatabaseFactory;
  */
 class FrontController extends Controller
 {
+	protected $middlewares = ['auth'];
+
 	public function __construct()
 	{
 		parent::__construct();

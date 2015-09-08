@@ -4,6 +4,9 @@
 <ol class="breadcrumb">
     <li><i class="fa fa-dashboard"></i> <a href="<?=url('/'); ?>">Panneau de Contrôle</a></li>
     <li><i class="fa fa-male"></i> <a href="<?= url('trainers'); ?>">Formateurs</a></li>
+    <?php if( $trainer->id != 0 ): ?>
+    <li><i class="fa fa-male"></i> <a href="<?= url('trainers/' . $trainer->id); ?>"><?= $trainer->getFullName(); ?></a></li>
+    <?php endif; ?>
     <li class="active"> <?= $title; ?></li>
 </ol>
 
@@ -34,13 +37,13 @@
             <div>
                 <label>Genre</label>
             </div>
-            <div class="btn-group" id="genders" data-toggle="buttons">
-                <label class="btn btn-default <?php echo $trainer->getData('gender') == 'male' ? 'active':''; ?>" for="radio1">
+            <div class="btn-group text-center" id="genders" data-toggle="buttons">
+                <label class="btn btn-primary <?php echo $trainer->getData('gender') == 'male' ? 'active':''; ?>" for="radio1">
                     Homme
                     <input id="radio1" type="radio" name="gender" <?php echo $trainer->getData('gender') == 'male' ? 'checked':''; ?> value="male" required />
                 </label>
 
-                <label class="btn btn-default <?php echo $trainer->getData('gender') == 'female' ? 'active': ''; ?>" for="radio2">
+                <label class="btn btn-danger <?php echo $trainer->getData('gender') == 'female' ? 'active': ''; ?>" for="radio2">
                     Femme
                     <input id="radio2" type="radio" name="gender" <?php echo $trainer->getData('gender') == 'female' ? 'checked': ''; ?> value="female" required />
                 </label>
@@ -50,15 +53,9 @@
             <div class="form-group">
                 <label for="family_status_id">Statut familial</label>
                 <select class="form-control" name="family_status_id" id="family_status_id">
-                    <?php
-                    foreach($familyStatuss as $familyStatus)
-                    {
-                        ?>
+                    <?php foreach($familyStatuss as $familyStatus): ?>
                         <option value="<?php echo $familyStatus->getData('id'); ?>" <?php echo $familyStatus->getData('id') == $trainer->getData('family_status_id') ? 'selected' : '';?>><?php echo $familyStatus->getData('title'); ?></option>
-
-                        <?php
-                    }
-                    ?>
+                    <?php endforeach; ?>
                 </select>
             </div>
         </div>
@@ -74,14 +71,11 @@
             <div class="form-group">
                 <label for="nationality_id">Nationalité</label>
                 <select class="form-control" name="nationality_id" id="nationality_id">
-                    <?php
-                    foreach($nationalities as $nationality)
-                    {
-                        ?>
+
+                    <?php foreach($nationalities as $nationality): ?>
                         <option value="<?php echo $nationality->getData('id'); ?>" <?php echo $trainer->getData('nationality_id') == $nationality->getData('id') ? 'selected': ''; ?>><?php echo $nationality->getData('title'); ?></option>
-                        <?php
-                    }
-                    ?>
+                    <?php endforeach; ?>
+
                 </select>
             </div>
         </div>
@@ -185,17 +179,11 @@
                 <label for="study_levels_id">Niveau d'étude</label>
                 <select class="form-control" name="study_levels_id" id="study_levels_id">
 
-                    <?php
-                    foreach ($studyLevels as $studyLevel) {
-                        ?>
+                    <?php foreach ($studyLevels as $studyLevel): ?>
                         <option value="<?php echo $studyLevel->getData('id') ?>" <?php echo $studyLevel->getData('id') == $trainer->getData('study_levels_id') ? 'selected' : ''; ?>>
                             <?php echo $studyLevel->getData('title'); ?>
                         </option>
-
-                        <?php
-                    }
-                    ?>
-
+                    <?php endforeach; ?>
 
                 </select>
             </div>

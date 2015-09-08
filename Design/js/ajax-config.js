@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+    /**
+     * Permet de charger un contenu en AJAX
+     *
+     * @param title
+     * @param href
+     * @param modal
+     */
     var loadContent = function(title, href, modal) {
         $.ajax({
             type: 'GET',
@@ -60,10 +67,11 @@ $(document).ready(function(){
         $.ajax({
             method: "POST",
             //url: "index.php?c=ajax&a=editLevelForm",
-            url: 'index.php?url=ajax/editLevelForm',
-            data: { id: $(this).attr('data-id') }
-        }).done(function( html ) {
-            $('#form-ajax').html(html);
+            url: 'index.php?url=ajax/level',
+            data: { id: $(this).attr('data-id') },
+            success: function(html) {
+                $('#form-ajax').html(html);
+            }
         });
     });
 
@@ -77,6 +85,51 @@ $(document).ready(function(){
         }).done(function( html ) {
             $('#results-ajax').html(html);
             $('#form-ajax').empty();
+        });
+    });
+
+    $("#slider-range-max").slider({
+        range: "max",
+        min: 1,
+        max: 10,
+        value: $('#note').attr('note'),
+        slide: function( event, ui ) {
+            $( "#note" ).val( ui.value );
+        }
+    });
+    $( "#note" ).val( $( "#slider-range-max" ).slider( "value" ) );
+
+    $(".list-formation").on('click','.listRefpedago',function(event){
+        event.preventDefault();
+        var id_formation = $(this).attr('formation');
+        $.ajax({
+            //url: 'index.php?c=Ajax&a=listRefpedago&id='+id_formation
+            url: 'index.php?url=ajax/pedago/' + id_formation
+        }).done(function (data){
+            $('.ajax-listRefpedago').html(data);
+        });
+    });
+
+    $(document).on('click','.select-matter',function(event){
+        event.preventDefault();
+        var id_formation = $(this).attr('formation');
+        $.ajax({
+            //url: 'index.php?c=Ajax&a=listMatter&id='+id_formation
+            url: 'index.php?url=ajax/matters/' + id_formation
+        }).done(function (data){
+            $('.select-matter').remove();
+            $('.selected-matter').html(data);
+        });
+    });
+
+    $(document).on('click','.deleteRefPedago',function(event){
+        event.preventDefault();
+        var id_refpedago = $(this).attr('refpedago');
+        $.ajax({
+            //url: 'index.php?c=Ajax&a=deleteRefPedago&id='+id_refpedago
+            url: 'index.php?url=ajax/deleteRefPedago/' + id_refpedago
+        }).done(function (){
+            $('.refPedago-'+id_refpedago).remove();
         });
     });
 });

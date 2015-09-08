@@ -1,0 +1,45 @@
+<div class="page-header">
+    <p class="pull-right">
+        <a href="<?= url('formations/create'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter une formation</a>
+    </p>
+    <h1><i class="fa fa-graduation-cap"></i> Gestion des formations <small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="index.php">Panneau de Contrôle</a></li>
+    <li class="active"><i class="fa fa-graduation-cap"></i> Formations</li>
+</ol>
+<?php viewFile('partials/flash'); ?>
+
+<?php include_once('App/Views/partials/menu-formation.phtml'); ?>
+<div class="ajax-listRefpedago"></div>
+<table class="table table-striped list-formation">
+    <thead>
+    <tr>
+        <th class="text-center">Formation</th>
+        <th class="text-center">Création</th>
+        <th class="text-center">Date début</th>
+        <th class="text-center">Date fin</th>
+        <th class="text-center" colspan="3">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($formations as $formation): ?>
+    <tr>
+        <td class="text-center"><?php echo $formation->getData('title'); ?></td>
+        <td class="text-center"><?= \Core\Helpers\Date::ago($formation->create_date); ?></td>
+        <td class="text-center"><?= \Core\Helpers\Date::datetime($formation->deal_begin_date); ?></td>
+        <td class="text-center"><?= \Core\Helpers\Date::datetime($formation->deal_ending_date); ?></td>
+        <td class="text-center">
+            <a class="btn btn-primary btn-sm" href="index.php?c=formation&a=edit&id=<?= $formation->getData('id'); ?>">Modifer</a>
+            <a class="btn btn-danger btn-sm" href="index.php?c=formation&a=delete&id=<?= $formation->getData('id'); ?>">Supprimer</a>
+            <a class="listRefpedago btn btn-primary btn-sm" formation="<?= $formation->getData('id'); ?>" href="#">Gèrer les matières</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    <?php if( empty($formations) ): ?>
+    <tr>
+        <td class="text-center" colspan="5">Aucune formation actuellement</td>
+    </tr>
+    <?php endif; ?>
+    </tbody>
+</table>

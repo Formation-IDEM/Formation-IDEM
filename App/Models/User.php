@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use \App\Models\Model;
+use Core\Model;
 
 /**
  * Class UserModel
@@ -12,20 +12,20 @@ class User extends Model
 {
 	protected $_table = 'users';
 
-	protected $fields = [
-		'id'				=>	0,
-		'email'				=>	'',
-		'name'				=>	'',
-		'firstname'			=>	'',
-		'password'			=>	'',
-		'auth'				=>	0,
-		'create_date'		=>	'',
-		'update_date'		=>	'',
-		'active'			=>	0,
+	protected $_fields = [
+		'id'            =>  0,
+		'name'      	=>  '',
+		'firstname'		=>	'',
+		'password'      =>  '',
+		'email'         =>  '',
+		'create_date'   =>  '',
+		'update_date'   =>  '',
+		'active'		=>	1
 	];
 
-	public $_rules = [
-		'email'		=>	'required|email|unique:users',
-		'password'	=>	'required|confirmation',
+	protected $_rules = [
+		'username'  =>  'required',
+		'password'  =>  'required|min:8|confirmed',
+		'email'     =>  'required|email'
 	];
 }

@@ -1,0 +1,14 @@
+<div class="page-header">
+    <h1>S'enregistrer</h1>
+</div>
+
+<?= viewFile('partials.errors'); ?>
+
+<form action="<?= url('register'); ?>" method="post" class="form-vertical">
+    <?= $form->text('name', 'Votre Nom'); ?>
+    <?= $form->text('firstname', 'Votre prénom'); ?>
+    <?= $form->text('email', 'Votre adresse email'); ?>
+    <?= $form->password('password', 'Votre mot de passe'); ?>
+    <?= $form->password('password_confirmation', 'Confirmation du mot de passe'); ?>
+    <?= $form->submit('S\'inscrire', ['class' => 'btn btn-success']); ?>
+</form>

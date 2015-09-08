@@ -1,17 +1,18 @@
 <ul class="nav nav-tabs">
-    <li role="presentation" <?= (method('last') === 'edit' ? 'class="active"' : '') ?>>
+    <li role="presentation" <?= (uri() === 'edit' ? 'class="active"' : '') ?>>
         <a href="<?= url('trainers/' . $trainer->id .  '/edit'); ?>">
             Modifier le formateur
         </a>
     </li>
-    <li role="presentation" <?= (method('last') === 'timesheet' ? 'class="active"' : '') ?>>
+    <li role="presentation" <?= (uri() === 'timesheet' ? 'class="active"' : '') ?>>
         <a href="<?= url('trainers/' . $trainer->id .  '/timesheet'); ?>">
             Feuilles de présence & Sessions de formation
         </a>
     </li>
-    <li role="presentation" <?= ((method('last') === 'matters' || method('last') === 'level') ? 'class="active"' : '') ?>>
+    <li role="presentation" <?= ((uri() === 'matters' || uri() === 'level') ? 'class="active"' : '') ?>>
         <a href="<?= url('trainers/' . $trainer->id .  '/matters'); ?>">
             Niveaux & Compétences
         </a>
     </li>
 </ul>
+<p>&nbsp;</p>

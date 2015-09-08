@@ -1,0 +1,15 @@
+<div class="page-header">
+    <h1>Modifier mon profil</h1>
+</div>
+
+<?= viewFile('partials.errors'); ?>
+
+<form action="<?= url('profile'); ?>" method="post" class="form-vertical">
+    <?= $form->hidden('id', auth()->getId()); ?>
+    <?= $form->text('name', 'Votre nom'); ?>
+    <?= $form->text('firstname', 'Votre prénom'); ?>
+    <?= $form->text('email', 'Votre adresse email'); ?>
+    <?= $form->password('password', 'Votre mot de passe'); ?>
+    <?= $form->password('password_confirmation', 'Confirmation du mot de passe'); ?>
+    <?= $form->submit('Modifier mon profil', ['class' => 'btn btn-success']); ?>
+</form>

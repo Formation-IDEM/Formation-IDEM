@@ -12,6 +12,8 @@ use Core\Validator;
  */
 class TrainerController extends Controller
 {
+    protected $middlewares = ['auth'];
+
     /**
      * Constructor
      */
@@ -30,6 +32,12 @@ class TrainerController extends Controller
     {
         $trainers = collection('trainer')->all();
         return view('trainers/index', compact('trainers'));
+    }
+
+    public function showAction($id)
+    {
+        $trainer = App::getModel('trainer')->loadOrFail($id);
+        return view('trainers/show', compact('trainer'));
     }
 
     /**
@@ -79,9 +87,9 @@ class TrainerController extends Controller
             'url'           =>  $url,
             'trainer' 		=>  $trainer,
             'id'            =>  $trainer->id,
-            'nationalities' =>  collection('nationality')->all(),
-            'familyStatuss' =>  collection('familyStatus')->all(),
-            'studyLevels' 	=>  collection('studyLevel')->all()
+            'nationalities' =>  collection('nationality')->orderBy('title', 'ASC')->all(),
+            'familyStatuss' =>  collection('familyStatus')->orderBy('title', 'ASC')->all(),
+            'studyLevels' 	=>  collection('studyLevel')->orderBy('title', 'ASC')->all()
         ));
     }
 
@@ -121,8 +129,34 @@ class TrainerController extends Controller
      */
     public function mattersAction($id)
     {
-        $trainer = App::getModel('trainer')->loadOrFail($id);
-        $matters = App::getCollection('matter')->getAllItems();
+        $trainer = model('trainer')->loadOrFail($id);
+        $matters = collection('matter')->getAllItems();
+
+        if(isset($_POST) && $_POST != null)
+        {
+            if(isset($_POST['delete']) && $_POST['delete'])
+            {
+                $level = App::getModel('Level')->load($_POST['level']);
+                $level->delete();
+            }
+            else
+            {
+
+                $levels = App::getCollection('Level')
+                    ->where('matter_id', '=', $_POST['matter_id'])
+                    ->where('trainer_id', '=', $id)
+                    ->all();
+
+                if(!$levels) // Prévention doublon matière / formateur
+                {
+                    $level = App::getModel('Level');
+                    $level->store([
+                        'matter_id'     =>  (int) request()->getPost('matter_id'),
+                        'trainer_id'    =>  $id,
+                    ])->save();
+                }
+            }
+        }
         return view('trainers/matters', compact('trainer', 'matters'));
     }
 

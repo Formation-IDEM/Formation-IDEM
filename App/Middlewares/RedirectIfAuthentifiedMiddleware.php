@@ -7,9 +7,9 @@ class RedirectIfAuthentifiedMiddleware extends Middleware
 {
     public function handle()
     {
-        if( $_SERVER['REMOTE_ADDR'] === '192.168.20.1' )
+        if( auth()->check() )
         {
-            die('salut ' . $_SERVER['REMOTE_ADDR']);
+            return redirect(url('/'))->flash('danger', 'Vous êtes déjà connecté.');
         }
     }
 }

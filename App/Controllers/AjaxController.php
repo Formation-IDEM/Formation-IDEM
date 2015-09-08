@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\App;
 use \Core\Controller;
 use \Core\Template;
 
@@ -9,6 +10,7 @@ class AjaxController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->middlewares = ['auth'];
     }
 
     /**
@@ -41,18 +43,16 @@ class AjaxController extends Controller
         return Template::only('ajax/internships', compact('items'));
     }
 
-    public function listMatterAction()
+    public function listMatterAction($id)
     {
         $collection = App::getCollection('Matter');
         $coll_matter = $collection->getAllItems();
-        $id_formation = $_GET['id'];
 
         return Template::getInstance()->only('ajax/list_matter', [
             'coll_matter'       =>  $coll_matter,
-            'id_formation'      =>  $id_formation
+            'id_formation'      =>  $id
         ]);
     }
-
 
     public function listRefpedagoAction()
     {
@@ -81,14 +81,10 @@ class AjaxController extends Controller
         }
     }
 
-    public function deleteRefPedagoAction()
+    public function deleteRefPedagoAction($id)
     {
-        $refpedago = App::getModel(RefPedago);
-        if( request()->getExists('id') )
-        {
-            $refpedago->load(request()->getData('id'));
-            $refpedago->delete();
-        }
+        $ref = App::getModel('RefPedago')->load($id);
+        $ref->delete();
     }
 
     public function listTrainerAction()

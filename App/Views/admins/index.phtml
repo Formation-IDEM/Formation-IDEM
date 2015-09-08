@@ -1,0 +1,38 @@
+<div class="page-header">
+    <p class="pull-right">
+        <a href="<?= url('admins/create'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter un administrateur</a>
+    </p>
+    <h1><i class="fa fa-key"></i> Gestion des administrateurs <small><i class="fa fa-angle-double-right"></i> Liste des administrateurs</small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="index.php">Panneau de Contrôle</a></li>
+    <li class="active"><i class="fa fa-key"></i> Administrateurs</li>
+</ol>
+<?php viewFile('partials/flash'); ?>
+
+<table class="table table-stripped">
+    <thead>
+    <tr>
+        <th class="text-center">#</th>
+        <th class="text-center">Nom</th>
+        <th class="text-center">Prénom</th>
+        <th class="text-center">Ajout</th>
+        <th class="text-center">Modification</th>
+        <th class="text-center">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($admins as $admin): ?>
+    <tr>
+        <td class="text-center"><?= $admin->id; ?></td>
+        <td class="text-center"><?= $admin->name; ?></td>
+        <td class="text-center"><?= $admin->firstname; ?></td>
+        <td class="text-center"><?= \Core\Helpers\Date::datetime($admin->create_date); ?></td>
+        <td class="text-center"><?= \Core\Helpers\Date::ago($admin->update_date); ?></td>
+        <td class="text-center">
+            <a class="btn btn-primary btn-sm" href="<?= url('admins/' . $admin->id . '/edit'); ?>"><i class="fa fa-pencil"></i> Modifier</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

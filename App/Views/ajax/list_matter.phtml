@@ -1,0 +1,18 @@
+<form method="post" action="#" class="post-add-matter">
+    <div class="form-group">
+        <input type="hidden" name="formation" value="<?= $id_formation; ?>">
+        <select name="matter" class="form-control">
+            <?php
+            foreach($coll_matter as $matter)
+            {
+                ?>
+                <option class="matter-<?= $matter->getData('id'); ?>" value="<?= $matter->getData('id'); ?>"><?= $matter->getData('title'); ?></option>
+                <?php
+            }
+            ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <button name="submit" class="btn btn-success">Ajouter cette matière</button>
+    </div>
+</form>

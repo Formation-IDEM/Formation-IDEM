@@ -3,5 +3,6 @@
  * Liste des middlewares
  */
 return [
-    'auth'  =>  'RedirectIfAuthentified',
+    'guest' =>  'RedirectIfAuthentified',
+    'auth'  =>  'RedirectIfNotAuthentified',
 ];

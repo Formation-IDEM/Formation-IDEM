@@ -14,6 +14,8 @@ use Core\Validator;
  */
 class InternshipController extends Controller
 {
+	protected $middlewares = ['auth'];
+
 	public function __construct()
 	{
 		parent::__construct();

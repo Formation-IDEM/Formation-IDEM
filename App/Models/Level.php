@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use \App\App;
 use \Core\Model;
 
 /**
@@ -20,8 +21,8 @@ class Level extends Model
         'appreciation'      =>  '',
         'trainer_id'        =>  0,
         'matter_id'         =>  0,
-        'create_date'       =>  null,
-        'update_date'       =>  null,
+        'create_date'       =>  '',
+        'update_date'       =>  '',
         'create_uid'        =>  0,
         'update_uid'        =>  0,
         'active'            =>  1

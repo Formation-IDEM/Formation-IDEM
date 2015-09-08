@@ -32,7 +32,8 @@ class MiddlewareFactory
             foreach( $middlewares as $middleware )
             {
                 $middlewareName = '\\App\\Middlewares\\' . ucfirst($cfg->get($middleware)) . 'Middleware';
-                $middlewareName->handle();
+                $middleware = new $middlewareName();
+                $middleware->handle();
             }
         }
 

@@ -28,15 +28,31 @@ Route::crud('users', 'User');
 Route::crud('companies', 'Company');
 Route::crud('internships', 'Internship');
 Route::crud('trainers', 'Trainer');
+Route::crud('formations', 'Formation');
+Route::crud('admins', 'Admin');
+
 Route::get('trainers/:id/matters', 'Trainer@matters')->with(':id', '[0-9]+');
-Route::post('trainers/:id/matters', 'Trainer@saveMatter')->with(':id', '[0-9]+');
+Route::post('trainers/:id/matters', 'Trainer@matters')->with(':id', '[0-9]+');
 Route::get('trainers/:id/deletematter', 'Trainer@deleteMatter')->with(':id', '[0-9]+');
+
+//  Utilisateur
+Route::get('login', 'Auth@login')->middleware('guest');
+Route::post('login', 'Auth@attempt');
+Route::get('register', 'Auth@register')->middleware('guest');
+Route::post('register', 'Auth@create');
+Route::get('logout', 'Auth@logout')->middleware('auth');
+Route::get('profile', 'Auth@profile')->middleware('auth');
+Route::post('profile', 'Auth@updateProfile');
 
 /**
  * Ajax
  */
 Route::get('ajax/internships/:id', 'Ajax@internships');
 Route::get('ajax/nationalities', 'Ajax@nationalities');
+Route::post('ajax/level', 'Ajax@editLevelForm');
+Route::get('ajax/matters/:id', 'Ajax@listMatter')->with(':id', '[0-9]+');
+Route::get('ajax/deleteRefPedago/:id', 'Ajax@deleteRefPedago')->with(':id', '[0-9]+');
+Route::get('ajax/pedago/:id', 'Ajax@rlistRedPedago')->with(':id', '[0-9]+');
 
 //  Démarrage des routes
 Route::run();
