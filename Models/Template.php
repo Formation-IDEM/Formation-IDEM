@@ -5,17 +5,18 @@
 		private static $_instance = null;
 		protected $_filename = "index";
 		protected $_datas = array();
-		
+
+        		
 		private function __construct(){
 		}
 		
-        public function render($option = "vue"){
+        public function render($option = "view"){
             
             extract($this -> _datas);
             
-            if($option == "vue"){    
-                if( file_exists( dirname(dirname('_FILE_'))."/Views/header.phtml" ) ){
-                    include_once dirname(dirname('_FILE_'))."/Views/header.phtml";
+            if($option == "view"){    
+                if( file_exists( dirname(dirname('_FILE_'))."/Views/Layouts/header.phtml" ) ){
+                    include_once dirname(dirname('_FILE_'))."/Views/Layouts/header.phtml";
                 }
             }
             
@@ -23,9 +24,9 @@
                 include_once dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml";
             }
             
-            if($option == "vue"){  
-                if( file_exists( dirname(dirname('_FILE_'))."/Views/footer.phtml" ) ){
-                    include_once dirname(dirname('_FILE_'))."/Views/footer.phtml";
+            if($option == "view"){  
+                if( file_exists( dirname(dirname('_FILE_'))."/Views/Layouts/footer.phtml" ) ){
+                    include_once dirname(dirname('_FILE_'))."/Views/Layouts/footer.phtml";
                 }
             }    
         }

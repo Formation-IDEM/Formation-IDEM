@@ -8,7 +8,7 @@ class FrontController{
 	
 	public function indexAction(){
 		
-
+        Template::getInstance()->setFilename('Front/index')->render();
 		
 	}	
 	

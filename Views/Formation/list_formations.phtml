@@ -10,8 +10,7 @@
 
 <div class="col-md-12">
 		<?php
-            //var_dump($coll_ref);
-			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
+ 			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
 			for ($i=0; $i < count($coll_for); $i++):				
 		?>						
 				<div class="col-md-4">
@@ -21,8 +20,12 @@
                     <a href="index.php?c=Formation&a=edit&id=<?= $coll_for[$i]->getData('id'); ?>">Modifer</a>
 				</div>
 				<div class="col-md-4">					
-					<a href="index.php?c=Formation&a=delete&id=<?= $coll_for[$i]->getData('id'); ?>">Supprimer</a>
-				</div>				
+					<a class="manage-formations" formation="<?= $coll_for[$i]->getData('id'); ?>" href="">Gérer</a>
+				</div>
+                <div id="ajax-result">
+                    <div class="refpedago-list-<?= $coll_for[$i]->getData('id'); ?>">
+                    </div>            
+                </div>
 		<?php	
 			endfor;
 		?>

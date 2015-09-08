@@ -7,6 +7,7 @@
 		
 		protected $_table = "ref_pedagos";
 		protected $_fields = array(
+                                    'id'                => 0,
 									'formations_id' 	=> 0,
 									'matters_id' 		=> 0	
 		
