@@ -1,7 +1,11 @@
-<div class="pull-right">
-    <a class="btn btn-success" href="<?= url('trainers/create'); ?>"><i class="fa fa-plus"></i> Ajouter un formateur</a>
+<div class="page-header">
+    <h1><i class="fa fa-male"></i> Gestion des formateurs <small><i class="fa fa-angle-double-right"></i>  Liste des formateurs</small></h1>
 </div>
-<h2>Liste des formateurs</h2>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="<?=url('/'); ?>">Panneau de Contrôle</a></li>
+    <li><i class="fa fa-male"></i> <a href="<?= url('trainers'); ?>">Formateurs</a></li>
+    <li class="active"> Liste des formateurs</li>
+</ol>
 
 <?php viewFile('partials/flash'); ?>
 
@@ -94,7 +98,7 @@
             minChars: 3,
             source: function(term, response){
                 // $.getJSON('/index.php?c=ajax&a=autoComplete', { q: term }, function(data)
-                $.getJSON('/index.php?url=ajax/autoComplete', { q: term }, function(data)
+                $.getJSON('/index.php?url=ajax/autoCompleteTrainer', { q: term }, function(data)
                 {
                     response(data);
                 });

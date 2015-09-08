@@ -1,0 +1,17 @@
+<div  class="col-md-12 list-matter">
+    <div  class="col-md-12">
+        <a class="select-matter" formation="<?= $id_formation; ?>" href="#"><h3>Ajouter une réfèrence pédagogique</h3></a>
+        <div class="selected-matter-<?= $id_formation; ?>"></div>
+    </div>
+
+    <?php for ($i=0; $i < count($coll_refpedago); $i++): ?>
+        <div class="refPedago-<?= $coll_refpedago[$i]->getData('id'); ?>">
+            <div class="col-md-6">
+                <?php  echo $coll_refpedago[$i]->getMatter()->getData('title'); ?>
+            </div>
+            <div class="col-md-6">
+                <a class="deleteRefPedago" href="#" formation="<?= $coll_refpedago[$i]->getData('formations_id'); ?>" refpedago="<?= $coll_refpedago[$i]->getData('id'); ?>">Supprimer cette réfèrence pedagogique</a>
+            </div>
+        </div>
+    <?php endfor; ?>
+</div>

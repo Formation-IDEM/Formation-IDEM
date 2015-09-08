@@ -12,6 +12,7 @@ class Formation extends Model
     protected $_table = 'formations';
     protected $_ref_pedago = null;
     protected $_formation_session = null;
+    protected $_matters = array();
 
     protected $_fields = [
         'id'                        =>  0,
@@ -38,6 +39,18 @@ class Formation extends Model
     {
         $this->_ref_pedago = $a;
         return $this;
+    }
+
+    public function getMatters()
+    {
+        if(!$this->_matters)
+        {
+            foreach($this->getRefPedago() as $refPedago)
+            {
+                $this->_matters[] = $refPedago->getMatter();
+            }
+        }
+        return $this->_matters;
     }
 
     //permet de récuperé la collection des formations session------

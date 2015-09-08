@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use \App\App;
 use Core\Model;
 
 /**
@@ -11,18 +12,18 @@ class Timesheet extends Model
 {
     protected $_trainer;
     protected $_formation_session;
-    public function __construct()
-    {
-        parent::__construct();
-        $this->_table = 'timesheets';
-        $this->_fields['id'] = 0;
-        $this->_fields['month'] = 0;
-        $this->_fields['year'] = 0;
-        $this->_fields['total_hours'] = 0;
-        $this->_fields['trainer_id'] = 0;
-        $this->_fields['formation_session_id'] = 0;
-        $this->_fields['active'] = 1;
-    }
+
+    protected $_table = 'timesheets';
+
+    protected $_fields = [
+        'id'            =>  0,
+        'month'         =>  0,
+        'year'          =>  0,
+        'total_hours'   =>  0,
+        'trainer_id'    =>  0,
+        'formation_session_id'  =>  0,
+        'active'        =>  1
+    ];
 
     public function getTrainer()
     {

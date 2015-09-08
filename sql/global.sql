@@ -149,7 +149,11 @@ CREATE TABLE internships
 	formation_id INT NOT NULL,
 	referent VARCHAR(60) NOT NULL,
 	pay BOOLEAN DEFAULT(false),
-	wage NUMERIC DEFAULT(0)
+	wage NUMERIC DEFAULT(0),
+	total_hours INT NOT NULL DEFAULT(0),
+	date_begin TIMESTAMP DEFAULT(NOW()),
+	date_end TIMESTAMP CHECK(date_end >= date_begin) DEFAULT(NOW()),
+	reserved BOLEAN DEFAULT(false)
 );
 
 /**
@@ -162,10 +166,7 @@ CREATE TABLE company_internship
 	trainee_id INT NOT NULL,
 	company_id INT NOT NULL,
 	internship_id INT NOT NULL,
-	hiring BOOLEAN DEFAULT(false),
-	total_hours INT NOT NULL DEFAULT(0),
-	date_begin TIMESTAMP DEFAULT(NOW()),
-	date_end TIMESTAMP CHECK(date_end >= date_begin) DEFAULT(NOW())
+	hiring BOOLEAN DEFAULT(false)
 );
 
 -- FICHIER : formateurs.sql --

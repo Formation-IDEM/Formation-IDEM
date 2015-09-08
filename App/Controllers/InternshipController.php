@@ -97,9 +97,13 @@ class InternshipController extends Controller
 		if( $validator->run() )
 		{
 			$request = request()->all('POST');
-			$request['pay'] = (int) $request['pay'];
-			$request['active'] = (int) $request['active'];
+			$request['wage'] = floatval($request['wage']);
+			$request['pay'] = isset($request['pay']) ? (int) $request['pay'] : 0;
+			$request['active'] = isset($request['active']) ? (int) $request['active'] : 0;
 			$this->internship->store($request)->save();
+
+			var_dump($this->internship);
+			exit;
 
 			$companyInternship = [
 				'trainee_id'	=>	'',
@@ -111,19 +115,6 @@ class InternshipController extends Controller
 				'date_begin'	=>	$request['date_begin'],
 				'date_end'		=>	$request['date_end']
 			];
-
-			if( $request['id'] === 0 )
-			{
-				model('companyInternship')->store($companyInternship)->save();
-			}
-			else
-			{
-				$model = $session = collection('companyInternship')
-					->where('internship_id', '=', $internship->id)
-					->where('company_id', '=', $company->id)
-					->limit(1)
-					->all();
-			}
 
 			return redirect(url('internships'))->flash('success', 'Le stage a correctement été sauvegardée.');
 		}

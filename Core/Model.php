@@ -267,7 +267,8 @@ class Model
 	{
 		if( $this->getData('id') && $this->getData('id') != 0 )
 		{
-			return $this->db->execute('DELETE FROM ' . $this->_table . ' WHERE id = ?', [$this->getData('id')]);
+			//return $this->db->execute('DELETE FROM ' . $this->_table . ' WHERE id = ?', [$this->getData('id')]);
+			$this->setData('active', 0)->save();
 		}
 
 		return false;

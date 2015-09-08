@@ -141,7 +141,6 @@ class TrainerController extends Controller
             }
             else
             {
-
                 $levels = App::getCollection('Level')
                     ->where('matter_id', '=', $_POST['matter_id'])
                     ->where('trainer_id', '=', $id)
@@ -226,8 +225,26 @@ class TrainerController extends Controller
 
     public function timesheetAction($id)
     {
-        $formationSession = App::getCollection('formationSession')->all();
-        $trainer = App::getModel('trainer')->loadOrFail($id);
-        return view('trainers/timesheet', compact('formationSession', 'trainer'));
+        if(isset($_POST) && $_POST != null)
+        {
+            if(isset($_POST['delete']) && $_POST['delete'])
+            {
+                $timesheet = App::getModel('Timesheet')->load($_POST['timesheet_id']);
+                $timesheet->delete();
+            }
+            else
+            {
+                $timesheet = App::getModel('Timesheet');
+                $timesheet->setData('trainer_id', $id)
+                    ->store($_POST)
+                    ->save();
+            }
+        }
+
+        return view('trainers/timesheet', [
+            'formationSessions'     =>  App::getCollection('FormationSession')->getAllItems(),
+            'trainer'				=> App::getModel('Trainer')->load($id),
+            'title'					=> 'Feuilles de présences'
+        ]);
     }
 }

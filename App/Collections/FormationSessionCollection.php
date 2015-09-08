@@ -9,7 +9,8 @@ use Core\Collection;
  */
 class FormationSessionCollection extends Collection
 {
-    protected $collection = 'formation_sessions';
+    protected $_model = 'formationSession';
+    protected $_table = 'formation_sessions';
 
     public function __construct()
     {

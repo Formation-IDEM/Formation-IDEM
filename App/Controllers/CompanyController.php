@@ -20,6 +20,7 @@ class CompanyController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->loadModel('company');
 		$this->middlewares = ['auth'];
 	}
 

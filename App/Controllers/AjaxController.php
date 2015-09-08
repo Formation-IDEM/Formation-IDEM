@@ -7,10 +7,11 @@ use \Core\Template;
 
 class AjaxController extends Controller
 {
+    protected $middlewares = ['auth'];
+
     public function __construct()
     {
         parent::__construct();
-        $this->middlewares = ['auth'];
     }
 
     /**
@@ -40,7 +41,7 @@ class AjaxController extends Controller
     public function internshipsAction($id)
     {
         $items = collection('internship')->where('company_id', '=', $id)->all();
-        return Template::only('ajax/internships', compact('items'));
+        return Template::getInstance()->only('ajax/internships', compact('items'));
     }
 
     public function listMatterAction($id)
@@ -48,9 +49,15 @@ class AjaxController extends Controller
         $collection = App::getCollection('Matter');
         $coll_matter = $collection->getAllItems();
 
+        //récupere la collection des refPedago lié a la formation
+        $collection = App::getCollection('RefPedago');
+        $collection->where("formations_id","=",$id)->all();
+        $coll_refpedago = $collection->getItems();
+
         return Template::getInstance()->only('ajax/list_matter', [
             'coll_matter'       =>  $coll_matter,
-            'id_formation'      =>  $id
+            'id_formation'      =>  $id,
+            'coll_refpedago'    =>  $coll_refpedago
         ]);
     }
 
@@ -83,30 +90,37 @@ class AjaxController extends Controller
 
     public function deleteRefPedagoAction($id)
     {
-        $ref = App::getModel('RefPedago')->load($id);
-        $ref->delete();
+        $refpedago = App::getModel('RefPedago');
+        $refpedago->load($id);
+
+        $matter = App::getModel('Matter');
+        $matter->load( $refpedago->getData('matters_id') );
+
+        $refpedago->delete();
+
+        return Template::getInstance()->only('ajax/add_single_matter', compact('matter'));
     }
 
     public function listTrainerAction()
     {
         if($_POST['firstname'] != null)
         {
-            $trainers = App::getCollection('Trainer')
-                ->where('firstname', 'LIKE', request()->getPost('firstname')->all());
+            $trainers = App::getCollection('trainer')
+                ->where('firstname', 'LIKE', ucfirst(htmlspecialchars($_POST['firstname'])))->all();
         }
         else
         {
-            $trainers = App::getCollection('Trainer')->all();
+            $trainers = App::getCollection('trainer')->all();
         }
 
-        return Template::getInstance()->only('ajax/trainer-list', compact('trainers'));
+        return Template::getInstance()->only('ajax/trainers-list', compact('trainers'));
     }
 
     public function autoCompleteTrainerAction()
     {
         $trainers = App::getCollection('Trainer')
             ->select('firstname')
-            ->where('firstname','LIKE',$_GET['q'])->get();
+            ->where('firstname','LIKE', htmlspecialchars($_GET['q']))->get();
 
         foreach($trainers as $trainer)
         {

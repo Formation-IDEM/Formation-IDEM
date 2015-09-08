@@ -1,0 +1,67 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th class="text-center">ID</th>
+        <th class="text-center">Formateur</th>
+        <th class="text-center">Portable</th>
+        <th class="text-center">Email</th>
+        <th class="text-center">Genre</th>
+        <th class="text-center">Etudes</th>
+        <th class="text-center">Externe</th>
+        <th class="text-center">Tx horaire</th>
+        <th class="text-center" colspan="4">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if($trainers): ?>
+        <?php foreach($trainers as $trainer): ?>
+            <tr>
+                <td class="text-center">
+                    <?php echo $trainer->getData('id'); ?>
+                </td>
+                <td class="text-center">
+                    <?php echo $trainer->getFullName() ?>
+                </td>
+                <td class="text-center">
+                    <?php echo $trainer->getData('cellphone'); ?>
+                </td>
+                <td class="text-center">
+                    <?php echo $trainer->getData('mail'); ?>
+                </td>
+                <td class="text-center">
+                    <?php if( $trainer->gender === 'male' ): ?>
+                        <i class="fa fa-male"></i>
+                    <?php else: ?>
+                        <i class="fa fa-female"></i>
+                    <?php endif; ?>
+                </td>
+                <td class="text-center">
+                    <?php echo $trainer->getStudyLevel()->title; ?>
+                </td>
+                <td class="text-center">
+                    <?php echo $trainer->getExternalStatus(); ?>
+                </td>
+                <td class="text-center">
+                    <?php echo $trainer->getData('hourly_rate'); ?>
+                </td>
+                <td class="text-center">
+                    <?php echo $trainer->getData('further_informations'); ?>
+                </td>
+                <td class="text-center">
+                    <a href="<?= url('trainers/' .  $trainer->getData('id')); ?>" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i> Afficher</a>
+                </td>
+                <td class="text-center">
+                    <a href="<?= url('trainers/' . $trainer->getData('id') . '/edit'); ?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> Modifier</a>
+                </td>
+                <td class="text-center">
+                    <a href="<?= url('trainers/' . $trainer->getData('id') . '/delete'); ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Supprimer</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td class="text-center" colspan="10">Aucun formateur</td>
+        </tr>
+    <?php endif; ?>
+    </tbody>
+</table>

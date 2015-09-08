@@ -83,21 +83,11 @@ $(document).ready(function(){
             url: 'index.php?url=ajax/editLevel',
             data: $(this).serialize()
         }).done(function( html ) {
+            $('#results-ajax').html('');
             $('#results-ajax').html(html);
             $('#form-ajax').empty();
         });
     });
-
-    $("#slider-range-max").slider({
-        range: "max",
-        min: 1,
-        max: 10,
-        value: $('#note').attr('note'),
-        slide: function( event, ui ) {
-            $( "#note" ).val( ui.value );
-        }
-    });
-    $( "#note" ).val( $( "#slider-range-max" ).slider( "value" ) );
 
     $(".list-formation").on('click','.listRefpedago',function(event){
         event.preventDefault();

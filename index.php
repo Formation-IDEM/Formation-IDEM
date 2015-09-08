@@ -28,21 +28,30 @@ Route::crud('users', 'User');
 Route::crud('companies', 'Company');
 Route::crud('internships', 'Internship');
 Route::crud('trainers', 'Trainer');
-Route::crud('formations', 'Formation');
 Route::crud('admins', 'Admin');
 
+//  Formations
+Route::get('formations', 'Formation@index');
+Route::get('formations/create', 'Formation@edit');
+Route::post('formations/create', 'Formation@edit');
+Route::get('formations/:id/edit', 'Formation@edit')->with(':id', '[0-9]+');
+Route::post('formations/:id/edit', 'Formation@edit')->with(':id', '[0-9]+');
+
+//  Formateurs
 Route::get('trainers/:id/matters', 'Trainer@matters')->with(':id', '[0-9]+');
 Route::post('trainers/:id/matters', 'Trainer@matters')->with(':id', '[0-9]+');
+Route::get('trainers/:id/timesheet', 'Trainer@timesheet')->with(':id', '[0-9]+');
+Route::post('trainers/:id/timesheet', 'Trainer@timesheet')->with(':id', '[0-9]+');
 Route::get('trainers/:id/deletematter', 'Trainer@deleteMatter')->with(':id', '[0-9]+');
 
 //  Utilisateur
 Route::get('login', 'Auth@login')->middleware('guest');
-Route::post('login', 'Auth@attempt');
-Route::get('register', 'Auth@register')->middleware('guest');
-Route::post('register', 'Auth@create');
+Route::post('login', 'Auth@attempt')->middleware('guest');
+//Route::get('register', 'Auth@register')->middleware('guest');
+//Route::post('register', 'Auth@create')->middleware('guest');
 Route::get('logout', 'Auth@logout')->middleware('auth');
 Route::get('profile', 'Auth@profile')->middleware('auth');
-Route::post('profile', 'Auth@updateProfile');
+Route::post('profile', 'Auth@updateProfile')->middleware('auth');
 
 /**
  * Ajax
@@ -50,7 +59,10 @@ Route::post('profile', 'Auth@updateProfile');
 Route::get('ajax/internships/:id', 'Ajax@internships');
 Route::get('ajax/nationalities', 'Ajax@nationalities');
 Route::post('ajax/level', 'Ajax@editLevelForm');
+Route::post('ajax/editLevel', 'Ajax@editLevel');
 Route::get('ajax/matters/:id', 'Ajax@listMatter')->with(':id', '[0-9]+');
+Route::get('ajax/autoCompleteTrainer', 'Ajax@autoCompleteTrainer');
+Route::post('ajax/listTrainer', 'Ajax@listTrainer');
 Route::get('ajax/deleteRefPedago/:id', 'Ajax@deleteRefPedago')->with(':id', '[0-9]+');
 Route::get('ajax/pedago/:id', 'Ajax@rlistRedPedago')->with(':id', '[0-9]+');
 
