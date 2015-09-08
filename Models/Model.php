@@ -72,22 +72,23 @@ class Model {
      */
     function save() {
         if( $this->getData('id') ) { // Mise à jour
-            $request = "UPDATE " . $this->_table . " SET ";
+            $sql = "UPDATE " . $this->_table . " SET ";
             $i = 1;
-            foreach( $this->_fields as $columnName => $value ) {
-                $request .= $columnName . " = ";
-                if( is_string($value) ) {
-                    $request .= "'" . $value . "'";
+            foreach( $this->_fields as $fieldName => $fieldValue ) {
+                $sql .= $fieldName . " = ";
+                if( is_string($fieldValue) ) {
+                    $sql .= "'" . $fieldValue . "'";
                 } else {
-                    $request .= $value;
+                    $sql .= $fieldValue;
                 }
                 if( $i != sizeof($this->_fields) ) {
-                    $request .= ', ';
+                    $sql .= ', ';
                 }
                 $i++;
             }
-            $request .= " WHERE id = " . $this->getData('id');
-            if( Database::getInstance()->getResultats( $request ) ) {
+            $sql .= " WHERE id = " . $this->getData('id');
+            var_dump($sql);
+            if( Database::getInstance()->getResultats( $sql ) ) {
                 return $this;
             } else {
                 return false;
@@ -95,36 +96,48 @@ class Model {
             
         } else { // Création        
             
-            $request = "INSERT INTO " . $this->_table . " ";
-            $i = 1;
-            $columns = '';
-            $values = '';
-            foreach( $this->_fields as $columnName => $value ) {
-                if( $columnName == 'id' ) {
-                    $i++;
-                    continue;
+            $sql = "INSERT INTO " . $this->_table . " ";
+            $fields = array(); 
+            $preparedValues=array(); 
+            $preparedNames=array();
+
+            foreach( $this->_fields as $fieldName => $fieldValue ) {
+
+                if($fieldName != 'id'){
+                    $fields[] = $fieldName;
+                    $preparedNames[] = ":".$fieldName;
+                    $preparedValues[":".$fieldName]=$fieldValue;
                 }
-                $columns .= $columnName;
-                if( is_string($value) ) {
-                    $values .= "'" . $value . "'";
-                } else {
-                    $values .= $value;
-                }
-                if( $i != sizeof($this->_fields) ) {
-                    $columns .= ', ';
-                    $values .= ', ';
-                }
-                $i++;
             }
-            $request .= "(" . $columns . ") VALUES (" . $values . ")";
+
+            $sql.= "(".implode(", ",$fields).")";
+            $sql.= "VALUES " ;
+            $sql.= "(".implode(", ",$preparedNames).")";           
+
+            //var_dump($sql,$preparedNames,$preparedValues);
+            $test = Database::getInstance()->getConnexion()->prepare($sql);
+
+            //var_dump($sql);
+
+            //$test->execute($preparedValues);
+              
+            if( $test->execute($preparedValues) ) {
+                $this->_fields['id'] = Database::getInstance()->getLastInsertId();          
+                return $this;
+            } else {
+                
+                return false;
+            }
             
+
+            /*
             if( Database::getInstance()->getResultats( $request ) ) {
                 $this->_fields['id'] = Database::getInstance()->getLastInsertId();          
                 return $this;
             } else {
                 
                 return false;
-            } 
+            }*/ 
         }
     }
     
