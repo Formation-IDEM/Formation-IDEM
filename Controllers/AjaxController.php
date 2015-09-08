@@ -66,17 +66,22 @@ class AjaxController{
         }
         
     }
-    
+     
     public function deleteRefPedagoAction(){
         
-        $refpedago = App::getModel("RefPedago");
+        $refpedago = App::getModel('RefPedago');
+        $refpedago->load($_GET['id']);
         
-        if( isset($_GET['id']) ){
+        $matter = App::getModel('Matter');
+        $matter->load( $refpedago->getData('matters_id') );      
         
-            $refpedago->load($_GET['id']);
-            $refpedago->delete();
-            
-        }
+        $refpedago->delete();
+        
+        Template::getInstance()->setFileName("Ajax/add_single_matter")->setDatas(
+        array(
+            'matter'      =>  $matter
+            )
+        )->render("ajax");        
         
     }
 }
