@@ -1,7 +1,7 @@
 <div class ="col-md-3">
     <form method="post" action="#" class="post-add-matter">
         <input type="hidden" name="formation" value="<?= $id_formation; ?>">
-        <select name="matter" class="form-control">
+        <select name="matter" class="form-control select-<?= $id_formation; ?>">
 <?php
     for ($i=0; $i < count($coll_matter); $i++):
         
@@ -19,7 +19,7 @@
         
         if( $notRefpedago ):          
 ?>
-            <option value="<?= $coll_matter[$i]->getData('id'); ?>"><?= $coll_matter[$i]->getData('title'); ?></option>
+            <option class="option-<?= $coll_matter[$i]->getData('id'); ?>" value="<?= $coll_matter[$i]->getData('id'); ?>"><?= $coll_matter[$i]->getData('title'); ?></option>
 <?php   
         endif;
     endfor;

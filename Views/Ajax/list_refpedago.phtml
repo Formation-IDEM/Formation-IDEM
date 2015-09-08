@@ -13,7 +13,7 @@
             <?php  echo $coll_refpedago[$i]->getMatter()->getData('title'); ?>
         </div>
         <div class="col-md-6">                  
-            <a class="deleteRefPedago" href="#" refpedago="<?= $coll_refpedago[$i]->getData('id'); ?>">Supprimer cette réfèrence pedagogique</a>
+            <a class="deleteRefPedago" href="#" formation="<?= $coll_refpedago[$i]->getData('formations_id'); ?>" refpedago="<?= $coll_refpedago[$i]->getData('id'); ?>">Supprimer cette réfèrence pedagogique</a>
         </div>        
     </div>
     <?php   
