@@ -2,9 +2,11 @@
 
 	<tr><td><?= $internship->getData('title');?></td></tr>
 	<tr><td><?= $internship->getData('explain');?></td></tr>
-	<tr><td><?= $internship->getData('company_id');?></td></tr>
+	<tr><td><?= $internship->getCompany()->getData('name');?></td></tr>
 	<tr><td><?= $internship->getData('referent_id');?></td></tr>
 	<tr><td><?= $internship->getData('create_date');?></td></tr>
 	<tr><td><?= $internship->getData('update_date');?></td></tr>
 
 </table>
+
+<a href="index.php?c=internship&a=index"><i class="fa fa-arrow-left"></i> Retour à la liste</a>

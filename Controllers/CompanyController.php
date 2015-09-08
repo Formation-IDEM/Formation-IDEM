@@ -35,7 +35,7 @@ class CompanyController{
     public function indexAction(){
 
 		$companies = App::getCollection('Company')->getAllItems();
-		Template::getInstance()->setFileName('Company/HomeCompany')->setDatas(array('companies' => $companies))->render();
+		Template::getInstance()->setFileName('Company/homeCompany')->setDatas(array('companies' => $companies))->render();
     }
 
     public function showAction(){
@@ -78,78 +78,56 @@ class CompanyController{
     }
 	
 	public function formAction(){
-		
-		if (isset($_POST['name']) || isset($_POST['status']) || isset($_POST['address']) || isset($_POST['postal_code'])
-		|| isset($_POST['city']) || isset($_POST['country']) || isset($_POST['phone']) || isset($_POST['manager'])) {
+
+		if (isset($_POST)) {
 
 			$error = false;
 
 			if ( empty($_POST['name']) || !isset($_POST['name']) ) {
 
 				$error = true;
-				echo "<div>Veuillez renseigner le nom de l'entrprise</div>";
 			}
 
 			if (empty($_POST['status']) || !isset($_POST['status'])) {
 
 				$error = true;
-				echo "<div>Veuillez renseigner la statut de l'entreprise</div>";
 			}
-			
+
 			if ( empty($_POST['address']) || !isset($_POST['address']) ) {
 
 				$error = true;
-				echo "<div>Veuillez renseigner l'adresse de l'entreprise</div>";
 			}
-			
+
 			if ( empty($_POST['postal_code']) || !isset($_POST['postal_code']) ) {
 
 				$error = true;
-				echo "<div>Veuillez renseigner le code potal de l'entreprise</div>";
 			}
+
 			if ( empty($_POST['city']) || !isset($_POST['city']) ) {
 
 				$error = true;
-				echo "<div>Veuillez renseigner la ville de l'entreprise</div>";
 			}
+
 			if ( empty($_POST['country']) || !isset($_POST['country']) ) {
 
 				$error = true;
-				echo "<div>Veuillez renseigner le pays de l'entreprise</div>";
 			}
+
 			if ( empty($_POST['phone']) || !isset($_POST['phone']) ) {
 
 				$error = true;
-				echo "<div>Veuillez renseigner le numéro de téléphone de l'entreprise</div>";
 			}
+
 			if ( empty($_POST['manager']) || !isset($_POST['manager']) ) {
 
 				$error = true;
-				echo "<div>Veuillez renseigner le nom du manager de l'entreprise</div>";
 			}
-			
-			
-			/*if ($_POST['user_id'] != App::getConnectedUser()->getData('id')) {
-				$error = true;
-				echo "<div>Bien tenté, tricheur</div>";
-			}*/
-			
-			if ($error==true) {
 
-				echo "Votre Modification n'a pas été prise en compte";
-				
-			} 
-			
-			if ($error==false && $_POST['id'] != 0) {
+			if ($error==false) {
 
 				App::getModel('Company')->store($_POST)->save();
 				header('Location: index.php?c=company&a=index');
 
-			}elseif( $error == false && $_POST['id'] == 0){
-					
-				App::getModel('Company')->store($_POST)->save();
-				
-				header('Location: index.php?c=company&a=index');
 			}
 
 		}

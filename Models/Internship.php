@@ -15,22 +15,20 @@ class Internship extends Model {
         'id'            =>  0,
         'title'         =>  '',
         'explain'       =>  '',
-        'company_id'    =>  0,
-        'formation_id'  =>  0,
-        'referent'      =>  '',
-        'create_date'   =>  null,
-        'update_date'   =>  null,
-        'create_uid'    =>  0,
-        'update_uid'    =>  0,
-        'active'        =>  0,
-        'pay'           =>  0,
-        'wage'          =>  0
+        'company_id'    =>  '',
+        'formation_id'  =>  '',
+        'referent_id'   =>  '',
+        'create_uid'	=>	0,
+        'update_uid'	=>	0,
+        'active'        =>  true,
+        'pay'           =>  false,
+        'wage'          =>  ''
     ];
 
 	function __construct() {
 
 		parent::__construct();
-
+		$this->_fields['create_uid'] = strtotime(date('d/m/Y'));
 	}
 
 	public function getCompany(){

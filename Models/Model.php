@@ -4,14 +4,14 @@ include_once('Models/Database.php');
 
 abstract class Model {
 
-	
+
 	protected $_table = '';
 	protected $_fields = array();
-	
+
 	public function __construct(){
 
 	}
-	
+
 	public function load($id) { // charge un objet depuis la bdd
 
 		if($id != null){
@@ -21,6 +21,39 @@ abstract class Model {
 			if($results != null){
 
 				foreach($results[0] as $field => $value){
+
+					if(array_key_exists($field, $this->_fields)){
+
+						$this->_fields[$field] = $value;
+					}
+				}
+			}
+		}
+		return $this;
+	}
+
+	/*
+	 * $fields = array( 'intership_id' => 1, 'trainee_id' => 23, 'company_id' => 14 ); 
+	 */
+	public function loadByIds($fields = array()) { // charge un objet depuis la bdd
+
+		if( sizeof($ids) ){
+
+			$query = 'SELECT * FROM '.$this->_table.' WHERE ';
+			$i = 1;
+			foreach ($fields as $fieldName => $fieldValue ) {
+				$query .= $fieldName.' = '.$fieldValue;
+				if( $i < sizeof($fields) ) {
+					$query .= ' AND ';
+				}
+				$i++;
+			}
+
+			$result = Database::getInstance()->getResult($query);
+
+			if($result != null){
+
+				foreach($result as $field => $value){
 
 					if(array_key_exists($field, $this->_fields)){
 
@@ -43,7 +76,7 @@ abstract class Model {
 		}
 		return $this;
 	}
-	
+
 	public function save(){ // enregistre l'objet en bdd
 
 		if($this->_fields['id'] != null && $this->_fields['id'] != 0) {// -> UPDATE (déjà stocké)
@@ -107,11 +140,11 @@ abstract class Model {
 				$lastInsertId = $db->getLastInsertId($this->_table);
 				$this->_fields['id'] = $lastInsertId;
 			}
-			
+
 		}
 		return $this;
 	}
-	
+
 	public function delete() { // supprime un objet en bdd
 
 		$query = 'DELETE FROM '.$this->_table.' WHERE id = '.$this->_fields['id'];
@@ -133,7 +166,7 @@ abstract class Model {
 			return '';
 		}
 	}
-	
+
 	// Setter pour tous les objets
 	public function setData($field, $data){
 
@@ -143,10 +176,6 @@ abstract class Model {
 		}
 		return $this;
 	}
-	
-	public function getDatas(){
 
-		return $this->_fields;
-	}
 
 }
