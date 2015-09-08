@@ -3,13 +3,14 @@
         <input type="hidden" name="formation" value="<?= $id_formation; ?>">
         <select name="matter" class="form-control select-<?= $id_formation; ?>">
 <?php
-    for ($i=0; $i < count($coll_matter); $i++):
+
+    foreach ($coll_matter as $matter){
         
         $notRefpedago = true;
         
-        for ($j=0; $j < count($coll_refpedago); $j++) {
+        foreach ($coll_refpedago as $refpedago) {
             
-            if( $coll_refpedago[$j]->getData('matters_id') == $coll_matter[$i]->getData('id') ){
+            if( $refpedago->getData('matters_id') == $matter->getData('id') ){
                 
                 $notRefpedago = false;
                 
@@ -19,10 +20,10 @@
         
         if( $notRefpedago ):          
 ?>
-            <option class="option-<?= $coll_matter[$i]->getData('id'); ?>" value="<?= $coll_matter[$i]->getData('id'); ?>"><?= $coll_matter[$i]->getData('title'); ?></option>
+            <option class="option-<?= $matter->getData('id'); ?>" value="<?= $matter->getData('id'); ?>"><?= $matter->getData('title'); ?></option>
 <?php   
         endif;
-    endfor;
+    }
 ?>
         </select>
         <button name="submit">Ajouter cette matière</button>

@@ -1,4 +1,5 @@
 <?php	
+	
 
     class FormationSession extends Model{
 		
@@ -20,7 +21,8 @@
 		public function construct(){
 
         	$this->_fields['begin_date'] = date('d/m/Y',time());
-        	$this->_fields['ending_date'] = date('d/m/Y',time());      	
+        	$this->_fields['ending_date'] = date('d/m/Y',time());        	
+        	
 			
 		}
 		

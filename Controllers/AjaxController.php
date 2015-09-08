@@ -1,29 +1,57 @@
-<?php  
+<?php 
 
-class AjaxController{	
+class AjaxController{
+
+	public function autoCompleteAction()
+	{
+		$trainers = App::getCollection('Trainer')->getFilteredItems('firstname', 'LIKE', $_GET['q'].'%');
+		foreach ($trainers as $trainer)
+		{
+			$tab[] = $trainer->getData('firstname');
+		}
+
+		echo json_encode($tab); 
+	}
+
+	public function filterTrainerAction()
+	{
+		$trainers = App::getCollection('Trainer')->getFilteredItems('id', '=', $_GET['id']);
+
+		Template::getInstance()
+		->setFilename('Ajax/filter-trainer')
+		->setDatas(array(
+			'trainers'	=>	$trainers
+			))
+		->setAjax()
+		->render();
+	}
+
+ 
+
+  
 
     public function listMatterAction(){
 
         //récupere la collection des matières            
         $collection = App::getCollection('Matter');        
-        $collection->select();        
-        $coll_matter = $collection->getItems();
+             
+        $coll_matter = $collection->getAllItems();
         
         //récupere la collection des refPedago lié a la formation 
-        $collection = App::getCollection('RefPedago');        
-        $collection->select()->where()->condition("formations_id","=",$_GET['id']);     
-        $coll_refpedago = $collection->getItems();
-        
+        $collection = App::getCollection('RefPedago');
+        $coll_refpedago = $collection->getFilteredItems("formations_id","=",$_GET['id']);      
+
         //On récupere l'ID de la formation        
         $id_formation = $_GET['id'];       
-   
+    
         Template::getInstance()->setFileName("Ajax/list_matter")->setDatas(
             array(
                 'coll_matter'       =>  $coll_matter,
                 'id_formation'      =>  $id_formation,
                 'coll_refpedago'    =>  $coll_refpedago
             )
-        )->render("ajax");
+        )->setAjax()
+        ->render();
         
     }
 
@@ -31,9 +59,10 @@ class AjaxController{
         //récupere la collection des matières            
         $collection = App::getCollection('RefPedago');
         
-        $collection->select()->where()->condition("formations_id","=",$_GET['id']);
+         $coll_refpedago = $collection->getFilteredItems("formations_id","=",$_GET['id']);
+
+         //var_dump($coll_refpedago);
               
-        $coll_refpedago = $collection->getItems();
         
         $id_formation = $_GET['id'];        
    
@@ -42,7 +71,8 @@ class AjaxController{
                 'coll_refpedago'      =>  $coll_refpedago,
                 'id_formation'        => $id_formation 
             )
-        )->render("ajax");
+        )
+        ->setAjax()->render();
         
     }
     
@@ -52,8 +82,8 @@ class AjaxController{
             
             $refpedago = App::getModel("RefPedago");        
             $refpedago->store( array(
-                    'formations_id' =>  $_POST['formation'],
-                    'matters_id'    =>  $_POST['matter']
+                    'formations_id' =>  intval($_POST['formation']),
+                    'matters_id'    =>  intval($_POST['matter'])
             ));
             $refpedago->save();
             
@@ -61,7 +91,8 @@ class AjaxController{
             array(
                 'refpedago'      =>  $refpedago
                 )
-            )->render("ajax");
+            )->setAjax()
+            ->render();
                     
         }
         
@@ -81,9 +112,12 @@ class AjaxController{
         array(
             'matter'      =>  $matter
             )
-        )->render("ajax");        
+        )
+        ->setAjax()->render();        
         
     }
 }
+
+
 
 ?>

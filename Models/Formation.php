@@ -20,13 +20,51 @@
 		);
         
         public function __construct(){
+
+        	$this->_fields['deal_begin_date'] = date('d/m/Y',time());
+        	$this->_fields['deal_ending_date'] = date('d/m/Y',time());
             
-            $this->_fields['deal_begin_date'] = date('d/m/Y',time());
-            $this->_fields['deal_ending_date'] = date('d/m/Y',time());
-             
         }
 		
-        
+		public function getTable(){
+			
+			return $this -> _table;
+		}
+		
+		//permet de récuperé la collection des reférence pédagogique
+		public function getRefPedago(){
+			
+			if($this->_ref_pedago){
+				
+				return $this -> _ref_pedago;
+
+			}
+			
+		}
+		public function setRefPedago($a){
+			
+			$this -> _ref_pedago = $a;
+			
+			return $this;
+			
+		}
+		//permet de récuperé la collection des formations session------
+		public function getFormationSessions(){
+			
+			if($this->_formation_session){
+				
+				return $this -> _formation_session;
+
+			}
+			
+		}
+		public function setFormationSessions($a){
+			
+			$this -> _formation_session = $a;
+			
+			return $this;
+			
+		}
     }
     
 ?>

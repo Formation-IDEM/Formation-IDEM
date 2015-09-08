@@ -1,56 +1,74 @@
 <?php
-	class Template{
-		
-		//attribut du singleton
-		private static $_instance = null;
-		protected $_filename = "index";
-		protected $_datas = array();
-		
-		private function __construct(){
-		}
-		
-        public function render($option = "vue"){
-            
-            extract($this -> _datas);
-            
-            if($option == "vue"){    
-                if( file_exists( dirname(dirname('_FILE_'))."/Views/header.phtml" ) ){
-                    include_once dirname(dirname('_FILE_'))."/Views/header.phtml";
-                }
-            }
-            
-            if( file_exists( dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml" ) ){
-                include_once dirname(dirname('_FILE_'))."/Views/".$this->_filename.".phtml";
-            }
-            
-            if($option == "vue"){  
-                if( file_exists( dirname(dirname('_FILE_'))."/Views/footer.phtml" ) ){
-                    include_once dirname(dirname('_FILE_'))."/Views/footer.phtml";
-                }
-            }    
-        }
-		
-		//singleton
-		public static function getInstance(){
-			if(!self::$_instance){
-				self::$_instance = new Template();
-			}
-			return self::$_instance;
-		}
-		
-		//Prend en parametre un string
-		public function setFileName($a){
-			$this -> _filename = $a;
-			return $this;
-		}
-		
-		//Prend un parametre un array()
-		//Cette méthode permet de pouvoir transferé des tableaux de donnée dans une vue
-		public function setDatas($a){
-			$this -> _datas = $a;
-			return $this;
-		
-		}
+
+// Inlus par App.php
+
+class Template
+{
+	private static $_instance;
 	
+	private $_filename = 'index';
+
+	private $_datas;
+
+	private $_is_ajax = false;
+	
+	public function __construct()
+	{
+		$this->_filename = 'index';
+		$this->_datas = array();
 	}
+	
+	// Fonction pour récupérer une seule et unique instance de Template
+	public static function getInstance()
+	{
+		if(!self::$_instance)
+		{
+			self::$_instance = new Template();
+		}
+		return self::$_instance;
+	}
+	
+	public function setFilename($filename)
+	{
+		$this->_filename = $filename;
+		return $this;
+	}
+	
+	public function setDatas($datas)
+	{
+		$this->_datas = $datas;
+		return $this;
+	}
+
+	public function setAjax()
+	{
+		$this->_is_ajax = true;
+		return $this;
+	}
+	
+	public function render()
+	{
+		extract($this->_datas);
+		if(file_exists('Views/'.$this->_filename.'.phtml'))
+		{
+
+			if($this->_is_ajax==false){
+
+				include_once('Views/Layouts/header.phtml');			
+				include_once('Views/'.$this->_filename.'.phtml');			
+				include_once('Views/Layouts/footer.phtml');
+
+			}else{
+				include_once('Views/'.$this->_filename.'.phtml');
+			}
+
+	
+		}
+		else
+		{
+			echo 'template introuvable';	
+		}
+	}
+}
+
 ?>

@@ -30,20 +30,20 @@
 		<?php
             //var_dump($coll_ref);
 			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
-			for ($i=0; $i < count($coll_forsess); $i++):				
+			foreach ($coll_forsess as $formationsession){				
 		?>						
 				<div class="col-md-4">
-				    <?php  echo $coll_forsess[$i]->getFormation()->getData('title'); ?>
+				    <?= $formationsession->getFormation()->getData('title'); ?>
 				</div>
 				<div class="col-md-2">
-				    <?php  echo $coll_forsess[$i]->getDate('begin_date'); ?>
+				    <?= $formationsession->getDate('begin_date'); ?>
 				</div>
 				<div class="col-md-2">
-				    <?php  echo $coll_forsess[$i]->getDate('ending_date'); ?>
+				    <?= $formationsession->getDate('ending_date'); ?>
 				</div>
 
 				<div class="col-md-2">
-                    <a href="index.php?c=FormationSession&a=edit&id=<?= $coll_forsess[$i]->getData('id'); ?>">Modifer</a>
+                    <a href="index.php?c=FormationSession&a=edit&id=<?= $formationsession->getData('id'); ?>">Modifer</a>
 				</div>
 
 
@@ -51,7 +51,7 @@
 				
 		<?php	
 				
-			endfor;
+			}
 		?>
 
 </div>

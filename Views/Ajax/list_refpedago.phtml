@@ -6,17 +6,18 @@
     
     <?php
         //faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
-        for ($i=0; $i < count($coll_refpedago); $i++):                
+        foreach ($coll_refpedago as $refpedago){ 
+                  
     ?>                      
-    <div class="refPedago-<?= $coll_refpedago[$i]->getData('id'); ?>">
+    <div class="refPedago-<?= $refpedago->getData('id'); ?>">
         <div class="col-md-6">
-            <?php  echo $coll_refpedago[$i]->getMatter()->getData('title'); ?>
+            <?php  echo $refpedago->getMatter()->getData('title'); ?>
         </div>
         <div class="col-md-6">                  
-            <a class="deleteRefPedago" href="#" formation="<?= $coll_refpedago[$i]->getData('formations_id'); ?>" refpedago="<?= $coll_refpedago[$i]->getData('id'); ?>">Supprimer cette réfèrence pedagogique</a>
+            <a class="deleteRefPedago" href="#" formation="<?= $refpedago->getData('formations_id'); ?>" refpedago="<?= $refpedago->getData('id'); ?>">Supprimer cette réfèrence pedagogique</a>
         </div>        
     </div>
     <?php   
-        endfor;
+        }  
     ?>
 </div>

@@ -3,6 +3,46 @@
  */
 
 
+ $( document ).ready( function()
+{
+	$(".list-trainer").on('change', function()
+	{
+		var user_id = $(this).val();
+		$.ajax({
+			url: 'index.php?c=Ajax&a=filterTrainer&id='+ user_id
+		})
+		.done(function(data){
+			console.log(data);
+			$('#ajax-result-list').html(data);
+		});
+
+	});
+
+	$("#search-trainer").autocomplete(
+	{
+		minChars: 1,
+		source: function(term, response)
+		{
+			console.log(term.term);
+			$.getJSON('index.php?c=Ajax&a=autoComplete', 
+				{q: term.term},
+				function(data)
+				{
+					response(data);
+				}
+			);
+		}
+	});
+
+	// $("#form-timesheet").submit( function(event)
+	// {
+	// 	event.preventDefault();
+		
+	// });
+
+} );
+
+
 /*
  * Permet d'afficher les ref pedago lié a une formation
  */ 

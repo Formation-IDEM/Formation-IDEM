@@ -7,7 +7,7 @@ class Database
     
     private $_host;
     
-    private $_username;
+    private $_user;
     
     private $_password;
 
@@ -19,9 +19,9 @@ class Database
     {
         $this->_host = '127.0.0.1';
         
-        $this->_username = 'postgres';
+        $this->_username = 'postgres'; //postgres
         
-        $this->_password = 'postgres';
+        $this->_password = 'postgres'; //postgres
         
         $this->_dbname = 'gestForm';
         
@@ -37,49 +37,39 @@ class Database
         }
         return self::$_instance;
     }
+
+    public function getErrors()
+    {
+        return $this->_dbh->errorInfo();
+    }
+    
+    public function getLastInsertId($table)
+    {
+        return $this->_dbh->lastInsertId($table.'_id_seq');
+    }
     
     public function initialConnection($dbtype = 'pgsql')
     {
         return new PDO($dbtype.':dbname='.$this->_dbname.';host='.$this->_host, $this->_username, $this->_password);
     }
     
-    public function getConnexion()
+    public function getConnection()
     {
         return $this->_dbh;
     }
     
-	public function getLastInsertId() {
-		return $this->_dbh->lastInsertId();
-	}
-    
-    public function getResultat($query)
+    public function execute($query)
     {
-        // Execution de $query et retour résultat en tableau
         $exe = $this->_dbh->prepare($query);
         $exe->execute();
-		//Cette ligne sert a debug
-        	//print_r($this->_dbh->errorInfo());
-		//!!!attention fetchAll est un gros vicieux
-        $datas = $exe->fetchAll();
-		//Ici on return le resultat mais sur le première element
-		//Celui qui contient le tableau
-		return $datas[0];
-		
+        return $exe;
     }
-	
-    public function getResultats($query)
+    
+    public function getResults($query)
     {
         // Execution de $query et retour résultat en tableau
-        $exe = $this->_dbh->prepare($query);
-        $exe->execute();
-		//Cette ligne sert a débug
-        		//print_r($this->_dbh->errorInfo());
-		//!!!attention fetchAll est un gros vicieux
-        $datas = $exe->fetchAll();
-		//Ici on return le resultat mais sur le première element
-		//Celui qui contient le tableau
-		return $datas;
-    }	
+        return $this->execute($query)->fetchAll();
+    }
 }
 
 ?>

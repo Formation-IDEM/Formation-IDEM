@@ -1,0 +1,21 @@
+<select class="form-control list-trainer" name="user_id">
+	<option value=''>Veuillez selectionner un formateur</option>
+	<?php
+		foreach ($trainers as $trainer)
+		{ 
+			?>
+				<option value="<?php echo $trainer->getData('id') ?>">
+					<?php
+						echo $trainer->getFullName();
+						// echo $trainer->getData('prenom'). ' ' .$trainer->getData('nom'); 
+					?>
+				</option>
+			<?php
+		}
+	?>
+</select>
+
+
+<div id="ajax-result-list">
+	
+</div>

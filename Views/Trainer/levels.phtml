@@ -1,0 +1,59 @@
+<?php include_once 'Views/Layouts/menu-trainer.phtml'; ?>
+<h2>Ajouter / Modifier niveau</h2>
+
+<table class="table">
+	<tr>
+		<td>Matière</td>
+		<td>Note</td>
+		<td>Appréciation</td>
+		<td></td>
+	</tr>
+	<?php
+	if($trainer->getLevels())
+	{
+		foreach($trainer->getLevels() as $level)
+		{ 
+			?>
+				<tr>
+					<td><?php echo $level->getMatter()->getData('title'); ?></td>
+					<td><?php echo $level->getData('note'); ?></td>
+					<td><?php echo $level->getData('appreciation'); ?></td>
+					<td>
+						<a class="btn btn-primary" href="<?php echo url('/index.php?c=Trainer&a=editLevel&id='); ?><?php echo $level->getData("id"); ?>">Editer</a>
+					</td>
+					<td>
+						<form method="post">
+							<input type="hidden" name="level" value="<?php echo $level->getData('id'); ?>">
+							<input type="hidden" name="delete" value="1">
+							<input type="submit" class="btn btn-danger" value="Supprimer">
+						</form>
+					</td>
+				</tr>
+			<?php
+		}			
+	}
+	?>
+</table>
+<br><br>
+<form method="post" action="" enctype="multipart/form-data">
+
+	<select class="form-control" name="matters">
+		<?php
+			foreach ($matters as $matter)
+			{ 
+				?>
+					<option value="<?php echo $matter->getData('id') ?>">
+						<?php
+							echo $matter->getData('title');
+						?>
+					</option>
+				<?php
+			}
+		?>
+	</select>
+
+	<input type="submit" class="btn btn-success" value="Ajouter">
+
+</form>
+
+<a href="<?php  echo url('/index.php?c=Trainer&a=list'); ?>">Retour</a>	

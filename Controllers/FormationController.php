@@ -9,12 +9,9 @@ class FormationController{
 		
 		//appel la méthode getItems de la class Collection avec la parametre qui va bien
 		$collection = App::getCollection('Formation');
-        
-        //On crée la requete via les méthode de création de requete
-        $collection->select();	
 		
         //requete construite, on recupe le resultat
-    	$coll_for = $collection->getItems();
+    	$coll_for = $collection->getAllItems();
 
 		//On transmet via setDatas() la collection de formation dans un tableau associatif
 		Template::getInstance()->setFileName("Formation/list_formations")->setDatas(array(
@@ -30,8 +27,7 @@ class FormationController{
 		
         //crée la liste des matières via une collection
         $collection = App::getCollection('Matter');
-        $collection->select();
-        $coll_matter = $collection->getItems();
+        $coll_matter = $collection->getAllItems();
         
 		if( isset($_GET['id']) ){
 			

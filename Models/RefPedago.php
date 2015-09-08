@@ -7,7 +7,7 @@
 		
 		protected $_table = "ref_pedagos";
 		protected $_fields = array(
-		                            'id'                => 0,
+									'id'				=> 0,
 									'formations_id' 	=> 0,
 									'matters_id' 		=> 0	
 		
@@ -27,7 +27,7 @@
 				
 			}
 				
-			return $this -> _matter;
+				return $this -> _matter;
 			
 		}		
 		
@@ -36,12 +36,13 @@
 			
 			if( !$this -> _formation ){
 				
-				$this->_formation = App::getModel('Formation');
-				$this->_formation-> load($this->getData('formations_id') );			
+				$f = App::getModel('Formation');
+				$f -> load($this->getData('formation_id') );
+				$this->_formation = $f;				
 				
 			}
 				
-			return $this -> _formation;
+				return $this -> _formation;
 				
 		}
 			

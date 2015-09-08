@@ -9,8 +9,9 @@
 		
 		protected $_table = "matters";
 		protected $_fields = array(
-									'id' 		=> 0,
-									'title' 	=> ''	
+									'id'       => 0,
+									'title'    => '',
+									'active'   => null	
 		
 		);
 

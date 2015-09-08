@@ -2,104 +2,69 @@
 
 include_once('Database.php');
 
-class Collection {
+class Collection
+{   
+    protected $_table;
+
+    protected $_field;
+
+    protected $_model_name;
 
     protected $_items = null;
 
-    protected $_table = "";
-    protected $_model_name = "";
-    
-    protected $_requete = "";
-    
-    
-    public function __construct() {
-    }
-    
-    public function showReq(){
-        return $this->_requete;
-    }
-    
-    public function getItems(){
-        
-        //si on a pas encore getItems
-        if(!$this -> _items){
+    protected $_item = null;
 
-            $tab_item = array();
-            
-            if( $result = Database::getInstance()->getResultats( $this->_requete ) ){
-                
-                foreach ($result as $key => $value) {   
-                    
-                    //crée une instance de class
-                    $newitem = App::getModel($this->_model_name);
-                    
-                    //charge l'instance avec le n-eme id
-                    $tab_item[] = $newitem -> load($value['id']);
-                    
-                }
-                $this->_items = $tab_item;
-                
-                return $tab_item;
-                
+    public function __construct(){}
+
+    public function getFilteredItems($field, $ope, $val)
+    {
+        if(!$this->_items)
+        {
+            if($ope == 'LIKE')
+            {
+                $val = "'".$val."'";
             }
-        }else{
-            
-            //si on a déjà getItem, retourné l'tableau déjà crée 
-            return $this->_items;
-            
+            $query = 'SELECT * FROM '.$this->_table.' WHERE '. $field .' '. $ope .' '. $val;
+            $results = Database::getInstance()->getResults($query);
+            // var_dump(expression)ump($results);
+            $items = array();
+            foreach($results as $item) 
+            {
+                $this->_items[$item['id']] = App::getModel($this->_model_name)->load($item['id']);
+            }           
         }
-    }
-    
-    public function select($a = ""){
-        
-        if( empty($a) ){
-            
-            $this->_requete = 'SELECT * FROM '.$this->_table;
-                    
-        }else{
-            
-            $this->_requete = 'SELECT '.$a.' FROM '.$this->_table;
-                      
-        }
-        return $this;
-        
-    } 
-      
-    public function condition($col,$op,$val){
-        
-        $this->_requete .= $col.' '.$op.' '.$val.' ';
-        return $this;
-        
-    }
-    
-    public function where(){
-        
-        $this->_requete .= ' WHERE ';
-        return $this; 
-        
-    }
-    
-    public function innerJoin($table){
-        
-        $this->_requete .= ' INNER JOIN '.$table.' ON ';
-        return $this;
-        
-    }
-    
-    public function ou(){
-        
-        $this->_requete .= ' OR ';
-        return $this; 
-        
-    }
-    
-    public function et(){
-        
-        $this->_requete .= ' AND ';
-        return $this; 
-        
+        return $this->_items;
     }
 
+    public function getDoubleFilteredItems($field1, $id1, $field2, $id2)
+    {
+        if(!$this->_items)
+        {
+            $query = 'SELECT * FROM '.$this->_table.' WHERE '.$field1.' = '.$id1.' AND '.$field2.' = '.$id2.' AND active = TRUE';
+            $results = Database::getInstance()->getResults($query);
+            $items = array();
+            foreach($results as $item) 
+            {
+                $this->_items[$item['id']] = App::getModel($this->_model_name)->load($item['id']);
+            }           
+        }
+        return $this->_items;
+    }
+
+    public function getAllItems()
+    {
+        if(!$this->_items)
+        {
+            $query = 'SELECT * FROM '.$this->_table;
+            $results = Database::getInstance()->getResults($query);
+            $items = array();
+            foreach($results as $item) 
+            {
+                $this->_items[$item['id']] = App::getModel($this->_model_name)->load($item['id']);
+            }           
+        }
+        return $this->_items;
+    }
 }
 
 ?>

@@ -7,23 +7,23 @@
                 <select class="form-control col-md-2" data-validation="required" name="formations">                    
                 <?php                   
                     //faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
-                    for ($i=0; $i < count($coll_for); $i++): 
+                    foreach ($coll_for as $formationsession){
 
-                        if($maFormationSession->getData('formations_id')==$coll_for[$i]->getData('id')){
+                        if($maFormationSession->getData('formations_id')==$formationsession->getData('id')){
 
                 ?>
-                            <option value="<?= $coll_for[$i]->getData('id'); ?>" selected><?= $coll_for[$i]->getData('title'); ?></option>
+                            <option value="<?= $formationsession->getData('id'); ?>" selected><?= $formationsession->getData('title'); ?></option>
                 
                 <?php
 
                         }else{
 
                 ?>
-                        <option value="<?= $coll_for[$i]->getData('id'); ?>"><?= $coll_for[$i]->getData('title'); ?></option>
+                            <option value="<?= $formationsession->getData('id'); ?>"><?= $formationsession->getData('title'); ?></option>
                 <?php  
 
-                    } 
-                    endfor;
+                        } 
+                    }
                 ?>
                 </select>
 

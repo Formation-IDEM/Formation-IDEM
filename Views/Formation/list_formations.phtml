@@ -9,24 +9,24 @@
 <div class="col-md-12 list-formation">
 		<?php
 			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
-			for ($i=0; $i < count($coll_for); $i++):				
+			foreach ($coll_for as $formation){			
 		?>						
 				<div class="col-md-4">
-				    <?php  echo $coll_for[$i]->getData('title'); ?>
+				    <?php  echo $formation->getData('title'); ?>
 				</div>
 				<div class="col-md-2">
-                    <a href="index.php?c=Formation&a=edit&id=<?= $coll_for[$i]->getData('id'); ?>">Modifer</a>
+                    <a href="index.php?c=Formation&a=edit&id=<?= $formation->getData('id'); ?>">Modifer</a>
 				</div>
 				<div class="col-md-2">					
-					<a href="index.php?c=Formation&a=delete&id=<?= $coll_for[$i]->getData('id'); ?>">Supprimer</a>
+					<a href="index.php?c=Formation&a=delete&id=<?= $formation->getData('id'); ?>">Supprimer</a>
 				</div>
 				<div class="col-md-4">                  
-                    <a class="listRefpedago" formation="<?= $coll_for[$i]->getData('id'); ?>" href="#">Gèrer les matières</a>
+                    <a class="listRefpedago" formation="<?= $formation->getData('id'); ?>" href="#">Gèrer les matières</a>
                 </div>
-                <div class="ajax-listRefpedago-<?= $coll_for[$i]->getData('id'); ?>"></div>
+                <div class="ajax-listRefpedago-<?= $formation->getData('id'); ?>"></div>
                 			
 		<?php	
-			endfor;
+			}
 		?>
 
 </div>

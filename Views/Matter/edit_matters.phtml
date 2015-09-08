@@ -1,0 +1,71 @@
+<div class="col-md-12">
+    
+    <form method="post" action="">
+        
+        <input type="hidden" name="id" value="<?= $myMatter->getData('id');?>" />
+
+            <div class="col-md-3">    
+                <div class="form-group">
+                    <label>Titre : </label>
+                    <input type="text" name="title" data-validation-help="Veuillez entrer l'intitulé de la formation" 
+                    data-validation="length" 
+                    data-validation-length="max100" 
+                    data-validation="required" 
+                    value="<?= $myMatter->getData('title'); ?>" />
+                            
+                </div>
+            </div>
+                <?php
+                
+                    if( $myMatter->getData('id') == 0){ ?>
+
+                        <div class="col-md-3">                  
+                            <div class="radio">
+                                <label>
+                                <input type="radio" name="active" id="true"
+                                 data-validation-help="Activer la matière" data-validation="required"
+                                 value="TRUE" />Actif
+                                 </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">                  
+                            <div class="radio">
+                                <label>
+                                <input type="radio" name="active" id="false" 
+                                data-validation-help="Désactiver la matière" data-validation="required" 
+                                value="FALSE" />Inactif
+                                </label>
+                            </div>
+                        </div>
+
+                <?php }else{ ?>
+                        
+                        <div class="col-md-3">                  
+                            <div class="radio">
+                                <label>
+                                <input type="radio" <?php if( $myMatter->getData('active') == TRUE ){ echo 'checked="checked"';} ?> name="active" id="true" 
+                                data-validation-help="Activer la matière" data-validation="required" 
+                                value="TRUE" />Actif
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">                  
+                            <div class="radio">
+                                <label>
+                                <input type="radio" <?php if( $myMatter->getData('active') == FALSE ){ echo 'checked="checked"';} ?> name="active" id="false" 
+                                data-validation-help="Désactiver la matière" data-validation="required" 
+                                value="FALSE" />Inactif
+                                </label>
+                            </div>
+                        </div>
+                        
+                <?php }?>
+                
+            <div class="col-md-3">
+                <button name="submit">Envoyer</button>
+            </div>
+    </form>
+    
+</div>

@@ -1,0 +1,39 @@
+<nav>	
+	<ul>
+		
+		<li><a href="index.php?c=Formation">Formations</a></li>
+		<li><a href="index.php?c=FormationSession">Sessions de formation</a></li>			
+		<li><a href="index.php?c=Matter&a=edit">Ajouter une matière</a></li>	
+				
+	</ul>
+</nav>
+
+<div class="col-md-12">
+		<?php
+
+			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
+			foreach ($coll_matters as $matter){				
+		?>						
+				<div class="col-md-2">
+				    <?= $matter->getData('title'); ?>
+				</div>
+                <div class="col-md-2">                  
+                    
+                    <?php if( $matter->getData('active') != FALSE ){
+                    
+                        echo "Active";
+                        
+                    }else{
+                        
+                        echo "Inactive";
+                    }?>
+                </div>
+                <div class="col-md-2">
+                    <a href="index.php?c=Matter&a=edit&id=<?= $matter->getData('id'); ?>">Modifer</a>
+                </div>
+
+		<?php	
+			}
+		?>
+
+</div>
