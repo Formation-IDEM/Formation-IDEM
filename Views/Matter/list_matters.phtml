@@ -14,10 +14,10 @@
 			//faire une boucle qui va, pour chaque itération, afficher le contenu du n-ième objet
 			for ($i=0; $i < count($coll_matters); $i++):				
 		?>						
-				<div class="col-md-2">
+				<div class="col-md-4">
 				    <?= $coll_matters[$i]->getData('title'); ?>
 				</div>
-                <div class="col-md-2">                  
+                <div class="col-md-4">                  
                     
                     <?php if( $coll_matters[$i]->getData('active') != FALSE ){
                     
@@ -28,7 +28,7 @@
                         echo "Inactive";
                     }?>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <a href="index.php?c=Matter&a=edit&id=<?= $coll_matters[$i]->getData('id'); ?>">Modifer</a>
                 </div>
 

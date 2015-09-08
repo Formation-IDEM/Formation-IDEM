@@ -1,0 +1,29 @@
+<div class="col-md-12">
+    <?php for ($i=0; $i < count($coll_matters); $i++): ?>
+    
+        <div class="col-md-6">
+            <select class="selectpicker" id="matters-selector">
+               
+                <option value="">Sélectionner une matière</option>
+                
+                <?php for ($i=0; $i < count($coll_matters); $i++): ?>
+                
+                        <option value="<?= $coll_matters[$i]->getData('id'); ?>">
+                            <?= $coll_matters[$i]->getData('title'); ?>
+                        </option>
+            
+                <?php endfor; ?>
+            
+            </select>
+        </div>
+        
+		<div class="col-md-6">
+		    
+            <a class="addref" refpedago="" href="#">Ajouter</a>
+		</div>
+
+		<?php	
+			endfor;
+		?>
+
+</div>

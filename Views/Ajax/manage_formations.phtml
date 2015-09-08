@@ -1,29 +1,30 @@
-<?php
+<div class="col-md-12">
 
-    for( $i=0; $i< count($coll_ref); $i++ ):               
+    <div>
 
-?>      
-        <div class="refpedago-<?= $coll_ref[$i]->getData('id'); ?>" >                
-
-            <div class="col-md-12">
-
-                <div class="col-md-6">
-                    
-                    <?php echo $coll_ref[$i]->getMatter()->getData('title'); ?>
-                    
-                </div>
-                
-                <div class="col-md-6">
-                    
-                    <a class="deleteref" refpedago="<?= $coll_ref[$i]->getData('id'); ?>" href="#">Supprimer</a>
-                    
-                </div>
-                              
-            </div>              
-
-        </div>
-<?php
-
-    endfor;
+        <a class="" matters="" href="#">Ajouter matière</a>
+        <div class="matters-list-"></div>
+        
+    </div>
     
-?>
+    <?php for( $i=0; $i< count($coll_ref); $i++ ):?>
+              
+    <div class="refpedago-<?= $coll_ref[$i]->getData('id'); ?>" >                
+
+        <div class="col-md-6">
+            
+            <?php echo $coll_ref[$i]->getMatter()->getData('title'); ?>
+            
+        </div>
+        
+        <div class="col-md-6">
+            
+            <a class="deleteref" refpedago="<?= $coll_ref[$i]->getData('id'); ?>" href="#">Supprimer</a>
+            
+        </div>
+                          
+    </div>              
+        
+    <?php endfor; ?>
+    
+</div>
