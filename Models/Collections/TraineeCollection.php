@@ -3,5 +3,5 @@
 class TraineeCollection extends Collection
 {
     protected $_table = 'trainees';
-    protected $_model_name = 'trainee';
+    protected $_model_name = 'Trainee';
 }

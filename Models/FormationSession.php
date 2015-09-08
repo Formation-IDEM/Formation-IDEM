@@ -24,7 +24,7 @@ class FormationSession extends Model
 		}
 			
 		return $this->_formation;	
-	} 
+	}
 	
 }
 

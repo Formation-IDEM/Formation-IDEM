@@ -13,10 +13,10 @@ class TrainerController
 		if(isset($_POST['delete']) && $_POST['delete'])
 		{
 			$levels = App::getModel('Trainer')->load($_POST['trainer'])->getLevels();
-			$timesheets = App::getModel('Trainer')->load($_POST['trainer'])->getTimesheets();
+			$participations = App::getModel('Trainer')->load($_POST['trainer'])->getParticipations();
 
 			$trainer = App::getModel('Trainer')->load($_POST['trainer']);
-			if($levels || $timesheets)
+			if($levels || $participations)
 			{
 				foreach($levels as $level)
 				{
@@ -24,9 +24,9 @@ class TrainerController
 					->setData('active',false)
 					->save();
 				}
-				foreach($timesheets as $timesheet)
+				foreach($participations as $participation)
 				{
-					$timesheet
+					$participation
 					->setData('active',false)
 					->save();
 				}
@@ -101,7 +101,7 @@ class TrainerController
 
 	}
 
-	public function timesheetAction()
+	public function participationAction()
 	{
 		if(isset($_GET['id']))
 		{
@@ -109,13 +109,13 @@ class TrainerController
 			{
 				if(isset($_POST['delete']) && $_POST['delete'])
 				{
-					$timesheet = App::getModel('Timesheet')->load($_POST['timesheet_id']);
-					$timesheet->delete();
+					$participation = App::getModel('Participation')->load($_POST['participation_id']);
+					$participation->delete();
 				}
 				else
 				{
-					$timesheet = App::getModel('Timesheet');
-					$timesheet
+					$participation = App::getModel('Participation');
+					$participation
 					->setData('trainer_id', $_GET['id'])
 					->store($_POST)
 					->save();					
@@ -126,9 +126,9 @@ class TrainerController
 				->setDatas(array(
 						'formationSessions' 	=> App::getCollection('FormationSession')->getAllItems(),
 						'trainer'				=> App::getModel('Trainer')->load($_GET['id']),
-						'title'					=> 'Feuilles de présences'
+						'title'					=> 'Participation aux Sessions de formation'
 						))
-				->setFilename('Trainer/timesheet')
+				->setFilename('Trainer/participation')
 				->render();
 		}
 	}

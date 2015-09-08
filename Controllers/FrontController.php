@@ -39,8 +39,16 @@ class FrontController
 			'students'		=>	App::getCollection('trainee')->latest()->limit(10)->all(),
 			'internships'	=>	App::getCollection('internship')->latest()->limit(10)->all(),
 		];
-
-		return Template::getInstance()->setFilename('Front/index')->setDatas(compact('stats'))->render();
+		$internships = App::getCollection('Internship')->latest()->limit(3)->all();
+		$trainees = App::getCollection('Trainee')->latest()->limit(3)->all();
+		return Template::getInstance()
+		->setFilename('Front/index')
+		->setDatas(array(
+			'stats'	=>	$stats,
+			'internships'	=>	$internships,
+			'trainees'	=>	$trainees,
+			))
+		->render();
 	}
 
 	public function aboutAction()

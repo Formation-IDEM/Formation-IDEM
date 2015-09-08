@@ -1,0 +1,62 @@
+<div class="page-header">
+	<h1><i class="fa fa-users"></i> <a href="/index.php?c=Admin&a=listProfiles">Gestion des utilisateurs </a><small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
+</div>
+<?= nav([]); ?>
+<h2>Liste des utilisateurs</h2>
+<div>
+	<a href="/index.php?c=Admin&a=createEditProfile" class="btn btn-primary">Créer un nouvel utilisateur</a>
+</div>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Prénom</td>
+			<td>Nom</td>
+			<td>Email</td>
+			<td>Téléphone</td>
+			<td>Permissions</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php 
+		if($profiles != null)
+		{
+			foreach($profiles as $profile)
+			{
+				?>
+					<tr>
+						<td><?php echo $profile->getData('firstname'); ?></td>
+						<td><?php echo $profile->getData('lastname'); ?></td>
+						<td><?php echo $profile->getData('email'); ?></td>
+						<td><?php echo $profile->getData('phone'); ?></td>
+						<td><?php echo $profile->getRole()->name; ?></td>
+						<td>
+							<a href="/index.php?c=Admin&a=showProfile&id=<?php echo $profile->getData('id'); ?>" class="btn btn-success">
+								Afficher
+							</a>
+						</td>
+						<td>
+							<a href="/index.php?c=Admin&a=createEditProfile&id=<?php echo $profile->getData('id'); ?>" class="btn btn-primary">
+								Modifier
+							</a>
+						</td>
+						<td>
+							<form action="" method="post">
+								<input type="hidden" value="1" name="delete">
+								<input type="hidden" value="<?php echo $profile->getData('id'); ?>" name="profile_id">
+								<input type="submit" value="Supprimer" class="btn btn-danger">
+							</form>
+						</td>
+					</tr>
+				<?php
+			}			
+		}
+		else
+		{
+			echo 'Aucun utilisateur';
+		}
+		?>
+	</tbody>
+</table>

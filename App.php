@@ -156,7 +156,7 @@ class App
 			else
 			{
 				$controller = ControllerFactory::createController('noPermission');
-				$controller->noPermission();
+				$controller->loginAction();
 			}
 		}
 		else

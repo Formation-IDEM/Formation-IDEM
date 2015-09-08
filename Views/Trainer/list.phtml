@@ -1,4 +1,6 @@
-<h1><i class="fa fa-male"></i> Gestion des formateurs <small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
+<div class="page-header">
+	<h1><i class="fa fa-male"></i> Gestion des formateurs <small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
+</div>
 <div class="form-group">
 	<input id="autocomplete" autofocus type="text" name="q" placeholder="Nom d'un formateur ..." style="width:100%;max-width:600px;outline:0" class="form-control" id="trainer-selected">
 </div>
@@ -56,16 +58,22 @@
 							<td>
 								<a href="/index.php?c=Trainer&a=show&id=<?php echo $trainer->getData('id'); ?>" class="btn btn-primary">Afficher</a>
 							</td>
-							<td>
-								<a href="/index.php?c=Trainer&a=addEdit&id=<?php echo $trainer->getData('id'); ?>" class="btn btn-primary">Modifier</a>
-							</td>
-							<td>
-								<form method="post">
-									<input type="hidden" name="trainer" value="<?php echo $trainer->getData('id'); ?>">
-									<input type="hidden" name="delete" value="1">
-									<input type="submit" class="btn btn-danger" value="Supprimer">
-								</form>
-							</td>
+							<?php 
+			                if(Profile::allowed(1))
+			                {
+			                    ?>
+								<td>
+									<a href="/index.php?c=Trainer&a=addEdit&id=<?php echo $trainer->getData('id'); ?>" class="btn btn-primary">Modifier</a>
+								</td>
+								<td>
+									<form method="post">
+										<input type="hidden" name="trainer" value="<?php echo $trainer->getData('id'); ?>">
+										<input type="hidden" name="delete" value="1">
+										<input type="submit" class="btn btn-danger" value="Supprimer">
+									</form>
+								</td>
+								<?php
+							} ?>
 						</tr>
 					<?php
 				}
@@ -73,7 +81,13 @@
 		?>
 	</table>
 </div>
-<a class="btn btn-success" href="/index.php?c=Trainer&a=addEdit">Ajouter un formateur</a>
+<?php 
+if(Profile::allowed(1))
+{
+    ?>
+	<a class="btn btn-success" href="/index.php?c=Trainer&a=addEdit">Ajouter un formateur</a>
+	<?php
+} ?>
 
 <script>
 	$(document).ready(function () {

@@ -78,7 +78,6 @@ class Collection
 			foreach($results as $item) 
 			{
 				$this->_items[$item['id']] = App::getModel($this->_model_name)->load($item['id']);
-				var_dump($this->_model_name);
 			}			
 		}
 		return $this->_items;

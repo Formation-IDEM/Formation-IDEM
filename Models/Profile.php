@@ -19,7 +19,7 @@ class Profile extends Model
         $this->_fields['password'] = 0;
         $this->_fields['salt'] = null;
         $this->_fields['session_key'] = 0;
-        $this->_fields['role_id'] = 2;
+        $this->_fields['role_id'] = 0;
     }
 
     public function getAnnounces()
@@ -54,16 +54,13 @@ class Profile extends Model
         }
     }
 
-    public function isAdmin()
+    public function allowed($requiredLevel)
     {
-        if($this->_fields['role_id'] < 2)
+        if(App::profile()->getRole()->level <= $requiredLevel)
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     public function logged()

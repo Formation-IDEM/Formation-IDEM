@@ -11,7 +11,7 @@ class Trainer extends Person
 
 	protected $_levels = null;
 
-	protected $_timesheets = null;
+	protected $_participations = null;
 
 	protected $_matters = null;
 
@@ -56,15 +56,15 @@ class Trainer extends Person
 		return $this->_levels;
 	}
 
-	public function getTimesheets()
+	public function getParticipations()
 	{
 
-		if(!$this->_timesheets)
+		if(!$this->_participations)
 		{
-			$this->_timesheets = App::getCollection('Timesheet')->getFilteredItems('trainer_id', $this->_fields['id']);
+			$this->_participations = App::getCollection('Participation')->getFilteredItems('trainer_id', $this->_fields['id']);
 		}
 
-		return $this->_timesheets;
+		return $this->_participations;
 
 	}
 
@@ -85,10 +85,10 @@ class Trainer extends Person
 	{
 		if(!$this->_formation_sessions)
 		{
-			$timesheets = $this->getTimesheets();
-			foreach($timesheets as $timesheet)
+			$participations = $this->getParticipations();
+			foreach($participations as $participation)
 			{
-				 $this->_formation_sessions[] = $timesheet->getFormationSession();
+				 $this->_formation_sessions[] = $participation->getFormationSession();
 			}
 		}
 		return $this->_formation_sessions;

@@ -28,7 +28,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="<?= (isset($_GET['c']) && $_GET['c'] == '' ? 'active' : '') ?>"><a href="index.php"><i class="fa fa-home"></i> Accueil</a></li>
+					<li class="<?= ((!isset($_GET['c']) || $_GET['c'] == 'Front') ? 'active' : '') ?>"><a href="index.php"><i class="fa fa-home"></i> Accueil</a></li>
 					<li class="divider-vertical"></li>
 					<li class="<?= (isset($_GET['c']) && $_GET['c'] == 'trainee' ? 'active' : '') ?>"><a href="index.php?c=trainee"><i class="fa fa-users"></i> Etudiants</a></li>
 					<li class="divider-vertical"></li>
@@ -46,13 +46,13 @@
 							<i class="fa fa-user"></i> Administrateur	<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fa fa-wrench"></i> Mes paramètres</a></li>
+							<li><a href="/index.php?c=Admin&a=listProfiles"><i class="fa fa-wrench"></i> Gestion des utilisateurs</a></li>
 							<li class="divider"></li>
-							<li><a href="#"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
+							<li><a href="/index.php?c=Front&a=logout"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
 						</ul>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<div class="container" style="padding-top: 60px;">
+	<div class="container" style="margin-top: 60px;">

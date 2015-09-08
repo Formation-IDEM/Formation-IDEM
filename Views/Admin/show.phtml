@@ -1,0 +1,33 @@
+<?php include_once 'Views/Layouts/menu-admin.phtml'; ?>
+<div class="row">
+	<label class="col-sm-offset-3 col-sm-3 control-label text-right">
+		Prénom
+	</label>
+	<div class="col-sm-3">
+		<?php echo $profile->getData('firstname'); ?>
+	</div>
+</div>
+<div class="row">
+	<label class="col-sm-offset-3 col-sm-3 control-label text-right">
+		Nom
+	</label>
+	<div class="col-sm-3">
+		<?php echo $profile->getData('lastname'); ?>
+	</div>
+</div>
+<div class="row">
+	<label class="col-sm-offset-3 col-sm-3 control-label text-right">
+		Email
+	</label>
+	<div class="col-sm-3">
+		<?php echo $profile->getData('email'); ?>
+	</div>
+</div>
+<div class="row">
+	<label class="col-sm-offset-3 col-sm-3 control-label text-right">
+		Téléphone
+	</label>
+	<div class="col-sm-3">
+		<?php echo $profile->getData('phone'); ?>
+	</div>
+</div>

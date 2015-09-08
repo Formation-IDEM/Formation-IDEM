@@ -1,6 +1,12 @@
 <div class="page-header">
     <p class="pull-right">
-        <a href="/index.php?c=company&a=create" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter une entreprise</a>
+        <?php 
+        if(Profile::allowed(1))
+        {
+            ?>
+            <a href="/index.php?c=company&a=create" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter une entreprise</a>
+            <?php
+        } ?>
     </p>
     <h1><i class="fa fa-building-o"></i> Gestion des entreprises <small><i class="fa fa-angle-double-right"></i> Liste des entreprises</small></h1>
 </div>
@@ -34,10 +40,16 @@
                     <td class="text-center">
                         <a href="/index.php?c=ajax&a=internships&id=<?php echo $item->id; ?>" data-title="Stages de l'entreprise <?= $item->name; ?>" class="load">stages</a>
                     </td>
-                    <td class="text-center">
-                        <a href="/index.php?c=company&a=edit&id=<?php echo $item->id ?>" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Modifier</a>
-                        <a href="/index.php?c=company&a=delete&id=<?php echo $item->id ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Supprimer</a>
-                    </td>
+                    <?php 
+                    if(Profile::allowed(1))
+                    {
+                        ?>
+                        <td class="text-center">
+                            <a href="/index.php?c=company&a=edit&id=<?php echo $item->id ?>" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Modifier</a>
+                            <a href="/index.php?c=company&a=delete&id=<?php echo $item->id ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Supprimer</a>
+                        </td>
+                        <?php
+                    } ?>
                 </tr>
             <?php endforeach; ?>
             <?php if( empty($items) ): ?>

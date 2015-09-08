@@ -13,8 +13,8 @@ class Auth
 		{
 			self::$_instance = new Auth();
 		}
-		return self::$_instance;
 		self::$_instance->initFirewall();
+		return self::$_instance;
 	}
 
 	public function initFirewall()
@@ -42,9 +42,9 @@ class Auth
 			$action = 'index';
 		}
 		$profile = App::profile();
-		if(isset($this->firewall[$profile->getRole()->level][$controller]))
+		if(isset($this->firewall[$profile->getRole()->level][ucfirst($controller)]))
 		{
-			$permissionsArray = $this->firewall[$profile->getRole()->level][$controller];
+			$permissionsArray = $this->firewall[$profile->getRole()->level][ucfirst($controller)];
 			if(in_array($action, $permissionsArray))
 			{
 				return true;

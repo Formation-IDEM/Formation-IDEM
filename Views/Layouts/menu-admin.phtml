@@ -1,0 +1,16 @@
+<div class="page-header">
+	<h1><i class="fa fa-users"></i> <a href="/index.php?c=Admin&a=listProfiles">Gestion des utilisateurs </a><small><i class="fa fa-angle-double-right"></i> <?= $title; ?></small></h1>
+</div>
+<?= nav([]); ?>
+<ul class="nav nav-tabs">
+	<li role="presentation" <?php echo ((ucfirst($_GET['c']) == 'Admin' && (!(isset($_GET['a'])) || $_GET['a'] == 'createEditProfile')) ? 'class="active"' : '') ?>>
+		<a href="/index.php?c=Admin&a=createEditProfile&id=<?php echo $profile->getData('id'); ?>">
+			Ajouter - Modifier l'utilisateur
+		</a>
+	</li>
+	<li role="presentation" <?php echo ((ucfirst($_GET['c']) == 'Admin' && (!(isset($_GET['a'])) || $_GET['a'] == 'showProfile')) ? 'class="active"' : '') ?>>
+		<a href="/index.php?c=Admin&a=showProfile&id=<?php echo $profile->getData('id'); ?>">
+			Affichage de l'utilisateur
+		</a>
+	</li>
+</ul>

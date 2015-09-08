@@ -16,12 +16,12 @@ class Database
 			
 	private function __construct()
 	{
-		include_once('./config.php');
+		include('./config.php');
 		$this->_host = $db_host;
 		$this->_username = $db_user;
 		$this->_password = $db_pass;
 		$this->_dbname = $db_database;
-		$this->_dbh = $this->initialConnection(); 
+		$this->_dbh = $this->initialConnection();
 	}
 	
 	// Fonction pour récupérer une seule et unique instance de App

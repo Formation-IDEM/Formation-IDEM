@@ -10,7 +10,11 @@ class Model
 
 	public function __construct()
 	{
-
+		$this->_fields['create_date'] = '';
+		$this->_fields['update_date'] = '';
+		$this->_fields['create_uid'] = 0;
+		$this->_fields['update_uid'] = 0;
+		$this->_fields['active'] = true;
 	}
 
 	/**
@@ -19,11 +23,18 @@ class Model
 	 * @param null $id
 	 * @return $this
 	 */
-	public function load($id = null)
+	public function load($value = null, $field = null) // charge un objet depuis la bdd
 	{
-		if($id != null)
+		if($value != null)
 		{
-			$query = 'SELECT * FROM '.$this->_table.' WHERE id = '.$id;
+			if($field != null)
+			{
+				$query = 'SELECT * FROM '.$this->_table.' WHERE '.$field.' = \''.$value.'\'';
+			}
+			else
+			{
+				$query = 'SELECT * FROM '.$this->_table.' WHERE id = '.$value;					
+			}
 			$results = Database::getInstance()->getResults($query);
 			if($results != null)
 			{

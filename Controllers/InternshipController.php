@@ -33,7 +33,7 @@ class InternshipController
 	 */
 	public function showAction()
 	{
-		$internship = App::getModel('intership')->load($_GET['id']);
+		$internship = App::getModel('internship')->load($_GET['id']);
 		$company = App::getModel('company')->load($internship->company_id);
 		Template::getInstance()
 			->setDatas(array(

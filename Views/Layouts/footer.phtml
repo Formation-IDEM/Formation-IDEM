@@ -12,9 +12,14 @@
 			// Initiate form validation
 	    	$.validate();
 	    	$('.datepicker').datepicker({
-			  dateFormat: "dd/mm/yy"
+				dateFormat: "dd/mm/yy",
+				gotoCurrent: true,
+				changeYear: true,
+				dayNames: [ "Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi" ],
+				monthNames: [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ],
+				dayNamesMin: [ "Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],
 			});
-			 $('#genders').buttonset('refresh');
+			$('#genders').buttonset('refresh');
 	    </script>
 	</body>
 </html>

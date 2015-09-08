@@ -11,6 +11,7 @@ class Role extends Model
         $this->_table = 'role';
         $this->_fields['id'] = 0;
         $this->_fields['name'] = '';
+        $this->_fields['level'] = 10;
     }
 
     public function getProfiles()

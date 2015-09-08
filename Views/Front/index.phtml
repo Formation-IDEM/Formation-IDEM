@@ -10,104 +10,149 @@
             <h2><i class="fa fa-users fa-2x"></i></h2>
             <p><?= $stats['trainees'] . ' ' . String::plural('étudiant', $stats['trainees']); ?></p>
             <p>
-                <a href="index.php.?c=trainees" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
-                <a href="index.php.?c=trainees&a=create" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
+                <?php 
+                if(Profile::allowed(3))
+                {
+                    ?>
+                    <a href="/index.php?c=trainee" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
+                    <?php 
+                    if(Profile::allowed(1))
+                    {
+                        ?>
+                            <a href="/index.php?c=trainee" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
+                        <?php
+                    }
+                } ?>
             </p>
         </div>
     </div>
-
-    <div class="col-md-3">
-        <div class="well text-center">
-            <h2><i class="fa fa-graduation-cap fa-2x"></i></h2>
-            <p><?= $stats['formations'] . ' ' . String::plural('formation', $stats['formations']); ?></p>
-            <p>
-                <a href="index.php.?c=formations" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
-                <a href="index.php.?c=trainees&a=create" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
-            </p>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="well text-center">
-            <h2><i class="fa fa-male fa-2x"></i></h2>
-            <p><?= $stats['trainers'] . ' ' . String::plural('formateur', $stats['trainers']); ?></p>
-            <p>
-                <a href="index.php?c=trainer" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
-                <a href="index.php?c=trainer&a=addEdit" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
-            </p>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="well text-center">
-            <h2><i class="fa fa-building fa-2x"></i></h2>
-            <p><?= $stats['companies'] . ' ' . String::plural('entreprise', $stats['companies']); ?></p>
-            <p>
-                <a href="index.php?c=companies" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
-                <a href="index.php?c=companies&a=create" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
-            </p>
-        </div>
-    </div>
+    <?php 
+    if(Profile::allowed(3))
+    {
+        ?>
+            <div class="col-md-3">
+                <div class="well text-center">
+                    <h2><i class="fa fa-graduation-cap fa-2x"></i></h2>
+                    <p><?= $stats['formations'] . ' ' . String::plural('formation', $stats['formations']); ?></p>
+                    <p>
+                        <a href="/index.php?c=formation" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
+                        <?php 
+                        if(Profile::allowed(1))
+                        {
+                            ?>
+                            <a href="/index.php?c=formation&a=edit" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
+                            <?php
+                        } ?>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="well text-center">
+                    <h2><i class="fa fa-male fa-2x"></i></h2>
+                    <p><?= $stats['trainers'] . ' ' . String::plural('formateur', $stats['trainers']); ?></p>
+                    <p>
+                        <a href="/index.php?c=trainer&a=list" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
+                        <?php 
+                        if(Profile::allowed(1))
+                        {
+                            ?>
+                            <a href="/index.php?c=trainer&a=addEdit" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
+                            <?php
+                        } ?>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="well text-center">
+                    <h2><i class="fa fa-building fa-2x"></i></h2>
+                    <p><?= $stats['companies'] . ' ' . String::plural('entreprise', $stats['companies']); ?></p>
+                    <p>
+                        <a href="/index.php?c=company" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
+                        <?php 
+                        if(Profile::allowed(1))
+                        {
+                            ?>
+                            <a href="/index.php?c=company&a=create" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a>
+                            <?php
+                        } ?>
+                    </p>
+                </div>
+            </div>
+            <?php
+    } ?>
 </div>
 
 <div class="row">
-    <div class="col-md-6">
-        <div class="well">
-            <p class="pull-right">
-                <a href="index.php?c=trainees" class="btn btn-sm btn-primary"><i class="fa fa-list"></i> Liste complète</a>
-            </p>
-            <h2><i class="fa fa-users"></i> Derniers étudiants</h2>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th class="text-center"></th>
-                    <th class="text-center">Nom</th>
-                    <th class="text-center">Prénom</th>
-                    <th class="text-center">Formation</th>
-                    <th class="text-center">Ajout</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach( $stats['students'] as $trainee ): ?>
+    <?php 
+    if(Profile::allowed(3))
+    {
+        ?>
+        <div class="col-md-6">
+            <div class="well">
+                <p class="pull-right">
+                    <a href="index.php?c=trainee" class="btn btn-sm btn-primary"><i class="fa fa-list"></i> Liste complète</a>
+                </p>
+                <h2><i class="fa fa-users"></i> Derniers étudiants</h2>
+                <table class="table table-striped">
+                    <thead>
                     <tr>
-                        <td class="text-center"><img class="img-responsive img-thumbnail" height="40px" width="40px" src="<?= $trainee->photo; ?>" alt=""></td>
-                        <td class="text-center"><?= $trainee->name; ?></td>
-                        <td class="text-center"><?= $trainee->firstname; ?></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"><?= Date::ago($trainee->create_date); ?></td>
+                        <th class="text-center"></th>
+                        <th class="text-center">Nom</th>
+                        <th class="text-center">Prénom</th>
+                        <th class="text-center">Formation</th>
+                        <th class="text-center">Ajout</th>
                     </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <?php foreach( $trainees as $trainee ): ?>
+                        <tr>
+                            <td class="text-center"><img class="img-responsive img-thumbnail" height="40px" width="40px" src="<?= $trainee->photo; ?>" alt=""></td>
+                            <td class="text-center"><?= $trainee->name; ?></td>
+                            <td class="text-center"><?= $trainee->firstname; ?></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"><?= Date::ago($trainee->create_date); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="well">
-            <p class="pull-right">
-                <a href="index.php?c=internships&a=create" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Ajouter</a>
-                <a href="index.php?c=internships" class="btn btn-primary btn-sm"><i class="fa fa-list"></i> Liste complète</a>
-            </p>
-            <h2><i class="fa fa-laptop"></i> Derniers stages</h2>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th class="text-center">Intitulé</th>
-                    <th class="text-center">Entreprise</th>
-                    <th class="text-center">Ajout</th>
-                    <th class="text-center">Disponible</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach( $stats['internships'] as $internship ): ?>
+        <?php
+    }
+    ?>
+    <?php 
+    if(Profile::allowed(2))
+    {
+        ?>
+        <div class="col-md-6">
+            <div class="well">
+                <p class="pull-right">
+                    <a href="index.php?c=internship&a=create" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Ajouter</a>
+                    <a href="index.php?c=internship" class="btn btn-primary btn-sm"><i class="fa fa-list"></i> Liste complète</a>
+                </p>
+                <h2><i class="fa fa-laptop"></i> Derniers stages</h2>
+                <table class="table table-striped">
+                    <thead>
                     <tr>
-                        <td class="text-center"><?= $internship->title; ?></td>
-                        <td class="text-center"><?= App::getCollection('company')->getCompany($internship->id); ?></td>
-                        <td class="text-center"><?= Date::ago($internship->create_date); ?></td>
-                        <td class="text-center"><?= $internship->active ? 'Oui' : 'Non'; ?></td>
+                        <th class="text-center">Intitulé</th>
+                        <th class="text-center">Entreprise</th>
+                        <th class="text-center">Ajout</th>
+                        <th class="text-center">Disponible</th>
                     </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <?php foreach( $internships as $internship ): ?>
+                        <tr>
+                            <td class="text-center"><?= $internship->title; ?></td>
+                            <td class="text-center"><?= $internship->getCompany()->name; ?></td>
+                            <td class="text-center"><?= Date::ago($internship->create_date); ?></td>
+                            <td class="text-center"><?= $internship->active ? 'Oui' : 'Non'; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+        <?php
+    } ?>
 </div>

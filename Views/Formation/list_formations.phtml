@@ -14,15 +14,21 @@
 		?>
 			<tr>
 				<td><?php  echo $formation->getData('title'); ?></td>
-				<td>
-					<a class="btn btn-primary" href="index.php?c=formation&a=edit&id=<?= $formation->getData('id'); ?>">Modifer</a>
-				</td>
-				<td>					
-					<a class="btn btn-danger" href="index.php?c=formation&a=delete&id=<?= $formation->getData('id'); ?>">Supprimer</a>
-				</td>
-				<td >                  
-	                <a class="listRefpedago btn btn-primary" formation="<?= $formation->getData('id'); ?>" href="#">Gèrer les matières</a>
-	            </td>
+				<?php 
+                if(Profile::allowed(1))
+                {
+                    ?>
+					<td>
+						<a class="btn btn-primary" href="index.php?c=formation&a=edit&id=<?= $formation->getData('id'); ?>">Modifer</a>
+					</td>
+					<td>					
+						<a class="btn btn-danger" href="index.php?c=formation&a=delete&id=<?= $formation->getData('id'); ?>">Supprimer</a>
+					</td>
+					<td >                  
+		                <a class="listRefpedago btn btn-primary" formation="<?= $formation->getData('id'); ?>" href="#">Gèrer les matières</a>
+		            </td>
+		            <?php
+		        } ?>
 	        </tr>
 		<?php
 	}

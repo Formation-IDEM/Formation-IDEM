@@ -6,6 +6,7 @@
  */
 class Trainee extends Person
 {
+    protected $_table = 'trainees';
     protected $_fields = [
         'remuneration_type_id'  =>  0,
         'status_trainee_id'     =>  0,
@@ -13,6 +14,11 @@ class Trainee extends Person
         'family_status_id'      =>  0,
         'nationality_id'        =>  0
     ];
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Charge la rémunération

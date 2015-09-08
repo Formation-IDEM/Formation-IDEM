@@ -63,17 +63,14 @@ class AjaxController
         
     }
     
-    public function deleteRefPedagoAction(){
-        
-        $refpedago = App::getModel("RefPedago");
-        
-        if( isset($_GET['id']) ){
-        
+    public function deleteRefPedagoAction()
+    {
+        $refpedago = App::getModel('RefPedago');
+        if(isset($_GET['id']))
+        {
             $refpedago->load($_GET['id']);
             $refpedago->delete();
-            
         }
-        
     }
     
 	public function listTrainerAction()
@@ -118,6 +115,34 @@ class AjaxController
 			->setFilename('Ajax/edit-level')
 			->render();
 	}
+
+    public function interventionsheetAction()
+    {
+        $participation = App::getModel('Participation')->load($_POST['id']);
+        Template::getInstance()
+            ->setDatas(array(
+                    'participation'     => $participation,
+                    'interventionsheets'   => App::getModel('Participation')->load($_POST['id'])->getInterventionsheets(),
+                    ))
+            ->isAjax()
+            ->setFilename('Ajax/interventionsheets')
+            ->render();
+    }
+
+    public function deleteInterventionsheetAction()
+    {
+        $interventionsheet = App::getModel('Interventionsheet')
+        ->load($_POST['id'])
+        ->delete();
+        echo 'yipaa';
+    }
+
+    public function addInterventionsheetFormAction()
+    {
+        $interventionsheet = App::getModel('Interventionsheet')
+        ->store($_POST)
+        ->save();
+    }
 
 	public function editLevelAction()
 	{

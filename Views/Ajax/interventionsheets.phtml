@@ -1,0 +1,125 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		Gestion des feuilles d'intervention
+	</div>
+	<div class="panel-body">
+		<table class="table" id="matters-levels">
+		<tr>
+			<td>Matière</td>
+			<td>Date début</td>
+			<td>Durée</td>
+			<td>Matin</td>
+			<td>Après-midi</td>
+			<td></td>
+		</tr>
+		<?php
+		if($participation->getInterventionsheets())
+		{
+			foreach($participation->getInterventionsheets() as $interventionsheet)
+			{ 
+				?>
+					<tr>
+						<td><?php echo $interventionsheet->getRefPedago()->getMatter()->title; ?></td>
+						<td><?php echo date('d/m/Y', strtotime($interventionsheet->date)); ?></td>
+						<td><?php echo $interventionsheet->total_hours; ?></td>
+						<td><?= $interventionsheet->morning ? 'Oui': 'Non'; ?></td>
+						<td><?= $interventionsheet->afternoon ? 'Oui': 'Non'; ?></td>
+						<td>
+							<a href="#" data-id="<?= $interventionsheet->id ?>" class="btn btn-danger delete-interventionsheet">Supprimer</a>
+						</td>
+					</tr>
+				<?php
+			}			
+		}
+		?>
+	</table>
+	<a class="btn btn-success" id="add-interventionsheet">Ajouter une feuille d'intervention</a>
+	<form style="display:none;" method="post" action="" enctype="multipart/form-data" id="add-interventionsheet-form" data-id="<?= $participation->id ?>">
+		<input type="hidden" name="participation_id" value="<?= $participation->id ?>">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				Ajout d'une nouvelle feuille d'intervention de <strong><?= $participation->getTrainer()->getFullName() ?></strong>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-4">
+						<label for="ref_pedago_id">Référence pédagogique (matière enseignée)</label>
+						<select class="form-control" name="ref_pedago_id" id="ref_pedago_id">
+							<?php
+								foreach($participation->getFormationSession()->getFormation()->getRefPedago() as $refPedago)
+								{ 
+									?>
+										<option value="<?php echo $refPedago->getData('id') ?>">
+											<?php
+												echo $refPedago->getMatter()->title;
+											?>
+										</option>
+									<?php
+								}
+							?>
+						</select>
+					</div>
+					<div class="col-md-4">
+						<label for="date">Date de l'intervention</label>
+						<input type="text" value="<?= date('d/m/Y', strtotime($participation->date_start)) ?>" name="date" id="date" class="form-control datepicker">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label for="total_hours">Durée (en heures)</label>
+						<input type="text" name="total_hours" id="total_hours" totalhours="8" readonly value="8" style="border:0; font-weight:bold;">
+						<div id="slider-range-max"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<label for="morning">Intervention matinale</label>
+						<input type="checkbox" name="morning" id="morning" class="form-control" checked>
+					</div>
+					<div class="col-md-4">
+						<label for="afternoon">Intervention après-midiale</label>
+						<input type="checkbox" name="afternoon" id="afternoon" class="form-control" checked>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label for="observations">Observations</label>
+						<textarea id="observations" class="form-control" name="observations"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-offset-4 col-md-4">
+						<input type="submit" class="btn btn-success form-control" value="Ajouter">
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+$('.datepicker').datepicker({
+	dateFormat: "dd/mm/yy",
+	gotoCurrent: true,
+	changeYear: true,
+	dayNames: [ "Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi" ],
+	monthNames: [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ],
+	dayNamesMin: [ "Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],
+});
+</script>
+<script>
+	$( document ).ready(function() {
+		$( "#slider-range-max" ).slider({
+		  range: "max",
+		  min: 1,
+		  max: 10,
+		  value: $('#total_hours').attr('totalhours'),
+		  slide: function( event, ui )
+		  {
+		    $( "#total_hours" ).val( ui.value );
+		    $( "#total_hours" ).val('5');
+		    console.log()
+		  }
+		});
+		$( "#total_hours" ).val( $( "#slider-range-max" ).slider( "value" ) );
+	});
+</script>

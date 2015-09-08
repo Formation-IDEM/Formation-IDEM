@@ -60,7 +60,7 @@ CREATE TABLE formation_sessions
 
 CREATE TABLE ref_pedagos
 (
-	id SERIAL, 
+	id SERIAL UNIQUE, 
 	formations_id INT,
 	matters_id INT,  -- code matiere
 	PRIMARY KEY (formations_id, matters_id),
@@ -78,14 +78,14 @@ CREATE TABLE trainees
 	birthday DATE NOT NULL,
 	birthdayplace VARCHAR NOT NULL,
 	gender VARCHAR NOT NULL,
-	adress_off_street VARCHAR NOT NULL,
-	adress_off_complement VARCHAR NOT NULL,
-	adress_off_codpost VARCHAR NOT NULL,
-	adress_off_city VARCHAR NOT NULL,
-	adress_form_street VARCHAR,
-	adress_form_complement VARCHAR,
-	adress_form_codpost VARCHAR,
-	adress_form_city VARCHAR,
+	address_off_street VARCHAR NOT NULL,
+	address_off_complement VARCHAR NOT NULL,
+	address_off_codpost VARCHAR NOT NULL,
+	address_off_city VARCHAR NOT NULL,
+	address_form_street VARCHAR,
+	address_form_complement VARCHAR,
+	address_form_codpost VARCHAR,
+	address_form_city VARCHAR,
 	phone VARCHAR NOT NULL,
 	mail VARCHAR NOT NULL,
 	cellphone VARCHAR NOT NULL,
@@ -210,15 +210,27 @@ CREATE TABLE levels
 );
 
 /* Création de la table d'association entre formateur et session_formation */
-CREATE TABLE timesheets
+CREATE TABLE participations
 (
 	id SERIAL PRIMARY KEY,
-	month INT NOT NULL,
-	year INT NOT NULL,
-	total_hours INT NOT NULL DEFAULT(0),
+	date_start TIMESTAMP DEFAULT(NOW()),
+	date_end TIMESTAMP DEFAULT(NOW()),
+	total_hours INT,
 	trainer_id INT,
 	formation_session_id INT
-	
+);
+
+/* Création de la table d'association entre formateur et session_formation */
+CREATE TABLE interventionsheets
+(
+	id SERIAL PRIMARY KEY,
+	ref_pedago_id INT,
+	participation_id INT,
+	date TIMESTAMP DEFAULT(NOW()),
+	total_hours INT,
+	morning BOOLEAN DEFAULT TRUE,
+	afternoon BOOLEAN DEFAULT TRUE,
+	observations VARCHAR
 );
 
 -- FICHIER : commun-a-lancer-en-dernier.sql --
@@ -229,7 +241,14 @@ ADD COLUMN create_uid INT,
 ADD COLUMN update_uid INT,
 ADD COLUMN active BOOLEAN DEFAULT TRUE;
 
-ALTER TABLE timesheets
+ALTER TABLE participations
+ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
+ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
+ADD COLUMN create_uid INT,
+ADD COLUMN update_uid INT,
+ADD COLUMN active BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE interventionsheets
 ADD COLUMN create_date TIMESTAMP DEFAULT(NOW()),
 ADD COLUMN update_date TIMESTAMP CHECK(update_date >= create_date) DEFAULT(NOW()),
 ADD COLUMN create_uid INT,
@@ -349,7 +368,9 @@ ALTER TABLE company_internship ADD FOREIGN KEY (trainee_id) REFERENCES trainees(
 -- Mise en place des clées étrangères --
 ALTER TABLE levels ADD CONSTRAINT fk_matters_levels FOREIGN KEY (matter_id) REFERENCES matters(id);
 ALTER TABLE levels ADD CONSTRAINT fk_trainers_levels FOREIGN KEY (trainer_id) REFERENCES trainers(id);
-ALTER TABLE timesheets ADD CONSTRAINT fk_formations_sessions_timesheets FOREIGN KEY (formation_session_id) REFERENCES formation_sessions(id);
+ALTER TABLE participations ADD CONSTRAINT fk_formations_sessions_participations FOREIGN KEY (formation_session_id) REFERENCES formation_sessions(id);
+ALTER TABLE interventionsheets ADD CONSTRAINT fk_ref_pedago_interventionsheets FOREIGN KEY (ref_pedago_id) REFERENCES ref_pedagos(id);
+ALTER TABLE interventionsheets ADD CONSTRAINT fk_participation_interventionsheets FOREIGN KEY (participation_id) REFERENCES participations(id);
 ALTER TABLE trainers ADD CONSTRAINT fk_study_levels_trainers FOREIGN KEY (study_levels_id) REFERENCES study_levels(id);
 ALTER TABLE trainers ADD CONSTRAINT fk_family_status_trainers FOREIGN KEY (family_status_id) REFERENCES family_status(id);
 ALTER TABLE trainers ADD CONSTRAINT fk_nationality_trainers FOREIGN KEY (nationality_id) REFERENCES nationalities(id);
@@ -370,7 +391,8 @@ CREATE TABLE profile
 CREATE TABLE role
 (
 	id SERIAL PRIMARY KEY,
-	name VARCHAR
+	name VARCHAR,
+	level VARCHAR
 );
 
 ALTER TABLE role
@@ -404,7 +426,7 @@ ALTER SEQUENCE formation_sessions_id_seq RESTART WITH 1;
 ALTER SEQUENCE trainees_id_seq RESTART WITH 1;
 ALTER SEQUENCE sessions_trainee_id_seq RESTART WITH 1;
 ALTER SEQUENCE levels_id_seq RESTART WITH 1;
-ALTER SEQUENCE timesheets_id_seq RESTART WITH 1;
+ALTER SEQUENCE participations_id_seq RESTART WITH 1;
 ALTER SEQUENCE company_internship_id_seq RESTART WITH 1;
 ALTER SEQUENCE trainers_id_seq RESTART WITH 1;
 
@@ -539,15 +561,15 @@ INSERT INTO internships(title, explain, company_id, formation_id, referent_id, c
 ALTER TABLE trainees DROP COLUMN social_security_number;
 ALTER TABLE trainees ADD COLUMN social_security_number VARCHAR NOT NULL;
 
-INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, adress_off_street, adress_off_complement, adress_off_codpost, adress_off_city, adress_form_street, adress_form_complement, adress_form_codpost, adress_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 1', 'Toto', '1990-04-20', 'Perpignan', 'M', '0 rue des nounours', 'Etage n° 1', '66000', 'Perpignan', '0 rue des nounours', 'Etage n° 1', '66000', 'Perpignan', '0102030401', 'etudiant1@email.com', '0102030401', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '1', '1', '1', '1', '1');
+INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, address_off_street, address_off_complement, address_off_codpost, address_off_city, address_form_street, address_form_complement, address_form_codpost, address_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 1', 'Toto', '1990-04-20', 'Perpignan', 'M', '0 rue des nounours', 'Etage n° 1', '66000', 'Perpignan', '0 rue des nounours', 'Etage n° 1', '66000', 'Perpignan', '0102030401', 'etudiant1@email.com', '0102030401', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '1', '1', '1', '1', '1');
 
-INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, adress_off_street, adress_off_complement, adress_off_codpost, adress_off_city, adress_form_street, adress_form_complement, adress_form_codpost, adress_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 2', 'Toto', '1990-04-20', 'Perpignan', 'M', '1 rue des nounours', 'Etage n° 2', '66000', 'Perpignan', '1 rue des nounours', 'Etage n° 2', '66000', 'Perpignan', '0102030402', 'etudiant2@email.com', '0102030402', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '2', '2', '2', '2', '2');
+INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, address_off_street, address_off_complement, address_off_codpost, address_off_city, address_form_street, address_form_complement, address_form_codpost, address_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 2', 'Toto', '1990-04-20', 'Perpignan', 'M', '1 rue des nounours', 'Etage n° 2', '66000', 'Perpignan', '1 rue des nounours', 'Etage n° 2', '66000', 'Perpignan', '0102030402', 'etudiant2@email.com', '0102030402', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '2', '2', '2', '2', '2');
 
-INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, adress_off_street, adress_off_complement, adress_off_codpost, adress_off_city, adress_form_street, adress_form_complement, adress_form_codpost, adress_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 3', 'Toto', '1990-04-20', 'Perpignan', 'M', '2 rue des nounours', 'Etage n° 3', '66000', 'Perpignan', '2 rue des nounours', 'Etage n° 3', '66000', 'Perpignan', '0102030403', 'etudiant3@email.com', '0102030403', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '3', '3', '3', '3', '3');
+INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, address_off_street, address_off_complement, address_off_codpost, address_off_city, address_form_street, address_form_complement, address_form_codpost, address_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 3', 'Toto', '1990-04-20', 'Perpignan', 'M', '2 rue des nounours', 'Etage n° 3', '66000', 'Perpignan', '2 rue des nounours', 'Etage n° 3', '66000', 'Perpignan', '0102030403', 'etudiant3@email.com', '0102030403', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '3', '3', '3', '3', '3');
 
-INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, adress_off_street, adress_off_complement, adress_off_codpost, adress_off_city, adress_form_street, adress_form_complement, adress_form_codpost, adress_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 4', 'Toto', '1990-04-20', 'Perpignan', 'M', '3 rue des nounours', 'Etage n° 4', '66000', 'Perpignan', '3 rue des nounours', 'Etage n° 4', '66000', 'Perpignan', '0102030404', 'etudiant4@email.com', '0102030404', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '4', '4', '4', '4', '4');
+INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, address_off_street, address_off_complement, address_off_codpost, address_off_city, address_form_street, address_form_complement, address_form_codpost, address_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 4', 'Toto', '1990-04-20', 'Perpignan', 'M', '3 rue des nounours', 'Etage n° 4', '66000', 'Perpignan', '3 rue des nounours', 'Etage n° 4', '66000', 'Perpignan', '0102030404', 'etudiant4@email.com', '0102030404', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '4', '4', '4', '4', '4');
 
-INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, adress_off_street, adress_off_complement, adress_off_codpost, adress_off_city, adress_form_street, adress_form_complement, adress_form_codpost, adress_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 5', 'Toto', '1990-04-20', 'Perpignan', 'M', '4 rue des nounours', 'Etage n° 5', '66000', 'Perpignan', '4 rue des nounours', 'Etage n° 5', '66000', 'Perpignan', '0102030405', 'etudiant5@email.com', '0102030405', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '5', '5', '5', '5', '5');
+INSERT INTO trainees(civility, name, firstname, birthday, birthdayplace, gender, address_off_street, address_off_complement, address_off_codpost, address_off_city, address_form_street, address_form_complement, address_form_codpost, address_form_city, phone, mail, cellphone, social_security_number, photo, remuneration_type_id, status_trainee_id, study_levels_id, family_status_id, nationality_id) VALUES ('Monsieur','Etudiant n° 5', 'Toto', '1990-04-20', 'Perpignan', 'M', '4 rue des nounours', 'Etage n° 5', '66000', 'Perpignan', '4 rue des nounours', 'Etage n° 5', '66000', 'Perpignan', '0102030405', 'etudiant5@email.com', '0102030405', '010203010203', 'http://auto.img.v4.skyrock.net/8830/58378830/pics/2355029543_1.jpg', '5', '5', '5', '5', '5');
 
 -- insertion pour les sessions de formations
 INSERT INTO sessions_trainee(session_id, trainee_id, nb_hour_present_school, nb_hour_present_trainer) VALUES ('1', '1', '500', '500');
@@ -580,16 +602,16 @@ INSERT INTO levels(note, appreciation, matter_id, trainer_id) VALUES ('3', 'Un t
 
 INSERT INTO levels(note, appreciation, matter_id, trainer_id) VALUES ('4', 'Un texte', '5', '5');
 
--- insertion pour les timesheets
-INSERT INTO timesheets(month, year, total_hours, trainer_id, formation_session_id) VALUES ('9', '2015', '140', '1', '1');
+-- insertion pour les participations
+INSERT INTO participations(total_hours, trainer_id, formation_session_id) VALUES ('140', '1', '1');
 
-INSERT INTO timesheets(month, year, total_hours, trainer_id, formation_session_id) VALUES ('9', '2015', '140', '2', '2');
+INSERT INTO participations(total_hours, trainer_id, formation_session_id) VALUES ('140', '2', '2');
 
-INSERT INTO timesheets(month, year, total_hours, trainer_id, formation_session_id) VALUES ('9', '2015', '140', '3', '3');
+INSERT INTO participations(total_hours, trainer_id, formation_session_id) VALUES ('140', '3', '3');
 
-INSERT INTO timesheets(month, year, total_hours, trainer_id, formation_session_id) VALUES ('9', '2015', '140', '4', '4');
+INSERT INTO participations(total_hours, trainer_id, formation_session_id) VALUES ('140', '4', '4');
 
-INSERT INTO timesheets(month, year, total_hours, trainer_id, formation_session_id) VALUES ('9', '2015', '140', '5', '5');
+INSERT INTO participations(total_hours, trainer_id, formation_session_id) VALUES ('140', '5', '5');
 
 -- insertion pour les stages d'entreprise
 INSERT INTO company_internship(trainee_id, company_id, internship_id, active, total_hours, date_begin, date_end) VALUES ('1', '1', '1', '1', '172', '2015-07-27 11:21:50', '2015-08-26 11:21:50');
@@ -601,3 +623,11 @@ INSERT INTO company_internship(trainee_id, company_id, internship_id, active, to
 INSERT INTO company_internship(trainee_id, company_id, internship_id, active, total_hours, date_begin, date_end) VALUES ('4', '4', '4', '1', '172', '2015-07-27 11:21:50', '2015-08-26 11:21:50');
 
 INSERT INTO company_internship(trainee_id, company_id, internship_id, active, total_hours, date_begin, date_end) VALUES ('5', '5', '5', '1', '170', '2015-07-27 11:21:50', '2015-08-26 11:21:50');
+
+
+
+INSERT INTO role(name, level) VALUES ('Admin','1');
+INSERT INTO role(name, level) VALUES ('Formateur','2');
+INSERT INTO role(name, level) VALUES ('Etudiant','3');
+INSERT INTO role(name, level) VALUES ('Entreprise','10');
+INSERT INTO profile(firstname, lastname, email, password, salt, role_id) VALUES ('arthur','bouchard','test@test.com','f8859403a4eeba76d485b4a6ac69853a', '19b5cac2ff66d0950d02515d1b667bdf','1');

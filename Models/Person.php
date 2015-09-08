@@ -7,6 +7,7 @@ abstract class Person extends Model
 
 	public function __construct()
 	{
+        parent::__construct();
 		$this->_fields['name'] = '';
 		$this->_fields['firstname'] = '';
 		$this->_fields['phone'] = '';
