@@ -18,7 +18,7 @@
 
 	<div class="form-group">
 		<label>Entreprise</label>
-		<select name="company_id">
+		<select class="form-control" name="company_id">
 			<?php
 			foreach ($companies as $company) {					
 			?>
@@ -43,7 +43,27 @@
 
 	<div class="form-group">
 		<label>Formation</label>
-		<input class="form-control" name="formation_id" type="text" value="<?= $internship->getData('formation_id'); ?>" />
+		<select class="form-control" name="formation_id">
+			<?php
+			foreach ($formations as $formation) {					
+			?>
+				<option 
+					<?php 
+					if (isset($_GET['id']) && $_GET['id'] != 0 && $formation->getData('id') == $internship->getData('formation_id')) {
+					?> 
+						selected="selected"
+					<?php
+					} 
+					?>
+					value="
+					<?= 
+					$formation->getData('id');?>"><?= $formation->getData('title');
+					?>
+				</option>				
+			<?php
+			}
+			?>
+		</select>
 	</div>
 
 	<div class="form-group">

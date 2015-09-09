@@ -100,6 +100,12 @@ class InternshipController{
      * Suppression
      */
     public function deleteAction() {
+		if(isset($_GET['id'])){
+			
+			$ads = App::getModel('Internship')->store(array('active' => 0))->save();
 
+				header('Location: '.$_SERVER["HTTP_REFERER"]);
+			
+		}
     }
 }

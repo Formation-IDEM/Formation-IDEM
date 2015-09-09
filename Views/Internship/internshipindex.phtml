@@ -14,6 +14,7 @@
 		<tr class="col-md-12 col-lg-12">
 			<td class="col-md-2 col-lg-2"><?= $internship->getData('title'); ?></td>
 			<td class="col-md-2 col-lg-2"> <?= $internship->getCompany()->getData('name');  ?></td>
+			<td class="col-md-2 col-lg-2"> <?= $internship->getFormation()->getData('title');  ?></td>
 			<td class="col-md-1 col-lg-1"><a href="index.php?c=internship&a=show&id=<?= $internship->getData('id') ?>">Voir</a></td>
 			<td class="col-md-2 col-lg-2"><a href="index.php?c=internship&a=edit&id=<?= $internship->getData('id') ?>">Modifier</a></td>
 			<td class="col-md-2 col-lg-2"><a href="index.php?c=internship&a=delete&id=<?= $internship->getData('id') ?>">Supprimer</a></td>

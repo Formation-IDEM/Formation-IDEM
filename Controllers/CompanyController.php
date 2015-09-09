@@ -73,8 +73,13 @@ class CompanyController{
      * Suppression
      */
     public function deleteAction(){
+		if(isset($_GET['id'])){
+			
+			$ads = App::getModel('Company')->load($_GET['id'])->delete();
 
-
+				header('Location: '.$_SERVER["HTTP_REFERER"]);
+			
+		}
     }
 	
 	public function formAction(){

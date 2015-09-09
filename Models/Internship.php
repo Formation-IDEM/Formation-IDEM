@@ -10,6 +10,7 @@ class Internship extends Model {
 
 	protected $_company = null;
 	protected $_company_internship = null;
+	protected $_formation = null;
 	protected $_table = 'internships';
     protected $_fields = [
         'id'            =>  0,
@@ -38,6 +39,15 @@ class Internship extends Model {
 		}
 
 		return $this->_company;
+	}
+	
+	public function getFormation(){
+
+		if (!$this->_formation) {
+			$this->_formation = App::getModel('Formation')->load($this->getData('formation_id'));
+		}
+
+		return $this->_formation;
 	}
 	
 	public function getCompanyInternship(){
