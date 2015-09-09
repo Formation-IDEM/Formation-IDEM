@@ -38,9 +38,16 @@ class InternshipController{
 
         }
 		
+		$companies = App::getCollection('Company')->getAllItems();
+		$formations = App::getCollection('Formation')->getAllItems();
+		
 		Template::getInstance()->setFileName('Internship.editInternship')->setDatas([
-			'internship'				=>	$internship	,
+			'internship'		=>	$internship	,
+			'companies'			=>	$companies	,
+			'formations'		=>  $formations
 		])->render();
+
+		
     }
 
 	public function formAction(){
