@@ -53,6 +53,11 @@ Route::get('logout', 'Auth@logout')->middleware('auth');
 Route::get('profile', 'Auth@profile')->middleware('auth');
 Route::post('profile', 'Auth@updateProfile')->middleware('auth');
 
+//  Statistiques
+Route::get('stats', 'Stats@index');
+Route::get('stats/statusTrainees', 'Stats@statusTrainee');
+Route::get('stats/traineesLevel', 'Stats@TraineeStudyLevel');
+
 /**
  * Ajax
  */

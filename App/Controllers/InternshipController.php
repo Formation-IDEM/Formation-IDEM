@@ -102,9 +102,6 @@ class InternshipController extends Controller
 			$request['active'] = isset($request['active']) ? (int) $request['active'] : 0;
 			$this->internship->store($request)->save();
 
-			var_dump($this->internship);
-			exit;
-
 			$companyInternship = [
 				'trainee_id'	=>	'',
 				'company_id'	=>	$request['company_id'],

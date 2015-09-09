@@ -44,6 +44,8 @@
                 <li class="divider-vertical"></li>
                 <li><a href="<?= url('config'); ?>"><i class="fa fa-tachometer"></i> Configuration</a></li>
                 <li class="divider-vertical"></li>
+                <li><a href="<?= url('stats'); ?>"><i class="fa fa-calculator"></i> Statistiques</a></li>
+                <li class="divider-vertical"></li>
                 <li><a href="<?= url('admins'); ?>"><i class="fa fa-key"></i> Administrateurs</a></li>
                 <li class="divider-vertical"></li>
                 <li><a href="<?= url('trainees'); ?>"><i class="fa fa-users"></i> Etudiants</a></li>
@@ -78,7 +80,18 @@
     </div>
 </div>
 
-<div class="container" style="padding-top: 70px; padding-bottom:50px;">
+<header style="padding-top: 50px;">
+    <div class="pull-right" style="padding:10px 10px 0 0;">
+        <?php if( auth()->check() ): ?>
+        <p class="lead">Bienvenue <?= auth()->get('username'); ?>, Nous sommes le <?= \Core\Helpers\Date::datetime(time()); ?></p>
+        <?php endif; ?>
+    </div>
+    <div class="container-fluid">
+        <img src="./Design/imgs/logo-idem.png" alt="IDEM">
+    </div>
+</header>
+
+<div class="container">
     <?= $content; ?>
     <div class="modal fade" id="globalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">

@@ -1,0 +1,40 @@
+<?php
+$total_hours = 0;
+$total_trainees = 0;
+?>
+<div class="page-header">
+    <h1><i class="fa fa-calculator"></i> Statistiques <small><i class="fa fa-angle-double-right"></i> <?= $title; ?>></small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="<?= url('/'); ?>">Panneau de Contrôle</a></li>
+    <li><i class="fa fa-calculator"></i> <a href="<?= url('stats'); ?>">Statistiques</a></li>
+    <li class="active"> <?= $title; ?></li>
+</ol>
+
+<?= viewFile('partials/flash'); ?>
+
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th class="text-center"><?= $field; ?></th>
+        <th class="text-center">Nombre de stagiaires</th>
+        <th class="text-center">Nombre d'heures / Stagiaire</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach( $data as $d ): ?>
+    <tr>
+        <th class="text-center"><?= $d['statut']; ?></th>
+        <?php $total_trainees += $d['total']; ?>
+        <td class="text-center"><?= $d['total']; ?></td>
+        <?php $total_hours += $d['total_hours']; ?>
+        <td class="text-center"><?= $d['total_hours']; ?> heures</td>
+    </tr>
+    <?php endforeach; ?>
+    <tr class="warning">
+        <th class="text-center">TOTAL</th>
+        <td class="text-center"><?= $total_trainees; ?></td>
+        <td class="text-center"><?= $total_hours; ?> heures</td>
+    </tr>
+    </tbody>
+</table>

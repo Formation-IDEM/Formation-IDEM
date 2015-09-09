@@ -166,7 +166,8 @@ CREATE TABLE company_internship
 	trainee_id INT NOT NULL,
 	company_id INT NOT NULL,
 	internship_id INT NOT NULL,
-	hiring BOOLEAN DEFAULT(false)
+	hiring BOOLEAN DEFAULT(false),
+	employed BOOLEAN DEFAULT(false)
 );
 
 -- FICHIER : formateurs.sql --

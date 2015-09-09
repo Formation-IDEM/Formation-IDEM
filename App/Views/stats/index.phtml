@@ -1,0 +1,35 @@
+<div class="page-header">
+    <h1><i class="fa fa-calculator"></i> Statistiques <small><i class="fa fa-angle-double-right"></i> Liste des statistiques</small></h1>
+</div>
+<ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> <a href="<?= url('/'); ?>">Panneau de Contrôle</a></li>
+    <li class="active"><i class="fa fa-calculator"></i> <a href="<?= url('stats'); ?>">Statistiques</a></li>
+</ol>
+
+<?= viewFile('partials/flash'); ?>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center">
+                    <i class="fa fa-users"></i> Etudiants
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <a href="<?= url('stats/statusTrainees'); ?>" class="btn btn-danger btn-lg btn-block" >
+                            <i class="fa fa-user fa-3x"></i> <br /> Statuts Emploi
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <a href="<?= url('stats/traineesLevel'); ?>" class="btn btn-success btn-lg btn-block" >
+                            <i class="fa fa-graduation-cap fa-3x"></i> <br />Niveaux d'études
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

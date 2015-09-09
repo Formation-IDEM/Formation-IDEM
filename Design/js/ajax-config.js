@@ -115,11 +115,13 @@ $(document).ready(function(){
     $(document).on('click','.deleteRefPedago',function(event){
         event.preventDefault();
         var id_refpedago = $(this).attr('refpedago');
+        var id_formation = $(this).attr('formation');
         $.ajax({
             //url: 'index.php?c=Ajax&a=deleteRefPedago&id='+id_refpedago
             url: 'index.php?url=ajax/deleteRefPedago/' + id_refpedago
         }).done(function (){
             $('.refPedago-'+id_refpedago).remove();
+            $('.select-'+id_formation).append(data);
         });
     });
 });

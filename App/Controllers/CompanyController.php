@@ -54,11 +54,10 @@ class CompanyController extends Controller
 	 */
 	public function createAction()
 	{
-		$_POST['active'] = 1;
 		return view('companies/form', [
 			'url'		=>	url('companies/create'),
 			'title'		=>	'Ajouter une nouvelle entreprise',
-			'form'		=>	new Form($_POST),
+			'form'		=>	new Form(model('company')),
 			'company'	=>	App::getModel('company'),
 		]);
 	}

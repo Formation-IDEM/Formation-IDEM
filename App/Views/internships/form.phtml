@@ -46,7 +46,7 @@
             <input data-validation="date" data-validation-format="dd/mm/yyyy" class="form-control datepicker" type="text" name="date_end" value="<?php echo date('d/m/Y', strtotime($internship->getData('date_end'))); ?>" id="date_end">
         </div>
         <div class="col-md-4">
-            <?= $form->number('total_hours', 'Nombre d\'heures total'); ?>
+            <?= $form->number('total_hours', 'Nombre d\'heures total', ['data-validation' => 'required, number']); ?>
         </div>
     </div>
     <div class="row">
