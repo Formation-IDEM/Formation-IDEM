@@ -74,6 +74,8 @@ abstract class Model {
 				$this->_fields[$field] = $value;
 			}
 		}
+		
+		
 		return $this;
 	}
 

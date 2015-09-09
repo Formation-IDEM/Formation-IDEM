@@ -102,9 +102,13 @@ class InternshipController{
     public function deleteAction() {
 		if(isset($_GET['id'])){
 			
-			$ads = App::getModel('Internship')->store(array('active' => 0))->save();
+			$ad = App::getModel('Internship')->load($_GET['id']);
+			$ad->setData('active', 1)->save();
+			var_dump($ad);
+			exit;
 
-				header('Location: '.$_SERVER["HTTP_REFERER"]);
+
+				header('Location: index.php?c=internship');
 			
 		}
     }

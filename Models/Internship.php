@@ -18,18 +18,19 @@ class Internship extends Model {
         'explain'       =>  '',
         'company_id'    =>  '',
         'formation_id'  =>  '',
-        'referent_id'   =>  '',
-        'create_uid'	=>	0,
-        'update_uid'	=>	0,
-        'active'        =>  true,
-        'pay'           =>  false,
+        'referent'   	=>  '',
+        'create_uid'	=>	1,
+        'update_uid'	=>	1,
+        'active'        =>  1,
+        'pay'           =>  0,
         'wage'          =>  ''
     ];
 
 	function __construct() {
 
 		parent::__construct();
-		$this->_fields['create_uid'] = strtotime(date('d/m/Y'));
+		//$this->_fields['create_date'] = strtotime(date('d/m/Y'));
+		$this->setData('update_date', date('d/m/Y'));
 	}
 
 	public function getCompany(){
